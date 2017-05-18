@@ -1,1 +1,1 @@
-<%= react_component("Root", prerender: true) %>
+<%= react_component("Root", prerender: Rails.env.production? || Rails.env.staging? ) %>
