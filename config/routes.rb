@@ -5,4 +5,5 @@ Rails.application.routes.draw do
     get 'authcheck/whoami'
     get 'authcheck/checkme'
   end
+  get '/*path' => 'react_app#index'
 end

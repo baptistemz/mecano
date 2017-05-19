@@ -12,7 +12,6 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <div>
-          <SideNav />
           <Router history={browserHistory} routes={Routes} />
         </div>
       </Provider>
