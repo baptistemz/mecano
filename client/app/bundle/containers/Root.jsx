@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
 import configureStore from '../store/configureStore';
-import App from './App';
+import Routes from './Routes';
 
 const store = configureStore();
 
@@ -9,7 +10,9 @@ export default class Root extends Component {
   render() {
     return (
       <Provider store={store}>
-        <App />
+        <div>
+          <Router onUpdate={fireTracking} history={browserHistory} routes={Routes} />
+        </div>
       </Provider>
     );
   }
