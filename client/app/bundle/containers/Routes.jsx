@@ -4,6 +4,7 @@ import Home from '../components/Home';
 import SideNav from '../components/SideNav';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
+import Protected from '../components/Protected';
 
 
 export default(
@@ -12,6 +13,7 @@ export default(
       <IndexRoute component={Home} />
       <Route path="signup" component={Signup} />
       <Route path="login" component={Login} />
+      <Route path="protected" component={Protected} />
     </Route>
   </div>
 );

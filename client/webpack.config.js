@@ -45,6 +45,10 @@ const config = {
       },
     ],
   },
+  node: {
+    net: 'empty',
+    dns: 'empty'
+  }
 };
 
 module.exports = config;

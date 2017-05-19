@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import { setStorage, setHeaders } from '../utils/tokenManagement'
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  SET_CURRENT_USER,
   LOGIN_FAILURE,
   SIGNUP_REQUEST,
   SIGNUP_FAILURE,
@@ -81,13 +83,27 @@ function receiveLogout() {
 }
 
 // Auth different actions
-
-export function loginUser(data) {
+export function setCurrenUser(user){
+  return {
+    type: SET_CURRENT_USER,
+    user: user
+  }
+}
+export function loginUser(data, next_path) {
   return dispatch => {
     return axios.post('/api/auth/sign_in', data)
-      .then(response =>
-        console.log(response.data)
-      )
+      .then(response => {
+        const headers = response.headers
+        headers['access_token'] = headers['access-token']
+        const { access_token, client, expiry, uid } = response.headers;
+        const { first_name, last_name, email, image } = response.headers;
+        setStorage({ access_token, client, expiry, uid, first_name, last_name, email, image });
+        setHeaders({ access_token, client, expiry, uid });
+        dispatch(setCurrenUser(response.data.data));
+        browserHistory.push(next_path);
+      })
+      .catch(err => {console.log(err)})
+      // .catch(err => toastr.error('could not connect you', `${err.errors[0]}`))
   };
 }
 // export function loginUser(creds, currentRoom) {
@@ -122,42 +138,52 @@ export function loginUser(data) {
 //       }).catch(err => toastr.error('could not connect you', `${err.errors[0]}`));
 //   };
 // }
-export function signupUser(creds, currentRoom) {
-  const postUrl = '/api/v0/users';
-  const params = { user: {
-    username: creds.username,
-    email: creds.email,
-    password: creds.password,
-    password_confirmation: creds.password_confirmation
-  } };
+export function signupUser(data, next_path) {
   return dispatch => {
-    dispatch(requestSignup(creds));
-    return axios.post(postUrl, params)
+    return axios.post('/api/auth', data)
       .then(response => {
-        if (response.errors) {
-          // If there was a problem, we want to
-          // dispatch the error condition
-          dispatch(signupError(user.message));
-          return Promise.reject(user);
-        }
-        dispatch(loginUser({ email: creds.email, password: creds.password }, currentRoom));
-      }).catch((error) => {
-        error.response.data.errors.forEach((e) => {
-          toastr.error(`${e}`, { timeOut: 10000 });
-        });
-      });
+        const headers = response.headers
+        headers['access_token'] = headers['access-token']
+        const { access_token, client, expiry, uid } = response.headers;
+        const { first_name, last_name, email, image } = response.headers;
+        setStorage({ access_token, client, expiry, uid, first_name, last_name, email, image });
+        setHeaders({ access_token, client, expiry, uid });
+        dispatch(setCurrenUser(response.data.data));
+        browserHistory.push(next_path);
+      }).catch((error) => {console.log("error", error)});
   };
+  //
+  // return dispatch => {
+  //   dispatch(requestSignup(creds));
+  //   return axios.post(postUrl, params)
+  //     .then(response => {
+  //       if (response.errors) {
+  //         // If there was a problem, we want to
+  //         // dispatch the error condition
+  //         dispatch(signupError(user.message));
+  //         return Promise.reject(user);
+  //       }
+  //       dispatch(loginUser({ email: creds.email, password: creds.password }, currentRoom));
+  //     }).catch((error) => {
+  //       error.response.data.errors.forEach((e) => {
+  //         toastr.error(`${e}`, { timeOut: 10000 });
+  //       });
+  //     });
+  // };
 }
 
 export function logoutUser() {
   return dispatch => {
-    dispatch(requestLogout());
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('email');
-    localStorage.removeItem('username');
-    localStorage.removeItem('user_id');
-    dispatch(receiveLogout());
-    toastr.success('Logged out successfully', 'Hope to see you soon !');
-    browserHistory.push('/');
+    axios.delete('api/auth/sign_out')
+      .then(response => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('username');
+        localStorage.removeItem('user_id');
+        dispatch(receiveLogout());
+        toastr.success('Déconnexion', 'A bientôt !');
+        browserHistory.push('/');
+      })
+      .catch((err)=>{ console.log(err) })
   };
 }
