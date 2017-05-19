@@ -176,10 +176,10 @@ export function logoutUser() {
   return dispatch => {
     axios.delete('api/auth/sign_out')
       .then(response => {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('email');
-        localStorage.removeItem('username');
-        localStorage.removeItem('user_id');
+        window.localStorage.removeItem('auth_token');
+        window.localStorage.removeItem('email');
+        window.localStorage.removeItem('username');
+        window.localStorage.removeItem('user_id');
         dispatch(receiveLogout());
         toastr.success('Déconnexion', 'A bientôt !');
         browserHistory.push('/');
