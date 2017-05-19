@@ -8,10 +8,10 @@ import Login from '../components/Login';
 
 export default(
   <div>
-    <Route path="/" component={SideNav} >
-      <IndexRoute component={Home} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/login" component={Login} />
-    </Route>
+    <div>
+      <Route exact path="/" component={Home} />
+      <Route path="signup" component={Signup} />
+      <Route path="login" component={Login} />
+    </div>
   </div>
 );
