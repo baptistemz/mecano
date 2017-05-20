@@ -8,7 +8,6 @@ class Protected extends Component {
     this.props.fetchProtected()
   }
   render() {
-    console.log("email in component", this.props.email)
     return (
       <div>
         <h1>Mes Infos</h1>
@@ -24,7 +23,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchProtected }, dispatch);
 }
 function mapStateToProps({ protected_info }) {
-  console.log("protected_info", protected_info)
   return {
     email: protected_info.user.email,
     first_name: protected_info.user.first_name,

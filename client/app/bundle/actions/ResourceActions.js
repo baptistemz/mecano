@@ -9,7 +9,6 @@ export function fetchProtected() {
   return dispatch => {
     return axios.get('/api/authcheck/checkme')
       .then(response => {
-        console.log("response data", response.data)
         dispatch({
           type: GOT_PROTECTED,
           user: response.data

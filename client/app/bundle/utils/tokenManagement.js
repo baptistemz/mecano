@@ -9,7 +9,6 @@ export function setHeaders(data) {
 
 export function setStorage(data) {
   Object.keys(data).forEach(function(key,index) {
-      console.log("tokenManagement", typeof window !== "undefined")
-      window.localStorage.setItem(key, data[key]);
+      localStorage.setItem(key, data[key]);
   });
 };

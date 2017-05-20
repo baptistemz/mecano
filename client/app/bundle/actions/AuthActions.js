@@ -102,7 +102,7 @@ export function loginUser(data, next_path) {
         dispatch(setCurrenUser(response.data.data));
         browserHistory.push(next_path);
       })
-      .catch(err => {console.log(err)})
+      .catch(err => {console.log(err.response)})
       // .catch(err => toastr.error('could not connect you', `${err.errors[0]}`))
   };
 }
@@ -150,7 +150,7 @@ export function signupUser(data, next_path) {
         setHeaders({ access_token, client, expiry, uid });
         dispatch(setCurrenUser(response.data.data));
         browserHistory.push(next_path);
-      }).catch((error) => {console.log("error", error)});
+      }).catch((error) => {console.log(error.response)});
   };
   //
   // return dispatch => {
@@ -176,14 +176,14 @@ export function logoutUser() {
   return dispatch => {
     axios.delete('api/auth/sign_out')
       .then(response => {
-        window.localStorage.removeItem('auth_token');
-        window.localStorage.removeItem('email');
-        window.localStorage.removeItem('username');
-        window.localStorage.removeItem('user_id');
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('email');
+        localStorage.removeItem('username');
+        localStorage.removeItem('user_id');
         dispatch(receiveLogout());
         toastr.success('Déconnexion', 'A bientôt !');
         browserHistory.push('/');
       })
-      .catch((err)=>{ console.log(err) })
+      .catch((err)=>{ console.log(err.response) })
   };
 }

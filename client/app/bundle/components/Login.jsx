@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { loginUser } from '../actions/index';
+import { Input, Button } from '../common/index'
 
 class Login extends Component {
   onFormSubmit(event) {
@@ -16,41 +17,20 @@ class Login extends Component {
     const { errorMessage } = this.props;
     return (
       <div className="container">
+        <h4 className="text-center">Se connecter</h4>
+        <br />
         <div className="row">
-          <div className="vertical-align-container">
-            <div className="col s12 l10 offset-l1">
-              <div className="nice-container">
-                <h4 className="text-center">Log in</h4>
-                <br />
-                <div className="row">
-                  <form onSubmit={this.onFormSubmit.bind(this)}>
-                    <div className="input-field">
-                      <i className="material-icons prefix">email</i>
-                      <input id="icon_email" ref="email" type="email" className="validate" />
-                      <label htmlFor="icon_email">Email</label>
-                    </div>
-                    <div className="input-field">
-                      <i className="material-icons prefix">lock_outline</i>
-                      <input
-                        id="icon_password" ref="password"
-                        type="password" className="validate"
-                      />
-                      <label htmlFor="icon_password">Password</label>
-                    </div>
-                    <button type="submit" className="btn full-width margin-top-20 margin-bottom-20">
-                      Submit
-                    </button>
-                  </form>
-                  {errorMessage &&
-                    <p>{errorMessage}</p>
-                  }
-                </div>
-              </div>
-              <div className="text-center margin-top-20 margin-bottom-20 text-20">
-                <Link to={'/signup'}>Pas encore de compte ? Enregistre-toi !</Link>
-              </div>
-            </div>
-          </div>
+          <form onSubmit={this.onFormSubmit.bind(this)}>
+            <Input icon="email" label="email" type="email" />
+            <Input icon="lock_outline" label="password" type="password" />
+            <Button type="submit">Connexion</Button>
+          </form>
+          {errorMessage &&
+            <p>{errorMessage}</p>
+          }
+        </div>
+        <div className="text-center margin-top-20 margin-bottom-20 text-20">
+          <Link to={'/signup'}>Pas encore de compte ? Enregistre-toi !</Link>
         </div>
       </div>
     );

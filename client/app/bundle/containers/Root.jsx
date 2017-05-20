@@ -7,9 +7,8 @@ import { setCurrenUser } from '../actions/index'
 import Routes from './Routes';
 
 const store = configureStore();
-if (window.localStorage.access_token) {
-  const { email, first_name, last_name, image } = window.localStorage
-  console.log(email)
+if (localStorage.access_token) {
+  const { email, first_name, last_name, image } = localStorage
   store.dispatch(setCurrenUser())
 }
 
