@@ -17,3 +17,6 @@
  $primary-color: #328BC3;
  $secondary-color: #0C3D5E;
  @import 'materialize';
+ @import './components/index';
+ @import './pages/index';
+ @import './layout/index';
