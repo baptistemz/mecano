@@ -22,11 +22,11 @@ class Protected extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchProtected }, dispatch);
 }
-function mapStateToProps({ protected_info }) {
+function mapStateToProps({ auth }) {
   return {
-    email: protected_info.user.email,
-    first_name: protected_info.user.first_name,
-    last_name: protected_info.user.last_name
+    email: auth.user.email,
+    first_name: auth.user.first_name,
+    last_name: auth.user.last_name
   }
 }
 

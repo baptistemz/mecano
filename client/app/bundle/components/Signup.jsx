@@ -7,22 +7,23 @@ import { signupUser } from '../actions/index';
 import { Input, Button } from '../common/index'
 
 class Signup extends Component{
-  submit({ first_name, last_name, email, password, password_confirmation }){
+  submit({ first_name, last_name, email, password, password_confirmation }, next_path){
     const creds = { first_name: first_name.trim(),
                     last_name: last_name.trim(),
                     email: email.trim(),
                     password: password.trim(),
                     password_confirmation: password_confirmation.trim() };
-    this.props.signupUser(creds);
+    this.props.signupUser(creds, next_path);
   }
   render(){
+    const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit } = this.props;
     return (
       <div className="container">
         <h4 className="text-center">Créer un compte</h4>
         <br />
         <div className="row">
-          <form onSubmit={handleSubmit(values => this.submit(values))}>
+          <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
             <Input icon="perm_identity" name="first_name"  type="text" />
             <Input icon="perm_identity" name="last_name" type="text" />
             <Input icon="email" name="email" type="email" />
@@ -32,7 +33,7 @@ class Signup extends Component{
           </form>
         </div>
         <div className="text-center">
-          <Link to={'/login'}>Déjà un compte ? Connecte-toi !</Link>
+          <Link to={{ pathname: '/login', state: { from: next_path } }}>Déjà un compte ? Connecte-toi !</Link>
         </div>
       </div>
     );

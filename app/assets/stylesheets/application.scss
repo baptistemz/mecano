@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+ @import '../../../client/node_modules/react-redux-toastr/src/styles/index';
  @import "materialize/components/color";
  $primary-color: #328BC3;
  $secondary-color: #0C3D5E;

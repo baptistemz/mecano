@@ -7,3 +7,4 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const GOT_PROTECTED = 'GOT_PROTECTED';
+export const AUTH_ERROR = 'AUTH_ERROR';
