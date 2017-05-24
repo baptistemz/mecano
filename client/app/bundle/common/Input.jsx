@@ -1,12 +1,12 @@
 import React from 'react';
+import { Field } from 'redux-form'
 
-const Input = (props) => {
-  const englishLabel = props.englishLabel ? props.englishLabel : props.label
+const Input = ({ name, icon, type }) => {
   return (
     <div className="input-field">
-      <i className="material-icons prefix">{props.icon}</i>
-      <input id={`icon_${englishLabel}`} type={`${props.type}`} className="validate" />
-      <label className="capitalize" htmlFor={`icon_${englishLabel}`}>{props.label}</label>
+      <i className="material-icons prefix">{icon}</i>
+      <Field id={`icon_${name}`} type={type} name={name} component="input" className="validate" />
+      <label className="capitalize" htmlFor={`icon_${name}`}>{name}</label>
     </div>
   );
 };

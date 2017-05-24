@@ -1,42 +1,36 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import { reduxForm } from 'redux-form';
 import { signupUser } from '../actions/index';
 import { Input, Button } from '../common/index'
 
-class Signup extends Component {
-  onFormSubmit(event) {
-    event.preventDefault();
-    const first_name = this.refs.first_name;
-    const last_name = this.refs.last_name;
-    const email = this.refs.email;
-    const password = this.refs.password;
-    const passwordConfirmation = this.refs.password_confirmation;
-    const creds = { first_name: first_name.value.trim(),
-                    last_name: last_name.value.trim(),
-                    email: email.value.trim(),
-                    password: password.value.trim(),
-                    password_confirmation: passwordConfirmation.value.trim() };
+class Signup extends Component{
+  submit({ first_name, last_name, email, password, password_confirmation }){
+    const creds = { first_name: first_name.trim(),
+                    last_name: last_name.trim(),
+                    email: email.trim(),
+                    password: password.trim(),
+                    password_confirmation: password_confirmation.trim() };
     this.props.signupUser(creds);
   }
-  render() {
-    const { errorMessage } = this.props;
+  render(){
+    const { handleSubmit } = this.props;
     return (
       <div className="container">
         <h4 className="text-center">Créer un compte</h4>
         <br />
-        <form onSubmit={this.onFormSubmit.bind(this)}>
-          <Input icon="perm_identity" englishLabel="first_name" label="Prénom" type="text"/>
-          <Input icon="perm_identity" englishLabel="last_name" label="nom de famille" type="text"/>
-          <Input icon="email" label="email" type="email"/>
-          <Input icon="lock_outline" englishLabel="password" label="mot de passe" type="password"/>
-          <Input icon="lock_outline" englishLabel="password_confimation" label="confirmation du mot de passe" type="password"/>
-          <Button type="submit">Connexion</Button>
-        </form>
-        {errorMessage &&
-          <p>{errorMessage}</p>
-        }
+        <div className="row">
+          <form onSubmit={handleSubmit(values => this.submit(values))}>
+            <Input icon="perm_identity" name="first_name"  type="text" />
+            <Input icon="perm_identity" name="last_name" type="text" />
+            <Input icon="email" name="email" type="email" />
+            <Input icon="lock_outline" name="password"  type="password" />
+            <Input icon="lock_outline" name="password_confirmation" type="password" />
+            <Button type="submit">Connexion</Button>
+          </form>
+        </div>
         <div className="text-center">
           <Link to={'/login'}>Déjà un compte ? Connecte-toi !</Link>
         </div>
@@ -49,4 +43,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ signupUser }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Signup);
+Signup = reduxForm({
+  form: 'login' // a unique name for this form
+})(connect(null, mapDispatchToProps)(Signup));
+
+export default Signup ;

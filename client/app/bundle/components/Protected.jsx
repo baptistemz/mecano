@@ -5,7 +5,7 @@ import { fetchProtected } from '../actions/index';
 
 class Protected extends Component {
   componentWillMount(){
-    this.props.fetchProtected()
+    // this.props.fetchProtected()
   }
   render() {
     return (

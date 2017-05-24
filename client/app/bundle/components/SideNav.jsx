@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { logoutUser } from '../actions/index';
 import { Button } from '../common/index';
+
 
 class SideNav extends Component {
   logout(event){
@@ -11,7 +12,7 @@ class SideNav extends Component {
     this.props.logoutUser();
   }
   connectLinks() {
-    if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated){
       return(
         <div onClick={this.logout.bind(this)}>
           <Button icon="exit_to_app">Logout</Button>
@@ -34,19 +35,17 @@ class SideNav extends Component {
           {this.connectLinks()}
           <Link to={'/protected'}><Button icon="not_interested">Protégé</Button></Link>
         </div>
-        { this.props.children }
       </div>
     );
   }
 };
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ logoutUser }, dispatch);
-}
 function mapStateToProps({ auth }) {
   return {
     isAuthenticated: auth.isAuthenticated
   }
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logoutUser }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);

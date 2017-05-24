@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
 import errorHandling from '../utils/errorHandling';
 import {
   GOT_PROTECTED

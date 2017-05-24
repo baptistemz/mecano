@@ -1,8 +1,14 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import history from './history';
 import thunk from 'redux-thunk';
 import reducers from '../reducers';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+
+
+const routingMiddleware = routerMiddleware(history)
+
+const createStoreWithMiddleware = applyMiddleware(thunk, routingMiddleware)(createStore);
 
 export default function configureStore(initialState) {
   const dev_tools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : {}

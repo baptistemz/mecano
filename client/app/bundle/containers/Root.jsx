@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
+import ReduxToastr from 'react-redux-toastr';
 import configureStore from '../store/configureStore';
-import SideNav from '../components/SideNav';
-import { setCurrenUser } from '../actions/index'
+import { validateToken } from '../actions/index'
 import Routes from './Routes';
 
 const store = configureStore();
-if (localStorage.access_token) {
-  const { email, first_name, last_name, image } = localStorage
-  store.dispatch(setCurrenUser())
+if (typeof localStorage !== 'undefined') {
+  if (localStorage.access_token) {
+    store.dispatch(validateToken());
+  }
 }
 
 export default class Root extends Component {
@@ -17,7 +17,12 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <div>
-          <Router history={browserHistory} routes={Routes} />
+          <Routes />
+          <ReduxToastr
+            timeOut={4000}
+            preventDuplicates
+            position="bottom-right"
+            />
         </div>
       </Provider>
     );

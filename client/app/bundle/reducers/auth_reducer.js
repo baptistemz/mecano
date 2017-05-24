@@ -21,7 +21,7 @@ export default function (state = INITIAL_STATE, action) {
     case SET_CURRENT_USER:
       return {
         isFetching: false,
-        isAuthenticated: !_.isEmpty(action.user),
+        isAuthenticated: true,
         user: action.user
       }
     case LOGOUT_SUCCESS:
