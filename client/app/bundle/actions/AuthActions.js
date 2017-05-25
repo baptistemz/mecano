@@ -6,7 +6,8 @@ import errorHandling from '../utils/errorHandling';
 import {
   SET_CURRENT_USER,
   LOGOUT_SUCCESS,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  AUTH_ERROR
 } from './types';
 
 
@@ -39,7 +40,8 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        errorHandling(error.response)
+        dispatch(authError(error.response.data.errors));
+        errorHandling(error.response);
       })
   };
 }
@@ -55,7 +57,8 @@ export function signupUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        errorHandling(error.response)
+        dispatch(authError(error.response.data.errors));
+        errorHandling(error.response);
       });
   };
 }
@@ -74,10 +77,21 @@ export function logoutUser() {
 
 // REDUX ACTION CREATORS
 
-function authError(error){
-  return {
-    type: AUTH_ERROR,
-    payload: error
+function authError(errors){
+  if (errors.length === 1){
+    return {
+      type: AUTH_ERROR,
+      payload: { main: errors[0] }
+    }
+  }else{
+    const errorGroup = {};
+    Object.keys(errors).forEach(function(key,index) {
+      errorGroup[key] = errors[key];
+    });
+    return {
+      type: AUTH_ERROR,
+      payload: errorGroup
+    }
   }
 }
 

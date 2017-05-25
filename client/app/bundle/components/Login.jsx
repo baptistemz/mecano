@@ -7,7 +7,10 @@ import { reduxForm } from 'redux-form';
 import { loginUser } from '../actions/index';
 import { Input, Button } from '../common/index';
 
-
+const sanitize = (field) => {
+  const sanitized_field = field ? field.trim() : '';
+  return sanitized_field
+}
 class Login extends Component{
   constructor(props) {
     super(props);
@@ -19,12 +22,12 @@ class Login extends Component{
     }
   }
   submit({ email, password }, next_path){
-    const creds = { email: email.trim(), password: password.trim() };
+    const creds = { email: sanitize(email), password: sanitize(password) };
     this.props.loginUser(creds, next_path);
   }
   render(){
     const next_path = this.props.location.state ? this.props.location.state.from : null
-    const { handleSubmit } = this.props;
+    const { handleSubmit, errorMessages } = this.props;
     return (
       <div className="container">
         <h4 className="text-center">Se connecter</h4>
@@ -33,6 +36,7 @@ class Login extends Component{
           <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
             <Input icon="email" name="email" type="email" />
             <Input icon="lock_outline" name="password" type="password" />
+            <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
             <Button type="submit">Connexion</Button>
           </form>
         </div>

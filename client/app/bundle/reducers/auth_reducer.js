@@ -1,19 +1,16 @@
 import _ from 'lodash';
 import {
   SET_CURRENT_USER,
-  LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  SIGNUP_REQUEST,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAILURE,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  AUTH_ERROR
 } from '../actions/types';
 
 const INITIAL_STATE = {
     isFetching: false,
     isAuthenticated: false,
-    user: {}
+    user: {},
+    errors: {}
   };
 
 export default function (state = INITIAL_STATE, action) {
@@ -30,7 +27,12 @@ export default function (state = INITIAL_STATE, action) {
     case LOGIN_SUCCESS:
       return {
         isAuthenticated: true,
-        user: action.user
+        user: action.user,
+        errors: {}
+      }
+    case AUTH_ERROR:
+      return {
+        errors: action.payload
       }
     // case LOGIN_REQUEST:
     //   return Object.assign({}, state, {
