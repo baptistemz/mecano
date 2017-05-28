@@ -40,6 +40,7 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
+        console.log(error);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       })
@@ -57,6 +58,7 @@ export function signupUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
+        console.log(error);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       });
@@ -70,7 +72,9 @@ export function logoutUser() {
         localStorage.clear();
         dispatch(receiveLogout());
         toastr.success('Déconnexion', 'A bientôt !');
-      }).catch((err)=>{ errorHandling(err.response) })
+      }).catch((err)=>{
+        err.response.status === 404 ? dispatch(receiveLogout()) : errorHandling(err.response);
+      })
   };
 }
 

@@ -8,6 +8,8 @@ import SideNav from '../components/SideNav';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
 import Protected from '../components/Protected';
+import { Header } from '../common/index';
+import MecanoRegistration from '../components/MecanoRegistration';
 import history from '../store/history';
 import PrivateRoute from './PrivateRoute';
 
@@ -24,7 +26,8 @@ class Routes extends Component{
           <Route exact path="/" component={Home} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <PrivateRoute path="/protected" isAuthenticated={this.props.isAuthenticated} component={Protected} />
+          <PrivateRoute path="/protected" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={Protected} />
+          <PrivateRoute path="/mecano_signup" isAuthenticated={this.props.isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
         </div>
       </ConnectedRouter>
     )

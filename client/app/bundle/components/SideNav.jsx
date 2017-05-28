@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 import { logoutUser } from '../actions/index';
 import { Button } from '../common/index';
 
@@ -39,7 +40,7 @@ class SideNav extends Component {
     );
   };
   profileThumb() {
-    const { first_name, last_name, email } = this.props;
+    const { user } = this.props;
     return (
       <div>
         <table>
@@ -47,15 +48,16 @@ class SideNav extends Component {
             <tr>
               <td><i className="material-icons">perm_identity</i></td>
               <td>
-                <span className="white-text">{email}</span>
-                <span className="white-text">{`${first_name} ${last_name.charAt(0).toUpperCase()}`}</span>
+                <span className="white-text">{user.email}</span>
+                <br/>
+                <span className="capitalize white-text">{`${user.first_name} ${user.last_name}`}</span>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="space-around profile-btn-group">
-          <Link to='/profile'><div className="btn btn-small">Profile</div></Link>
-          <a onClick={this.logout.bind(this)}><div className="btn btn-small">Log out</div></a>
+          <Link to='/profile'><div className="btn btn-small">Mon compte</div></Link>
+          <a onClick={this.logout.bind(this)}><div className="btn btn-small">Déconnexion</div></a>
         </div>
       </div>
     );
@@ -72,8 +74,9 @@ class SideNav extends Component {
                 {isAuthenticated ? this.profileThumb() : this.connectLinks()}
               </div>
             </li>
-            <li><div className="divider" /></li>
             <li><Link to={'/'}><i className="material-icons">home</i>Accueil</Link></li>
+            <li><Link to={'/mecano_signup'}><i className="material-icons">build</i>Créer un profil mécano</Link></li>
+            <li><div className="divider" /></li>
             <li><Link to={'/protected'}><i className="material-icons">not_interested</i>Protégé</Link></li>
           </ul>
           <a data-activates="slide-out" className="button-collapse show-on-large">
@@ -86,7 +89,8 @@ class SideNav extends Component {
 };
 function mapStateToProps({ auth }) {
   return {
-    isAuthenticated: auth.isAuthenticated
+    isAuthenticated: auth.isAuthenticated,
+    user: auth.user || { email: 'unknown@unknown.com', first_name: 'unknown', last_name: 'unknown' }
   }
 }
 function mapDispatchToProps(dispatch) {
