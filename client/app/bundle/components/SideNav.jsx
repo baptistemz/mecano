@@ -7,6 +7,12 @@ import { Button } from '../common/index';
 
 
 class SideNav extends Component {
+  componentDidMount() {
+    $('.button-collapse').sideNav({
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true
+    });
+  }
   logout(event){
     event.preventDefault();
     this.props.logoutUser();
@@ -19,13 +25,13 @@ class SideNav extends Component {
             <tr>
               <td><i className="material-icons">not_interested</i></td>
               <td>
-                <span className="white-text name">Not connected</span>
-                <span className="white-text email">Login or Sign up</span>
+                <span className="white-text">Non connecté. </span>
+                <span className="white-text">Identifiez vous ou créez un compte.</span>
               </td>
             </tr>
           </tbody>
         </table>
-        <div className="space-around profile-btn-group">
+        <div className="profile-btn-group">
           <Link to={'/login'}><div className="btn btn-small">Se connecter</div></Link>
           <Link to={'/signup'}><div className="btn btn-small">Créer un compte</div></Link>
         </div>
@@ -41,8 +47,8 @@ class SideNav extends Component {
             <tr>
               <td><i className="material-icons">perm_identity</i></td>
               <td>
-                <span className="white-text name">{email}</span>
-                <span className="white-text email">{`${first_name} ${last_name.charAt(0).toUpperCase()}`}</span>
+                <span className="white-text">{email}</span>
+                <span className="white-text">{`${first_name} ${last_name.charAt(0).toUpperCase()}`}</span>
               </td>
             </tr>
           </tbody>

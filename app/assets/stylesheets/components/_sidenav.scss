@@ -1,0 +1,75 @@
+.button-collapse .material-icons{
+  font-size: 30px;
+  margin: 12px 0 14px 3%;
+  color: black;
+  cursor: pointer;
+}
+#slide-out{
+  text-align: left;
+}
+.sidenav-background{
+  width: 100%;
+  position : relative;
+  background-image: url("entretien.jpg");
+  background-size: cover;
+}
+.side-nav .userView .name, .side-nav .userView .email{
+  padding: 0;
+  margin: 0;
+}
+
+.userView .material-icons{
+  color: #328BC3;
+  font-size: 40px;
+}
+
+.userView table{
+  margin-left: 20px
+}
+
+.userView .white-text{
+  text-shadow: 1px 1px 3px #565454
+}
+
+.side-nav .userView {
+  padding: 20px 16px 6px 16px;
+}
+
+.userView td:first-child{
+  padding: 0;
+  width: 1.8%;
+  line-height:24px;
+}
+.userView .material-icons{
+  margin-top: 6px;
+}
+
+.userView td{
+  padding: 0px 23px;
+  line-height: 30px;
+}
+
+.profile-btn-group{
+  margin-top: 10px;
+  .btn{
+    width: 230px;
+    margin: 0
+  }
+}
+
+@media only screen and (max-width: 992px){
+  .side-nav a {
+    padding: 10px 16px;
+    height: 70px
+  }
+}
+@media only screen and (max-width: 992px){
+  .side-nav a {
+    padding: 10px 16px;
+    height: 70px
+  }
+}
+.side-nav a {
+  padding: 10px 16px;
+  height: 70px
+}
