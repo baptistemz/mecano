@@ -5,7 +5,7 @@ import { toastr } from 'react-redux-toastr';
 import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { loginUser } from '../actions/index';
-import { Input, Button } from '../common/index';
+import { Input, Button, Header } from '../common/index';
 
 const sanitize = (field) => {
   const sanitized_field = field ? field.trim() : '';
@@ -29,19 +29,21 @@ class Login extends Component{
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit, errorMessages } = this.props;
     return (
-      <div className="container">
-        <h4 className="text-center">Se connecter</h4>
-        <br />
-        <div className="row">
-          <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-            <Input icon="email" name="email" type="email" />
-            <Input icon="lock_outline" name="password" type="password" />
-            <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
-            <Button type="submit">Connexion</Button>
-          </form>
-        </div>
-        <div className="text-center margin-top-20 margin-bottom-20 text-20">
-          <Link to={{ pathname: '/signup', state: { from: next_path } }}>Pas encore de compte ? Enregistre-toi !</Link>
+      <div>
+        <Header>Connexion</Header>
+        <div className="container">
+          <br />
+          <div className="row">
+            <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
+              <Input icon="email" name="email" type="email" />
+              <Input icon="lock_outline" name="password" type="password" />
+              <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
+              <Button type="submit">Connexion</Button>
+            </form>
+          </div>
+          <div className="text-center margin-top-20 margin-bottom-20 text-20">
+            <Link to={{ pathname: '/signup', state: { from: next_path } }}>Pas encore de compte ? Enregistre-toi !</Link>
+          </div>
         </div>
       </div>
     );
