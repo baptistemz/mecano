@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'redux-form'
 
 const RadioButtons = ({ name, options }) => {
   return (
@@ -7,7 +8,7 @@ const RadioButtons = ({ name, options }) => {
         options.map(function(option, i){
           return(
             <p key={i}>
-              <input name={ name } type="radio" id={ option } />
+              <Field name={ name } component="input" type="radio" id={ option } value={ option } />
               <label htmlFor={ option }>{ option }</label>
             </p>
           )

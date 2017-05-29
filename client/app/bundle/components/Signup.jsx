@@ -56,7 +56,7 @@ function mapStateToProps(state) {
 }
 
 Signup = reduxForm({
-  form: 'login' // a unique name for this form
+  form: 'signup' // a unique name for this form
 })(connect(mapStateToProps, mapDispatchToProps)(Signup));
 
 export default Signup ;
