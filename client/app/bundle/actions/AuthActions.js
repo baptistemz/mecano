@@ -16,6 +16,7 @@ import {
 export function validateToken(){
   return dispatch => {
     axios.defaults.headers.common = getHeadersObject(localStorage);
+    console.log(getHeadersObject(localStorage))
     return axios.get('/api/auth/validate_token')
       .then(response => {
         if(response.data.success){
@@ -24,7 +25,7 @@ export function validateToken(){
           dispatch(logoutUser());
         }
       }).catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 };

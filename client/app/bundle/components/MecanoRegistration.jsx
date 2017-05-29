@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 import { reduxForm } from 'redux-form';
 import { registerMecano } from '../actions/index';
-import { Input, Button } from '../common/index';
+import { Header, RadioButtons } from '../common/index';
 
 class MecanoRegistration extends Component {
   submit({ email, password }, next_path){
@@ -14,7 +14,12 @@ class MecanoRegistration extends Component {
   render(){
     const { handleSubmit, errorMessages } = this.props;
     return (
-      <div>coucou</div>
+      <div>
+        <Header>Enregistrement mécano</Header>
+        <form action="#">
+          <RadioButtons name="pro" options={["professionnel", "passionné"]} />
+        </form>
+      </div>
     );
   }
 }
