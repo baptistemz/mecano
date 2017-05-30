@@ -55,7 +55,7 @@ class SideNav extends Component {
             </tr>
           </tbody>
         </table>
-        <div className="space-around profile-btn-group">
+        <div className="profile-btn-group">
           <Link to='/profile'><div className="btn btn-small">Mon compte</div></Link>
           <a onClick={this.logout.bind(this)}><div className="btn btn-small">Déconnexion</div></a>
         </div>

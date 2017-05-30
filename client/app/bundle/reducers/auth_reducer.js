@@ -2,7 +2,8 @@ import {
   SET_CURRENT_USER,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
-  AUTH_ERROR
+  AUTH_ERROR,
+  KEEP_LOGGEDIN
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -20,6 +21,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, isAuthenticated: false, user: {} }
     case LOGIN_SUCCESS:
       return { ...state, isAuthenticated: true, user: action.user, errors: {} }
+    case KEEP_LOGGEDIN:
+      return { ...state, isAuthenticated: true }
     case AUTH_ERROR:
       return { ...state, errors: action.payload }
     default:

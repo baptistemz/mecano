@@ -22,6 +22,7 @@ class Signup extends Component{
   render(){
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit, errorMessages } = this.props;
+    console.log("IN sIGNUP")
     return (
       <div>
         <Header>Créer un compte</Header>

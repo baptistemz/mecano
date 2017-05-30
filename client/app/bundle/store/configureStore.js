@@ -1,9 +1,9 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
+import {autoRehydrate, persistStore} from 'redux-persist'
 import history from './history';
 import thunk from 'redux-thunk';
 import reducers from '../reducers';
-
 
 
 const routingMiddleware = routerMiddleware(history)
@@ -14,6 +14,7 @@ export default function configureStore(initialState) {
   const dev_tools = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : {}
   return createStoreWithMiddleware(
     reducers,
-    dev_tools
+    dev_tools,
+    autoRehydrate()
   );
 }
