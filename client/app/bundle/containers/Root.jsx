@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
 import { persistStore } from 'redux-persist';
 import { validateToken } from '../actions/index';
+import { Loader } from '../common/index';
 import configureStore from '../store/configureStore';
 import Routes from './Routes';
 
@@ -19,11 +20,10 @@ export default class Root extends Component {
       this.setState({ rehydrated: true });
       store.dispatch(validateToken());
     })
-
   }
   render() {
     if(!this.state.rehydrated){
-      return <div>Loading...</div>
+      return <div className="window-height"><Loader /></div>
     }
     return (
       <Provider store={store}>

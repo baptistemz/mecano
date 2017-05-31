@@ -31,7 +31,7 @@ export function validateToken(){
           dispatch(logoutUser());
         }
       }).catch(error => {
-        console.log("ERROR", error.response);
+        console.log("ERROR", error);
       });
   };
 };
