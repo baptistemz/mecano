@@ -34,6 +34,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise_token_auth', '~> 0.1.41'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'carrierwave-base64'
+gem 'cloudinary'
+gem 'figaro'
 
 gem "react_on_rails", "~> 7"
 

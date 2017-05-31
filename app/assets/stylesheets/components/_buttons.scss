@@ -6,19 +6,19 @@
 }
 
 // RADIO BUTTONS
-[type="radio"] + label{
-  padding: 8px 22px 32px 40px;
-  border-radius: 3px
+[type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
+  padding: 8px 40px 32px 60px;
+  border-radius: 3px;
+  margin: 0 5px;
 }
 
 [type="radio"] + label:before, [type="radio"] + label:after{
-  left: 5px;
+  left: 15px;
   top: 8px;
 }
 
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
   color: white;
-  padding-right: 20px;
 }
 
 [type="radio"]:not(:checked) + label{

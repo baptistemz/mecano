@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
-import { persistStore } from 'redux-persist'
+import { persistStore } from 'redux-persist';
+import { validateToken } from '../actions/index';
 import configureStore from '../store/configureStore';
-import { validateToken, keepLoggedin } from '../actions/index'
 import Routes from './Routes';
 
 const store = configureStore();
@@ -16,13 +16,10 @@ export default class Root extends Component {
   }
   componentWillMount(){
     persistStore(store, {}, () => {
-      this.setState({ rehydrated: true })
+      this.setState({ rehydrated: true });
+      store.dispatch(validateToken());
     })
-    // if (typeof localStorage !== 'undefined') {
-    //   if (localStorage.access_token) {
-    //     store.dispatch(validateToken());
-    //   }
-    // }
+
   }
   render() {
     if(!this.state.rehydrated){
