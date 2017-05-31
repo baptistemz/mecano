@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'pp'
 
-RSpec.describe "AuthApis", type: :request do
+RSpec.describe "ApiAuth", type: :request do
   # include_context "db_cleanup_each", :transaction
   let(:user_props) { FactoryGirl.attributes_for(:user) }
 
@@ -40,10 +40,6 @@ RSpec.describe "AuthApis", type: :request do
     end
   end
   context "anonymous user" do
-    it "accesses unprotected resource" do
-      get api_authcheck_whoami_path
-      expect(response).to have_http_status(:ok)
-    end
     it "doesn't access protected resource" do
       get api_authcheck_checkme_path
       expect(response).to have_http_status(:unauthorized)
@@ -66,19 +62,19 @@ RSpec.describe "AuthApis", type: :request do
         expect(access_tokens["uid"]).to include(account[:uid])
       end
       it "grants access to protected resource" do
-        get api_authcheck_checkme_path, access_tokens
+        get api_authcheck_checkme_path, headers:access_tokens
         expect(response).to have_http_status(:ok)
       end
       it "grants access to protected resource multiple times" do
         (1..10).each do |i|
           puts i
-          get api_authcheck_checkme_path, access_tokens
+          get api_authcheck_checkme_path, headers:access_tokens
           expect(response).to have_http_status(:ok)
       end
       end
       it "logs out" do
         logout
-        get api_authcheck_checkme_path, access_tokens
+        get api_authcheck_checkme_path, headers:access_tokens
         expect(response).to have_http_status(:unauthorized)
       end
     end
