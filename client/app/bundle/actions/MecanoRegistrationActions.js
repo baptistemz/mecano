@@ -1,5 +1,6 @@
 import {
-  MECANO_REGISTRATION_ERROR
+  MECANO_REGISTRATION_ERROR,
+  GO_TO_MECANO_REGISTRATION_STEP
 } from './types';
 
 
@@ -7,23 +8,26 @@ import {
 
 export function registerMecano(){
   return dispatch => {
-    return axios.post('/api/auth/validate_token')
-      .then(response => {
-        if(response.data.success){
-          dispatch(receiveLogin(response.data.data));
-        }else{
-          dispatch(logoutUser());
-        }
-      }).catch(error => {
-        console.log(error);
-      });
   };
 };
 
 
 // REDUX ACTION CREATORS
 
+
+export function nextStepCheck(step) {
+  console.log("nextStepCheck", state)
+}
+
+export function goToStep(step) {
+  return {
+    type: GO_TO_MECANO_REGISTRATION_STEP,
+    step
+  };
+}
+
 export function registrationError(error) {
+  console.log("IN ACTION", error)
   return {
     type: MECANO_REGISTRATION_ERROR,
     error: error

@@ -1,67 +1,92 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toastr } from 'react-redux-toastr';
-import { reduxForm, Field } from 'redux-form';
-import { registerMecano } from '../actions/index';
-import { Header, RadioButtons, Button, Input } from '../common/index';
-import PictureUpdate from '../components/PictureUpdate';
+import { reduxForm } from 'redux-form';
+import { registerMecano, goToStep, registrationError } from '../actions/index';
+import { Buttons, StepOne, StepTwo, StepThree} from './MecanoRegistrationSteps/index';
+import { Header, Loader } from '../common/index';
 
 class MecanoRegistration extends Component {
-  submit({ email, password }, next_path){
-    const creds = { email: sanitize(email), password: sanitize(password) };
-    this.props.registerMecano(creds, next_path);
+  //DON'T SUBMIT ON PRESSENTER IN AUTOCOMPLETE
+  componentDidMount(){
+    $('body').keypress(function(e){
+      if (e.keyCode == '13') {
+         e.stopPropagation();
+       }
+    });
+  }
+  submit(data){
+    console.log(data)
+  }
+  nextStepCheck(){
+    const { formData, step, registrationError, goToStep, mobile, pro } = this.props;
+    if(formData.values){
+      let ok = []
+      formData.values.address ? ok.push("address") : registrationError({ address: "veuillez remplir ce champ"});
+      formData.values.mobile ? ok.push("mobile") : registrationError({ mobile: "veuillez remplir ce champ"});
+      formData.values.pro ? ok.push("pro") : registrationError({ pro: "veuillez remplir ce champ"});
+      if(!pro){ok.push("rate")}else{ formData.values.rate ? ok.push("rate") : registrationError({ rate: "veuillez remplir ce champ"})  };
+      if(!mobile){ok.push("radius")}else{ formData.values.radius ? ok.push("radius") : registrationError({ radius: "veuillez remplir ce champ"})  };
+      if (step === 1){
+        ok.length === 5 ? goToStep(2) : registrationError({ main: "des champs sont vides"})
+      }
+    }else{
+      registrationError({ main: "veuillez remplir ce formulaire "})
+    }
+  }
+  stepComponent(){
+    const { step, mobile, pro, errors } = this.props;
+    if(step === 1){
+      return <StepOne mobile={ mobile } pro={ pro } errors={ errors } />
+    }else if(step === 2){
+      return <StepTwo />
+    }else if(step === 3){
+      return <StepThree />
+    } else {
+      return <StepOne mobile={ mobile } pro={ pro } />
+    }
   }
   render(){
-    const { handleSubmit, errorMessages, pro, mobile } = this.props;
+    const { handleSubmit, step, goToStep, errors } = this.props;
+    console.log("IN COMPONENT", errors)
     return (
       <div>
-        <Header>Enregistrement mécano 1/3</Header>
+        <Header>Enregistrement mécano {step}/3</Header>
         <div className="container">
           <div className="row">
-            <form>
-              <div className="col s12 l6 text-center">
-                <br/>
-                <h2>Mon profil</h2>
-                <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
-                <PictureUpdate/>
+            <form onSubmit={handleSubmit(values => this.submit(values))}>
+              {this.stepComponent()}
+              <div className="row">
+                <div className="col s12">
+                  <p className="red-text">{errors.main ? errors.main : ''}</p>
+                  <Buttons step={ step }
+                    onNext={() => this.nextStepCheck()}
+                    onPrevious={() => goToStep( step - 1)}
+                  />
+                </div>
               </div>
-              <div className="col s12 l6 text-center">
-                <br/>
-                <h2>Données géographiques</h2>
-                <Input icon="place" name="address" type="text" />
-                <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
-                  {
-                    mobile ?
-                      <div className="row">
-                        <div className="col s9">
-                          <Input icon="explore" name="radius" type="number" />
-                        </div>
-                        <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
-                      </div>
-                    :
-                      ''
-                  }
-                <br/>
-              </div>
-              <Button className="col s12 m6 offset-m3 l4 offset-l4">Etape suivante</Button>
             </form>
           </div>
-      </div>
+        </div>
       </div>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ registerMecano }, dispatch);
+  return bindActionCreators({ registerMecano, goToStep, registrationError }, dispatch);
 }
+
 
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
+  const { step, errors } = state.mecanoRegistration
   return {
-    errorMessages: state.mecanoRegistration.errors,
-    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui"))
+    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
+    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
+    formData: mecano_registration,
+    step,
+    errors
   }
 }
 
@@ -69,4 +94,4 @@ MecanoRegistration = reduxForm({
   form: 'mecano_registration'
 })(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
 
-export default MecanoRegistration ;
+export default MecanoRegistration;

@@ -22,7 +22,7 @@ class Signup extends Component{
   render(){
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit, errorMessages } = this.props;
-    console.log("IN sIGNUP")
+    console.log(errorMessages)
     return (
       <div>
         <Header>Créer un compte</Header>
@@ -35,7 +35,7 @@ class Signup extends Component{
               <Input icon="email" name="email" type="email" error={errorMessages["email"]} />
               <Input icon="lock_outline" name="password"  type="password" error={errorMessages["password"]} />
               <Input icon="lock_outline" name="password_confirmation" type="password" error={errorMessages["password_confirmation"]} />
-              <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
+              <p className="red-text">{errorMessages.main}</p>
               <Button type="submit">Connexion</Button>
             </form>
           </div>
