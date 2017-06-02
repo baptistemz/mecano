@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { push } from 'react-router-redux'
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import {
   MECANO_REGISTRATION_ERROR,
-  GO_TO_MECANO_REGISTRATION_STEP
+  REGISTERED_MECANO
 } from './types';
 
 
@@ -13,6 +14,7 @@ export function registerMecano(data){
     return axios.post('/api/mecano_profiles', data)
       .then(response => {
         console.log("response", response)
+        dispatch(registeredMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
       }).catch(error => {
         console.log("error", error.response)
@@ -23,10 +25,10 @@ export function registerMecano(data){
 
 // REDUX ACTION CREATORS
 
-export function goToNextStep() {
+export function registeredMecano(mecano_profile) {
   return {
-    type: GO_TO_MECANO_REGISTRATION_STEP,
-    action: "goToNextStep"
+    type: REGISTERED_MECANO,
+    mecano_profile
   };
 }
 

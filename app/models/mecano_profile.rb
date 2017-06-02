@@ -10,6 +10,9 @@ class MecanoProfile < ActiveRecord::Base
   with_options if: :is_mobile? do |mobile|
     mobile.validates_presence_of :radius
   end
+  after_create :set_user_as_mecano
+
+  private
 
   def is_pro?
     self.pro == true
@@ -18,4 +21,9 @@ class MecanoProfile < ActiveRecord::Base
   def is_mobile?
     self.mobile == true
   end
+
+  def set_user_as_mecano
+    self.user.update(is_mecano: true)
+  end
+
 end

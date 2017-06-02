@@ -63,7 +63,8 @@ class SideNav extends Component {
     );
   }
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, isMecano } = this.props;
+    console.log(isMecano)
     return (
       <div>
         <div className="transparent-navbar">
@@ -75,7 +76,11 @@ class SideNav extends Component {
               </div>
             </li>
             <li><Link to={'/'}><i className="material-icons">home</i>Accueil</Link></li>
-            <li><Link to={'/mecano_signup'}><i className="material-icons">build</i>Créer un profil mécano</Link></li>
+            {isMecano ?
+              <li><Link to={'/mecano_signup'}><i className="material-icons">build</i>Mon profil mécano</Link></li>
+            :
+              <li><Link to={'/mecano_signup'}><i className="material-icons">build</i>Créer un profil mécano</Link></li>
+            }
             <li><div className="divider" /></li>
             <li><Link to={'/protected'}><i className="material-icons">not_interested</i>Protégé</Link></li>
           </ul>
@@ -90,7 +95,8 @@ class SideNav extends Component {
 function mapStateToProps({ auth }) {
   return {
     isAuthenticated: auth.isAuthenticated,
-    user: auth.user || { email: 'unknown@unknown.com', first_name: 'unknown', last_name: 'unknown' }
+    user: auth.user || { email: 'unknown@unknown.com', first_name: 'unknown', last_name: 'unknown' },
+    isMecano: auth.isMecano
   }
 }
 function mapDispatchToProps(dispatch) {

@@ -7,7 +7,7 @@ import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
   auth: AuthReducer,
-  mecanoRegistration: MecanoProfileReducer,
+  mecano: MecanoProfileReducer,
   form: formReducer,
   toastr: toastrReducer,
   router: routerReducer

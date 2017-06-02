@@ -32,7 +32,7 @@ module Api
     private
 
     def mecano_profile_params
-      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius)
+      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano)
     end
 
     def render_error

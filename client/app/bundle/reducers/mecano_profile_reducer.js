@@ -1,9 +1,10 @@
 import {
   MECANO_REGISTRATION_ERROR,
-  GO_TO_MECANO_REGISTRATION_STEP
+  REGISTERED_MECANO
 } from '../actions/types';
 
 const INITIAL_STATE = {
+    profile: null,
     errors: {},
     step: 1
   };
@@ -13,8 +14,8 @@ export default function (state = INITIAL_STATE, action) {
     case MECANO_REGISTRATION_ERROR:
       const new_errors = Object.assign({}, state.errors, action.error);
       return { ...state, errors: new_errors }
-    case GO_TO_MECANO_REGISTRATION_STEP:
-      return { ...state, step: action.step, errors:{} }
+    case REGISTERED_MECANO:
+      return { ...state, mecano_profile: action.mecano_profile, step: 2 }
     default:
       return state;
   }
