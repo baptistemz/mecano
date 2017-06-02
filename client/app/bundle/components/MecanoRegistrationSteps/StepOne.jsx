@@ -11,10 +11,13 @@ class StepOne extends Component {
     var options = {componentRestrictions: {country: 'fr'}};
     new google.maps.places.Autocomplete(input, options);
   }
+  submit(data){
+    console.log(data)
+  }
   render(){
     const { pro, mobile, errors } = this.props;
     return (
-      <div>
+      <form onSubmit={handleSubmit(values => this.submit(values))}>
         <div className="col s12 l6 text-center">
           <br/>
           <h2>Mon profil</h2>
@@ -22,14 +25,14 @@ class StepOne extends Component {
           <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
           {
             pro ?
-              <div className="row">
-                <div className="col s9">
-                  <Input icon="monetization_on" name="rate" type="number" error={errors.rate} />
-                </div>
-                <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
+            <div className="row">
+              <div className="col s9">
+                <Input icon="monetization_on" name="rate" type="number" error={errors.rate} />
               </div>
+              <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
+            </div>
             :
-              ''
+            ''
           }
         </div>
         <div className="col s12 l6 text-center">
@@ -39,17 +42,23 @@ class StepOne extends Component {
           <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
           {
             mobile ?
-              <div className="row">
-                <div className="col s9">
-                  <Input icon="explore" name="radius" type="number" error={errors.radius} />
-                </div>
-                <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
+            <div className="row">
+              <div className="col s9">
+                <Input icon="explore" name="radius" type="number" error={errors.radius} />
               </div>
+              <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
+            </div>
             :
-              ''
+            ''
           }
         </div>
-      </div>
+        <div className="col s12">
+          <p className="red-text">{errors.main ? errors.main : ''}</p>
+          <Buttons step={ step }
+            onNext={() => handleSubmit(values => this.submit(values))}
+          />
+        </div>
+      </form>
     );
   }
 }

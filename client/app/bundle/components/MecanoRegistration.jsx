@@ -2,71 +2,88 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import PictureUpdate from './PictureUpdate';
 import { registerMecano, goToStep, registrationError } from '../actions/index';
-import { Buttons, StepOne, StepTwo, StepThree} from './MecanoRegistrationSteps/index';
-import { Header, Loader } from '../common/index';
+import { Header, Loader, RadioButtons, Input } from '../common/index';
 
 class MecanoRegistration extends Component {
-  //DON'T SUBMIT ON PRESSENTER IN AUTOCOMPLETE
   componentDidMount(){
+    //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
+    var input = document.getElementById('searchTextField');
+    var options = {componentRestrictions: {country: 'fr'}};
+    new google.maps.places.Autocomplete(input, options);
+    //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     $('body').keypress(function(e){
       if (e.keyCode == '13') {
          e.stopPropagation();
        }
     });
   }
-  submit(data){
-    console.log(data)
-  }
-  nextStepCheck(){
-    const { formData, step, registrationError, goToStep, mobile, pro } = this.props;
-    if(formData.values){
-      let ok = []
-      formData.values.address ? ok.push("address") : registrationError({ address: "veuillez remplir ce champ"});
-      formData.values.mobile ? ok.push("mobile") : registrationError({ mobile: "veuillez remplir ce champ"});
-      formData.values.pro ? ok.push("pro") : registrationError({ pro: "veuillez remplir ce champ"});
-      if(!pro){ok.push("rate")}else{ formData.values.rate ? ok.push("rate") : registrationError({ rate: "veuillez remplir ce champ"})  };
-      if(!mobile){ok.push("radius")}else{ formData.values.radius ? ok.push("radius") : registrationError({ radius: "veuillez remplir ce champ"})  };
-      if (step === 1){
-        ok.length === 5 ? goToStep(2) : registrationError({ main: "des champs sont vides"})
-      }
+  submit(values){
+    if(values.full_address){
+      const splitted_address = values.full_address.split(',')
+      values['mobile'] = this.props.mobile;
+      values['pro'] = this.props.pro;
+      values['country'] = splitted_address[splitted_address.length-1];
+      values['city'] = splitted_address[splitted_address.length-2];
+      values['address'] = splitted_address[splitted_address.length-3];
     }else{
-      registrationError({ main: "veuillez remplir ce formulaire "})
+      registrationError({errors: "Saisissez une addresse"})
     }
+    this.props.registerMecano(values)
   }
-  stepComponent(){
-    const { step, mobile, pro, errors } = this.props;
-    if(step === 1){
-      return <StepOne mobile={ mobile } pro={ pro } errors={ errors } />
-    }else if(step === 2){
-      return <StepTwo />
-    }else if(step === 3){
-      return <StepThree />
-    } else {
-      return <StepOne mobile={ mobile } pro={ pro } />
-    }
-  }
+
   render(){
-    const { handleSubmit, step, goToStep, errors } = this.props;
+    const { handleSubmit, step, goToStep, errors, pro, mobile } = this.props;
     console.log("IN COMPONENT", errors)
     return (
       <div>
         <Header>Enregistrement mécano {step}/3</Header>
         <div className="container">
-          <div className="row">
-            <form onSubmit={handleSubmit(values => this.submit(values))}>
-              {this.stepComponent()}
-              <div className="row">
-                <div className="col s12">
-                  <p className="red-text">{errors.main ? errors.main : ''}</p>
-                  <Buttons step={ step }
-                    onNext={() => this.nextStepCheck()}
-                    onPrevious={() => goToStep( step - 1)}
-                  />
+          <form onSubmit={handleSubmit(values => this.submit(values))}>
+            <div className="col s12 l6 text-center">
+              <br/>
+              <h2>Mon profil</h2>
+              <PictureUpdate/>
+              <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
+              {
+                pro ?
+                <div className="row">
+                  <div className="col s9">
+                    <Input icon="monetization_on" name="rate" type="number" error={errors.rate} />
+                    <Input icon="business" name="company_name" type="text" error={errors.company_name} />
+                  </div>
+                  <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
                 </div>
-              </div>
-            </form>
-          </div>
+                :
+                ''
+              }
+            </div>
+            <div className="col s12 l6 text-center">
+              <br/>
+              <h2>Données géographiques</h2>
+              <Input id="searchTextField" icon="explore" name="full_address" type="text" placeholder="" error={errors.address} />
+              <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
+              {
+                mobile ?
+                <div className="row">
+                  <div className="col s9">
+                    <Input icon="explore" name="radius" type="number" error={errors.radius} />
+                  </div>
+                  <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
+                </div>
+                :
+                ''
+              }
+            </div>
+            <div className="col s12">
+              <p className="red-text">{errors.main ? errors.main : ''}</p>
+                <div className="space-between">
+                  <div></div>
+                  <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
+                </div>
+            </div>
+          </form>
         </div>
       </div>
     );
@@ -84,7 +101,6 @@ function mapStateToProps(state) {
   return {
     mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
     pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
-    formData: mecano_registration,
     step,
     errors
   }

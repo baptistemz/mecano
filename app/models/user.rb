@@ -5,5 +5,5 @@ class User < ActiveRecord::Base
           #, :omniauthable
   include DeviseTokenAuth::Concerns::User
   mount_base64_uploader :profile_picture, ProfilePictureUploader
-  has_one :mecano_profile
+  has_one :mecano_profiles
 end

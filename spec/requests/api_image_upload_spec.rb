@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'pp'
-require 'json'
 
 RSpec.describe "ApiImageUpload", type: :request do
   # include_context "db_cleanup_each", :transaction
