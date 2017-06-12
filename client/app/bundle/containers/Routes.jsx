@@ -9,7 +9,7 @@ import Signup from '../components/Signup';
 import Login from '../components/Login';
 import Protected from '../components/Protected';
 import { Header } from '../common/index';
-import { MecanoRegistration, VehicleChoice, DomainChoice } from '../components/MecanoRegistration/index';
+import { MecanoRegistration, VehicleChoice } from '../components/MecanoRegistration/index';
 import history from '../store/history';
 import PrivateRoute from './PrivateRoute';
 
@@ -28,8 +28,7 @@ class Routes extends Component{
           <Route path="/login" component={Login} />
           <PrivateRoute path="/protected" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={Protected} />
           <PrivateRoute path="/mecano_signup" isAuthenticated={this.props.isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
-          <PrivateRoute path="/mecano_vehicles" isAuthenticated={this.props.isAuthenticated} registerMethod="signup" component={VehicleChoice} />
-          <PrivateRoute path="/mecano_signup" isAuthenticated={this.props.isAuthenticated} registerMethod="signup" component={DomainChoice} />
+          <PrivateRoute path="/mecano_vehicles" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={VehicleChoice} />
         </div>
       </ConnectedRouter>
     )

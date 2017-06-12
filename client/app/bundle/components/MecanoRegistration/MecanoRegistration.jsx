@@ -109,4 +109,4 @@ MecanoRegistration = reduxForm({
   form: 'mecano_registration'
 })(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
 
-export MecanoRegistration;
+export { MecanoRegistration };

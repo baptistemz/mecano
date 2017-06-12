@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
-import { registerMecano, goToStep, registrationError } from '../../actions/index';
+import {  } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 
-class MecanoRegistration extends Component {
+class VehicleChoice extends Component {
   componentDidMount(){
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('searchTextField');
@@ -20,21 +20,11 @@ class MecanoRegistration extends Component {
     });
   }
   submit(values){
-    if(values.full_address){
-      const splitted_address = values.full_address.split(',');
-      values['mobile'] = this.props.mobile;
-      values['pro'] = this.props.pro;
-      values['country'] = splitted_address[splitted_address.length-1];
-      values['city'] = splitted_address[splitted_address.length-2];
-      values['address'] = splitted_address[splitted_address.length-3];
-    }else{
-      registrationError({errors: "Saisissez une addresse"});
-    }
-    this.props.registerMecano(values)
+    // this.props.registerMecano(values)
   }
 
   render(){
-    const { handleSubmit, step, goToStep, errors, pro, mobile } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <div>
         <Header>Enregistrement mécano {step}/3</Header>
@@ -60,23 +50,18 @@ class MecanoRegistration extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ registerMecano, goToStep, registrationError }, dispatch);
+  return bindActionCreators({  }, dispatch);
 }
 
 
 function mapStateToProps(state) {
-  const { mecano_registration } = state.form
-  const { step, errors } = state.mecano
   return {
-    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
-    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
-    step,
-    errors
+
   }
 }
 
-MecanoRegistration = reduxForm({
-  form: 'mecano_registration'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+VehicleChoice = reduxForm({
+  form: 'vehicle_choice'
+})(connect(mapStateToProps, mapDispatchToProps)(VehicleChoice));
 
-export MecanoRegistration;
+export { VehicleChoice };
