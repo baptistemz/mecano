@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { registerMecano, registrationError } from '../../actions/index';
@@ -13,10 +14,11 @@ class MecanoRegistration extends Component {
     var options = {componentRestrictions: {country: 'fr'}};
     new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
-    $('body').keypress(function(e){
-      if (e.keyCode == '13') {
-         e.stopPropagation();
-       }
+    google.maps.event.addDomListener(input, 'keydown', function(event) {
+      console.log("EVENT", event)
+      if (event.keyCode === 13) {
+          event.preventDefault();
+      }
     });
   }
   submit(values){
@@ -24,17 +26,21 @@ class MecanoRegistration extends Component {
       const splitted_address = values.full_address.split(',');
       values['mobile'] = this.props.mobile;
       values['pro'] = this.props.pro;
-      values['country'] = splitted_address[splitted_address.length-1];
-      values['city'] = splitted_address[splitted_address.length-2];
-      values['address'] = splitted_address[splitted_address.length-3];
+      values['country'] = splitted_address[splitted_address.length - 1];
+      values['city'] = splitted_address[splitted_address.length - 2];
+      values['address'] = splitted_address[splitted_address.length - 3];
     }else{
       registrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
+    console.log("VALUES", values)
     this.props.registerMecano(values)
   }
 
   render(){
-    const { handleSubmit, errors, pro, mobile } = this.props;
+    const { handleSubmit, errors, pro, mobile, isMecano } = this.props;
+    if(isMecano){
+      return <Redirect to={{pathname: '/'}}/>
+    }
     return (
       <div>
         <Header>Enregistrement mécano 1/3</Header>
@@ -99,6 +105,7 @@ function mapStateToProps(state) {
   return {
     mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
     pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
+    isMecano: state.auth.isMecano,
     errors : state.mecano.errors
   }
 }

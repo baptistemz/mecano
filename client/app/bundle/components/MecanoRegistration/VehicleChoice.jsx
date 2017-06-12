@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { fetchCarMakes } from '../../actions/index';
-import { Header, Input } from '../../common/index';
+import autocomplete from '../../utils/autocomplete';
+import { Header, Input, RadioButtons } from '../../common/index';
 
 class VehicleChoice extends Component {
   componentWillMount(){
@@ -11,8 +13,8 @@ class VehicleChoice extends Component {
     this.props.fetchCarMakes()
   }
   componentDidMount(){
-    //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
-
+    //AUTOCOMPLETE
+    autocomplete("car-make-input", "car-makes", this.props.car_makes_list)
   }
   submit(values){
     // this.props.registerMecano(values)
@@ -26,20 +28,21 @@ class VehicleChoice extends Component {
         <div className="container">
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
-              <br/>
               <h2>Mes domaines de compétences</h2>
-              <h3>Véhicules</h3>
+              <br/>
             </div>
             <div className="col s12">
-              <select name="car-makes" id="car-makes">
+              <RadioButtons name="all_vehicles" label="Je travaille sur" options={["tous vehicules", "certaines marques"]} />
+              <datalist name="car-makes" id="car-makes">
                 {
                   car_makes_list.map((i)=>{
-                    return <option value={i}>{i}</option>
+                    return <option key={i} value={i}/>
                   })
                 }
-              </select>
+              </datalist>
+              <input type="text" list="car-makes" id="car-make-input" />
               <div className="space-between">
-                <div></div>
+                <Link to={'/mecano_signup'} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_left</i></Link>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
               </div>
             </div>
