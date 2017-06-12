@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
 import Home from '../components/Home';
 import SideNav from '../components/SideNav';
 import Signup from '../components/Signup';

@@ -2,32 +2,27 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import PictureUpdate from '../PictureUpdate';
-import {  } from '../../actions/index';
-import { Header, Loader, RadioButtons, Input } from '../../common/index';
+import { fetchCarMakes } from '../../actions/index';
+import { Header, Input } from '../../common/index';
 
 class VehicleChoice extends Component {
+  componentWillMount(){
+    //GET CAR MAKES LIST
+    this.props.fetchCarMakes()
+  }
   componentDidMount(){
-    //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
-    var input = document.getElementById('searchTextField');
-    var options = {componentRestrictions: {country: 'fr'}};
-    new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
-    $('body').keypress(function(e){
-      if (e.keyCode == '13') {
-         e.stopPropagation();
-       }
-    });
+
   }
   submit(values){
     // this.props.registerMecano(values)
   }
 
   render(){
-    const { handleSubmit } = this.props;
+    const { handleSubmit, car_makes_list } = this.props;
     return (
       <div>
-        <Header>Enregistrement mécano {step}/3</Header>
+        <Header>Enregistrement mécano 2/3</Header>
         <div className="container">
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
@@ -36,7 +31,13 @@ class VehicleChoice extends Component {
               <h3>Véhicules</h3>
             </div>
             <div className="col s12">
-              <p className="red-text">{errors ? errors[0] : ''}</p>
+              <select name="car-makes" id="car-makes">
+                {
+                  car_makes_list.map((i)=>{
+                    return <option value={i}>{i}</option>
+                  })
+                }
+              </select>
               <div className="space-between">
                 <div></div>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
@@ -50,13 +51,13 @@ class VehicleChoice extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({  }, dispatch);
+  return bindActionCreators({ fetchCarMakes }, dispatch);
 }
 
 
 function mapStateToProps(state) {
   return {
-
+    car_makes_list: state.vehicle.car_makes_list
   }
 }
 

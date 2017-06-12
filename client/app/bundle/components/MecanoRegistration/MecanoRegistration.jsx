@@ -34,10 +34,10 @@ class MecanoRegistration extends Component {
   }
 
   render(){
-    const { handleSubmit, step, errors, pro, mobile } = this.props;
+    const { handleSubmit, errors, pro, mobile } = this.props;
     return (
       <div>
-        <Header>Enregistrement mécano {step}/3</Header>
+        <Header>Enregistrement mécano 1/3</Header>
         <div className="container">
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
@@ -96,12 +96,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
-  const { step, errors } = state.mecano
   return {
     mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
     pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
-    step,
-    errors
+    errors : state.mecano.errors
   }
 }
 
