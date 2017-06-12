@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import PictureUpdate from './PictureUpdate';
-import { registerMecano, goToStep, registrationError } from '../actions/index';
-import { Header, Loader, RadioButtons, Input } from '../common/index';
+import PictureUpdate from '../PictureUpdate';
+import { registerMecano, goToStep, registrationError } from '../../actions/index';
+import { Header, Loader, RadioButtons, Input } from '../../common/index';
 
 class MecanoRegistration extends Component {
   componentDidMount(){
@@ -42,38 +42,8 @@ class MecanoRegistration extends Component {
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <br/>
-              <h2>Mon profil</h2>
-              <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
-              {
-                pro ?
-                <div className="row">
-                  <div className="col s9">
-                    <Input icon="monetization_on" name="price" type="number" error={errors.rate} />
-                    <Input icon="business" name="company_name" type="text" error={errors.company_name} />
-                  </div>
-                  <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
-                </div>
-                :
-                ''
-              }
-            </div>
-            <div className="col s12 l6 text-center">
-              <br/>
-              <h2>Données géographiques</h2>
-              <Input id="searchTextField" icon="explore" name="full_address" type="text" placeholder="" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
-              {
-                mobile ?
-                <div className="row">
-                  <div className="col s9">
-                    <Input icon="explore" name="radius" type="number" error={errors.radius} />
-                  </div>
-                  <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
-                </div>
-                :
-                ''
-              }
+              <h2>Mes domaines de compétences</h2>
+              <h3>Véhicules</h3>
             </div>
             <div className="col s12">
               <p className="red-text">{errors ? errors[0] : ''}</p>

@@ -36,7 +36,7 @@ module Api
     end
 
     def render_error
-      render json: { errors: @mecano_profile.errors.full_messages },
+      render json: { errors: @mecano_profile.errors },
         status: :unprocessable_entity
     end
   end

@@ -16,8 +16,10 @@ export function registerMecano(data){
         console.log("response", response)
         dispatch(registeredMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
+        dispatch(push(next_path ? next_path.pathname : '/mecano_vehicles'))
       }).catch(error => {
-        console.log("error", error.response)
+        mecanoRegistrationError(error.response)
+        setNextHeaders(response.headers)
       })
   };
 };
@@ -32,20 +34,14 @@ export function registeredMecano(mecano_profile) {
   };
 }
 
-export function mecanoRegistrationError(error) {
-  if (errors.length === 1){
-    return {
-      type: MECANO_REGISTRATION_ERROR,
-      payload: { main: errors[0] }
-    }
-  }else{
-    const errorGroup = {};
-    Object.keys(errors).forEach(function(key,index) {
-      errorGroup[key] = errors[key];
-    });
-    return {
-      type: MECANO_REGISTRATION_ERROR,
-      payload: errorGroup
-    }
+export function mecanoRegistrationError(errors) {
+  console.log(errors)
+  const errorGroup = {};
+  Object.keys(errors).forEach(function(key,index) {
+    errorGroup[key] = errors[key];
+  });
+  return {
+    type: MECANO_REGISTRATION_ERROR,
+    payload: errorGroup
   }
 }
