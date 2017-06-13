@@ -44,8 +44,6 @@ function()
    //Run the carquery init function to get things started:
    carquery.init();
 
-   console.log(carquery)
-
   //  //Optional: initialize the year, make, model, and trim drop downs by providing their element IDs
   //  carquery.initYearMakeModelTrim('car-years', 'car-makes', 'car-models', 'car-model-trims')
   //

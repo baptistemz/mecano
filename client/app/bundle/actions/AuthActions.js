@@ -12,18 +12,14 @@ import {
 } from './types';
 
 
-
-
 // API CALLS
 
 export function validateToken(){
   return dispatch => {
     axios.defaults.headers.common = getHeadersObject(localStorage);
-    console.log("headers", axios.defaults.headers.common.auth_token)
     const request = axios.get('/api/auth/validate_token?unbatch=true')
     return request
       .then(response => {
-        console.log("response", response)
         if(response.data.success){
           dispatch(receiveLogin(response.data.data));
           setNextHeaders(response.headers);
@@ -31,7 +27,9 @@ export function validateToken(){
           dispatch(logoutUser());
         }
       }).catch(error => {
-        console.log("ERROR", error);
+        console.log("validateToken error", error.response);
+        errorHandling(error.response);
+        dispatch(logoutUser());
       });
   };
 };
@@ -47,7 +45,7 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        console.log(error);
+        console.log("loginUser error", error.response);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       })
@@ -65,7 +63,7 @@ export function signupUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        console.log(error);
+        console.log("signupUser error", error.response);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       });
@@ -76,12 +74,9 @@ export function updateProfile(data) {
   return dispatch => {
     return axios.put('/api/auth/', data)
     .then(response => {
-      console.log(response)
       setNextHeaders(response.headers)
       dispatch(validateToken())
-    })
-    .catch(err => {console.log(err.response)})
-    // .catch(err => toastr.error('could not connect you', `${err.errors[0]}`))
+    }).catch(err => {console.log("updateProfile error", error.response)})
   };
 }
 
@@ -91,8 +86,8 @@ export function getUserData(){
       .then(response => {
         dispatch(receiveLogin(response.data.data))
         setNextHeaders(response.headers)
-      }).catch(error => {
-        console.log( error.response)
+      }).catch(err => {
+        console.log("getUserData error", error.response)
       })
   }
 }
@@ -105,7 +100,7 @@ export function logoutUser() {
         dispatch(receiveLogout());
         toastr.success('Déconnexion', 'A bientôt !');
       }).catch((error)=>{
-        console.log(error.response);
+        console.log("logoutUser error", error.response)
         localStorage.clear();
         dispatch(receiveLogout());
       })

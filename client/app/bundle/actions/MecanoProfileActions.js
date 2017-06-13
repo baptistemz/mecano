@@ -13,10 +13,9 @@ export function registerMecano(data){
   return dispatch => {
     return axios.post('/api/mecano_profiles', data)
       .then(response => {
-        console.log("response", response)
+        dispatch(push(next_path ? next_path.pathname : '/mecano_vehicle'))
         dispatch(registeredMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
-        dispatch(push(next_path ? next_path.pathname : '/mecano_vehicle'))
       }).catch(error => {
         mecanoRegistrationError(error.response)
         setNextHeaders(response.headers)

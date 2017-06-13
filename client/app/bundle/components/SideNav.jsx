@@ -46,7 +46,7 @@ class SideNav extends Component {
         <table>
           <tbody>
             <tr>
-              <td><i className="material-icons">perm_identity</i></td>
+              <td><i className="material-icons">account_circle</i></td>
               <td>
                 <span className="white-text">{user.email}</span>
                 <br/>
@@ -64,7 +64,6 @@ class SideNav extends Component {
   }
   render() {
     const { isAuthenticated, isMecano } = this.props;
-    console.log(isMecano)
     return (
       <div>
         <div className="transparent-navbar">

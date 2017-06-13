@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {
   GOT_CAR_MAKES,
-  GOT_CAR_MODELS
+  GOT_CAR_MODELS,
+  SELECTED_CAR_MAKE,
+  REMOVED_CAR_MAKE
 } from './types';
 
 
@@ -30,6 +32,7 @@ export function fetchCarModels(carMake){
 };
 
 
+
 // REDUX ACTION CREATORS
 
 export function gotCarMakes(data) {
@@ -45,3 +48,16 @@ export function gotCarModels(data) {
     mecano_profile
   };
 }
+
+export function selectCarMake(carMake){
+  return {
+    type: SELECTED_CAR_MAKE,
+    carMake
+  };
+};
+export function removeCarMake(carMake){
+  return {
+    type: REMOVED_CAR_MAKE,
+    carMake
+  };
+};

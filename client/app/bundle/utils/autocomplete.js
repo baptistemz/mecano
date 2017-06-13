@@ -1,7 +1,6 @@
 export default function autocomplete(input_id, list_id, list) {
   var initialArray = [];
   initialArray = $(`#${list_id} option`);
-  console.log("initialArray", initialArray)
   $(`#${input_id}`).keyup(function() {
     var inputVal = $(`#${input_id}`).val();
     if (inputVal != '' && inputVal!= 'undefined') {

@@ -9,7 +9,6 @@ RSpec.describe "MecanoProfiles :", type: :request do
     let!(:user) {login(account, :ok)}
     let(:mecano_profile_props) { FactoryGirl.attributes_for(:mecano_profile) }
     it "successfully creates a mecano profile" do
-      pp mecano_profile_props
       create_mecano_profile(mecano_profile_props, :created)
     end
     it "doesn't create if address is missing" do

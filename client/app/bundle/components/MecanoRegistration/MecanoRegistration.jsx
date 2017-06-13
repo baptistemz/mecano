@@ -15,9 +15,8 @@ class MecanoRegistration extends Component {
     new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {
-      console.log("EVENT", event)
       if (event.keyCode === 13) {
-          event.preventDefault();
+        event.preventDefault();
       }
     });
   }
@@ -32,14 +31,13 @@ class MecanoRegistration extends Component {
     }else{
       registrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
-    console.log("VALUES", values)
     this.props.registerMecano(values)
   }
 
   render(){
     const { handleSubmit, errors, pro, mobile, isMecano } = this.props;
     if(isMecano){
-      return <Redirect to={{pathname: '/'}}/>
+      return <Redirect to={{pathname: '/mecano_vehicles'}}/>
     }
     return (
       <div>
