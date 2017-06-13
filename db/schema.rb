@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602141236) do
+ActiveRecord::Schema.define(version: 20170613092514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "domains", force: :cascade do |t|
+    t.string  "name"
+    t.string  "kind"
+    t.integer "mecano_profile_id"
+    t.index ["mecano_profile_id"], name: "index_domains_on_mecano_profile_id", using: :btree
+  end
 
   create_table "mecano_profiles", force: :cascade do |t|
     t.integer "user_id"
@@ -28,6 +35,15 @@ ActiveRecord::Schema.define(version: 20170602141236) do
     t.string  "city"
     t.string  "country"
     t.index ["user_id"], name: "index_mecano_profiles_on_user_id", using: :btree
+  end
+
+  create_table "recommendations", force: :cascade do |t|
+    t.integer "mecano_profile_id"
+    t.integer "user_id"
+    t.integer "domain_id"
+    t.index ["domain_id"], name: "index_recommendations_on_domain_id", using: :btree
+    t.index ["mecano_profile_id"], name: "index_recommendations_on_mecano_profile_id", using: :btree
+    t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,5 +76,9 @@ ActiveRecord::Schema.define(version: 20170602141236) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
+  add_foreign_key "domains", "mecano_profiles"
   add_foreign_key "mecano_profiles", "users"
+  add_foreign_key "recommendations", "domains"
+  add_foreign_key "recommendations", "mecano_profiles"
+  add_foreign_key "recommendations", "users"
 end
