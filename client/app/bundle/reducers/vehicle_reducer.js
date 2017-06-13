@@ -19,11 +19,10 @@ export default function (state = INITIAL_STATE, action) {
     case SELECTED_CAR_MAKE:
       return { ...state, selected_car_makes: [...state.selected_car_makes, action.carMake] }
     case REMOVED_CAR_MAKE:
-      var index = state.selected_car_makes.indexOf(action.carMake);
-      if (index !== -1) {
-        const new_car_makes_list = state.selected_car_makes.splice(index, 1)
-      }
-      return { ...state, selected_car_makes: new_car_makes_list }
+      const new_list = state.selected_car_makes
+      const index = new_list.indexOf(action.carMake);
+      index !== -1 ? new_list.splice(index, 1) : new_list;
+      return { ...state, selected_car_makes: new_list }
     default:
       return state;
   }

@@ -80,18 +80,6 @@ export function updateProfile(data) {
   };
 }
 
-export function getUserData(){
-  return dispatch => {
-    axios.get('api/authcheck/checkme')
-      .then(response => {
-        dispatch(receiveLogin(response.data.data))
-        setNextHeaders(response.headers)
-      }).catch(err => {
-        console.log("getUserData error", error.response)
-      })
-  }
-}
-
 export function logoutUser() {
   return dispatch => {
     axios.delete('api/auth/sign_out')

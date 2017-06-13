@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMake, removeCarMake } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
@@ -12,47 +11,55 @@ class VehicleChoice extends Component {
     //GET CAR MAKES LIST
     this.props.fetchCarMakes()
   }
-  componentDidMount(){
+  componentDidUpdate(newProps){
     //AUTOCOMPLETE
-    autocomplete("car-make-input", "car-makes", this.props.car_makes_list)
+    $('.chips').material_chip();
+    $('.chips-autocomplete').material_chip({
+      autocompleteOptions: {
+        data: newProps.car_makes_list,
+        limit: Infinity,
+        minLength: 1
+      }
+    });
+    //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE
+    $('.chips').on('chip.add', function(e, chip){
+      if(!(chip.tag in newProps.car_makes_list)){
+        for(var key in e.target.children) {
+          if(e.target.children.hasOwnProperty(key)){
+            if( e.target.children[key].innerText === `${chip.tag}close`){
+              e.target.children[key].remove()
+            }
+          }
+        }
+      }
+  });
   }
-  submitNewCarMake(values){
-    if($.inArray(values.car_make, this.props.selected_car_makes) === -1){
-      this.props.selectCarMake(values.car_make)
-    }
-  }
-  removeCarMake(value){
-    this.props.removeCarMake(value)
+  submit(values){
+    console.log(values)
+    console.log(this)
   }
 
   render(){
-    const { handleSubmit, car_makes_list, selected_car_makes } = this.props;
+    const { handleSubmit, selected_car_makes } = this.props;
+    console.log('in component', selected_car_makes)
     return (
       <div>
         <Header>Enregistrement mécano 2/3</Header>
         <div className="container">
-          <form onSubmit={handleSubmit(values => this.submitNewCarMake(values))}>
+          <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <h2>Mes domaines de compétences</h2>
               <br/>
             </div>
             <div className="col s12">
               <RadioButtons name="all_vehicles" label="Je travaille sur" options={["tous vehicules", "certaines marques"]} />
-              <datalist name="car-makes" id="car-makes">
-                {
-                  car_makes_list.map((i)=>{
-                    return <option key={i} value={i}/>
-                  })
-                }
-              </datalist>
-              <Field type="text" component="input" list="car-makes" name="car_make" id="car-make-input" onSelect={()=> console.log("oui")} />
-              {
-                selected_car_makes.map((i)=>{
-                  return <Chip key={i} onClose={this.removeCarMake.bind(this, i)}>{i}</Chip>
-                })
-              }
+              <br/>
+              <div className="chips chips-autocomplete" data-index="0" data-initialized="true">
+                <Field id="car_makes" name="car_makes" component="input" />
+                <label htmlFor="car_makes">Marques de véhicules</label>
+              </div>
               <div className="space-between">
-                <Link to={'/mecano_signup'} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_left</i></Link>
+                <div></div>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
               </div>
             </div>

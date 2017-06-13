@@ -36,9 +36,12 @@ export function fetchCarModels(carMake){
 // REDUX ACTION CREATORS
 
 export function gotCarMakes(data) {
+  const car_makes_list = {}
+  data.Makes.map(function(i){car_makes_list[i['make_id']] = null})
+  console.log(car_makes_list)
   return {
     type: GOT_CAR_MAKES,
-    car_makes_list: data.Makes.map(function(i){return i['make_id']})
+    car_makes_list
   }
 }
 
