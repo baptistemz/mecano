@@ -54,7 +54,7 @@ class VehicleChoice extends Component {
             <div className="col s12">
               <RadioButtons name="all_vehicles" label="Je travaille sur" options={["tous vehicules", "certaines marques"]} />
               <br/>
-              <div className="chips chips-autocomplete" data-index="0" data-initialized="true">
+              <div className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
                 <Field id="car_makes" name="car_makes" component="input" />
                 <label htmlFor="car_makes">Marques de véhicules</label>
               </div>
