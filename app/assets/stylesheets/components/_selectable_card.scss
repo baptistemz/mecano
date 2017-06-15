@@ -1,0 +1,54 @@
+.selectable-card{
+  cursor: pointer;
+  position: relative;
+  display: block;
+  border: red;
+  background-size: cover;
+  background-position: center;
+  & .card-content{
+    color: white;
+    position: absolute;
+    top:0;
+    left:5px;
+    z-index: 2;
+    text-shadow: 1px 1px 3px #565454;
+    & p{
+      margin-bottom: 0
+    }
+  }
+}
+
+.selection-overlay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(12, 61, 94, 0.8);
+  transition: opacity ease 300ms;
+  & i {
+    color: white;
+    font-size: 50px;
+    opacity: 0.6;
+  }
+}
+
+
+
+.selectable-card {
+  height: 152px;
+  object-fit: cover;
+  transition: box-shadow ease 200ms;
+  margin: 4px;
+}
+.card-input:checked + .selectable-card .selection-overlay {
+  opacity: 1;
+}
+.card-input {
+  display: none;
+}

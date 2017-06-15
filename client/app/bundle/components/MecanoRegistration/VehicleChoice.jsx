@@ -50,11 +50,9 @@ class VehicleChoice extends Component {
     const { registerDomains, updateMecanoProfile, mecano_profile } = this.props
     if(values.all_vehicles === 'certaines marques'){
       values['selected_car_makes'] = this.props.selected_car_makes.map((e)=> e.tag)
-      registerDomains(values.selected_car_makes)
-      push('/mecano_domains')
+      registerDomains(values.selected_car_makes, '/mecano_domains')
     }else{
       updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_domains')
-      push('/mecano_domains')
     }
     console.log(values)
   }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  GOT_CAR_MAKES,
+  DOMAIN_REGISTERED,
   GOT_CAR_MODELS,
   SELECTED_CAR_MAKE,
   REMOVED_CAR_MAKE
@@ -9,7 +9,7 @@ import {
 
 // EXTERNAL API CALLS
 
-export function fetchCarMakes(){
+export function registerDomains(domains, next_path){
   return dispatch => {
     $.getJSON('https://www.carqueryapi.com/api/0.3/?callback=?', {cmd:"getMakes"}, function(data){
       if(!data.error){
@@ -29,19 +29,12 @@ export function fetchCarMakes(){
 export function gotCarMakes(data) {
   const car_makes_list = {}
   data.Makes.map(function(i){car_makes_list[i['make_id']] = null})
-  console.log(car_makes_list)
   return {
     type: GOT_CAR_MAKES,
     car_makes_list
   }
 }
 
-export function gotCarModels(data) {
-  return {
-    type: GOT_CAR_MODELS,
-    mecano_profile
-  };
-}
 
 export function selectCarMake(carMake){
   return {
