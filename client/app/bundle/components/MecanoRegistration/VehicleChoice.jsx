@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { push } from 'react-router-redux'
 import { fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
-import { Header, Input, RadioButtons, Chip } from '../../common/index';
+import { Header, Input, RadioButtons } from '../../common/index';
 
 class VehicleChoice extends Component {
   componentWillMount(){
@@ -47,14 +46,14 @@ class VehicleChoice extends Component {
     });
   }
   submit(values){
-    const { registerDomains, updateMecanoProfile, mecano_profile } = this.props
+    const { registerDomains, updateMecanoProfile, mecano_profile, selected_car_makes } = this.props
     if(values.all_vehicles === 'certaines marques'){
-      values['selected_car_makes'] = this.props.selected_car_makes.map((e)=> e.tag)
-      registerDomains(values.selected_car_makes, '/mecano_domains')
+      const data = []
+      selected_car_makes.map((e)=> data.push({kind: "car_make", name: e.tag}))
+      registerDomains(mecano_profile.id, {domains: data}, '/mecano_domains')
     }else{
       updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_domains')
     }
-    console.log(values)
   }
   render(){
     const { handleSubmit, only_vehicle_brands } = this.props;

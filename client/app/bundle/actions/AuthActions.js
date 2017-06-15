@@ -1,6 +1,6 @@
 import { toastr } from 'react-redux-toastr';
 import axios from 'axios';
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import errorHandling from '../utils/errorHandling';
 import {

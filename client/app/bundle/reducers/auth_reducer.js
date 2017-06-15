@@ -20,7 +20,7 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOGOUT_SUCCESS:
-      return { ...state, isAuthenticated: false, user: {} }
+      return INITIAL_STATE
     case LOGIN_SUCCESS:
       const {email, first_name, last_name, profile_picture, is_mecano} = action.user
       return { ...state, isAuthenticated: true, errors: {}, email, first_name, last_name, profile_picture, is_mecano }

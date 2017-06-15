@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import {  } from '../../actions/index';
-import autocomplete from '../../utils/autocomplete';
+import { registerDomains } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
 
 class DomainChoice extends Component {
   submit(values){
-    console.log(values)
+    const { registerDomains, mecano_profile } = this.props;
+    const data = []
+    Object.keys(values).map((k)=> data.push({kind: "technical_skill", name: k}))
+    console.log(data)
+    registerDomains(mecano_profile.id, {domains: data}, '/mecano_profile')
   }
   render(){
     const { handleSubmit } = this.props
@@ -49,15 +52,12 @@ class DomainChoice extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({registerDomains}, dispatch);
 }
 
 function mapStateToProps(state) {
-  const { vehicle_choice } = state.form
   return {
-    car_makes_list: state.vehicle.car_makes_list,
-    selected_car_makes: state.vehicle.selected_car_makes,
-    only_vehicle_brands: (vehicle_choice && vehicle_choice.values && (vehicle_choice.values.all_vehicles === "certaines marques"))
+    mecano_profile: state.mecano.mecano_profile
   }
 }
 

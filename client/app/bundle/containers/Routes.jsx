@@ -29,6 +29,7 @@ class Routes extends Component{
           <PrivateRoute path="/mecano_signup" isAuthenticated={this.props.isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
           <PrivateRoute path="/mecano_vehicles" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={VehicleChoice} />
           <PrivateRoute path="/mecano_domains" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={DomainChoice} />
+          <PrivateRoute path="/mecano_profile" isAuthenticated={this.props.isAuthenticated} registerMethod="login" component={Protected} />
         </div>
       </ConnectedRouter>
     )

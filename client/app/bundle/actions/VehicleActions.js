@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  DOMAIN_REGISTERED,
+  GOT_CAR_MAKES,
   GOT_CAR_MODELS,
   SELECTED_CAR_MAKE,
   REMOVED_CAR_MAKE
@@ -9,7 +9,7 @@ import {
 
 // EXTERNAL API CALLS
 
-export function registerDomains(domains, next_path){
+export function fetchCarMakes(){
   return dispatch => {
     $.getJSON('https://www.carqueryapi.com/api/0.3/?callback=?', {cmd:"getMakes"}, function(data){
       if(!data.error){

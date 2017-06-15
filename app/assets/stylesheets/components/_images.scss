@@ -1,0 +1,25 @@
+.avatar-circle{
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border: 1px solid #D8D8D8;
+}
+
+
+.picture-update-group{
+  display: flex;
+  align-items: center;
+
+
+  .fileLabel {
+      cursor: pointer;
+      color: #00b1ca;
+      font-weight: bold;
+  }
+  .fileLabel:hover {
+      color: #25a5c4;
+  }
+  .fileInput {
+      display: none;
+  }
+}

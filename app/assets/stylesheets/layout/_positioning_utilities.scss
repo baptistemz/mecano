@@ -1,6 +1,9 @@
-// datalist{
-//   display: block
-// }
+.box-shadow{
+  -moz-box-shadow: 0px 1px 4px 0px #cfcfcf;
+  -webkit-box-shadow: 0px 1px 4px 0px #cfcfcf;
+  -o-box-shadow: 0px 1px 4px 0px #cfcfcf;
+  box-shadow: 0px 1px 4px 0px #cfcfcf;
+}
 
 .space-between{
   display: flex;
