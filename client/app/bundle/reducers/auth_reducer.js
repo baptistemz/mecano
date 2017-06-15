@@ -13,7 +13,7 @@ const INITIAL_STATE = {
     email: '',
     first_name: '',
     last_name: '',
-    profile_picture:{},
+    profile_picture: {thumb: '', medium: ''},
     is_mecano : false
   };
 
