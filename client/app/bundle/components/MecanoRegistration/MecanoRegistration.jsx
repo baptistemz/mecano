@@ -31,7 +31,7 @@ class MecanoRegistration extends Component {
     }else{
       registrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
-    this.props.registerMecano(values)
+    this.props.registerMecano(values, '/mecano_vehicles')
   }
 
   render(){
@@ -103,7 +103,7 @@ function mapStateToProps(state) {
   return {
     mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
     pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
-    isMecano: state.auth.isMecano,
+    isMecano: state.auth.is_mecano,
     errors : state.mecano.errors
   }
 }

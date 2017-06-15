@@ -20,16 +20,7 @@ export function fetchCarMakes(){
     });
   }
 };
-export function fetchCarModels(carMake){
-  return dispatch => {
-    return axios.get(`https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getModels&make=${carMake}`)
-      .then(response => {
-        console.log(response)
-      }).catch(error => {
-        console.log("error", error.response)
-      })
-  };
-};
+
 
 
 

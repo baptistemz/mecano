@@ -1,5 +1,7 @@
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
+  has_many :domains
+  
   validates_uniqueness_of :user_id
   validates_presence_of :address, :city, :country
   validates :pro, inclusion: { in: [ true, false ] }

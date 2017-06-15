@@ -24,9 +24,9 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps({ auth }) {
   return {
-    email: auth.user.email,
-    first_name: auth.user.first_name,
-    last_name: auth.user.last_name
+    email: auth.email,
+    first_name: auth.first_name,
+    last_name: auth.last_name
   }
 }
 

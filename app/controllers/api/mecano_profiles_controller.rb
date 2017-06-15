@@ -11,6 +11,15 @@ module Api
       end
     end
 
+    def update
+      @mecano_profile = MecanoProfile.where(user_id: current_api_user.id).first
+      if @mecano_profile.update(mecano_profile_params)
+        render :show
+      else
+        render_error
+      end
+    end
+
     def index
       # invited_mecano_profiles = []
       # current_user.invitations.joins(:mecano_profile).where("mecano_profiles.user_id != ?", current_user.id).each do |i|
@@ -32,7 +41,7 @@ module Api
     private
 
     def mecano_profile_params
-      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano)
+      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano, :all_vehicles)
     end
 
     def render_error

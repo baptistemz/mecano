@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import errorHandling from '../utils/errorHandling';
 import {
-  SET_CURRENT_USER,
   LOGOUT_SUCCESS,
   LOGIN_SUCCESS,
   AUTH_ERROR,
@@ -27,7 +26,6 @@ export function validateToken(){
           dispatch(logoutUser());
         }
       }).catch(error => {
-        console.log("validateToken error", error.response);
         errorHandling(error.response);
         dispatch(logoutUser());
       });
@@ -45,7 +43,6 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        console.log("loginUser error", error.response);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       })
@@ -63,7 +60,6 @@ export function signupUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        console.log("signupUser error", error.response);
         dispatch(authError(error.response.data.errors));
         errorHandling(error.response);
       });

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     mount_devise_token_auth_for 'User', at: 'auth'
     get 'authcheck/checkme'
-    resources :mecano_profiles
+    resources :mecano_profiles do
+      resources :domains
+    end
   end
   get '/*path' => 'react_app#index'
 end

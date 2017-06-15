@@ -49,7 +49,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ auth }) {
-  return { profilePicture: auth.user.profile_picture.thumb.url }
+  return { profilePicture: auth.profile_picture.thumb.url }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PictureUpdate);

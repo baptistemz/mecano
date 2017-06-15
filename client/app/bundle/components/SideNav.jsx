@@ -40,7 +40,7 @@ class SideNav extends Component {
     );
   };
   profileThumb() {
-    const { user } = this.props;
+    const { email, first_name, last_name } = this.props;
     return (
       <div>
         <table>
@@ -48,9 +48,9 @@ class SideNav extends Component {
             <tr>
               <td><i className="material-icons">account_circle</i></td>
               <td>
-                <span className="white-text">{user.email}</span>
+                <span className="white-text">{email}</span>
                 <br/>
-                <span className="capitalize white-text">{`${user.first_name} ${user.last_name}`}</span>
+                <span className="capitalize white-text">{`${first_name} ${last_name}`}</span>
               </td>
             </tr>
           </tbody>
@@ -94,8 +94,10 @@ class SideNav extends Component {
 function mapStateToProps({ auth }) {
   return {
     isAuthenticated: auth.isAuthenticated,
-    user: auth.user || { email: 'unknown@unknown.com', first_name: 'unknown', last_name: 'unknown' },
-    isMecano: auth.isMecano
+    email: auth.email || 'unknown@unknown.com',
+    first_name: auth.first_name || 'unknown',
+    last_name: auth.last_name || 'unknown',
+    isMecano: auth.is_mecano
   }
 }
 function mapDispatchToProps(dispatch) {
