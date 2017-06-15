@@ -5,6 +5,20 @@
     padding: 3px 8px;
 }
 
+.btn{
+  border: 1px solid #328BC3;
+  background-color: white;
+  color: #328BC3
+}
+.btn:hover, .btn:focus{
+  background-color: #328BC3;
+  color: white
+}
+
+.btn-floating i{
+  color: inherit;
+}
+
 // RADIO BUTTONS
 [type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
   padding: 8px 40px 32px 60px;

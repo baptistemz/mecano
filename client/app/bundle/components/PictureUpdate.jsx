@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateProfile } from '../actions/index';
-import { Button, Loader, ProfilePicture } from '../common/index';
+import { Loader, ProfilePicture } from '../common/index';
 import getBase64 from '../utils/getBase64'
 
 class PictureUpdate extends Component {
@@ -36,7 +36,7 @@ class PictureUpdate extends Component {
         <div className="thumb-image-container">
           {img}
         </div>
-        <label htmlFor="file" className="fileLabel"><Button>Choisir une image</Button></label>
+        <label htmlFor={"file"} className="fileLabel"><div className="btn">Choisir une image</div></label>
         <input id="file" className="fileInput"
           type="file"
           onChange={(e)=>this.handleImageChange(e)} />

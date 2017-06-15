@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { logoutUser } from '../actions/index';
-import { Button } from '../common/index';
+import { Button, ProfilePicture } from '../common/index';
 
 
 class SideNav extends Component {
@@ -40,13 +40,14 @@ class SideNav extends Component {
     );
   };
   profileThumb() {
+    const imgSrc = this.props.profile_picture || "/thumb/default_profile.png"
     const { email, first_name, last_name } = this.props;
     return (
       <div>
         <table>
           <tbody>
             <tr>
-              <td><i className="material-icons">account_circle</i></td>
+              <td><ProfilePicture src={imgSrc} small={true} /></td>
               <td>
                 <span className="white-text">{email}</span>
                 <br/>
@@ -97,7 +98,8 @@ function mapStateToProps({ auth }) {
     email: auth.email || 'unknown@unknown.com',
     first_name: auth.first_name || 'unknown',
     last_name: auth.last_name || 'unknown',
-    isMecano: auth.is_mecano
+    isMecano: auth.is_mecano,
+    profile_picture: auth.profile_picture.thumb.url
   }
 }
 function mapDispatchToProps(dispatch) {

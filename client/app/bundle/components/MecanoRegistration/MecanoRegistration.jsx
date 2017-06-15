@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
-import { registerMecano, registrationError } from '../../actions/index';
+import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 
 class MecanoRegistration extends Component {
@@ -29,7 +29,7 @@ class MecanoRegistration extends Component {
       values['city'] = splitted_address[splitted_address.length - 2];
       values['address'] = splitted_address[splitted_address.length - 3];
     }else{
-      registrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
+      this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
     this.props.registerMecano(values, '/mecano_vehicles')
   }
@@ -94,7 +94,7 @@ class MecanoRegistration extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ registerMecano, registrationError }, dispatch);
+  return bindActionCreators({ registerMecano, mecanoRegistrationError }, dispatch);
 }
 
 
