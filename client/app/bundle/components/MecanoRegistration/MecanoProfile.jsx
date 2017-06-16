@@ -16,14 +16,19 @@ class MecanoProfile extends Component {
             <div className="row">
               <div className="col s12">
                 <div className="box-shadow marged-20 padded-20">
+                  <div className="direction-row">
                     <ProfilePicture />
-                    <div>
-                      <h5>{pro? mecano_profile.company_name : `${first_name.charAt(0).toUpperCase() + first_name.slice(1)} ${last_name.charAt(0).toUpperCase()}`}</h5>
+                    <div className="profile-content">
+                      <h5 className="capitalize">{pro? mecano_profile.company_name : `${first_name} ${last_name.charAt(0).toUpperCase()}`}</h5>
                       <p>{pro? "professionnel" : "passionné"}</p>
+                      <h6 className="primary-text">{pro? `${mecano_profile.price}€/h` : '' }</h6>
                     </div>
+                  </div>
                   <hr/>
-                  <p>{mecano_profile.city}, {mecano_profile.country}</p>
-                  {mecano_profile.mobile ? <p className="green-text">Se déplace</p> : <p className="red-text">Ne se déplace pas</p>}
+                  <div className="space-between">
+                    <p className="no-margin">{mecano_profile.city}, {mecano_profile.country}</p>
+                    {mecano_profile.mobile ? <p className="no-margin green-text">Se déplace</p> : <p className="no-margin red-text">Ne se déplace pas</p>}
+                  </div>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
                   <h5 className="text-center">Avis</h5>
@@ -33,7 +38,7 @@ class MecanoProfile extends Component {
                   <br/>
                   <ul className="collection">
                     {technical_skills.map((skill)=>{
-                      return <li key={skill} className="collection-item"><div>{skill}<div className="secondary-content">0 <a><i className="material-icons">grade</i></a></div></div></li>
+                      return <li key={skill} className="collection-item"><div className="capitalize">{skill}<a className="secondary-content recommendation-number">0</a></div></li>
                     })}
                   </ul>
                 </div>
@@ -43,7 +48,7 @@ class MecanoProfile extends Component {
                   <p className="green-text">{mecano_profile.all_vehicles ? "intervient sur tous vehicules" : ''}</p>
                     <ul className="collection">
                       {car_makes.map((make)=>{
-                        return <li key={make} className="collection-item"><div>{make}<div className="secondary-content">0 <a><i className="material-icons">grade</i></a></div></div></li>
+                        return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-number">0</a></div></li>
                       })}
                     </ul>
                 </div>

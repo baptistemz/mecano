@@ -21,6 +21,15 @@
   justify-content: center;
 }
 
+.no-margin{
+  margin:0
+}
+
+.direction-row{
+  display: flex;
+  flex-direction: row;
+}
+
 .marged-20{
   margin: 20px
 }
