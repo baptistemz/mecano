@@ -29,8 +29,7 @@ class PictureUpdate extends Component {
   }
 
   render(){
-    const imgSrc = this.props.profilePicture || "/thumb/default_profile.png"
-    const img = this.state.loadingImage ? <Loader/> : <ProfilePicture src={imgSrc} />
+    const img = this.state.loadingImage ? <Loader/> : <ProfilePicture />
     return (
       <div className="picture-update-group">
         <div className="thumb-image-container">
@@ -49,8 +48,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateProfile }, dispatch);
 }
 
-function mapStateToProps({ auth }) {
-  return { profilePicture: auth.profile_picture.thumb.url }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PictureUpdate);
+export default connect(null, mapDispatchToProps)(PictureUpdate);
