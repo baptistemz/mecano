@@ -1,10 +1,13 @@
 import React from 'react';
+import { Header } from '../common/index';
 
 const Home = (props) => {
   return (
-    <div className="container">
-      <p>Home</p>
-      <h1 id="name-of-the-app">Name of the app</h1>
+    <div>
+      <Header h2={true}>Vroomate</Header>
+      <div className="container">
+        <h1 id="name-of-the-app">Vroomate</h1>
+      </div>
     </div>
   );
 };

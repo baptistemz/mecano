@@ -1,12 +1,44 @@
 .transparent-navbar{
   z-index: 10
 }
-.button-collapse .material-icons{
-  font-size: 30px;
-  margin: 12px 0 14px 3%;
-  color: black;
-  cursor: pointer;
+
+.dropdown-background{
+  background-image: url("/entretien.jpg");
+  background-size: cover
 }
+
+.large-navbar{
+  & a{
+    color: rgb(150, 150, 150);
+    display: block;
+    height: 56px;
+    text-align: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    & i{
+      margin: auto;
+    }
+    & p{
+      font-weight: bold;
+      width: 94px;
+      margin: -5px 0 0 0;
+      font-size: 11px
+    }
+  }
+  & a:hover{
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #0C3D5E;
+  }
+}
+.button-collapse{
+  & .material-icons{
+    font-size: 30px;
+    margin: 12px 0 14px 3%;
+    color: black;
+    cursor: pointer;
+  }
+}
+
 #slide-out{
   text-align: left;
 }
@@ -52,6 +84,12 @@
   width: 1.8%;
   line-height:24px;
 }
+
+#dropdown-connected{
+  top: 57px !important;
+  border: 1px solid white ;
+}
+
 .userView .material-icons{
   margin-top: 10px;
 }
