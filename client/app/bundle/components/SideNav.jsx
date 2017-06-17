@@ -93,19 +93,19 @@ class SideNav extends Component {
                 }
                 {isAuthenticated ?
                   <a className='dropdown-button' data-activates='dropdown-connected'><i className="material-icons">account_circle</i><p>Mon compte</p></a>
+                  <div id='dropdown-connected' className='dropdown-background dropdown-content'>
+                    <div className="userView margin-top-20">
+                      {this.profileThumb()}
+                    </div>
+                  </div>
                 :
                   <a className='dropdown-button' data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
+                  <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
+                    <div className="userView margin-top-20">
+                      {this.connectLinks()}
+                    </div>
+                  </div>
                 }
-                <div id='dropdown-connected' className='dropdown-background dropdown-content'>
-                  <div className="userView margin-top-20">
-                    {this.profileThumb()}
-                  </div>
-                </div>
-                <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
-                  <div className="userView margin-top-20">
-                    {this.connectLinks()}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
