@@ -92,17 +92,21 @@ class SideNav extends Component {
                   <Link to={'/mecano_signup'}><i className="material-icons">build</i><p>Inscription mécano</p></Link>
                 }
                 {isAuthenticated ?
-                  <a className='dropdown-button' data-activates='dropdown-connected'><i className="material-icons">account_circle</i><p>Mon compte</p></a>
-                  <div id='dropdown-connected' className='dropdown-background dropdown-content'>
-                    <div className="userView margin-top-20">
-                      {this.profileThumb()}
+                  <div>
+                    <a className='dropdown-button' data-activates='dropdown-connected'><i className="material-icons">account_circle</i><p>Mon compte</p></a>
+                    <div id='dropdown-connected' className='dropdown-background dropdown-content'>
+                      <div className="userView margin-top-20">
+                        {this.profileThumb()}
+                      </div>
                     </div>
                   </div>
                 :
-                  <a className='dropdown-button' data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
-                  <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
-                    <div className="userView margin-top-20">
-                      {this.connectLinks()}
+                  <div>
+                    <a className='dropdown-button' data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
+                    <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
+                      <div className="userView margin-top-20">
+                        {this.connectLinks()}
+                      </div>
                     </div>
                   </div>
                 }
