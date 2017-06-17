@@ -43,7 +43,8 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        dispatch(authError(error.response.data.errors));
+        // dispatch(authError(error.response.data.errors));
+        console.log(error)
         errorHandling(error.response);
       })
   };
