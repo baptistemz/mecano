@@ -23,11 +23,10 @@ export function validateToken(){
           dispatch(receiveLogin(response.data.data));
           setNextHeaders(response.headers);
         }else{
-          dispatch(logoutUser());
+          dispatch(receiveLogout());
         }
       }).catch(error => {
-        errorHandling(error.response);
-        dispatch(logoutUser());
+        dispatch(receiveLogout())
       });
   };
 };
@@ -40,6 +39,8 @@ export function loginUser(data, next_path) {
         dispatch(receiveLogin(response.data.data))
         //STORE TOKEN IN LOCAL STORAGE AND IN AXIOS HEADERS FOR NEXT REQUEST
         setNextHeaders(response.headers)
+        //Send a flash message
+        toastr.success('Connecté', 'Succés de la connexion');
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
@@ -57,6 +58,8 @@ export function signupUser(data, next_path) {
         dispatch(receiveLogin(response.data.data))
         //STORE TOKEN IN LOCAL STORAGE AND IN AXIOS HEADERS FOR NEXT REQUEST
         setNextHeaders(response.headers)
+        //Send a flash message
+        toastr.success('Connecté', 'Succés de la connexion');
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
