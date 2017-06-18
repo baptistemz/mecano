@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -16,6 +17,9 @@ class MecanoProfile extends Component {
             <div className="row">
               <div className="col s12">
                 <div className="box-shadow marged-20 padded-20">
+                  <div className="box-edit btn btn-floating">
+                    <i className="material-icons">edit</i>
+                  </div>
                   <div className="direction-row">
                     <ProfilePicture />
                     <div className="profile-content">
@@ -31,9 +35,15 @@ class MecanoProfile extends Component {
                   </div>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
+                  <div className="box-edit btn btn-floating">
+                    <i className="material-icons">edit</i>
+                  </div>
                   <h5 className="text-center">Avis</h5>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
+                  <div className="box-edit btn btn-floating">
+                    <i className="material-icons">edit</i>
+                  </div>
                   <h5 className="text-center">Domaines techniques</h5>
                   <br/>
                   <ul className="collection">
@@ -43,6 +53,9 @@ class MecanoProfile extends Component {
                   </ul>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
+                  <div className="box-edit btn btn-floating">
+                    <i className="material-icons">edit</i>
+                  </div>
                   <h5 className="text-center">Véhicules</h5>
                   <br/>
                   <p className="green-text">{mecano_profile.all_vehicles ? "intervient sur tous vehicules" : ''}</p>

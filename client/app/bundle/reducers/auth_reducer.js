@@ -22,7 +22,7 @@ export default function (state = INITIAL_STATE, action) {
     case LOGOUT_SUCCESS:
       return INITIAL_STATE
     case LOGIN_SUCCESS:
-      const {email, first_name, last_name, profile_picture, is_mecano} = action.user
+      const { email, first_name, last_name, profile_picture, is_mecano } = action.user
       return { ...state, isAuthenticated: true, errors: {}, email, first_name, last_name, profile_picture, is_mecano }
     case REGISTERED_MECANO:
       return { ...state, is_mecano: true }
