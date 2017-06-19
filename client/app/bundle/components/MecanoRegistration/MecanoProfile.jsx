@@ -35,9 +35,6 @@ class MecanoProfile extends Component {
                   </div>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
-                  <div className="box-edit btn btn-floating">
-                    <i className="material-icons">edit</i>
-                  </div>
                   <h5 className="text-center">Avis</h5>
                 </div>
                 <div className="box-shadow marged-20 padded-20">
