@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import { registerDomains } from '../../actions/index';
+import { reduxForm, Field, initialize } from 'redux-form';
+import { updateTechnicalDomains } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
 
 class DomainEdit extends Component {
+  componentDidMount(){
+    this.handleInitialize();
+  }
+  handleInitialize() {
+    const initData = {};
+    this.props.domains.map((domain)=>{
+      initData[domain] = true;
+    });
+    this.props.initialize(initData);
+  }
   submit(values){
-    const { registerDomains, mecano_profile } = this.props;
+    const { updateTechnicalDomains, mecano_profile } = this.props;
     const data = []
-    Object.keys(values).map((k)=> data.push({kind: "technical_skill", name: k}))
-    console.log(data)
-    registerDomains(mecano_profile.id, {domains: data}, '/mecano_profile')
+    Object.keys(values).map((k)=>{
+        if(values[k] !== ""){data.push({kind: "technical_skill", name: k})};
+      }
+    )
+    updateTechnicalDomains(mecano_profile.id, {domains: data}, '/mecano_profile');
   }
   render(){
     const { handleSubmit } = this.props
     return (
       <div>
-        <Header>Enregistrement mécano 3/3</Header>
+        <Header>Édition du profil mécano</Header>
         <div className="container">
           <div className="row">
             <div className="col s12 text-center">
@@ -52,17 +64,18 @@ class DomainEdit extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({registerDomains}, dispatch);
+  return bindActionCreators({updateTechnicalDomains}, dispatch);
 }
 
 function mapStateToProps(state) {
   return {
-    mecano_profile: state.mecano.mecano_profile
+    mecano_profile: state.mecano.mecano_profile,
+    domains: state.mecano.technical_skills
   }
 }
 
 DomainEdit = reduxForm({
-  form: 'domain_choice'
+  form: 'domain_edit'
 })(connect(mapStateToProps, mapDispatchToProps)(DomainEdit));
 
 export { DomainEdit };

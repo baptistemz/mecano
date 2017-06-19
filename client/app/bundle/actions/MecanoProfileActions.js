@@ -14,7 +14,7 @@ export function registerMecano(data, next_path){
   return dispatch => {
     return axios.post('/api/mecano_profiles', data)
       .then(response => {
-        dispatch(push(next_path))
+        dispatch(push(next_path || '/mecano_profile'))
         dispatch(registeredMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
       }).catch(error => {
@@ -28,7 +28,7 @@ export function updateMecanoProfile(id, data, next_path){
   return dispatch => {
     return axios.put(`/api/mecano_profiles/${id}`, data)
       .then(response => {
-        dispatch(push(next_path))
+        dispatch(push(next_path || '/mecano_profile'))
         dispatch(updatedMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
       }).catch(error => {

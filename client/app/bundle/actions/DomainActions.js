@@ -2,7 +2,9 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { setNextHeaders } from '../utils/tokenManagement';
 import {
-  REGISTERED_DOMAINS
+  REGISTERED_DOMAINS,
+  UPDATED_TECHNICAL_DOMAINS,
+  UPDATED_CAR_DOMAINS
 } from './types';
 
 
@@ -13,7 +15,6 @@ export function registerDomains(id, data, next_path){
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/register_domains`, data)
       .then(response => {
-        console.log("Action", response)
         setNextHeaders(response.headers)
         dispatch(push(next_path || '/mecano_profile'))
         dispatch(registeredDomains(response.data.domains))
@@ -24,6 +25,34 @@ export function registerDomains(id, data, next_path){
       })
   };
 };
+export function updateTechnicalDomains(id, data){
+  return dispatch => {
+    return axios.post(`/api/mecano_profiles/${id}/domains/update_technical_domains`, data)
+      .then(response => {
+        console.log("Action", response)
+        setNextHeaders(response.headers)
+        dispatch(updatedTechnicalDomains(response.data.domains))
+        dispatch(push('/mecano_profile'))
+      }).catch(error => {
+        domainRegistrationError(error)
+        setNextHeaders(error.response.headers)
+      })
+  };
+};
+export function updateCarDomains(id, data, next_path){
+  return dispatch => {
+    return axios.post(`/api/mecano_profiles/${id}/domains/update_car_domains`, data)
+      .then(response => {
+        console.log("Action", response)
+        setNextHeaders(response.headers)
+        dispatch(updatedCarDomains(response.data.domains))
+        dispatch(push('/mecano_profile'))
+      }).catch(error => {
+        domainRegistrationError(error)
+        setNextHeaders(error.response.headers)
+      })
+  };
+};
 
 
 
@@ -31,9 +60,21 @@ export function registerDomains(id, data, next_path){
 // REDUX ACTION CREATORS
 
 export function registeredDomains(domains) {
-  console.log("2nd action", domains)
   return {
     type: REGISTERED_DOMAINS,
+    domains
+  };
+}
+
+export function updatedTechnicalDomains(domains) {
+  return {
+    type: UPDATED_TECHNICAL_DOMAINS,
+    domains
+  };
+}
+export function updatedCarDomains(domains) {
+  return {
+    type: UPDATED_CAR_DOMAINS,
     domains
   };
 }

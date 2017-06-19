@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :mecano_profiles, only: [:create, :update, :show, :index, :destroy] do
       resources :domains, only: [:index]
       post 'domains/register_domains'
+      post 'domains/update_technical_domains'
+      post 'domains/update_car_domains'
     end
   end
   get '/*path' => 'react_app#index'

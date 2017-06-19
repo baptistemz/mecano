@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { reduxForm } from 'redux-form';
+import { reduxForm, initialize } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { updateMecanoProfile } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 
 class MecanoEdit extends Component {
   componentDidMount(){
+    this.handleInitialize();
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
     var options = {componentRestrictions: {country: 'fr'}};
@@ -20,6 +21,18 @@ class MecanoEdit extends Component {
       }
     });
   }
+  handleInitialize() {
+    const { mecano_profile } = this.props;
+    const initData = {
+      "pro": mecano_profile.pro ? 'professionnel' : 'passionné',
+      "mobile": mecano_profile.mobile ? 'oui' : 'non',
+      "full_address": `${mecano_profile.address},${mecano_profile.city},${mecano_profile.country}`,
+      "radius": mecano_profile.radius,
+      "price": mecano_profile.price,
+      "company_name": mecano_profile.company_name
+    };
+    this.props.initialize(initData);
+  }
   submit(values){
     if(values.full_address){
       const splitted_address = values.full_address.split(',');
@@ -29,13 +42,12 @@ class MecanoEdit extends Component {
       values['city'] = splitted_address[splitted_address.length - 2];
       values['address'] = splitted_address[splitted_address.length - 3];
     }else{
-      // this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
+      this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
-    this.props.updateMecanoProfile(this.props.mecano_profile.id, values, '/mecano_vehicles');
+    this.props.updateMecanoProfile(this.props.mecano_profile.id, values);
   }
-
   render(){
-    const { handleSubmit, errors, pro, mobile } = this.props;
+    const { handleSubmit, errors, pro, mobile, mecano_profile } = this.props;
     return (
       <div>
         <Header>Édition du profil mécano</Header>
@@ -91,15 +103,15 @@ class MecanoEdit extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ updateMecanoProfile }, dispatch);
 }
 
 
 function mapStateToProps(state) {
-  const { mecano_registration } = state.form
+  const { mecano_edit } = state.form
   return {
-    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
-    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
+    mobile: (mecano_edit && mecano_edit.values && (mecano_edit.values.mobile === "oui")),
+    pro: (mecano_edit && mecano_edit.values && (mecano_edit.values.pro === "professionnel")),
     mecano_profile: state.mecano.mecano_profile ,
     errors : state.mecano.errors
   }

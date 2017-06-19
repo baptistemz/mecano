@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile } from '../../actions/index';
+import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
 import { Header, Input, RadioButtons } from '../../common/index';
 
@@ -12,6 +12,7 @@ class VehicleEdit extends Component {
     this.props.fetchCarMakes()
   }
   componentDidMount(){
+    this.handleInitialize();
     const { selectCarMake, removeCarMake, car_makes_list }= this.props
     $('.chips').on('chip.add', function(e, chip){
       //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
@@ -45,21 +46,31 @@ class VehicleEdit extends Component {
       }
     });
   }
+  handleInitialize() {
+    const { mecano_profile, mecano_car_makes } = this.props
+    const initData = {
+      "all_vehicles": mecano_profile.all_vehicles ? "tous véhicules" : "certaines marques",
+      "selected_car_makes": mecano_car_makes
+    };
+    this.props.initialize(initData);
+  }
   submit(values){
-    const { registerDomains, updateMecanoProfile, mecano_profile, selected_car_makes } = this.props
+    const { updateCarDomains, updateMecanoProfile, mecano_profile, selected_car_makes } = this.props
+    const data = []
     if(values.all_vehicles === 'certaines marques'){
-      const data = []
       selected_car_makes.map((e)=> data.push({kind: "car_make", name: e.tag}))
-      registerDomains(mecano_profile.id, {domains: data}, '/mecano_domains')
+      updateCarDomains(mecano_profile.id, {domains: data})
+      updateMecanoProfile(mecano_profile.id, { "all_vehicles": false }, '/mecano_profile')
     }else{
-      updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_domains')
+      updateCarDomains(mecano_profile.id, {domains: data})
+      updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_profile')
     }
   }
   render(){
     const { handleSubmit, only_vehicle_brands } = this.props;
     return (
       <div>
-        <Header>Enregistrement mécano 2/3</Header>
+        <Header>Édition du profil mécano</Header>
         <div className="container">
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
@@ -92,7 +103,7 @@ class VehicleEdit extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile }, dispatch);
+  return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile }, dispatch);
 }
 
 function mapStateToProps(state) {
@@ -101,7 +112,8 @@ function mapStateToProps(state) {
     car_makes_list: state.vehicle.car_makes_list,
     selected_car_makes: state.vehicle.selected_car_makes,
     only_vehicle_brands: (vehicle_choice && vehicle_choice.values && (vehicle_choice.values.all_vehicles === "certaines marques")),
-    mecano_profile: state.mecano.mecano_profile
+    mecano_profile: state.mecano.mecano_profile,
+    mecano_car_makes: state.mecano.car_makes
   }
 }
 
