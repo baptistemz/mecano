@@ -139,11 +139,10 @@ If you want to run only specific tests run ```$rspec path_to_test_file```.
 This app is deployed on Heroku. For a good deployment don't forget to pass the environment vars added to your application.yml to heroku. This can be done with the command ```$ figaro heroku:set -e production```or directly in the heroku dashboard. If you added changes to your local database, run ```$heroku run rails db:migrate``` after deploying to get these changes live in production.
 
 
-## API endpoints
+## Useful API endpoints
 All the API endpoints only accept JSON data.
 
 ### Non-protected endpoints
-*
 
 ### Auth endpoints
 * ```POST /api/auth/sign_in``` To create a new session. Accepts ```email:string``` and ```password:string``` params.
