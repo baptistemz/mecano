@@ -127,10 +127,24 @@ Then migrate its content with ```$rails db:migrate```
 
 ## How to run the test suite
 
-For the moment only the API is provides tests. A simple $rspec command will run all the tests. Before that don't forget to mirate the test database with the following command : ```$rails db:migrate RAILS_ENV=test```
+
+For the moment only the API provides tests.
+These tests are written with rspec. A simple ```$rspec``` command will run all the tests. Before that don't forget to mirate the test database with the following command : ```$rails db:migrate RAILS_ENV=test```.
+If you want to run only specific tests run ```$rspec path_to_test_file```.
 
 ## Services (job queues, cache servers, search engines, etc.)
 
 ## Deployment
 
 This app is deployed on Heroku. For a good deployment don't forget to pass the environment vars added to your application.yml to heroku. This can be done with the command ```$ figaro heroku:set -e production```or directly in the heroku dashboard. If you added changes to your local database, run ```$heroku run rails db:migrate``` after deploying to get these changes live in production.
+
+
+## API endpoints
+All the API endpoints only accept JSON data.
+
+### Non-protected endpoints
+*
+### Auth endpoints
+* ```POST /api/auth/sign_in``` To create a new session. Accepts ```email:string``` and ```password:string``` params.
+* ```POST /api/auth``` To create a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
+### Protected endpoints
