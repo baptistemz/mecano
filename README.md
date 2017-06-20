@@ -14,16 +14,20 @@ If you work on windows you may install a Linux subset to get rails running prope
 
 First we need to clean up any previous Ruby installation you might have:
 
-```rvm implode && sudo rm -rf ~/.rvm
+```bash
+rvm implode && sudo rm -rf ~/.rvm
 # If you got "zsh: command not found: rvm", carry on. It means `rvm` is not
 # on your computer, that's what we want!
-sudo rm -rf $HOME/.rbenv /usr/local/rbenv /opt/rbenv /usr/local/opt/rbenv```
+sudo rm -rf $HOME/.rbenv /usr/local/rbenv /opt/rbenv /usr/local/opt/rbenv
+```
 
 Now let's get rbenv and ruby-build packages from Homebrew, they'll be useful.
 
-```brew uninstall --force rbenv ruby-build
+```
+brew uninstall --force rbenv ruby-build
 unset RBENV_ROOT && exec zsh
-brew install rbenv ruby-build && exec zsh```
+brew install rbenv ruby-build && exec zsh
+```
 
 Now, you are ready to install the latest ruby version, and set it as the default version.
 
