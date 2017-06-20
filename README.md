@@ -81,7 +81,8 @@ You should see something starting with ```ruby 2.3.3p```
 
 ```bash
 brew install postgresql
-brew services start postgresql```
+brew services start postgresql
+```
 Once you've done that, let's check if it worked:
 
 ```psql -d postgres```
@@ -91,18 +92,21 @@ If you enter a new prompt like this one, you're good!
 psql (9.5.3)
 Type "help" for help.
 
-postgres=#```
+postgres=#
+```
 To quit it, type ```\q``` then ```Enter```.
 
 
 ### on Linux
 
-```sudo apt-get install -y postgresql postgresql-contrib libpq-dev build-essential
+```
+sudo apt-get install -y postgresql postgresql-contrib libpq-dev build-essential
 echo `whoami` > /tmp/caller
 sudo su - postgres
 psql --command "CREATE ROLE `cat /tmp/caller` LOGIN createdb;"
 exit
-rm -f /tmp/caller```
+rm -f /tmp/caller
+```
 
 ## Configuration
 
