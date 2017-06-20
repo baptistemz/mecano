@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614085519) do
+ActiveRecord::Schema.define(version: 20170620132524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,9 +77,19 @@ ActiveRecord::Schema.define(version: 20170614085519) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
+  create_table "vehicles", force: :cascade do |t|
+    t.string  "brand"
+    t.string  "model"
+    t.integer "year"
+    t.integer "user_id"
+    t.string  "trim"
+    t.index ["user_id"], name: "index_vehicles_on_user_id", using: :btree
+  end
+
   add_foreign_key "domains", "mecano_profiles"
   add_foreign_key "mecano_profiles", "users"
   add_foreign_key "recommendations", "domains"
   add_foreign_key "recommendations", "mecano_profiles"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "vehicles", "users"
 end

@@ -70,6 +70,7 @@ export function signupUser(data, next_path) {
 }
 
 export function updateProfile(data) {
+  console.log(data)
   return dispatch => {
     return axios.put('/api/auth/', data)
     .then(response => {

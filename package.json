@@ -12,6 +12,5 @@
     "test": "rspec"
   },
   "dependencies": {
-    "redux-thunk": "^2.2.0"
   }
 }

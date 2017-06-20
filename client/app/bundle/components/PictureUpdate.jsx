@@ -11,7 +11,7 @@ class PictureUpdate extends Component {
     this.state = { loadingImage: false }
   }
   componentWillReceiveProps(nextprops){
-    const loadingImage = !nextprops.profilePicture
+    const loadingImage = !nextprops.profile_picture
     this.setState({ loadingImage })
   }
   handleImageChange(e) {
@@ -48,4 +48,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateProfile }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(PictureUpdate);
+function mapStateToProps(state) {
+  return {
+    profile_picture: state.auth.profile_picture.thumb.url
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PictureUpdate);
