@@ -161,3 +161,6 @@ All these API endpoints are protected by authentication. The app user must be lo
 * ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_car_domains``` deletes the domains of the current user's mecano_profile which kind is "car_make" and rewrites them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "car_make".
 * ```GET /api/mecano_profiles/:id``` responds with the mecano profile and all its domains.
 * ```GET /api/mecano_profiles/:mecano_profile_id/domains``` responds with all the domains of a mecano.
+* ```GET  /api/vehicles``` responds with the current user's registered vehicles.
+* ```POST /api/vehicles``` creates a new vehicle belonging to the current user.
+* ```DELETE /api/vehicles/:id``` deletes the vehicle only if it belongs to the current user making the request.
