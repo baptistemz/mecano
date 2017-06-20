@@ -145,6 +145,9 @@ All the API endpoints only accept JSON data.
 ### Non-protected endpoints
 
 ### Auth endpoints
+
+The authentications endpoints will respond "client", "uid", "access-token" and "expiry" headers. Your requests to protected endpoints must have these headers to prove the user who is making the requests is well authenticated. After each request to a protected endpoint, the "access-token" sent in response will change. So the default headers of the client must change between each of these requests.
+
 * ```POST /api/auth/sign_in``` To create a new session. Accepts ```email:string``` and ```password:string``` params.
 * ```POST /api/auth``` To create a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
 * ```GET /api/auth/validate_token``` will check your headers and respond with a new token if they are correct.
