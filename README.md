@@ -129,7 +129,7 @@ Then migrate its content with ```$rails db:migrate```
 
 
 For the moment only the API provides tests.
-These tests are written with rspec. A simple ```$rspec``` command will run all the tests. Before that don't forget to mirate the test database with the following command : ```$rails db:migrate RAILS_ENV=test```.
+These tests are written with rspec. A simple ```$rspec``` command will run all the tests. Before that, don't forget to mirate the test database with the following command : ```$rails db:migrate RAILS_ENV=test```.
 If you want to run only specific tests run ```$rspec path_to_test_file```.
 
 ## Services (job queues, cache servers, search engines, etc.)
@@ -146,11 +146,11 @@ All the API endpoints only accept JSON data.
 
 ### Auth endpoints
 
-The authentications endpoints will respond "client", "uid", "access-token" and "expiry" headers. Your requests to protected endpoints must have these headers to prove the user who is making the requests is well authenticated. After each request to a protected endpoint, the "access-token" sent in response will change. So the default headers of the client must be updated between each of these requests.
+The authentications endpoints will respond with "client", "uid", "access-token" and "expiry" headers. Your requests to protected endpoints must have these headers to prove the user who is making the requests is well authenticated. After each request to a protected endpoint, the "access-token" sent in response will change. So the default headers of the client must be updated between each of these requests.
 
-* ```POST /api/auth/sign_in``` To create a new session. Accepts ```email:string``` and ```password:string``` params.
-* ```POST /api/auth``` To create a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
-* ```GET /api/auth/validate_token``` will check your headers and respond with a new token if they are correct.
+* ```POST /api/auth/sign_in``` Creates a new session. Accepts ```email:string``` and ```password:string``` params.
+* ```POST /api/auth``` Creates (register) a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
+* ```GET /api/auth/validate_token``` will check your headers and respond with the user info and a new token in headers if they are correct.
 * ```DELETE /api/auth/sign_out``` will log your user out.
 
 ### Protected endpoints
