@@ -5,18 +5,18 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+##Ruby version
 
 You may install ruby v > 2.3 and rails v > 5.0 to run this app locally.
 If you work on windows you may install a Linux subset to get rails running properly. Maybe you could read this tutorial by gorails : https://gorails.com/setup/windows/10.
 
-* Ruby installation on Mac OSX
+##Ruby installation on Mac OSX
+
 First we need to clean up any previous Ruby installation you might have:
 
 ```rvm implode && sudo rm -rf ~/.rvm
 # If you got "zsh: command not found: rvm", carry on. It means `rvm` is not
 # on your computer, that's what we want!
-
 sudo rm -rf $HOME/.rbenv /usr/local/rbenv /opt/rbenv /usr/local/opt/rbenv```
 
 Now let's get rbenv and ruby-build packages from Homebrew, they'll be useful.
@@ -41,7 +41,7 @@ Then restart your Terminal.
 
 You should see something starting with ```ruby 2.3.3p```.
 
-* Ruby installation on Linux
+##Ruby installation on Linux
 
 First we need to clean up any previous Ruby installation you might have:
 
@@ -75,9 +75,9 @@ Then restart your Terminal.
 You should see something starting with ```ruby 2.3.3p```
 
 
-* Postgresql installation
+##Postgresql installation
 
-**on Mac OSX
+###on Mac OSX
 
 ```brew install postgresql
 brew services start postgresql```
@@ -93,7 +93,7 @@ postgres=#```
 To quit it, type ```\q``` then ```Enter```.
 
 
-**on Linux
+###on Linux
 
 ```sudo apt-get install -y postgresql postgresql-contrib libpq-dev build-essential
 echo `whoami` > /tmp/caller
@@ -102,19 +102,19 @@ psql --command "CREATE ROLE `cat /tmp/caller` LOGIN createdb;"
 exit
 rm -f /tmp/caller```
 
-* Configuration
+##Configuration
 
-* Database initialization
+##Database initialization
 To create your local database, run ```$rails db:create```
 Then migrate its content with ```$rails db:migrate```
 
 
-* How to run the test suite
+##How to run the test suite
 
 For the moment only the API is provides tests. A simple $rspec command will run all the tests. Before that don't forget to mirate the test database with the following command : ```$rails db:migrate RAILS_ENV=test```
 
-* Services (job queues, cache servers, search engines, etc.)
+##Services (job queues, cache servers, search engines, etc.)
 
-* Deployment
+##Deployment
 
 This app is deployed on Heroku. For a good deployment don't forget to pass the environment vars added to your application.yml to heroku. This can be done with the command ```$ figaro heroku:set -e production```or directly in the heroku dashboard. If you added changes to your local database, run ```$heroku run rails db:migrate``` after deploying to get these changes live in production.
