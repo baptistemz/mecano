@@ -9,6 +9,7 @@ Things you may want to cover:
 
 You may install ruby v > 2.3 and rails v > 5.0 to run this app locally.
 If you work on windows you may install a Linux subset to get rails running properly. Maybe you could read this tutorial by gorails : https://gorails.com/setup/windows/10.
+Or this one (using Cloud 9) by lewagon: https://c9.io/
 
 ## Ruby installation on Mac OSX
 
