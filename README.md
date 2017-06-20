@@ -144,7 +144,18 @@ All the API endpoints only accept JSON data.
 
 ### Non-protected endpoints
 *
+
 ### Auth endpoints
 * ```POST /api/auth/sign_in``` To create a new session. Accepts ```email:string``` and ```password:string``` params.
 * ```POST /api/auth``` To create a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
+* ```GET /api/auth/validate_token``` will check your headers and respond with a new token if they are correct.
+* ```DELETE /api/auth/sign_out``` will log your user out.
+
 ### Protected endpoints
+All these API endpoints are protected by authentication. The app user must be logged in and request the API with the right authenticated headers.
+* ```POST /api/mecano_profiles```To create a mecano_profile belonging to the current user. Accepts ```pro:boolean```,```price:integer```, ```company_name:string```, ```address:string```, ```city:string```, ```country:string```, ```mobile:boolean``` and ```radius:integer``` params.
+* ```POST /api/mecano_profiles/:mecano_profile_id/domains/register_domains``` must be called with a list of domains. ```[{ kind:string, name:string }]```, the "kind" of each domain must be either "car_make" of "technical_skill".
+* ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_technical_domains``` will delete the domains of the current user's mecano_profile and rewrite them. Call this endpoint with the same format than for the domain creation.
+* ```POST /api/mecano_profiles/:mecano_profile_id/domains/register_domains``` must be called with a list of domains. ```[{ kind:string, name:string }]```, the "kind" of each domain must be either "car_make" of "technical_skill".
+* ```GET /api/mecano_profiles/:id``` will respond with the mecano profile and all its domains.
+* ```GET /api/mecano_profiles/:mecano_profile_id/domains``` will respond with all the domains of a mecano.
