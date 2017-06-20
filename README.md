@@ -150,14 +150,14 @@ The authentications endpoints will respond with "client", "uid", "access-token" 
 
 * ```POST /api/auth/sign_in``` Creates a new session. Accepts ```email:string``` and ```password:string``` params.
 * ```POST /api/auth``` Creates (register) a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
-* ```GET /api/auth/validate_token``` will check your headers and respond with the user info and a new token in headers if they are correct.
-* ```DELETE /api/auth/sign_out``` will log your user out.
+* ```GET /api/auth/validate_token``` checks your headers and responds with the user info and a new token in headers if they are correct.
+* ```DELETE /api/auth/sign_out``` logs your user out.
 
 ### Protected endpoints
 All these API endpoints are protected by authentication. The app user must be logged in and request the API with the right authenticated headers.
-* ```POST /api/mecano_profiles```To create a mecano_profile belonging to the current user. Accepts ```pro:boolean```,```price:integer```, ```company_name:string```, ```address:string```, ```city:string```, ```country:string```, ```mobile:boolean``` and ```radius:integer``` params.
+* ```POST /api/mecano_profiles``` creates a mecano_profile belonging to the current user. Accepts ```pro:boolean```,```price:integer```, ```company_name:string```, ```address:string```, ```city:string```, ```country:string```, ```mobile:boolean``` and ```radius:integer``` params.
 * ```POST /api/mecano_profiles/:mecano_profile_id/domains/register_domains``` must be called with a list of domains. ```[{ kind:string, name:string }]```, the "kind" of each domain must be either "car_make" of "technical_skill".
-* ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_technical_domains``` will delete the domains of the current user's mecano_profile which kind is "technical_skill" and rewrite them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "technical_skill".
-* ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_car_domains``` will delete the domains of the current user's mecano_profile which kind is "car_make" and rewrite them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "car_make".
-* ```GET /api/mecano_profiles/:id``` will respond with the mecano profile and all its domains.
-* ```GET /api/mecano_profiles/:mecano_profile_id/domains``` will respond with all the domains of a mecano.
+* ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_technical_domains``` deletes the domains of the current user's mecano_profile which kind is "technical_skill" and rewrites them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "technical_skill".
+* ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_car_domains``` deletes the domains of the current user's mecano_profile which kind is "car_make" and rewrites them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "car_make".
+* ```GET /api/mecano_profiles/:id``` responds with the mecano profile and all its domains.
+* ```GET /api/mecano_profiles/:mecano_profile_id/domains``` responds with all the domains of a mecano.
