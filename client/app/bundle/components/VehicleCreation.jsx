@@ -20,7 +20,7 @@ class VehicleCreation extends Component {
      carquery.setFilters( {sold_in_us:true} );
 
      //Optional: initialize the year, make, model, and trim drop downs by providing their element IDs
-     carquery.initYearMakeModelTrim('year', 'brand', 'model', 'trim');
+     carquery.initYearMakeModelTrim('year', 'brand', 'model_select', 'trim');
 
      //Optional: set the onclick event for a button to show car data.
      $('#cq-show-data').click(  function(){ carquery.populateCarData('car-model-data'); } );
@@ -68,13 +68,22 @@ class VehicleCreation extends Component {
      //If creating a search interface, set onclick event for the search button.  Make sure the ID used matches your search button ID.
      $('#cq-search-btn').click( function(){ carquery.search(); } );
   }
+  manageInputs(){
+    if(this.refs.model_not_found.checked){
+      $('#model-select-group').css('display', 'none')
+      $('#model-string-group').css('display', 'block')
+    }else{
+      $('#model-select-group').css('display', 'block')
+      $('#model-string-group').css('display', 'none')
+    }
+  }
   submit(e){
     e.preventDefault()
-    const {year, brand, model } = this.refs
+    const {year, brand, model_select, model_string, model_not_found } = this.refs
     let trim = this.refs.trim.childNodes[0].innerHTML
     trim === "None" ? trim = "" : trim = trim;
-    console.log(trim)
-    const values = {year: year.value, brand: brand.value, model: model.value, trim }
+    const model = model_not_found.checked ? model_string.value : model_select.value
+    const values = {year: year.value, brand: brand.value, model , trim }
     this.props.createVehicle(values)
   }
   render(){
@@ -91,14 +100,28 @@ class VehicleCreation extends Component {
               <label htmlFor="brand">Contructeur</label>
               <select name="brand" ref="brand" id="brand" />
             </div>
-            <div className="col s12 m6 l3">
-              <label htmlFor="model">Modèle</label>
-              <select name="model" ref="model" id="model" />
+            <div id="model-select-group">
+              <div className="col s12 m6 l3">
+                <label htmlFor="model_select">Modèle</label>
+                <select name="model_select" ref="model_select" id="model_select" />
+              </div>
+              <div className="col s12 m6 l3">
+                <label htmlFor="trim">Extension</label>
+                <select name="trim" ref="trim" id="trim" />
+              </div>
             </div>
-            <div className="col s12 m6 l3">
-              <label htmlFor="trim">Extension</label>
-              <select name="trim" ref="trim" id="trim" />
+            <div id="model-string-group">
+              <div className="col s12 m12 l6">
+                <label htmlFor="model_string">Modèle</label>
+                <input name="model_string" ref="model_string" id="model_string" />
+              </div>
             </div>
+          </div>
+          <div className="col offset-l6 s12 l6">
+            <p>
+              <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
+              <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
+            </p>
           </div>
           <Button type="submit">créer</Button>
         </form>

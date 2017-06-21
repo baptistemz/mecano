@@ -26,16 +26,19 @@ class Account extends Component {
         <div className="container">
           <h2>Mes informations personnelles</h2>
           <EditableField
+            label="prénom" 
             type="first_name"
             onSubmit={this.changeProfileField.bind(this)}
             value={first_name}
           />
           <EditableField
+            label="Nom de famille"
             type="last_name"
             onSubmit={this.changeProfileField.bind(this)}
             value={last_name}
           />
           <EditableField
+            label="email"
             type="email"
             onSubmit={this.changeProfileField.bind(this)}
             value={email}

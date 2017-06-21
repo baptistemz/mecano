@@ -29,7 +29,7 @@ class EditableField extends Component {
 
   renderParagraph() {
     return (
-      <div className='frozen-field justify-center align-items'>
+      <div className='frozen-field align-start'>
         <p>{this.props.value}</p>
         <i className="material-icons" onClick={this.edit.bind(this)}>edit</i>
       </div>
@@ -55,6 +55,7 @@ class EditableField extends Component {
   render() {
     return (
       <div>
+        <label>{this.props.label}</label>
         {this.state.editMode ? this.renderInput() : this.renderParagraph()}
       </div>
     );

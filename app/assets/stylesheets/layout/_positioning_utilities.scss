@@ -21,7 +21,10 @@
   display: flex;
   justify-content: center;
 }
-
+.align-start{
+  display: flex;
+  align-items: start;
+}
 .no-margin{
   margin:0
 }
