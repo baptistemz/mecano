@@ -68,7 +68,7 @@ class SideNav extends Component {
           </tbody>
         </table>
         <div className="profile-btn-group">
-          <Link to='/profile'><div className="btn btn-small">Mon compte</div></Link>
+          <Link to='/my_account'><div className="btn btn-small">Mon compte</div></Link>
           <a onClick={this.logout.bind(this)}><div className="btn btn-small">Déconnexion</div></a>
         </div>
       </div>

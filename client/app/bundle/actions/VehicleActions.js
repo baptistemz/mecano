@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { setNextHeaders } from '../utils/tokenManagement';
 import {
   GOT_CAR_MAKES,
-  GOT_CAR_MODELS,
   SELECTED_CAR_MAKE,
-  REMOVED_CAR_MAKE
+  REMOVED_CAR_MAKE,
+  GOT_VEHICLES,
+  CREATED_VEHICLE,
+  DELETED_VEHICLE
 } from './types';
 
 
@@ -21,7 +24,42 @@ export function fetchCarMakes(){
   }
 };
 
+export function fetchVehicles(){
+  return dispatch => {
+    axios.get('/api/vehicles')
+      .then(response => {
+        console.log(response.headers)
+        dispatch(gotVehicles(response.data.vehicles));
+      }).catch(error => {
+        console.log("ERROR", error)
+      })
+  }
+};
 
+export function createVehicle(vehicle){
+  return dispatch => {
+    axios.post('/api/vehicles', vehicle)
+      .then(response => {
+        dispatch(createdVehicle(response.data.vehicle));
+        setNextHeaders(response.headers);
+      }).catch(error => {
+        console.log("ERROR", error)
+      })
+  }
+};
+
+export function deleteVehicle(vehicle_id){
+  return dispatch => {
+    axios.delete(`/api/vehicles/${vehicle_id}`)
+      .then(response => {
+        dispatch(deletedVehicle(response.data.vehicle));
+        console.log(response.headers)
+        setNextHeaders(response.headers);
+      }).catch(error => {
+        console.log("ERROR", error)
+      })
+  }
+};
 
 
 // REDUX ACTION CREATORS
@@ -48,3 +86,22 @@ export function removeCarMake(carMake){
     carMake
   };
 };
+
+export function gotVehicles(vehicles) {
+  return {
+    type: GOT_VEHICLES,
+    vehicles
+  }
+}
+export function createdVehicle(vehicle) {
+  return {
+    type: CREATED_VEHICLE,
+    vehicle
+  }
+}
+export function deletedVehicle(vehicle) {
+  return {
+    type: DELETED_VEHICLE,
+    vehicle
+  }
+}

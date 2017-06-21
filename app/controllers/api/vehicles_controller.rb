@@ -14,7 +14,10 @@ module Api
       @vehicles = current_api_user.vehicles
     end
 
-    def delete
+    def destroy
+      @vehicle = current_api_user.vehicles.find(params[:id])
+      @vehicle.destroy
+      render :show
     end
 
     private
