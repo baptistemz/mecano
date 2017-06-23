@@ -126,6 +126,12 @@ To create your local database, run ```$rails db:create```
 Then migrate its content with ```$rails db:migrate```
 
 
+## How to run the app locally
+
+
+The command ```$foreman start -f Procfile.dev```will start webpack and the rails server. The visit the app on ```http://localhost:3000```.
+
+
 ## How to run the test suite
 
 

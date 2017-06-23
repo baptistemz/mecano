@@ -83,7 +83,7 @@ class SideNav extends Component {
             <div className="space-between">
               <div className="space-between">
                 <Link to={'/'}><i className="material-icons">home</i><p>Accueil</p></Link>
-                <Link to={'/'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
+                <Link to={'/mecano_search'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
               </div>
               <div className="space-between">
                 {isMecano ?
@@ -121,13 +121,12 @@ class SideNav extends Component {
               </div>
             </li>
             <li><Link to={'/'}><i className="material-icons">home</i>Accueil</Link></li>
+            <li><Link to={'/mecano_search'}><i className="material-icons">search</i>Trouver un mécano</Link></li>
             {isMecano ?
               <li><Link to={'/mecano_profile'}><i className="material-icons">build</i>Mon profil mécano</Link></li>
             :
               <li><Link to={'/mecano_signup'}><i className="material-icons">build</i>Créer un profil mécano</Link></li>
             }
-            <li><div className="divider" /></li>
-            <li><Link to={'/protected'}><i className="material-icons">not_interested</i>Protégé</Link></li>
           </ul>
           <a data-activates="slide-out" className="button-collapse">
             <i className="material-icons hide-on-large-only" id="burger-menu">menu</i>
