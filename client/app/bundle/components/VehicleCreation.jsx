@@ -77,6 +77,44 @@ class VehicleCreation extends Component {
       $('#model-string-group').css('display', 'none')
     }
   }
+  fields(){
+    return(
+      <div>
+        <div className="row">
+          <div className="col s12 m6 l3">
+            <label htmlFor="year">Année</label>
+            <select name="year" ref="year" id="year" />
+          </div>
+          <div className="col s12 m6 l3">
+            <label htmlFor="brand">Contructeur</label>
+            <select name="brand" ref="brand" id="brand" />
+          </div>
+          <div id="model-select-group">
+            <div className="col s12 m6 l3">
+              <label htmlFor="model_select">Modèle</label>
+              <select name="model_select" ref="model_select" id="model_select" />
+            </div>
+            <div className="col s12 m6 l3">
+              <label htmlFor="trim">Extension</label>
+              <select name="trim" ref="trim" id="trim" />
+            </div>
+          </div>
+          <div id="model-string-group">
+            <div className="col s12 m12 l6">
+              <label htmlFor="model_string">Modèle</label>
+              <input name="model_string" ref="model_string" id="model_string" />
+            </div>
+          </div>
+        </div>
+        <div className="col offset-l6 s12 l6">
+          <p>
+            <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
+            <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
+          </p>
+        </div>
+      </div>
+    )
+  }
   submit(e){
     e.preventDefault()
     const {year, brand, model_select, model_string, model_not_found } = this.refs
@@ -87,44 +125,14 @@ class VehicleCreation extends Component {
     this.props.createVehicle(values)
   }
   render(){
-    const { handleSubmit } = this.props;
+    const { handleSubmit, wholeForm } = this.props;
     return(
       <div>
-        <form onSubmit={(e) => this.submit(e)}>
-          <div className="row">
-            <div className="col s12 m6 l3">
-              <label htmlFor="year">Année</label>
-              <select name="year" ref="year" id="year" />
-            </div>
-            <div className="col s12 m6 l3">
-              <label htmlFor="brand">Contructeur</label>
-              <select name="brand" ref="brand" id="brand" />
-            </div>
-            <div id="model-select-group">
-              <div className="col s12 m6 l3">
-                <label htmlFor="model_select">Modèle</label>
-                <select name="model_select" ref="model_select" id="model_select" />
-              </div>
-              <div className="col s12 m6 l3">
-                <label htmlFor="trim">Extension</label>
-                <select name="trim" ref="trim" id="trim" />
-              </div>
-            </div>
-            <div id="model-string-group">
-              <div className="col s12 m12 l6">
-                <label htmlFor="model_string">Modèle</label>
-                <input name="model_string" ref="model_string" id="model_string" />
-              </div>
-            </div>
-          </div>
-          <div className="col offset-l6 s12 l6">
-            <p>
-              <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
-              <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
-            </p>
-          </div>
-          <Button type="submit">créer</Button>
-        </form>
+        {wholeForm ?
+          <form onSubmit={(e) => this.submit(e)}>{this.fields()}<Button type="submit">enregistrer</Button></form>
+          :
+          this.fields()
+        }
       </div>
     )
   }

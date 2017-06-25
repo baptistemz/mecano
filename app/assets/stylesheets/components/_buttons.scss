@@ -20,36 +20,36 @@
 }
 
 // RADIO BUTTONS
-[type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
+.radioinput:not(:checked) + label, .radioinput:checked + label{
   padding: 8px 40px 32px 60px;
   border-radius: 3px;
   margin: 0 5px;
 }
 
-[type="radio"] + label:before, [type="radio"] + label:after{
+.radioinput + label:before, .radioinput + label:after{
   left: 15px;
   top: 8px;
 }
 
-[type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
+.radioinput:not(:checked) + label, .radioinput:checked + label{
   color: white;
 }
 
-[type="radio"]:not(:checked) + label{
+.radioinput:not(:checked) + label{
   background-color: #0C3D5E;
 
 }
 
-[type="radio"]:not(:checked) + label:before, [type="radio"]:not(:checked) + label:after{
+.radioinput:not(:checked) + label:before, .radioinput:not(:checked) + label:after{
   border-color: white;
   background-color: white;
 }
 
-[type="radio"]:checked + label{
+.radioinput:checked + label{
   background-color: #328BC3;
 }
 
-[type="radio"]:checked + label:before, [type="radio"]:checked + label:after{
+.radioinput:checked + label:before, .radioinput:checked + label:after{
   border-color: white;
   background-color: #328BC3;
 }

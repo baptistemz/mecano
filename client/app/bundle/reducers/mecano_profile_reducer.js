@@ -52,14 +52,12 @@ export default function (state = INITIAL_STATE, action) {
       action.domains.map((domain) =>{
         if(!updated_technical_skills.includes(domain.name)){updated_technical_skills.push(domain.name)};
       })
-      console.log("updated_technical_skills", updated_technical_skills);
       return { ...state, technical_skills: updated_technical_skills }
     case UPDATED_CAR_DOMAINS:
       const updated_car_makes = [];
       action.domains.map((domain) =>{
         if(!updated_car_makes.includes(domain.name)){updated_car_makes.push(domain.name)};
       })
-      console.log("updated_car_makes", updated_car_makes);
       return { ...state, car_makes: updated_car_makes }
     default:
       return state;

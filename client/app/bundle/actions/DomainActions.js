@@ -11,7 +11,6 @@ import {
 // EXTERNAL API CALLS
 
 export function registerDomains(id, data, next_path){
-  console.log(id, data, next_path)
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/register_domains`, data)
       .then(response => {
@@ -29,7 +28,6 @@ export function updateTechnicalDomains(id, data){
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/update_technical_domains`, data)
       .then(response => {
-        console.log("Action", response)
         setNextHeaders(response.headers)
         dispatch(updatedTechnicalDomains(response.data.domains))
         dispatch(push('/mecano_profile'))
@@ -43,7 +41,6 @@ export function updateCarDomains(id, data, next_path){
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/update_car_domains`, data)
       .then(response => {
-        console.log("Action", response)
         setNextHeaders(response.headers)
         dispatch(updatedCarDomains(response.data.domains))
         dispatch(push('/mecano_profile'))

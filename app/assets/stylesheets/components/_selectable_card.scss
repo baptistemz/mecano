@@ -2,7 +2,6 @@
   cursor: pointer;
   position: relative;
   display: block;
-  border: red;
   background-size: cover;
   background-position: center;
   & .card-content{
@@ -38,8 +37,6 @@
   }
 }
 
-
-
 .selectable-card {
   height: 152px;
   object-fit: cover;
@@ -49,6 +46,7 @@
 .card-input:checked + .selectable-card .selection-overlay {
   opacity: 1;
 }
+
 .card-input {
   display: none;
 }

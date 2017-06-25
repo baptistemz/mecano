@@ -28,7 +28,6 @@ export function fetchVehicles(){
   return dispatch => {
     axios.get('/api/vehicles')
       .then(response => {
-        console.log(response.headers)
         dispatch(gotVehicles(response.data.vehicles));
       }).catch(error => {
         console.log("ERROR", error)
@@ -53,7 +52,6 @@ export function deleteVehicle(vehicle_id){
     axios.delete(`/api/vehicles/${vehicle_id}`)
       .then(response => {
         dispatch(deletedVehicle(response.data.vehicle));
-        console.log(response.headers)
         setNextHeaders(response.headers);
       }).catch(error => {
         console.log("ERROR", error)

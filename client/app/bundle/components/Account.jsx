@@ -26,7 +26,7 @@ class Account extends Component {
         <div className="container">
           <h2>Mes informations personnelles</h2>
           <EditableField
-            label="prénom" 
+            label="prénom"
             type="first_name"
             onSubmit={this.changeProfileField.bind(this)}
             value={first_name}
@@ -48,7 +48,8 @@ class Account extends Component {
           <div className="row">
             {vehicles.map((vehicle)=>{
               return <VehicleCard
-                key={`${vehicle.brand}${vehicle.model}${vehicle.year}${vehicle.trim}`}
+                key={`${vehicle.id}`}
+                id={`${vehicle.id}`}
                 year={vehicle.year}
                 model={vehicle.model}
                 brand={vehicle.brand}
@@ -57,7 +58,7 @@ class Account extends Component {
                 />
             })}
           </div>
-          <VehicleCreation submit={(values) => console.log("values, values")} />
+          <VehicleCreation wholeForm={true} />
         </div>
       </div>
     );

@@ -11,7 +11,7 @@ class MecanoRegistration extends Component {
   componentDidMount(){
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
-    var options = {componentRestrictions: {country: 'fr'}};
+    var options = {};
     new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {

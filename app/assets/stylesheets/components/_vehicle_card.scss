@@ -1,0 +1,15 @@
+.vehicle-card{
+  padding: 36px;
+  background-image: url("/car_background.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  & a, h6, p {
+    z-index: 2
+  }
+}
+
+.vehicle-card .box-edit {
+  top: inherit !important;
+  bottom: 10px;
+}
