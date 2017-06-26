@@ -15,7 +15,7 @@ class MecanoProfile extends Component {
           <div className="container">
             <div className="row">
               <div className="col s12">
-                <div className="box-shadow marged-20 padded-20">
+                <div className="box-shadow white-background white-background marged-20 padded-20">
                   <Link to={"/mecano_edit"}>
                     <div className="box-edit btn btn-floating">
                       <i className="material-icons">edit</i>
@@ -35,10 +35,10 @@ class MecanoProfile extends Component {
                     {mecano_profile.mobile ? <p className="no-margin green-text">Se déplace</p> : <p className="no-margin red-text">Ne se déplace pas</p>}
                   </div>
                 </div>
-                <div className="box-shadow marged-20 padded-20">
+                <div className="box-shadow white-background marged-20 padded-20">
                   <h5 className="text-center">Avis</h5>
                 </div>
-                <div className="box-shadow marged-20 padded-20">
+                <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/domain_edit'}>
                     <div className="box-edit btn btn-floating">
                       <i className="material-icons">edit</i>
@@ -52,7 +52,7 @@ class MecanoProfile extends Component {
                     })}
                   </ul>
                 </div>
-                <div className="box-shadow marged-20 padded-20">
+                <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/vehicle_edit'}>
                     <div className="box-edit btn btn-floating">
                       <i className="material-icons">edit</i>
