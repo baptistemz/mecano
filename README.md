@@ -145,6 +145,27 @@ If you want to run only specific tests run ```$rspec path_to_test_file```.
 
 This app is deployed on Heroku. For a good deployment don't forget to pass the environment vars added to your application.yml to heroku. This can be done with the command ```$ figaro heroku:set -e production```or directly in the heroku dashboard. If you added changes to your local database, run ```$heroku run rails db:migrate``` after deploying to get these changes live in production.
 
+## Debugging
+
+### The API
+
+Read the logs after having started the server. Rails will often give you the method and the line an error comes from.
+To debugg the rails API use Rails logger debugger to print anything in the console
+For example to print the value of ```@variable``` write :
+```
+Rails.logger.debug("@variable: #{@variable}")
+```
+At the place you want to check its value and read the logs in your terminal
+
+### The React app
+
+Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.
+To debugg the rails API use Rails logger debugger to print anything in the console
+For example to print the value of ```@variable``` write :
+```
+Rails.logger.debug("@variable: #{@variable}")
+```
+At the place you want to check its value and read the logs in your terminal
 
 ## Useful API endpoints
 All the API endpoints only accept JSON data.
@@ -159,6 +180,7 @@ The authentications endpoints will respond with "client", "uid", "access-token" 
 * ```POST /api/auth``` Creates (register) a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
 * ```GET /api/auth/validate_token``` checks your headers and responds with the user info and a new token in headers if they are correct.
 * ```DELETE /api/auth/sign_out``` logs your user out.
+
 
 ### Protected endpoints
 All these API endpoints are protected by authentication. The app user must be logged in and request the API with the right authenticated headers.
