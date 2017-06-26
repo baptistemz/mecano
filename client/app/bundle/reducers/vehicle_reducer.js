@@ -4,7 +4,8 @@ import {
   REMOVED_CAR_MAKE,
   GOT_VEHICLES,
   CREATED_VEHICLE,
-  DELETED_VEHICLE
+  DELETED_VEHICLE,
+  LOGOUT_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -15,6 +16,8 @@ const INITIAL_STATE = {
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
+    case LOGOUT_SUCCESS:
+      return INITIAL_STATE;
     case GOT_CAR_MAKES:
       return { ...state, car_makes_list: action.car_makes_list}
     case SELECTED_CAR_MAKE:

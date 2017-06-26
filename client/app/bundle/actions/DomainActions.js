@@ -59,7 +59,7 @@ export function updateCarDomains(id, data, next_path){
 export function registeredDomains(domains) {
   return {
     type: REGISTERED_DOMAINS,
-    domains
+    domains: domains
   };
 }
 

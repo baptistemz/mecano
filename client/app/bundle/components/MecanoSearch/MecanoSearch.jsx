@@ -13,7 +13,7 @@ class MecanoSearch extends Component {
   componentDidMount(){
     $('ul.tabs').tabs();
     var input = document.getElementById('icon_full_address');
-    var options = {};
+    var options = {'country': ['fr', 'be', 'ch']};
     new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {

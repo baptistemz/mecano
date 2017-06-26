@@ -4,7 +4,8 @@ import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import {
   MECANO_REGISTRATION_ERROR,
   REGISTERED_MECANO,
-  UPDATED_MECANO
+  UPDATED_MECANO,
+  GOT_MECANO
 } from './types';
 
 
@@ -39,6 +40,17 @@ export function updateMecanoProfile(id, data, next_path){
   };
 };
 
+export function fetchMecanoProfile(id){
+  return dispatch => {
+    axios.get(`/api/mecano_profiles/${id}`)
+      .then(response => {
+        dispatch(gotMecanoProfile(response.data.mecano_profile));
+      }).catch(error => {
+        console.log("ERROR", error)
+      })
+  }
+};
+
 
 // REDUX ACTION CREATORS
 
@@ -52,6 +64,13 @@ export function registeredMecano(mecano_profile) {
 export function updatedMecano(mecano_profile) {
   return {
     type: UPDATED_MECANO,
+    mecano_profile
+  };
+}
+
+export function gotMecanoProfile(mecano_profile) {
+  return {
+    type: GOT_MECANO,
     mecano_profile
   };
 }

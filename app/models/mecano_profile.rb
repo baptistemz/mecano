@@ -1,7 +1,7 @@
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains
-  
+
   validates_uniqueness_of :user_id
   validates_presence_of :address, :city, :country
   validates :pro, inclusion: { in: [ true, false ] }
@@ -13,6 +13,8 @@ class MecanoProfile < ActiveRecord::Base
     mobile.validates_presence_of :radius
   end
   after_create :set_user_as_mecano
+  geocoded_by :full_address   # can also be an IP address
+  after_validation :geocode          # auto-fetch coordinates
 
   private
 
@@ -26,6 +28,10 @@ class MecanoProfile < ActiveRecord::Base
 
   def set_user_as_mecano
     self.user.update(is_mecano: true)
+  end
+
+  def full_address
+    return "#{address}, #{city}, #{country}"
   end
 
 end

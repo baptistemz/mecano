@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { fetchMecanoProfile } from '../../actions/index';
 import { Header, ProfilePicture } from '../../common/index';
 
 class MecanoProfile extends Component {
+  componentWillMount(){
+    this.props.fetchMecanoProfile(this.props.mecano_profile.id);
+  }
   render(){
     const { mecano_profile, car_makes, technical_skills, pro, first_name, last_name } = this.props;
     return (
@@ -77,7 +81,7 @@ class MecanoProfile extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ fetchMecanoProfile }, dispatch);
 }
 
 function mapStateToProps({ mecano, auth }) {

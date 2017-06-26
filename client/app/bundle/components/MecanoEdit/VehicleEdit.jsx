@@ -28,7 +28,7 @@ class VehicleEdit extends Component {
         selectCarMake(chip)
       }
     });
-    $('.chips').on('chip.remove', function(e, chip){
+    $('.chips').on('chip.delete', function(e, chip){
       removeCarMake(chip)
     });
   }

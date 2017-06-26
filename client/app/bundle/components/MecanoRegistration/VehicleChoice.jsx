@@ -11,25 +11,32 @@ class VehicleChoice extends Component {
     //GET CAR MAKES LIST
     this.props.fetchCarMakes()
   }
-  componentDidMount(){
-    const { selectCarMake, removeCarMake, car_makes_list }= this.props
-    $('.chips').on('chip.add', function(e, chip){
-      //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
-      if(!(chip.tag in car_makes_list)){
-        for(var key in e.target.children) {
-          if(e.target.children.hasOwnProperty(key)){
-            if( e.target.children[key].innerText === `${chip.tag}close`){
-              e.target.children[key].remove()
-            }
-          }
-        }
-      }else{
-        selectCarMake(chip)
-      }
-    });
-    $('.chips').on('chip.remove', function(e, chip){
+  componentDidMount(car_makes_list){
+    const { removeCarMake } = this.props;
+    $('.chips').on('chip.delete', function(e, chip){
       removeCarMake(chip)
     });
+    $('.chips').on('chip.add', function(e, chip){
+      chipAdd(e, chip)
+    });
+    const chipAdd = (e, chip) =>{
+      this.chipAdd(e, chip)
+    }
+  }
+  chipAdd(e, chip){
+    const { selectCarMake, car_makes_list } = this.props;
+    //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
+    if(!(chip.tag in car_makes_list)){
+      for(var key in e.target.children) {
+        if(e.target.children.hasOwnProperty(key)){
+          if( e.target.children[key].innerText === `${chip.tag}close`){
+            e.target.children[key].remove()
+          }
+        }
+      }
+    }else{
+      selectCarMake(chip)
+    }
   }
   componentWillReceiveProps(newProps){
     //AUTOCOMPLETE
@@ -56,7 +63,7 @@ class VehicleChoice extends Component {
     }
   }
   render(){
-    const { handleSubmit, only_vehicle_brands } = this.props;
+    const { handleSubmit, only_vehicle_brands, car_makes_list } = this.props;
     return (
       <div>
         <Header>Enregistrement mécano 2/3</Header>

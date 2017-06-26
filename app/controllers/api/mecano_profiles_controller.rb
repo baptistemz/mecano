@@ -21,13 +21,8 @@ module Api
     end
 
     def index
-      # invited_mecano_profiles = []
-      # current_user.invitations.joins(:mecano_profile).where("mecano_profiles.user_id != ?", current_user.id).each do |i|
-      #   invited_mecano_profiles.push(i.mecano_profile)
-      # end
-      # @mecano_profiles = current_user.mecano_profiles
-      # @contributions = invited_mecano_profiles
-      # render :index
+      MecanoProfile.all
+      render :index
     end
 
     def show

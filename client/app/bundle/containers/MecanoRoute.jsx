@@ -7,7 +7,7 @@ const MecanoRoute = ({ component: Component, isAuthenticated, isMecano,  registe
       <Component {...props}/>
     ) : (
       <Redirect to={{
-        pathname: `/${registerMethod}`,
+        pathname: '/',
         state: { from: props.location, redirected: true },
       }}/>
     )

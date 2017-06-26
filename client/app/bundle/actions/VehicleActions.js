@@ -75,13 +75,13 @@ export function gotCarMakes(data) {
 export function selectCarMake(carMake){
   return {
     type: SELECTED_CAR_MAKE,
-    carMake
+    carMake: carMake
   };
 };
 export function removeCarMake(carMake){
   return {
     type: REMOVED_CAR_MAKE,
-    carMake
+    carMake: carMake
   };
 };
 

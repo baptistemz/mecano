@@ -39,6 +39,7 @@ gem 'devise_token_auth', '~> 0.1.41'
 gem 'carrierwave-base64'
 gem 'cloudinary'
 gem 'figaro'
+gem 'geocoder'
 
 gem "react_on_rails", "~> 7"
 

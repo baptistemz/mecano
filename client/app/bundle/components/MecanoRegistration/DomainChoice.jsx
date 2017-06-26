@@ -51,7 +51,7 @@ class DomainChoice extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({registerDomains}, dispatch);
+  return bindActionCreators({ registerDomains }, dispatch);
 }
 
 function mapStateToProps(state) {

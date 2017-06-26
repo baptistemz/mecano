@@ -3,23 +3,35 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
+import { change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 
 class MecanoRegistration extends Component {
+  constructor() {
+    super()
+    this.state = { loading: false }
+  }
   componentDidMount(){
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
-    var options = {};
-    new google.maps.places.Autocomplete(input, options);
+    var options = {'country': ['fr', 'be', 'ch']};
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
       }
     });
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      triggerAutocomplete(this.gm_accessors_.place.Fc.formattedPrediction)
+    });
+    const triggerAutocomplete = (value) => {
+      this.props.change('mecano_registration', 'full_address', value)
+    }
   }
+
   submit(values){
     if(values.full_address){
       const splitted_address = values.full_address.split(',');
@@ -31,13 +43,17 @@ class MecanoRegistration extends Component {
     }else{
       this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     }
+    this.setState({ loading: true });
     this.props.registerMecano(values, '/mecano_vehicles')
   }
 
   render(){
-    const { handleSubmit, errors, pro, mobile, isMecano } = this.props;
+    const { handleSubmit, errors, pro, mobile, isMecano, full_address } = this.props;
     if(isMecano){
       return <Redirect to={{pathname: '/mecano_vehicles'}}/>
+    }
+    if(this.state.loading){
+      return <Loader />
     }
     return (
       <div>
@@ -65,7 +81,7 @@ class MecanoRegistration extends Component {
             <div className="col s12 l6 text-center">
               <br/>
               <h2>Données géographiques</h2>
-              <Input icon="explore" name="full_address" type="text" error={errors.address} />
+              <Input id='gplaces' icon="explore" name="full_address" type="text" error={errors.address} />
               <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
               {
                 mobile ?
@@ -94,7 +110,7 @@ class MecanoRegistration extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ registerMecano, mecanoRegistrationError }, dispatch);
+  return bindActionCreators({ registerMecano, mecanoRegistrationError, change }, dispatch);
 }
 
 

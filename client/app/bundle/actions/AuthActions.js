@@ -14,7 +14,6 @@ import {
 // API CALLS
 
 export function validateToken(){
-  console.log(localStorage)
   return dispatch => {
     axios.defaults.headers.common = getHeadersObject(localStorage);
     const request = axios.get('/api/auth/validate_token?unbatch=true')
