@@ -24,27 +24,39 @@ class Account extends Component {
       <div>
         <Header>Mon compte</Header>
         <div className="container">
-          <h2>Mes informations personnelles</h2>
-          <EditableField
-            label="prénom"
-            type="first_name"
-            onSubmit={this.changeProfileField.bind(this)}
-            value={first_name}
-          />
-          <EditableField
-            label="Nom de famille"
-            type="last_name"
-            onSubmit={this.changeProfileField.bind(this)}
-            value={last_name}
-          />
-          <EditableField
-            label="email"
-            type="email"
-            onSubmit={this.changeProfileField.bind(this)}
-            value={email}
-          />
+          <div className="text-center">
+            <h2>Mes informations personnelles</h2>
+          </div>
+          <div className="row">
+            <div className="col s6 m4">
+              <EditableField
+                label="prénom"
+                type="first_name"
+                onSubmit={this.changeProfileField.bind(this)}
+                value={first_name}
+                />
+            </div>
+            <div className="col s6 m4">
+              <EditableField
+                label="Nom de famille"
+                type="last_name"
+                onSubmit={this.changeProfileField.bind(this)}
+                value={last_name}
+                />
+            </div>
+            <div className="col s12 m4">
+              <EditableField
+                label="email"
+                type="email"
+                onSubmit={this.changeProfileField.bind(this)}
+                value={email}
+                />
+            </div>
+          </div>
           <PictureUpdate />
-          <h2>Mes véhicules</h2>
+          <div className="text-center">
+            <h2>Mes véhicules</h2>
+          </div>
           <div className="row">
             {vehicles.map((vehicle)=>{
               return <VehicleCard

@@ -21,7 +21,21 @@ module Api
     end
 
     def index
-      MecanoProfile.all
+      if params[:distance] == "0"
+        coord = Geocoder.coordinates(params[:full_address])
+        @mecano_profiles = MecanoProfile.where(
+          '(mobile= ?) AND
+           (min_lat < ?) AND
+           (max_lat > ?) AND
+           (min_lng < ?) AND
+           (max_lng > ?)',
+           true, coord[0], coord[0], coord[1], coord[1]
+          )
+        @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+      else
+        @mecano_profiles = MecanoProfile.near(params[:full_address], params[:distance], :units => :km)
+        @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+      end
       render :index
     end
 

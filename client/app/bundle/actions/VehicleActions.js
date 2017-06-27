@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toastr } from 'react-redux-toastr';
 import { setNextHeaders } from '../utils/tokenManagement';
 import {
   GOT_CAR_MAKES,
@@ -40,6 +41,7 @@ export function createVehicle(vehicle){
     axios.post('/api/vehicles', vehicle)
       .then(response => {
         dispatch(createdVehicle(response.data.vehicle));
+        toastr.success(`Mon ${vehicle.brand} ${vehicle.model} de ${vehicle.year} a bien été enregistré`);
         setNextHeaders(response.headers);
       }).catch(error => {
         console.log("ERROR", error)

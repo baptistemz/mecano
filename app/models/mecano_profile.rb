@@ -1,6 +1,10 @@
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains
+
+  scope :domains, -> (domains) { joins(:domains).where( 'domains.name = ?', domains).distinct }
+  scope :vehicle, -> (vehicle) { joins(:domains).where( '(all_vehicles = ?) or (domains.name = ?)', true, vehicle ).distinct}
+
   validates_uniqueness_of :user_id
   validates_presence_of :address, :city, :country
   validates :pro, inclusion: { in: [ true, false ] }

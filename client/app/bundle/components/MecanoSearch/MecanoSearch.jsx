@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { Link } from 'react-router-dom';
 import { fetchVehicles } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
 import VehicleCreation from '../VehicleCreation';
@@ -13,7 +14,7 @@ class MecanoSearch extends Component {
   componentDidMount(){
     $('ul.tabs').tabs();
     var input = document.getElementById('icon_full_address');
-    var options = {'country': ['fr', 'be', 'ch']};
+    var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
     new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {
@@ -33,19 +34,23 @@ class MecanoSearch extends Component {
     //   this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
     // }
     // this.props.registerMecano(values, '/mecano_vehicles')
+    if (this.props.isAuthenticated) {
+
+    }
     console.log(values)
-    console.loh(this)
+    console.log(this.props.children)
+    console.log(this)
   }
   vehicleDisplay(vehicle){
     return(
-      <div key={vehicle.id} style={{ margin: 0 }}>
-        <Field className='radioinput' name="vehicle_choice" component="input" type="radio" id={`vehicle-${vehicle.id}`} value={ `vehicle-${vehicle.id}` } />
+      <div key={vehicle.id} style={{ margin: "5px 10px" }}>
+        <Field className='radioinput' name="vehicle_choice" component="input" type="radio" id={`vehicle-${vehicle.id}`} value={`${vehicle.id}`} />
         <label htmlFor={`vehicle-${vehicle.id}`}>{ `${vehicle.brand}, ${vehicle.model} ${vehicle.trim}, ${vehicle.year} ` }</label>
       </div>
     )
   }
   render(){
-    const { handleSubmit, vehicles } = this.props
+    const { handleSubmit, vehicles, isAuthenticated } = this.props
     return (
       <div>
         <Header>Recherche mécano 1/2</Header>
@@ -53,16 +58,22 @@ class MecanoSearch extends Component {
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12">
-              <h2>Votre Voiture</h2>
-                <ul className="tabs">
-                  <li className='tab'>
-                    <a href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
-                  </li>
-                  <li className="tab">
-                    <a className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
-                  </li>
-                </ul>
-                <div id="registered_vehicles">
+              <div className="text-center">
+                <h2>Ma Voiture</h2>
+              </div>
+                { isAuthenticated ?
+                  <ul className="tabs tabs-fixed-width margin-bottom-20">
+                    <li className='tab'>
+                      <a href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
+                    </li>
+                    <li className="tab">
+                      <a className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
+                    </li>
+                  </ul>
+                  :
+                  <div></div>
+                }
+                <div id="registered_vehicles" className="wrap">
                   {
                     vehicles.map((vehicle)=>{
                       return this.vehicleDisplay(vehicle)
@@ -76,7 +87,9 @@ class MecanoSearch extends Component {
               <div className="col s12 text-center">
                 <h2>Lieu de réparation</h2>
                 <Input icon="explore" name="full_address" type="text" />
+                <RadioButtons name="distance" label="" options={["À domicile", "< 10 km", "< 50 km"]} />
               </div>
+
               <div className="col s12">
                 <p className="red-text"></p>
                 <div className="space-between">
@@ -96,9 +109,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({fetchVehicles}, dispatch);
 }
 
-function mapStateToProps({vehicle}) {
+function mapStateToProps({vehicle, auth}) {
   return {
     vehicles: vehicle.user_vehicles,
+    isAuthenticated: auth.isAuthenticated
   }
 }
 
