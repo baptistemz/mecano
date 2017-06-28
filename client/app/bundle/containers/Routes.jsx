@@ -10,7 +10,7 @@ import Login from '../components/Login';
 import { Header } from '../common/index';
 import { MecanoRegistration, VehicleChoice, DomainChoice, MecanoProfile } from '../components/MecanoRegistration/index';
 import { MecanoEdit, VehicleEdit, DomainEdit } from '../components/MecanoEdit/index';
-import { MecanoSearch, MecanoSearchDomains } from '../components/MecanoSearch/index';
+import { MecanoSearch, MecanoSearchDomains, MecanoSearchResults } from '../components/MecanoSearch/index';
 import history from '../store/history';
 import PrivateRoute from './PrivateRoute';
 import MecanoRoute from './MecanoRoute';
@@ -31,6 +31,7 @@ class Routes extends Component{
           <Route path="/login" component={Login} />
           <Route path="/mecano_search" component={MecanoSearch} />
           <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
+          <Route path="/mecanos" component={MecanoSearchResults} />
           <PrivateRoute path="/my_account" isAuthenticated={isAuthenticated} registerMethod="login" component={Account} />
           <PrivateRoute path="/mecano_signup" isAuthenticated={isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
           <PrivateRoute path="/mecano_vehicles" isAuthenticated={isAuthenticated} registerMethod="login" component={VehicleChoice} />

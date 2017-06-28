@@ -3,16 +3,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { registerDomains } from '../../actions/index';
+import { addDomainsToSearch } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
 
 class MecanoSearchDomains extends Component {
   submit(values){
-    const { registerDomains, mecano_profile } = this.props;
+    const { addDomainsToSearch, mecano_profile } = this.props;
     const data = []
-    Object.keys(values).map((k)=> data.push({kind: "technical_skill", name: k}))
-    console.log(data)
-    registerDomains(mecano_profile.id, {domains: data}, '/mecano_profile')
+    Object.keys(values).map((k)=> data.push(k));
+    addDomainsToSearch(data)
   }
   render(){
     const { handleSubmit } = this.props
@@ -53,7 +52,7 @@ class MecanoSearchDomains extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({registerDomains}, dispatch);
+  return bindActionCreators({ addDomainsToSearch }, dispatch);
 }
 
 function mapStateToProps(state) {
@@ -63,7 +62,7 @@ function mapStateToProps(state) {
 }
 
 MecanoSearchDomains = reduxForm({
-  form: 'domain_choice'
+  form: 'domain_search'
 })(connect(mapStateToProps, mapDispatchToProps)(MecanoSearchDomains));
 
 export { MecanoSearchDomains };

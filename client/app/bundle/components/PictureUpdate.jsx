@@ -29,7 +29,7 @@ class PictureUpdate extends Component {
   }
 
   render(){
-    const img = this.state.loadingImage ? <Loader/> : <ProfilePicture />
+    const img = this.state.loadingImage ? <Loader/> : <ProfilePicture currentUser={true} />
     return (
       <div className="picture-update-group">
         <div className="thumb-image-container">

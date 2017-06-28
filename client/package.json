@@ -34,6 +34,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
     "react-on-rails": "7.0.4",
+    "react-rater": "^0.4.3",
     "react-redux": "^5.0.5",
     "react-redux-toastr": "^6.2.6",
     "react-router": "^4.1.1",

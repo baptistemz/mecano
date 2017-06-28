@@ -1,45 +1,97 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, change } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { fetchVehicles } from '../../actions/index';
+import { fetchVehicles, implementSearch } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
-import VehicleCreation from '../VehicleCreation';
+import carQueryConfig from '../../utils/carQueryConfig';
 
 class MecanoSearch extends Component {
   componentWillMount(){
-    this.props.fetchVehicles();
+    if(this.props.isAuthenticated){
+      this.props.fetchVehicles();
+    }
   }
   componentDidMount(){
     $('ul.tabs').tabs();
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
-    new google.maps.places.Autocomplete(input, options);
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
       }
     });
+    // Change value on autocomplete click
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      triggerAutocomplete(this.gm_accessors_.place.Gc.formattedPrediction)
+    });
+    const triggerAutocomplete = (value) => {
+      this.props.change('mecano_search', 'full_address', value)
+    }
+    carQueryConfig()
+  }
+  vehicleFields(){
+    return(
+      <div>
+        <div className="row">
+          <div className="col s12 m6 l3">
+            <label htmlFor="year">Année</label>
+            <select name="year" ref="year" id="year" />
+          </div>
+          <div className="col s12 m6 l3">
+            <label htmlFor="brand">Contructeur</label>
+            <select name="brand" ref="brand" id="brand" />
+          </div>
+          <div id="model-select-group">
+            <div className="col s12 m6 l3">
+              <label htmlFor="model_select">Modèle</label>
+              <select name="model_select" ref="model_select" id="model_select" />
+            </div>
+            <div className="col s12 m6 l3">
+              <label htmlFor="trim">Extension</label>
+              <select name="trim" ref="trim" id="trim" />
+            </div>
+          </div>
+          <div id="model-string-group">
+            <div className="col s12 m12 l6">
+              <label htmlFor="model_string">Modèle</label>
+              <input name="model_string" ref="model_string" id="model_string" />
+            </div>
+          </div>
+        </div>
+        <div className="col offset-l6 s12 l6">
+          <p>
+            <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
+            <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
+          </p>
+        </div>
+      </div>
+    );
+  }
+  manageInputs(){
+    if(this.refs.model_not_found.checked){
+      $('#model-select-group').css('display', 'none')
+      $('#model-string-group').css('display', 'block')
+    }else{
+      $('#model-select-group').css('display', 'block')
+      $('#model-string-group').css('display', 'none')
+    }
+  }
+  gatherValues(){
+    const {year, brand, model_select, model_string, model_not_found } = this.refs
+    let trim = this.refs.trim.childNodes[0].innerHTML
+    trim = (trim === "None" || model_not_found.checked) ? "" : trim;
+    const model = model_not_found.checked ? model_string.value : model_select.value
+    const values = {year: year.value, brand: brand.value, model , trim }
+    console.log(values)
+    return values
   }
   submit(values){
-    // if(values.full_address){
-    //   const splitted_address = values.full_address.split(',');
-    //   values['selected_vehicle'] = this.props.selected_vehicle;
-    //   values['country'] = splitted_address[splitted_address.length - 1];
-    //   values['city'] = splitted_address[splitted_address.length - 2];
-    //   values['address'] = splitted_address[splitted_address.length - 3];
-    // }else{
-    //   this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
-    // }
-    // this.props.registerMecano(values, '/mecano_vehicles')
-    if (this.props.isAuthenticated) {
-
-    }
-    console.log(values)
-    console.log(this.props.children)
-    console.log(this)
+    values["vehicle"] = this.gatherValues();
+    this.props.implementSearch(values);
   }
   vehicleDisplay(vehicle){
     return(
@@ -47,6 +99,11 @@ class MecanoSearch extends Component {
         <Field className='radioinput' name="vehicle_choice" component="input" type="radio" id={`vehicle-${vehicle.id}`} value={`${vehicle.id}`} />
         <label htmlFor={`vehicle-${vehicle.id}`}>{ `${vehicle.brand}, ${vehicle.model} ${vehicle.trim}, ${vehicle.year} ` }</label>
       </div>
+    )
+  }
+  vehicleCreation(){
+    return(
+      <div>coucou</div>
     )
   }
   render(){
@@ -64,10 +121,10 @@ class MecanoSearch extends Component {
                 { isAuthenticated ?
                   <ul className="tabs tabs-fixed-width margin-bottom-20">
                     <li className='tab'>
-                      <a href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
+                      <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
                     </li>
                     <li className="tab">
-                      <a className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
+                      <a onClick={() => this.setState({ registeredCar: false})} className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
                     </li>
                   </ul>
                   :
@@ -81,15 +138,14 @@ class MecanoSearch extends Component {
                   }
                 </div>
                 <div id="register_vehicles">
-                  <VehicleCreation />
+                  {this.vehicleFields()}
                 </div>
               </div>
               <div className="col s12 text-center">
                 <h2>Lieu de réparation</h2>
                 <Input icon="explore" name="full_address" type="text" />
-                <RadioButtons name="distance" label="" options={["À domicile", "< 10 km", "< 50 km"]} />
+                <RadioButtons name="distance" label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
               </div>
-
               <div className="col s12">
                 <p className="red-text"></p>
                 <div className="space-between">
@@ -106,7 +162,7 @@ class MecanoSearch extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchVehicles}, dispatch);
+  return bindActionCreators({ fetchVehicles, implementSearch, change }, dispatch);
 }
 
 function mapStateToProps({vehicle, auth}) {
@@ -117,7 +173,7 @@ function mapStateToProps({vehicle, auth}) {
 }
 
 MecanoSearch = reduxForm({
-  form: 'domain_choice'
+  form: 'mecano_search'
 })(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
 
 export { MecanoSearch };

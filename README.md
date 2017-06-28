@@ -160,12 +160,7 @@ At the place you want to check its value and read the logs in your terminal
 ### The React app
 
 Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.
-To debugg the rails API use Rails logger debugger to print anything in the console
-For example to print the value of ```@variable``` write :
-```
-Rails.logger.debug("@variable: #{@variable}")
-```
-At the place you want to check its value and read the logs in your terminal
+To debugg use the famous ```console.log```
 
 ## Useful API endpoints
 All the API endpoints only accept JSON data.

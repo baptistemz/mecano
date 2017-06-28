@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { reduxForm } from 'redux-form';
-import { change } from 'redux-form';
+import { reduxForm, change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
@@ -24,6 +23,7 @@ class MecanoRegistration extends Component {
         event.preventDefault();
       }
     });
+    // Change value on autocomplete click
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
       triggerAutocomplete(this.gm_accessors_.place.Fc.formattedPrediction)
     });
@@ -82,7 +82,7 @@ class MecanoRegistration extends Component {
               <br/>
               <h2>Données géographiques</h2>
               <Input id='gplaces' icon="explore" name="full_address" type="text" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
+              <RadioButtons label="Je me déplace" name="mobile" options={{"oui": "oui", "non": "non"}} />
               {
                 mobile ?
                 <div className="row">

@@ -15,10 +15,9 @@
  */
  @import '../../../client/node_modules/react-redux-toastr/src/styles/index';
  @import "materialize/components/color";
- $primary-color: #328BC3;
- $secondary-color: #0C3D5E;
- @import  './variables/index';
+ @import  './variables/colors';
  @import 'materialize';
+ @import  './variables/media_queries';
  @import './components/index';
  @import './pages/index';
  @import './layout/index';

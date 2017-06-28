@@ -20,6 +20,14 @@ class MecanoProfile < ActiveRecord::Base
   after_validation :set_bound_box
   after_create :set_user_as_mecano
 
+  def display_name
+    if self.pro
+      return company_name.capitalize
+    else
+      return "#{self.user.first_name.capitalize}, #{self.user.last_name[0].capitalize}"
+    end
+  end
+
   private
 
   def is_pro?

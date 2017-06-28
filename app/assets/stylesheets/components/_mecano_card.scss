@@ -1,0 +1,47 @@
+.mecano-card{
+  border: 0.5px solid rgb(230,230,230);
+  cursor: pointer;
+  padding: 10px 2%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  & .card-content{
+    padding-left: 5%;
+    width: 100%;
+  }
+  & p{
+    margin: 6px 0
+  }
+  & .card-title-container {
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+  & h4 {
+    line-height: 95%;
+    margin-top: 12px;
+    margin-bottom: 10px;
+  }
+}
+
+.distance-chip{
+  background-color: #328BC3;
+  padding: 2px 5px;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.8rem;
+}
+
+.mecano-card:hover{
+  -moz-box-shadow: 3px 3px 0px 0px #328BC3;
+  -webkit-box-shadow: 3px 3px 0px 0px #328BC3;
+  -o-box-shadow: 3px 3px 0px 0px #328BC3;
+  box-shadow: 3px 3px 0px 0px #328BC3;
+}
+.rating-number{
+  color: #969696;
+  font-size: 0.8rem;
+}

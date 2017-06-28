@@ -15,19 +15,21 @@ import {
 
 export function validateToken(){
   return dispatch => {
-    axios.defaults.headers.common = getHeadersObject(localStorage);
-    const request = axios.get('/api/auth/validate_token?unbatch=true')
-    return request
-      .then(response => {
-        if(response.data.success){
-          dispatch(receiveLogin(response.data.data));
-          setNextHeaders(response.headers);
-        }else{
-          dispatch(receiveLogout());
-        }
-      }).catch(error => {
-        dispatch(receiveLogout())
-      });
+    if(localStorage["reduxPersist:auth"] && JSON.parse(localStorage["reduxPersist:auth"]).isAuthenticated){
+      axios.defaults.headers.common = getHeadersObject(localStorage);
+      const request = axios.get('/api/auth/validate_token?unbatch=true')
+      return request
+        .then(response => {
+          if(response.data.success){
+            dispatch(receiveLogin(response.data.data));
+            setNextHeaders(response.headers);
+          }else{
+            dispatch(receiveLogout());
+          }
+        }).catch(error => {
+          dispatch(receiveLogout())
+        });
+    }
   };
 };
 

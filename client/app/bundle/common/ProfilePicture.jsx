@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 
 class ProfilePicture extends Component {
   render(){
+    const { profile_picture, imgSrc, currentUser } = this.props
     const style = this.props.small ? {width: '60px', height: '60px'} : {};
-    const imgSrc = this.props.profile_picture || "/thumb/default_profile.png"
+    if(currentUser){
+      const imgSrc = profile_picture
+    }
     return (
-      <img className="avatar-circle" style={style} src={imgSrc} alt="profile picture"/>
+      <img className="avatar-circle" style={style} src={imgSrc || "/thumb/default_profile.png"} alt="profile picture"/>
     );
   }
 }

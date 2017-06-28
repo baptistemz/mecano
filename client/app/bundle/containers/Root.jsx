@@ -18,9 +18,7 @@ export default class Root extends Component {
   componentWillMount(){
     persistStore(store, {}, () => {
       store.dispatch(validateToken())
-        .then(()=>{
-          this.setState({ rehydrated: true });
-        })
+      this.setState({ rehydrated: true });
     })
   }
   render() {

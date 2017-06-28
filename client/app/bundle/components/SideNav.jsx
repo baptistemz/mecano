@@ -51,14 +51,13 @@ class SideNav extends Component {
     );
   };
   profileThumb() {
-    const imgSrc = this.props.profile_picture || "/thumb/default_profile.png"
     const { email, first_name, last_name } = this.props;
     return (
       <div>
         <table>
           <tbody>
             <tr>
-              <td><ProfilePicture src={imgSrc} small={true} /></td>
+              <td><ProfilePicture currentUser={true} small={true} /></td>
               <td>
                 <span className="white-text">{email}</span>
                 <br/>

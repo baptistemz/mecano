@@ -26,7 +26,7 @@ class MecanoProfile extends Component {
                     </div>
                   </Link>
                   <div className="direction-row">
-                    <ProfilePicture />
+                    <ProfilePicture currentUser={true}/>
                     <div className="profile-content">
                       <h5 className="capitalize">{pro? mecano_profile.company_name : `${first_name} ${last_name.charAt(0).toUpperCase()}`}</h5>
                       <p>{pro? "professionnel" : "passionné"}</p>

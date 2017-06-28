@@ -7,11 +7,11 @@ const RadioButtons = ({ name, options, label }) => {
       <p className='text-center' style={{ marginBottom: 0 }}>{label}</p>
       <div className="justify-center">
         {
-          options.map(function(option, i){
+          Object.keys(options).map(function(key, index) {
             return(
-              <p key={i} style={{ margin: 0 }}>
-                <Field className='radioinput' name={ name } component="input" type="radio" id={ option } value={ option } />
-                <label htmlFor={ option }>{ option }</label>
+              <p key={key} style={{ margin: 0 }}>
+                <Field className='radioinput' name={ name } component="input" type="radio" id={ key } value={ key } />
+                <label htmlFor={ key }>{ options[key] }</label>
               </p>
             )
           })

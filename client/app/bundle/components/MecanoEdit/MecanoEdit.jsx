@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { reduxForm, initialize } from 'redux-form';
+import { reduxForm, initialize, change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { updateMecanoProfile } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
@@ -13,13 +13,20 @@ class MecanoEdit extends Component {
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
-    new google.maps.places.Autocomplete(input, options);
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
     //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
     google.maps.event.addDomListener(input, 'keydown', function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
       }
     });
+    // Change value on autocomplete click
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+      triggerAutocomplete(this.gm_accessors_.place.Fc.formattedPrediction)
+    });
+    const triggerAutocomplete = (value) => {
+      this.props.change('mecano_edit', 'full_address', value)
+    }
   }
   handleInitialize() {
     const { mecano_profile } = this.props;
@@ -57,7 +64,7 @@ class MecanoEdit extends Component {
               <br/>
               <h2>Mon profil</h2>
               <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
+              <RadioButtons name="pro" label="Je suis un" options={{ "professionnel":"professionnel", "passionné": "passionné" }} />
               {
                 pro ?
                 <div className="row">
@@ -75,7 +82,7 @@ class MecanoEdit extends Component {
               <br/>
               <h2>Données géographiques</h2>
               <Input icon="explore" name="full_address" type="text" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={["oui", "non"]} />
+              <RadioButtons label="Je me déplace" name="mobile" options={{"oui":"oui", "non":"non"}} />
               {
                 mobile ?
                 <div className="row">
@@ -103,7 +110,7 @@ class MecanoEdit extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMecanoProfile }, dispatch);
+  return bindActionCreators({ updateMecanoProfile, change }, dispatch);
 }
 
 
