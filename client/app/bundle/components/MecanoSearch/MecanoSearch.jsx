@@ -38,8 +38,8 @@ class MecanoSearch extends Component {
       <div>
         <div className="row">
           <div className="col s12 m6 l3">
-            <label htmlFor="year">Année</label>
             <select name="year" ref="year" id="year" />
+            <label htmlFor="year">Année</label>
           </div>
           <div className="col s12 m6 l3">
             <label htmlFor="brand">Contructeur</label>
