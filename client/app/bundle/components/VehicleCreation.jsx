@@ -71,7 +71,7 @@ class VehicleCreation extends Component {
             </p>
           </div>
         </div>
-        <Button type="submit">enregistrer</Button>
+        <Button icon="drive_eta" type="submit">enregistrer</Button>
       </form>
     )
   }

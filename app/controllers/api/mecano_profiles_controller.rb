@@ -32,11 +32,14 @@ module Api
            true, coord[0], coord[0], coord[1], coord[1]
           )
         @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+        @with_distance = false
+        render :index
       else
         @mecano_profiles = MecanoProfile.near(params[:full_address], params[:distance], :units => :km)
         @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+        @with_distance = true
+        render :index
       end
-      render :index
     end
 
     def show

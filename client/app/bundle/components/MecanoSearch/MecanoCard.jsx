@@ -8,7 +8,11 @@ const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance })
     <div className="col s12 offset-m2 m8 l6">
       <Link to={`/mecanos/${id}`}>
         <div className="box-shadow mecano-card margin-top-20">
-          <div className="distance-chip">{distance.toFixed(1)} km</div>
+          { distance ?
+            <div className="distance-chip">{distance.toFixed(1)} km</div>
+            :
+            <div></div>
+          }
           <div style={{width: "100px", height:"100px"}}>
             <ProfilePicture imgSrc={imgSrc} currentUser={false}/>
           </div>

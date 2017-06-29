@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { MecanoCard } from './index';
-import { searchMecano } from '../../actions/index';
+import { searchMecano, updateDistance } from '../../actions/index';
 import { Header, Loader, Button } from '../../common/index';
 
 class MecanoSearchResults extends Component {
@@ -18,19 +18,26 @@ class MecanoSearchResults extends Component {
   componentDidMount(){
     this.setState({ loading: false });
     $('select').material_select();
+    const onDistanceChange = (event) => this.onDistanceChange(event);
+    $('select').on('change', function(e) {
+      onDistanceChange(e);
+    });
   }
   componentWillReceiveProps(nextProps){
     console.log("stopLoading", JSON.stringify(nextProps.mecano_search_results) !== JSON.stringify(this.props.mecano_search_results))
     console.log("startSearch", JSON.stringify(nextProps.mecano_search_params) !== JSON.stringify(this.props.mecano_search_params))
-    if(JSON.stringify(nextProps.mecano_search_results)
-    !== JSON.stringify(this.props.mecano_search_results)){
-      this.setState({ loading: false });
-    }
+    this.setState({ loading: false });
     if(JSON.stringify(nextProps.mecano_search_params)
     !== JSON.stringify(this.props.mecano_search_params)){
-      this.props.searchMecano(this.props.mecano_search_params)
+      // TRIGGERED IF SEARCH PARAMS HAVE CHANGeD
+      console.log("ANOTHER SEARCH STARTING")
+      this.props.searchMecano(nextProps.mecano_search_params)
       this.setState({ loading: true });
     }
+  }
+
+  onDistanceChange(event){
+    this.props.updateDistance(event.target.value)
   }
 
   searchResults(){
@@ -49,23 +56,29 @@ class MecanoSearchResults extends Component {
     )
   }
   render(){
-    const { distance } = this.props.mecano_search_params
+    const { distance, full_address, vehicle } = this.props.mecano_search_params
     return (
       <div>
         <Header>Résultats de la recherche</Header>
         <div className="container">
           <div className="row">
             <div className="filters-group margin-top-20">
-              <div className="input-field col s6 m6 l6">
-                <select>
-                  <option value="0" selected= {distance === 0} disabled= {distance === 0}>À domicile</option>
-                  <option value="10" selected= {distance === 10} disabled= {distance === 10}>{'< 10km'}</option>
-                  <option value="50" selected= {distance === 50} disabled= {distance === 50}>{'< 50km'}</option>
+              <div className="input-field col s4 m6 l6">
+                <select defaultValue={distance} onChange={(e) => {this.onDistanceChange(e)}}>
+                  <option value="0">À domicile</option>
+                  <option value="10">{'< 10km'}</option>
+                  <option value="50">{'< 50km'}</option>
                 </select>
                 <label>Distance</label>
               </div>
-              <div className="col s6 m6 l6">
-                <Button icon="edit">Modifier la recherche</Button>
+              <div className="col s8 m6 l6">
+                <div className= "space-between">
+                  <div>
+                    <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
+                    <p>{`${vehicle.brand}, ${vehicle.model}`}</p>
+                  </div>
+                  <Button icon="edit" />
+                </div>
               </div>
             </div>
 
@@ -78,16 +91,16 @@ class MecanoSearchResults extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({searchMecano}, dispatch);
+  return bindActionCreators({searchMecano, updateDistance}, dispatch);
 }
 
 function mapStateToProps({ search }) {
-  const { results, distance, car_make, full_address, domains } = search
+  const { results, distance, vehicle, full_address, domains } = search
   return {
     mecano_search_results: results,
     mecano_search_params: {
       distance,
-      vehicle: car_make,
+      vehicle,
       full_address,
       domains
     }

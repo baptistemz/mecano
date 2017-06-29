@@ -38,7 +38,7 @@ class Login extends Component{
               <Input icon="email" name="email" type="email" />
               <Input icon="lock_outline" name="password" type="password" />
               <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
-              <Button type="submit">Connexion</Button>
+              <Button icon="lock_open" type="submit">Connexion</Button>
             </form>
           </div>
           <div className="text-center margin-top-20 margin-bottom-20 text-20">

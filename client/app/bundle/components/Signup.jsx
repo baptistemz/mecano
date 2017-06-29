@@ -36,7 +36,7 @@ class Signup extends Component{
               <Input icon="lock_outline" name="password"  type="password" error={errorMessages["password"]} />
               <Input icon="lock_outline" name="password_confirmation" type="password" error={errorMessages["password_confirmation"]} />
               <p className="red-text">{errorMessages.main}</p>
-              <Button type="submit">Connexion</Button>
+              <Button icon="lock_open" type="submit">Connexion</Button>
             </form>
           </div>
           <div className="text-center">

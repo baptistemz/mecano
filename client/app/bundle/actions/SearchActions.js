@@ -4,7 +4,8 @@ import { setNextHeaders } from '../utils/tokenManagement';
 import {
   IMPLEMENT_SEARCH,
   ADD_DOMAINS_TO_SEARCH,
-  RECEIVED_SEARCH_RESULTS
+  RECEIVED_SEARCH_RESULTS,
+  UPDATE_DISTANCE
 } from './types';
 
 
@@ -17,6 +18,11 @@ export function implementSearch(values){
     dispatch(push('/mecano_search_domains'));
   }
 };
+export function updateDistance(distance){
+  return dispatch => {
+    dispatch({ type: UPDATE_DISTANCE, distance })
+  }
+};
 export function addDomainsToSearch(domains){
   return dispatch => {
     dispatch({ type: ADD_DOMAINS_TO_SEARCH, domains })
@@ -25,10 +31,11 @@ export function addDomainsToSearch(domains){
 };
 
 export function searchMecano(params){
+  console.log("params in search action", params)
   return dispatch => {
-    console.log("params in action", params)
     return axios.get('/api/mecano_profiles', { params })
       .then(response => {
+        console.log("response from search action", response)
         dispatch(receivedSearchResults(response.data))
       }).catch((error) => {
         console.log(error)
