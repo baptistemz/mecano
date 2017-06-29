@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import Home from '../components/Home';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
+import MecanoPublicPage from '../components/MecanoPublicPage';
 import { Header } from '../common/index';
 import { MecanoRegistration, VehicleChoice, DomainChoice, MecanoProfile } from '../components/MecanoRegistration/index';
 import { MecanoEdit, VehicleEdit, DomainEdit } from '../components/MecanoEdit/index';
@@ -31,7 +32,8 @@ class Routes extends Component{
           <Route path="/login" component={Login} />
           <Route path="/mecano_search" component={MecanoSearch} />
           <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
-          <Route path="/mecanos" component={MecanoSearchResults} />
+          <Route exact path="/mecanos" component={MecanoSearchResults} />
+          <Route path="/mecanos/:id" component={MecanoPublicPage} />
           <PrivateRoute path="/my_account" isAuthenticated={isAuthenticated} registerMethod="login" component={Account} />
           <PrivateRoute path="/mecano_signup" isAuthenticated={isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
           <PrivateRoute path="/mecano_vehicles" isAuthenticated={isAuthenticated} registerMethod="login" component={VehicleChoice} />

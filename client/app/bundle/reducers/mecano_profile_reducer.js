@@ -11,7 +11,15 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    mecano_profile: null,
+    display_name: "",
+    pro: null,
+    price: null,
+    city: "",
+    country: "",
+    mobile: null,
+    all_vehicles: null,
+    rating: null,
+    picture: {},
     technical_skills: [],
     car_makes: [],
     errors: {}
@@ -21,19 +29,19 @@ export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case LOGOUT_SUCCESS:
       return INITIAL_STATE;
-    case LOGIN_SUCCESS:
-      const car_makes = state.car_makes;
-      const technical_skills = state.technical_skills;
-      if(action.user.mecano_profile){
-        action.user.mecano_profile.domains.map((domain) =>{
-          if(domain.kind === 'car_make'){
-            if(!car_makes.includes(domain.name)){car_makes.push(domain.name)};
-          }else{
-            if(!technical_skills.includes(domain.name)){technical_skills.push(domain.name)};
-          }
-        })
-      }
-      return { ...state, mecano_profile: action.user.mecano_profile, car_makes, technical_skills}
+    // case LOGIN_SUCCESS:
+    //   const car_makes = state.car_makes;
+    //   const technical_skills = state.technical_skills;
+    //   if(action.user.mecano_profile){
+    //     action.user.mecano_profile.domains.map((domain) =>{
+    //       if(domain.kind === 'car_make'){
+    //         if(!car_makes.includes(domain.name)){car_makes.push(domain.name)};
+    //       }else{
+    //         if(!technical_skills.includes(domain.name)){technical_skills.push(domain.name)};
+    //       }
+    //     })
+    //   }
+    //   return { ...state, mecano_profile: action.user.mecano_profile, car_makes, technical_skills}
     case MECANO_REGISTRATION_ERROR:
       const new_errors = Object.assign({}, state.errors, action.error);
       return { ...state, errors: new_errors }
@@ -42,8 +50,9 @@ export default function (state = INITIAL_STATE, action) {
     case UPDATED_MECANO:
       return { ...state, mecano_profile: action.mecano_profile }
     case GOT_MECANO:
-      console.log("reducer", action.mecano_profile)
-      return { ...state, mecano_profile: action.mecano_profile }
+      const { mecano_profile, car_makes, domains } = action.data;
+      const {display_name, pro, price, city, country, mobile, all_vehicles, rating, picture} = mecano_profile;
+      return { ...state, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture }
     case REGISTERED_DOMAINS:
       const new_car_makes = state.car_makes;
       const new_technical_skills = state.technical_skills;

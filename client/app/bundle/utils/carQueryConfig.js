@@ -9,7 +9,7 @@ export default function carQueryConfig(){
    //carquery.init('2000', 'dodge', 'Viper', 11636);
 
    //Optional: Pass sold_in_us:true to the setFilters method to show only US models.
-   carquery.setFilters( {sold_in_us:true} );
+   carquery.setFilters( {sold_in_us:false} );
 
    //Optional: initialize the year, make, model, and trim drop downs by providing their element IDs
    carquery.initYearMakeModelTrim('year', 'brand', 'model_select', 'trim');

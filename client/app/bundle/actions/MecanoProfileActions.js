@@ -41,10 +41,12 @@ export function updateMecanoProfile(id, data, next_path){
 };
 
 export function fetchMecanoProfile(id){
+  console.log("inaction", id)
   return dispatch => {
     axios.get(`/api/mecano_profiles/${id}`)
       .then(response => {
-        dispatch(gotMecanoProfile(response.data.mecano_profile));
+        console.log(response)
+        dispatch(gotMecanoProfile(response.data));
       }).catch(error => {
         console.log("ERROR", error)
       })
@@ -68,10 +70,10 @@ export function updatedMecano(mecano_profile) {
   };
 }
 
-export function gotMecanoProfile(mecano_profile) {
+export function gotMecanoProfile(data) {
   return {
     type: GOT_MECANO,
-    mecano_profile
+    data
   };
 }
 
