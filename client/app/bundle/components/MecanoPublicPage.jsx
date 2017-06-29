@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchMecanoProfile } from '../actions/index';
-import { Header, ProfilePicture, Loader } from '../common/index';
+import { Header, ProfilePicture, Loader, Button } from '../common/index';
 
 class MecanoPublicPage extends Component {
   constructor(){
@@ -38,6 +38,9 @@ class MecanoPublicPage extends Component {
                       <p>{pro? "professionnel" : "passionné"}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
+                    <div className="contact-btn">
+                      <Button icon="chat_bubble_outline"></Button>
+                    </div>
                   </div>
                   <hr/>
                   <div className="space-between">
@@ -67,6 +70,9 @@ class MecanoPublicPage extends Component {
                       })}
                     </ul>
                 </div>
+              </div>
+              <div className="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
+                <Button fullWidth="true" icon="chat_bubble_outline">Contacter</Button>
               </div>
             </div>
           </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Button = (props) => {
+const Button = ({ type, fullWidth, children, icon }) => {
   return (
-    <button type={props.type} className="waves-effect waves-light btn">
-      <i className="material-icons left">{ props.icon }</i>
-      { props.children }
+    <button type={ type } className={`waves-effect waves-light btn ${fullWidth ? 'full-width' : ''}`}>
+      <i className="material-icons left">{ icon }</i>
+      { children }
     </button>
   );
 };
