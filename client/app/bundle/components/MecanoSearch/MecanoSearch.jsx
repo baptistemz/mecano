@@ -26,7 +26,7 @@ class MecanoSearch extends Component {
     });
     // Change value on autocomplete click
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      triggerAutocomplete(this.gm_accessors_.place.Gc.formattedPrediction)
+      triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
       this.props.change('mecano_search', 'full_address', value)
@@ -38,8 +38,8 @@ class MecanoSearch extends Component {
       <div>
         <div className="row">
           <div className="col s12 m6 l3">
-            <select name="year" ref="year" id="year" />
             <label htmlFor="year">Année</label>
+            <select name="year" ref="year" id="year" />
           </div>
           <div className="col s12 m6 l3">
             <label htmlFor="brand">Contructeur</label>
@@ -108,7 +108,7 @@ class MecanoSearch extends Component {
     )
   }
   render(){
-    const { handleSubmit, vehicles, isAuthenticated } = this.props
+    const { handleSubmit, vehicles, isAuthenticated, full_address, distance } = this.props
     return (
       <div>
         <Header>Recherche mécano 1/2</Header>
@@ -144,8 +144,8 @@ class MecanoSearch extends Component {
               </div>
               <div className="col s12 text-center">
                 <h2>Lieu de réparation</h2>
-                <Input icon="explore" name="full_address" type="text" />
-                <RadioButtons name="distance" label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
+                <Input icon="explore" value={ full_address } name="full_address" type="text" />
+                <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
               </div>
               <div className="col s12">
                 <p className="red-text"></p>
@@ -162,19 +162,22 @@ class MecanoSearch extends Component {
   }
 }
 
+MecanoSearch = reduxForm({
+  form: 'mecano_search'
+})(MecanoSearch);
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchVehicles, implementSearch, change }, dispatch);
 }
 
-function mapStateToProps({vehicle, auth}) {
+function mapStateToProps({vehicle, auth, search}) {
   return {
     vehicles: vehicle.user_vehicles,
-    isAuthenticated: auth.isAuthenticated
+    isAuthenticated: auth.isAuthenticated,
+    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address}
   }
 }
 
-MecanoSearch = reduxForm({
-  form: 'mecano_search'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
+MecanoSearch = connect(mapStateToProps, mapDispatchToProps)(MecanoSearch)
 
 export { MecanoSearch };

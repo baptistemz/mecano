@@ -1,9 +1,30 @@
 .filters-group{
   display: flex;
-  align-items: baseline;
+  align-items: center;
   & p{
     margin: 0;
     color: rgb(150, 150, 150);
-    font-size: 0.8rem
+    font-size: 0.8rem;
+  }
+}
+
+#domain-list{
+    width: 90%;
+    height: 19px;
+    text-align: justify;
+    text-overflow: ellipsis;
+    line-height: 19px;
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#search-data-recap > div {
+  width: calc(75% - 80px)
+}
+
+@media only screen and (min-width: 600px) and (max-width : 992px) {
+  #search-data-recap{
+    width: 65%
   }
 }

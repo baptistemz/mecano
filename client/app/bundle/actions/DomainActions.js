@@ -37,10 +37,12 @@ export function updateTechnicalDomains(id, data){
       })
   };
 };
-export function updateCarDomains(id, data, next_path){
+export function updateCarDomains(id, data){
+  console.log("action", data)
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/update_car_domains`, data)
       .then(response => {
+        console.log("action response", response)
         setNextHeaders(response.headers)
         dispatch(updatedCarDomains(response.data.domains))
         dispatch(push('/mecano_profile'))

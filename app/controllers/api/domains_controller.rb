@@ -16,22 +16,18 @@ module Api
     def update_car_domains
       current_api_user.mecano_profile.domains.where(kind: :car_make).destroy_all
       @domains = current_api_user.mecano_profile.domains.create(domain_params[:domains])
-      render :index, status: :created
-    end
-
-    def create
-      MecanoProfile.where(user_id: current_api_user.id).first.domains.create(kind:'car_make', name:'audi')
-      if @domain.save
-        render :show, status: :created
+      if @domains.any?
+        current_api_user.mecano_profile.update(all_vehicles: false)
       else
-        render_error
+        current_api_user.mecano_profile.update(all_vehicles: true)
       end
+      render :index, status: :created
     end
 
     private
 
     def domain_params
-      params.permit(:kind, :name, :domains => [:name, :kind])
+      params.permit(:kind, :value, :domains => [:value, :kind])
     end
 
     def render_error

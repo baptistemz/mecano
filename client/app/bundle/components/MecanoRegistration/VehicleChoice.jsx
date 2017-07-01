@@ -22,6 +22,16 @@ class VehicleChoice extends Component {
     const chipAdd = (e, chip) =>{
       this.chipAdd(e, chip)
     }
+    $('.chips-autocomplete').material_chip({
+      placeholder: 'Marques',
+      secondaryPlaceholder: 'Marques',
+      data: this.props.selected_car_makes,
+      autocompleteOptions: {
+        data: this.props.car_makes_list,
+        limit: Infinity,
+        minLength: 1
+      }
+    });
   }
   chipAdd(e, chip){
     const { selectCarMake, car_makes_list } = this.props;
@@ -53,17 +63,17 @@ class VehicleChoice extends Component {
     });
   }
   submit(values){
-    const { registerDomains, updateMecanoProfile, mecano_profile, selected_car_makes } = this.props
+    const { registerDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     if(values.all_vehicles === 'certaines marques'){
       const data = []
-      selected_car_makes.map((e)=> data.push({kind: "car_make", name: e.tag}))
-      registerDomains(mecano_profile.id, {domains: data}, '/mecano_domains')
+      selected_car_makes.map((e)=> data.push({kind: "car_make", value: e.tag}))
+      registerDomains(mecano_id, {domains: data}, '/mecano_domains')
     }else{
-      updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_domains')
+      updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_domains')
     }
   }
   render(){
-    const { handleSubmit, only_vehicle_brands, car_makes_list } = this.props;
+    const { handleSubmit, specific_vehicles, car_makes_list } = this.props;
     return (
       <div>
         <Header>Enregistrement mécano 2/3</Header>
@@ -74,10 +84,10 @@ class VehicleChoice extends Component {
               <br/>
             </div>
             <div className="col s12">
-              <RadioButtons name="all_vehicles" label="Je travaille sur" options={["tous véhicules", "certaines marques"]} />
+              <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
               <br/>
               {
-                only_vehicle_brands ?
+                specific_vehicles ?
                   <div className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
                     <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
                   </div>
@@ -98,6 +108,10 @@ class VehicleChoice extends Component {
   }
 }
 
+VehicleChoice = reduxForm({
+  form: 'vehicle_choice'
+})(VehicleChoice);
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile }, dispatch);
 }
@@ -107,13 +121,12 @@ function mapStateToProps(state) {
   return {
     car_makes_list: state.vehicle.car_makes_list,
     selected_car_makes: state.vehicle.selected_car_makes,
-    only_vehicle_brands: (vehicle_choice && vehicle_choice.values && (vehicle_choice.values.all_vehicles === "certaines marques")),
-    mecano_profile: state.mecano.mecano_profile
+    specific_vehicles: (vehicle_choice && vehicle_choice.values && (vehicle_choice.values.all_vehicles === "specific_brands")),
+    mecano_id: state.mecano.id
   }
 }
 
-VehicleChoice = reduxForm({
-  form: 'vehicle_choice'
-})(connect(mapStateToProps, mapDispatchToProps)(VehicleChoice));
+VehicleChoice = connect(mapStateToProps, mapDispatchToProps)(VehicleChoice)
+
 
 export { VehicleChoice };

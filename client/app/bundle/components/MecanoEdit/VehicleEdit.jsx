@@ -12,7 +12,6 @@ class VehicleEdit extends Component {
     this.props.fetchCarMakes()
   }
   componentDidMount(){
-    this.handleInitialize();
     const { selectCarMake, removeCarMake, car_makes_list }= this.props
     $('.chips').on('chip.add', function(e, chip){
       //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
@@ -28,13 +27,22 @@ class VehicleEdit extends Component {
         selectCarMake(chip)
       }
     });
+    $('.chips').material_chip({
+      placeholder: 'Marques',
+      secondaryPlaceholder: 'Marques',
+      data: this.props.selected_car_makes,
+      autocompleteOptions: {
+        data: this.props.car_makes_list,
+        limit: Infinity,
+        minLength: 0
+      }
+    });
     $('.chips').on('chip.delete', function(e, chip){
       removeCarMake(chip)
     });
   }
   componentWillReceiveProps(newProps){
     //AUTOCOMPLETE
-    $('.chips').material_chip();
     $('.chips-autocomplete').material_chip({
       placeholder: 'Marques',
       secondaryPlaceholder: 'Marques',
@@ -42,32 +50,24 @@ class VehicleEdit extends Component {
       autocompleteOptions: {
         data: newProps.car_makes_list,
         limit: Infinity,
-        minLength: 1
+        minLength: 0
       }
     });
   }
-  handleInitialize() {
-    const { mecano_profile, mecano_car_makes } = this.props
-    const initData = {
-      "all_vehicles": mecano_profile.all_vehicles ? "tous véhicules" : "certaines marques",
-      "selected_car_makes": mecano_car_makes
-    };
-    this.props.initialize(initData);
-  }
   submit(values){
-    const { updateCarDomains, updateMecanoProfile, mecano_profile, selected_car_makes } = this.props
+    const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     const data = []
-    if(values.all_vehicles === 'certaines marques'){
-      selected_car_makes.map((e)=> data.push({kind: "car_make", name: e.tag}))
-      updateCarDomains(mecano_profile.id, {domains: data})
-      updateMecanoProfile(mecano_profile.id, { "all_vehicles": false }, '/mecano_profile')
+    if(values.all_vehicles === 'specific_brands'){
+      selected_car_makes.map((make)=> data.push({kind: "car_make", value: make.tag}))
+      updateCarDomains(mecano_id, {domains: data})
     }else{
-      updateCarDomains(mecano_profile.id, {domains: data})
-      updateMecanoProfile(mecano_profile.id, { "all_vehicles": true }, '/mecano_profile')
+      updateCarDomains(mecano_id, {domains: data})
+      updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_profile')
     }
   }
   render(){
-    const { handleSubmit, only_vehicle_brands } = this.props;
+    const { handleSubmit, specific_brands } = this.props;
+    const input_style = specific_brands ? { display: "block"} : { display: "none" };
     return (
       <div>
         <Header>Édition du profil mécano</Header>
@@ -78,18 +78,18 @@ class VehicleEdit extends Component {
               <br/>
             </div>
             <div className="col s12">
-              <RadioButtons name="all_vehicles" label="Je travaille sur" options={["tous véhicules", "certaines marques"]} />
+              <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
               <br/>
-              {
-                only_vehicle_brands ?
-                  <div className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
-                    <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
-                  </div>
-                :
-                  <div style={{ display: 'none' }} className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
-                    <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
-                  </div>
-              }
+                {
+                  specific_brands ?
+                    <div className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
+                      <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
+                    </div>
+                  :
+                    <div style={{ display: 'none' }} className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
+                      <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
+                    </div>
+                }
               <div className="space-between">
                 <div></div>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
@@ -102,23 +102,26 @@ class VehicleEdit extends Component {
   }
 }
 
+VehicleEdit = reduxForm({
+  form: 'vehicle_edit'
+})(VehicleEdit);
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile }, dispatch);
 }
 
-function mapStateToProps(state) {
-  const { vehicle_choice } = state.form
+function mapStateToProps({form, mecano, vehicle}) {
+  const { vehicle_edit } = form
   return {
-    car_makes_list: state.vehicle.car_makes_list,
-    selected_car_makes: state.vehicle.selected_car_makes,
-    only_vehicle_brands: (vehicle_choice && vehicle_choice.values && (vehicle_choice.values.all_vehicles === "certaines marques")),
-    mecano_profile: state.mecano.mecano_profile,
-    mecano_car_makes: state.mecano.car_makes
+    car_makes_list: vehicle.car_makes_list,
+    selected_car_makes: vehicle.selected_car_makes,
+    specific_brands: (vehicle_edit && vehicle_edit.values && (vehicle_edit.values.all_vehicles === "specific_brands")),
+    mecano_id: mecano.id,
+    mecano_car_makes: mecano.car_makes,
+    initialValues: { all_vehicles: mecano.all_vehicles ? "all_vehicles" : "specific_brands" }
   }
 }
 
-VehicleEdit = reduxForm({
-  form: 'vehicle_choice'
-})(connect(mapStateToProps, mapDispatchToProps)(VehicleEdit));
+VehicleEdit = connect(mapStateToProps, mapDispatchToProps)(VehicleEdit)
 
 export { VehicleEdit };

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import {Link} from 'react-router-dom';
 import { MecanoCard } from './index';
 import { searchMecano, updateDistance } from '../../actions/index';
 import { Header, Loader, Button } from '../../common/index';
@@ -56,14 +57,14 @@ class MecanoSearchResults extends Component {
     )
   }
   render(){
-    const { distance, full_address, vehicle } = this.props.mecano_search_params
+    const { distance, full_address, domains, vehicle } = this.props.mecano_search_params
     return (
       <div>
         <Header>Résultats de la recherche</Header>
         <div className="container">
           <div className="row">
             <div className="filters-group margin-top-20">
-              <div className="input-field col s4 m6 l6">
+              <div className="input-field col s4 offset-m2 m4 l6">
                 <select defaultValue={distance} onChange={(e) => {this.onDistanceChange(e)}}>
                   <option value="0">À domicile</option>
                   <option value="10">{'< 10km'}</option>
@@ -71,13 +72,16 @@ class MecanoSearchResults extends Component {
                 </select>
                 <label>Distance</label>
               </div>
-              <div className="col s8 m6 l6">
-                <div className= "space-between">
+              <div className="col s8 m6 m4 l6">
+                <div id="search-data-recap" className= "space-between flex-end">
                   <div>
+                    <p id="domain-list">{domains.join(', ')}</p>
                     <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
                     <p>{`${vehicle.brand}, ${vehicle.model}`}</p>
                   </div>
-                  <Button icon="edit" />
+                  <Link to={"/mecano_search"}>
+                    <Button icon="edit" />
+                  </Link>
                 </div>
               </div>
             </div>

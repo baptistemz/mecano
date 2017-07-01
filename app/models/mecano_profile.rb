@@ -24,8 +24,12 @@ class MecanoProfile < ActiveRecord::Base
     if self.pro
       return company_name.capitalize
     else
-      return "#{self.user.first_name.capitalize}, #{self.user.last_name[0].capitalize}"
+      return "#{self.user.first_name.capitalize} #{self.user.last_name[0].capitalize}"
     end
+  end
+
+  def full_address
+    return "#{address}, #{city}, #{country}"
   end
 
   private
@@ -51,10 +55,6 @@ class MecanoProfile < ActiveRecord::Base
       self.max_lng = bounding_box[3]
     end
     return true
-  end
-
-  def full_address
-    return "#{address}, #{city}, #{country}"
   end
 
 end

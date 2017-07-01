@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'auth_helper'
 require 'image_upload_helper'
 require 'mecano_profile_helper'
+require 'search_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 

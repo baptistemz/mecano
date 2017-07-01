@@ -25,7 +25,7 @@ class MecanoRegistration extends Component {
     });
     // Change value on autocomplete click
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      triggerAutocomplete(this.gm_accessors_.place.Fc.formattedPrediction)
+      triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
       this.props.change('mecano_registration', 'full_address', value)
@@ -64,7 +64,7 @@ class MecanoRegistration extends Component {
               <br/>
               <h2>Mon profil</h2>
               <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={["professionnel", "passionné"]} />
+              <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} />
               {
                 pro ?
                 <div className="row">
@@ -82,7 +82,7 @@ class MecanoRegistration extends Component {
               <br/>
               <h2>Données géographiques</h2>
               <Input id='gplaces' icon="explore" name="full_address" type="text" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={{"oui": "oui", "non": "non"}} />
+              <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
               {
                 mobile ?
                 <div className="row">
@@ -109,23 +109,24 @@ class MecanoRegistration extends Component {
   }
 }
 
+MecanoRegistration = reduxForm({
+  form: 'mecano_registration'
+})(MecanoRegistration);
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ registerMecano, mecanoRegistrationError, change }, dispatch);
 }
 
-
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
   return {
-    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "oui")),
-    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "professionnel")),
+    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "mobile")),
+    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "pro")),
     isMecano: state.auth.is_mecano,
     errors : state.mecano.errors
   }
 }
 
-MecanoRegistration = reduxForm({
-  form: 'mecano_registration'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+MecanoRegistration = connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration);
 
 export { MecanoRegistration };

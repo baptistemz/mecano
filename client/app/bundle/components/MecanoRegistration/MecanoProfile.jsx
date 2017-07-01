@@ -7,10 +7,12 @@ import { Header, ProfilePicture } from '../../common/index';
 
 class MecanoProfile extends Component {
   componentWillMount(){
-    this.props.fetchMecanoProfile(this.props.mecano_profile.id);
+    console.log("on va chercher", this.props.mecano_id)
+    // this.props.fetchMecanoProfile(this.props.mecano_id);
   }
   render(){
-    const { mecano_profile, car_makes, technical_skills, pro, first_name, last_name } = this.props;
+    const { display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles } = this.props;
+    console.log("technical_skills", technical_skills)
     return (
       <div>
         <Header>Mon profil mécano</Header>
@@ -28,15 +30,15 @@ class MecanoProfile extends Component {
                   <div className="direction-row">
                     <ProfilePicture currentUser={true}/>
                     <div className="profile-content">
-                      <h5 className="capitalize">{pro? mecano_profile.company_name : `${first_name} ${last_name.charAt(0).toUpperCase()}`}</h5>
+                      <h5 className="capitalize">{ display_name }</h5>
                       <p>{pro? "professionnel" : "passionné"}</p>
-                      <h6 className="primary-text">{pro? `${mecano_profile.price}€/h` : '' }</h6>
+                      <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
                   </div>
                   <hr/>
                   <div className="space-between">
-                    <p className="no-margin">{mecano_profile.city}, {mecano_profile.country}</p>
-                    {mecano_profile.mobile ? <p className="no-margin green-text">Se déplace</p> : <p className="no-margin red-text">Ne se déplace pas</p>}
+                    <p className="no-margin">{city}, {country}</p>
+                    {mobile ? <p className="no-margin green-text">Se déplace</p> : <p className="no-margin red-text">Ne se déplace pas</p>}
                   </div>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
@@ -64,7 +66,7 @@ class MecanoProfile extends Component {
                   </Link>
                   <h5 className="text-center">Véhicules</h5>
                   <br/>
-                  <p className="green-text">{mecano_profile.all_vehicles ? "INTERVIENT SUR TOUS VÉHICULES" : ''}</p>
+                  <p className="green-text">{all_vehicles ? "INTERVIENT SUR TOUS VÉHICULES" : ''}</p>
                     <ul className="collection">
                       {car_makes.map((make)=>{
                         return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-number">0</a></div></li>
@@ -86,12 +88,17 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ mecano, auth }) {
   return {
-    mecano_profile: mecano.mecano_profile,
     car_makes: mecano.car_makes,
     technical_skills: mecano.technical_skills,
-    first_name: auth.first_name,
-    last_name: auth.last_name,
-    pro: mecano.mecano_profile.pro
+    display_name: mecano.display_name,
+    pro: mecano.pro,
+    mecano_id: mecano.id,
+    price: mecano.price,
+    city: mecano.city,
+    country: mecano.country,
+    mobile: mecano.mobile,
+    all_vehicles: mecano.all_vehicles,
+    rating: mecano.rating,
   }
 }
 
