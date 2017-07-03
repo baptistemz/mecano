@@ -13,8 +13,13 @@ class MecanoSearchResults extends Component {
     this.state = { loading : true }
   }
   componentWillMount(){
-    this.props.searchMecano(this.props.mecano_search_params)
-    this.setState({ loading: true });
+    const search = () => {
+      this.props.searchMecano(this.props.mecano_search_params)
+      this.setState({ loading: true });
+    }
+    $(document).ready(function(){
+      search()
+    })
   }
   componentDidMount(){
     this.setState({ loading: false });
@@ -25,8 +30,7 @@ class MecanoSearchResults extends Component {
     });
   }
   componentWillReceiveProps(nextProps){
-    console.log("stopLoading", JSON.stringify(nextProps.mecano_search_results) !== JSON.stringify(this.props.mecano_search_results))
-    console.log("startSearch", JSON.stringify(nextProps.mecano_search_params) !== JSON.stringify(this.props.mecano_search_params))
+    console.log("nonononononon")
     this.setState({ loading: false });
     if(JSON.stringify(nextProps.mecano_search_params)
     !== JSON.stringify(this.props.mecano_search_params)){

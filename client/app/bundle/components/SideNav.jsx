@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -6,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { logoutUser } from '../actions/index';
 import { Button, ProfilePicture } from '../common/index';
-
 
 class SideNav extends Component {
   componentDidMount() {

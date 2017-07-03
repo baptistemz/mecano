@@ -14,8 +14,10 @@ class MecanoPublicPage extends Component {
     this.props.fetchMecanoProfile(this.props.match.params.id);
     this.setState({ loading: true });
   }
-  componentDidUpdate(){
-    this.setState({ loading: false });
+  componentWillReceiveProps(newProps){
+    if(newProps.id.toString() === this.props.match.params.id){
+      this.setState({ loading: false });
+    }
   }
   render(){
     const { car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture } = this.props;
@@ -86,19 +88,20 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchMecanoProfile }, dispatch);
 }
 
-function mapStateToProps({ mecano, auth }) {
+function mapStateToProps({ mecano_visited, auth }) {
   return {
-    car_makes: mecano.car_makes,
-    technical_skills: mecano.technical_skills,
-    display_name: mecano.display_name,
-    pro: mecano.pro,
-    price: mecano.price,
-    city: mecano.city,
-    country: mecano.country,
-    mobile: mecano.mobile,
-    all_vehicles: mecano.all_vehicles,
-    rating: mecano.rating,
-    picture: mecano.picture,
+    id: mecano_visited.id,
+    car_makes: mecano_visited.car_makes,
+    technical_skills: mecano_visited.technical_skills,
+    display_name: mecano_visited.display_name,
+    pro: mecano_visited.pro,
+    price: mecano_visited.price,
+    city: mecano_visited.city,
+    country: mecano_visited.country,
+    mobile: mecano_visited.mobile,
+    all_vehicles: mecano_visited.all_vehicles,
+    rating: mecano_visited.rating,
+    picture: mecano_visited.picture,
   }
 }
 
