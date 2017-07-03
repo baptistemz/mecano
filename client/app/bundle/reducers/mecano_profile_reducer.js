@@ -43,7 +43,6 @@ export default function (state = INITIAL_STATE, action) {
             if(!technical_skills.includes(domain.value)){technical_skills.push(domain.value)};
           }
         })
-        console.log(action.user.mecano_profile)
         const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name } = action.user.mecano_profile;
         return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name }
       }else{
@@ -86,10 +85,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, technical_skills: updated_technical_skills }
       return state
     case UPDATED_CAR_DOMAINS:
-      console.log("in reducer")
       const updated_car_makes = [];
       action.domains.map((domain) =>{
-        console.log("domain", domain)
         if(!updated_car_makes.includes(domain.value)){updated_car_makes.push(domain.value)};
       })
       return { ...state, car_makes: updated_car_makes }

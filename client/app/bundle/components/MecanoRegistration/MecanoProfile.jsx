@@ -6,13 +6,8 @@ import { fetchMecanoProfile } from '../../actions/index';
 import { Header, ProfilePicture } from '../../common/index';
 
 class MecanoProfile extends Component {
-  componentWillMount(){
-    console.log("on va chercher", this.props.mecano_id)
-    // this.props.fetchMecanoProfile(this.props.mecano_id);
-  }
   render(){
     const { display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles } = this.props;
-    console.log("technical_skills", technical_skills)
     return (
       <div>
         <Header>Mon profil mécano</Header>

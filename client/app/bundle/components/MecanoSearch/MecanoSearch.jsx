@@ -82,12 +82,10 @@ class MecanoSearch extends Component {
   }
   gatherValues(){
     const {year, brand, model_select, model_string, model_not_found } = this.refs
-    console.log(this.refs)
     let trim = this.refs.trim.childNodes[0].innerHTML
     trim = (trim === "None" || model_not_found.checked) ? "" : trim;
     const model = model_not_found.checked ? model_string.value : model_select.value
     const values = {year: year.value, brand: brand.value, model , trim }
-    console.log(values)
     return values
   }
   submit(values){

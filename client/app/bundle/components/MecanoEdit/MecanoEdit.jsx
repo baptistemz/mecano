@@ -42,7 +42,6 @@ class MecanoEdit extends Component {
   }
   render(){
     const { handleSubmit, errors, pro, mobile } = this.props;
-    console.log(this.props.initialValues)
     return (
       <div>
         <Header>Édition du profil mécano</Header>

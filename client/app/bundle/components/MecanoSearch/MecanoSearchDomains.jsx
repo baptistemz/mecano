@@ -8,7 +8,6 @@ import { Header, SelectableCard } from '../../common/index';
 
 class MecanoSearchDomains extends Component {
   submit(values){
-    console.log(values)
     const { addDomainsToSearch, mecano_profile } = this.props;
     const data = []
     Object.keys(values).map((k)=> {if(values[k] === true){data.push(k)}});
