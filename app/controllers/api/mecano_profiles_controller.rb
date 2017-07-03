@@ -32,6 +32,7 @@ module Api
            true, coord.first, coord.first, coord.last, coord.last
           )
         @mecano_profiles = @mecano_profiles.with_vehicle(params[:vehicle]) if params[:vehicle].present?
+        @mecano_profiles = @mecano_profiles.with_domains(params[:domains]) if params[:domains].present?
         @with_distance = false
         render :index
       else

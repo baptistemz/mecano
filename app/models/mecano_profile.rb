@@ -2,7 +2,8 @@ class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains
 
-  scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
+  # scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
+  scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| (domains_list - mecano.domains.pluck(:value)).empty? }.uniq}
   scope :with_vehicle, -> (vehicle) { joins(:domains).where( '(domains.value = ?) OR (all_vehicles = ?)', vehicle, true).distinct }
 
   validates_uniqueness_of :user_id

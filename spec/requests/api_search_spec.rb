@@ -47,6 +47,15 @@ RSpec.describe "Search :", type: :request do
         true
       )
     end
+    it "receives mobile mecanos closer than 5km" do
+      mecano_profile = create_mecano_profile(mecano_profile_props, :created)
+      mecano_profile["mobile"] = true
+      mecano_profile["radius"] = 30
+      search(
+        { full_address:"200 boulevard Vauban , Lille, France", distance: "5" },
+        true
+      )
+    end
     it "doesn't receive mecanos further than 5km" do
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
       search(
@@ -101,7 +110,7 @@ RSpec.describe "Search :", type: :request do
   context "domains search" do
     it "receives mecanos mastering searched domains" do
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
-      domains = register_domains([{"kind" => "technical_skill", "value" => "wheels"}, {"kind" => "technical_skill", "value" => "brakes"}], mecano_profile["id"])
+      domains = register_domains([{"kind" => "technical_skill", "value" => "wheels"}, {"kind" => "technical_skill", "value" => "brakes"}, {"kind" => "technical_skill", "value" => "exhaust"}], mecano_profile["id"])
       search(
         { full_address:"200 boulevard Vauban , Lille, France", distance: "5", domains: ["wheels", "brakes"] },
         true
