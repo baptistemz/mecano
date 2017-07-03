@@ -157,6 +157,14 @@ Rails.logger.debug("@variable: #{@variable}")
 ```
 At the place you want to check its value and read the logs in your terminal
 
+If you want to debug your rspec tests you must ```require 'pp'``` at the top of your spec file and then user
+
+```
+pp "@variable: #{@variable}"
+```
+
+to print @variable in the terminal
+
 ### The React app
 
 Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.

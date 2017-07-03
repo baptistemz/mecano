@@ -46,5 +46,19 @@ RSpec.describe "MecanoProfiles :", type: :request do
       mecano_profile_props['radius'] = ''
       create_mecano_profile(mecano_profile_props, :unprocessable_entity)
     end
+    context "domains" do
+      it "registers car_makes" do
+        mecano_profile = create_mecano_profile(mecano_profile_props)
+        register_domains([{"kind" => "car_make", "value" => "porsche"}, {"kind" => "car_make", "value" => "volkswaggen"}], mecano_profile["id"])
+      end
+      it "registers technical_skills" do
+        mecano_profile = create_mecano_profile(mecano_profile_props)
+        register_domains([{"kind" => "technical_skill", "value" => "brakes"}, {"kind" => "technical_skill", "value" => "wheels"}], mecano_profile["id"])
+      end
+      # it "doen't register technical_skills if they are not in enumerable list" do
+      #   mecano_profile = create_mecano_profile(mecano_profile_props)
+      #   register_domains([{"kind" => "technical_skill", "value" => "plumbing"}, {"kind" => "technical_skill", "value" => "others"}], mecano_profile["id"], false)
+      # end
+    end
   end
 end

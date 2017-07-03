@@ -29,14 +29,15 @@ module Api
            (max_lat > ?) AND
            (min_lng < ?) AND
            (max_lng > ?)',
-           true, coord[0], coord[0], coord[1], coord[1]
+           true, coord.first, coord.first, coord.last, coord.last
           )
-        @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+        @mecano_profiles = @mecano_profiles.with_vehicle(params[:vehicle]) if params[:vehicle].present?
         @with_distance = false
         render :index
       else
         @mecano_profiles = MecanoProfile.near(params[:full_address], params[:distance], :units => :km)
-        @mecano_profiles = @mecano_profiles.vehicle(params[:vehicle]) if params[:vehicle].present?
+        @mecano_profiles = @mecano_profiles.with_vehicle(params[:vehicle]) if params[:vehicle].present?
+        @mecano_profiles = @mecano_profiles.with_domains(params[:domains]) if params[:domains].present?
         @with_distance = true
         render :index
       end

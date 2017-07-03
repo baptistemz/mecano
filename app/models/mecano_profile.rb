@@ -2,8 +2,8 @@ class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains
 
-  scope :domains, -> (domains) { joins(:domains).where( 'domains.name = ?', domains).distinct }
-  scope :vehicle, -> (vehicle) { joins(:domains).where( '(all_vehicles = ?) or (domains.name = ?)', true, vehicle ).distinct}
+  scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
+  scope :with_vehicle, -> (vehicle) { joins(:domains).where( '(domains.value = ?) OR (all_vehicles = ?)', vehicle, true).distinct }
 
   validates_uniqueness_of :user_id
   validates_presence_of :address, :city, :country
