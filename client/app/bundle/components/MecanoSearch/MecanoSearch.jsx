@@ -28,10 +28,10 @@ class MecanoSearch extends Component {
     });
     // Change value on autocomplete click
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      triggerAutocomplete(this.getPlace().formatted_address)
+      triggerAutocomplete(this.getPlace().formatted_address);
     });
     const triggerAutocomplete = (value) => {
-      this.props.change('mecano_search', 'full_address', value)
+      this.props.change("mecano_search", "full_address", value)
     }
     carQueryConfig()
   }
@@ -108,7 +108,7 @@ class MecanoSearch extends Component {
     )
   }
   render(){
-    const { handleSubmit, vehicles, isAuthenticated, full_address, distance } = this.props;
+    const { handleSubmit, vehicles, isAuthenticated, distance } = this.props;
     const { formatMessage } = this.props.intl;
     return (
       <div>
@@ -145,7 +145,7 @@ class MecanoSearch extends Component {
               </div>
               <div className="col s12 text-center">
                 <h2>Lieu de réparation</h2>
-                <Input icon="explore" value={ full_address } label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
+                <Input icon="explore" label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
                 <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
               </div>
               <div className="col s12">
@@ -163,9 +163,6 @@ class MecanoSearch extends Component {
   }
 }
 
-MecanoSearch = reduxForm({
-  form: 'mecano_search'
-})(MecanoSearch);
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchVehicles, implementSearch, change }, dispatch);
@@ -179,6 +176,11 @@ function mapStateToProps({vehicle, auth, search}) {
   }
 }
 
-MecanoSearch = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch))
+
+MecanoSearch = reduxForm({
+  form: 'mecano_search'
+})(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
+
+MecanoSearch = injectIntl(MecanoSearch)
 
 export { MecanoSearch };

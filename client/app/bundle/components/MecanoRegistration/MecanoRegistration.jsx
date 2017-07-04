@@ -112,9 +112,6 @@ class MecanoRegistration extends Component {
   }
 }
 
-MecanoRegistration = reduxForm({
-  form: 'mecano_registration'
-})(MecanoRegistration);
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ registerMecano, mecanoRegistrationError, change }, dispatch);
@@ -130,6 +127,10 @@ function mapStateToProps(state) {
   }
 }
 
-MecanoRegistration = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+MecanoRegistration = reduxForm({
+  form: 'mecano_registration'
+})(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+
+MecanoRegistration = injectIntl(MecanoRegistration);
 
 export { MecanoRegistration };

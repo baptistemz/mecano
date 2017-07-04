@@ -15,8 +15,8 @@ export function registerDomains(id, data, next_path){
     return axios.post(`/api/mecano_profiles/${id}/domains/register_domains`, data)
       .then(response => {
         setNextHeaders(response.headers)
-        dispatch(push(next_path || '/mecano_profile'))
         dispatch(registeredDomains(response.data.domains))
+        dispatch(push(next_path || '/mecano_profile'))
       }).catch(error => {
         console.log(error)
         domainRegistrationError(error.response)

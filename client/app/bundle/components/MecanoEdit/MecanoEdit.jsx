@@ -99,9 +99,6 @@ class MecanoEdit extends Component {
   }
 }
 
-MecanoEdit = reduxForm({
-  form: 'mecano_edit'
-})(MecanoEdit);
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateMecanoProfile, change }, dispatch);
@@ -126,6 +123,10 @@ function mapStateToProps(state) {
   }
 }
 
-MecanoEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit))
+MecanoEdit = reduxForm({
+  form: 'mecano_edit'
+})(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit));
+
+MecanoEdit = injectIntl(MecanoEdit)
 
 export { MecanoEdit };
