@@ -5,11 +5,9 @@ class ProfilePicture extends Component {
   render(){
     const { profile_picture, imgSrc, currentUser } = this.props
     const style = this.props.small ? {width: '60px', height: '60px'} : {};
-    if(currentUser){
-      const imgSrc = profile_picture
-    }
+    const src = currentUser ? profile_picture : imgSrc
     return (
-      <img className="avatar-circle" style={style} src={imgSrc || "/thumb/default_profile.png"} alt="profile picture"/>
+      <img className="avatar-circle" style={style} src={src || "/thumb/default_profile.png"} alt="profile picture"/>
     );
   }
 }

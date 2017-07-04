@@ -6,6 +6,8 @@ import { reduxForm, change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoRegistration extends Component {
   constructor() {
@@ -49,6 +51,7 @@ class MecanoRegistration extends Component {
 
   render(){
     const { handleSubmit, errors, pro, mobile, isMecano, full_address } = this.props;
+    const { formatMessage } = this.props.intl
     if(isMecano){
       return <Redirect to={{pathname: '/mecano_vehicles'}}/>
     }
@@ -69,8 +72,8 @@ class MecanoRegistration extends Component {
                 pro ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="monetization_on" name="price" type="number" error={errors.rate} />
-                    <Input icon="business" name="company_name" type="text" error={errors.company_name} />
+                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.rate} />
+                    <Input icon="business" name="company_name" label={formatMessage(defaultMessages.mecanoCompanyName)} type="text" error={errors.company_name} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
                 </div>
@@ -81,13 +84,13 @@ class MecanoRegistration extends Component {
             <div className="col s12 l6 text-center">
               <br/>
               <h2>Données géographiques</h2>
-              <Input id='gplaces' icon="explore" name="full_address" type="text" error={errors.address} />
+              <Input id='gplaces' icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
               <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
               {
                 mobile ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="explore" name="radius" type="number" error={errors.radius} />
+                    <Input icon="explore" name="radius" label={formatMessage(defaultMessages.mecanoRadius)} type="number" error={errors.radius} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
                 </div>
@@ -127,6 +130,6 @@ function mapStateToProps(state) {
   }
 }
 
-MecanoRegistration = connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration);
+MecanoRegistration = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
 
 export { MecanoRegistration };

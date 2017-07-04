@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { fetchMecanoProfile } from '../../actions/index';
 import { Header, ProfilePicture } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoProfile extends Component {
   render(){
     const { display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles } = this.props;
+    const { formatMessage } = this.props.intl;
     return (
       <div>
         <Header>Mon profil mécano</Header>
@@ -26,18 +30,18 @@ class MecanoProfile extends Component {
                     <ProfilePicture currentUser={true}/>
                     <div className="profile-content">
                       <h5 className="capitalize">{ display_name }</h5>
-                      <p>{pro? "professionnel" : "passionné"}</p>
+                      <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
                   </div>
                   <hr/>
                   <div className="space-between">
                     <p className="no-margin">{city}, {country}</p>
-                    {mobile ? <p className="no-margin green-text">Se déplace</p> : <p className="no-margin red-text">Ne se déplace pas</p>}
+                    {mobile ? <p className="no-margin green-text">{formatMessage(defaultMessages.mecanoMobile)}</p> : <p className="no-margin red-text">{formatMessage(defaultMessages.mecanoNonMobile)}</p>}
                   </div>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="text-center">Avis</h5>
+                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoReviews)}</h5>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/domain_edit'}>
@@ -45,11 +49,12 @@ class MecanoProfile extends Component {
                       <i className="material-icons">edit</i>
                     </div>
                   </Link>
-                  <h5 className="text-center">Domaines techniques</h5>
+                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h5>
                   <br/>
                   <ul className="collection">
                     {technical_skills.map((skill)=>{
-                      return <li key={skill} className="collection-item"><div className="capitalize">{skill}<a className="secondary-content recommendation-number">0</a></div></li>
+                      let key = _.camelCase('mecano_technical_skills_' + skill)
+                      return <li key={skill} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-number">0</a></div></li>
                     })}
                   </ul>
                 </div>
@@ -59,9 +64,9 @@ class MecanoProfile extends Component {
                       <i className="material-icons">edit</i>
                     </div>
                   </Link>
-                  <h5 className="text-center">Véhicules</h5>
+                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
                   <br/>
-                  <p className="green-text">{all_vehicles ? "INTERVIENT SUR TOUS VÉHICULES" : ''}</p>
+                  <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
                     <ul className="collection">
                       {car_makes.map((make)=>{
                         return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-number">0</a></div></li>
@@ -97,5 +102,5 @@ function mapStateToProps({ mecano, auth }) {
   }
 }
 
-MecanoProfile = connect(mapStateToProps, mapDispatchToProps)(MecanoProfile)
+MecanoProfile = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoProfile))
 export { MecanoProfile };

@@ -6,6 +6,8 @@ import { reduxForm, initialize, change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { updateMecanoProfile } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoEdit extends Component {
   componentDidMount(){
@@ -42,6 +44,7 @@ class MecanoEdit extends Component {
   }
   render(){
     const { handleSubmit, errors, pro, mobile } = this.props;
+    const { formatMessage } = this.props.intl
     return (
       <div>
         <Header>Édition du profil mécano</Header>
@@ -56,8 +59,8 @@ class MecanoEdit extends Component {
                 pro ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="monetization_on" name="price" type="number" error={errors.rate} />
-                    <Input icon="business" name="company_name" type="text" error={errors.company_name} />
+                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.rate} />
+                    <Input icon="business" name="company_name" label={formatMessage(defaultMessages.mecanoCompanyName)} type="text" error={errors.company_name} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
                 </div>
@@ -68,13 +71,13 @@ class MecanoEdit extends Component {
             <div className="col s12 l6 text-center">
               <br/>
               <h2>Données géographiques</h2>
-              <Input icon="explore" name="full_address" type="text" error={errors.address} />
+              <Input icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
               <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
               {
                 mobile ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="explore" name="radius" type="number" error={errors.radius} />
+                    <Input icon="explore" name="radius" label={formatMessage(defaultMessages.mecanoRadius)} type="number" error={errors.radius} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>km</p>
                 </div>
@@ -123,6 +126,6 @@ function mapStateToProps(state) {
   }
 }
 
-MecanoEdit = connect(mapStateToProps, mapDispatchToProps)(MecanoEdit)
+MecanoEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit))
 
 export { MecanoEdit };

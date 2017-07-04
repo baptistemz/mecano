@@ -76,9 +76,10 @@ export function updateProfile(data) {
   return dispatch => {
     return axios.put('/api/auth/', data)
     .then(response => {
+      console.log(response)
       setNextHeaders(response.headers)
       dispatch(validateToken())
-    }).catch(err => {console.log("updateProfile error", error.response)})
+    }).catch(error => {console.log("updateProfile error", error.response)})
   };
 }
 

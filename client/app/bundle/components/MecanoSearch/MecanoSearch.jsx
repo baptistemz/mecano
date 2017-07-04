@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { fetchVehicles, implementSearch } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
 import carQueryConfig from '../../utils/carQueryConfig';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearch extends Component {
   componentWillMount(){
@@ -106,7 +108,8 @@ class MecanoSearch extends Component {
     )
   }
   render(){
-    const { handleSubmit, vehicles, isAuthenticated, full_address, distance } = this.props
+    const { handleSubmit, vehicles, isAuthenticated, full_address, distance } = this.props;
+    const { formatMessage } = this.props.intl;
     return (
       <div>
         <Header>Recherche mécano 1/2</Header>
@@ -142,7 +145,7 @@ class MecanoSearch extends Component {
               </div>
               <div className="col s12 text-center">
                 <h2>Lieu de réparation</h2>
-                <Input icon="explore" value={ full_address } name="full_address" type="text" />
+                <Input icon="explore" value={ full_address } label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
                 <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
               </div>
               <div className="col s12">
@@ -176,6 +179,6 @@ function mapStateToProps({vehicle, auth, search}) {
   }
 }
 
-MecanoSearch = connect(mapStateToProps, mapDispatchToProps)(MecanoSearch)
+MecanoSearch = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch))
 
 export { MecanoSearch };

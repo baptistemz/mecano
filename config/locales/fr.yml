@@ -19,6 +19,11 @@ fr:
     vehicles: véhicules
     contact: contacter
     all_vehicles_message: intervient sur tous véhicules
+    price: tarif
+    company_name: entreprise
+    full_address: adresse
+    radius: rayon
+    technical_skills_string: domaines techniques
     technical_skills:
       car_body: carrosserie
       exhaust: carburation/échappement
@@ -32,3 +37,14 @@ fr:
       shock_absorbers: amortisseurs
       electronic: électronique
       maintenance: entretien
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password_confirmation:
+              confirmation: ne correspond pas
+            password:
+              too_short: est trop court
+            email:
+              taken: est déjà utilisé pour un compte

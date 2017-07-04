@@ -79,6 +79,7 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.1.2)
     devise_token_auth (0.1.41)
       devise (> 3.5.2, <= 4.2.1)
       rails (< 6)
@@ -255,6 +256,7 @@ DEPENDENCIES
   cloudinary
   coffee-rails (~> 4.2)
   database_cleaner
+  devise-i18n
   devise_token_auth (~> 0.1.41)
   enumerize (~> 2.1.2)
   factory_girl_rails (~> 4.8)

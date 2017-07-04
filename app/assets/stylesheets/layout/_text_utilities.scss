@@ -9,8 +9,8 @@ h1, h2, h3, h4, h5, h6{
   text-align: center;
 }
 
-.capitalize{
-  text-transform: capitalize;
+.capitalize::first-letter{
+  text-transform: uppercase;
 }
 .uppercase{
   text-transform: uppercase;

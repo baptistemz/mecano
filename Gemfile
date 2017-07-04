@@ -34,6 +34,7 @@ gem 'enumerize', '~> 2.1.2'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'devise_token_auth', '~> 0.1.41'
+gem 'devise-i18n'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'carrierwave-base64'

@@ -24,8 +24,7 @@ class Signup extends Component{
   render(){
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit, errorMessages } = this.props;
-    const { formatMessage } = this.props.intl
-    console.log(errorMessages)
+    const { formatMessage } = this.props.intl;
     return (
       <div>
         <Header>{formatMessage(defaultMessages.userSignup)}</Header>
@@ -33,11 +32,11 @@ class Signup extends Component{
           <br />
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-              <Input icon="perm_identity" name={formatMessage(defaultMessages.userFirstName)}  type="text" error={errorMessages["first_name"]} />
-              <Input icon="perm_identity" name={formatMessage(defaultMessages.userLastName)} type="text" error={errorMessages["last_name"]} />
-              <Input icon="email" name={formatMessage(defaultMessages.userEmail)} type="email" error={errorMessages["email"]} />
-              <Input icon="lock_outline" name={formatMessage(defaultMessages.userPassword)}  type="password" error={errorMessages["password"]} />
-              <Input icon="lock_outline" name={formatMessage(defaultMessages.userPasswordConfirmation)} type="password" error={errorMessages["password_confirmation"]} />
+              <Input icon="perm_identity" name="first_name" label={formatMessage(defaultMessages.userFirstName)}  type="text" error={errorMessages["first_name"]} />
+              <Input icon="perm_identity" name="last_name" label={formatMessage(defaultMessages.userLastName)} type="text" error={errorMessages["last_name"]} />
+              <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" error={errorMessages["email"]} />
+              <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)}  type="password" error={errorMessages["password"]} />
+              <Input icon="lock_outline" name="password_confirmation" label={formatMessage(defaultMessages.userPasswordConfirmation)} type="password" error={errorMessages["password_confirmation"]} />
               <p className="red-text">{errorMessages.main}</p>
               <Button icon="lock_open" type="submit">{formatMessage(defaultMessages.userSignup)}</Button>
             </form>

@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 import { MecanoCard } from './index';
 import { searchMecano, updateDistance } from '../../actions/index';
 import { Header, Loader, Button } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchResults extends Component {
   constructor(){
@@ -58,7 +60,12 @@ class MecanoSearchResults extends Component {
     )
   }
   render(){
-    const { distance, full_address, domains, vehicle } = this.props.mecano_search_params
+    const { distance, full_address, domains, vehicle } = this.props.mecano_search_params;
+    const { formatMessage } = this.props.intl;
+    const domain_list = domains.map((domain) =>{
+      let key = _.camelCase('mecano_technical_skills_' + domain)
+      return formatMessage(defaultMessages[key])
+    })
     return (
       <div>
         <Header>Résultats de la recherche</Header>
@@ -76,7 +83,7 @@ class MecanoSearchResults extends Component {
               <div className="col s8 m6 m4 l6">
                 <div id="search-data-recap" className= "space-between flex-end">
                   <div>
-                    <p id="domain-list">{domains.join(', ')}</p>
+                    <p id="domain-list" className="capitalize">{domain_list.join(', ')}</p>
                     <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
                     <p>{`${vehicle.brand}, ${vehicle.model}`}</p>
                   </div>
@@ -112,6 +119,6 @@ function mapStateToProps({ search }) {
   }
 }
 
-MecanoSearchResults = connect(mapStateToProps, mapDispatchToProps)(MecanoSearchResults);
+MecanoSearchResults = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearchResults));
 
 export { MecanoSearchResults };

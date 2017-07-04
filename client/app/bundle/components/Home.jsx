@@ -4,7 +4,6 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
 
 const Home = (props) => {
-  console.log(props)
   const { formatMessage } = props.intl
   return (
     <div>

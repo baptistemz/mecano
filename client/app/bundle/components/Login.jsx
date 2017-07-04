@@ -38,8 +38,8 @@ class Login extends Component{
           <br />
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-              <Input icon="email" name={formatMessage(defaultMessages.userEmail)} type="email" />
-              <Input icon="lock_outline" name={formatMessage(defaultMessages.userPassword)} type="password" />
+              <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
+              <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />
               <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
               <Button icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
             </form>

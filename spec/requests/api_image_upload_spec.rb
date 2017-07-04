@@ -27,11 +27,5 @@ RSpec.describe "ApiImageUpload", type: :request do
     it "generates medium version in 300x300px" do
       expect(updated_user["data"]["profile_picture"]["medium"]["url"]).to include("h_300,w_300")
     end
-    #   # it "generates medium version" do
-    #   #   put api_user_registration_path, profile_picture_params
-    #   #   expect(response).to have_http_status(:ok)
-    #   #   payload = parsed_body
-    #   #   expect(payload).to include("profile_picture"=>"success")
-    #   # end
   end
 end
