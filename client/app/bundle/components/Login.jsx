@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { loginUser } from '../actions/index';
 import { Input, Button, Header } from '../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../libs/i18n/default';
 
 const sanitize = (field) => {
   const sanitized_field = field ? field.trim() : '';
@@ -28,21 +30,22 @@ class Login extends Component{
   render(){
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { handleSubmit, errorMessages } = this.props;
+    const { formatMessage } = this.props.intl
     return (
       <div>
-        <Header>Connexion</Header>
+        <Header>{formatMessage(defaultMessages.userLogin)}</Header>
         <div className="container">
           <br />
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-              <Input icon="email" name="email" type="email" />
-              <Input icon="lock_outline" name="password" type="password" />
+              <Input icon="email" name={formatMessage(defaultMessages.userEmail)} type="email" />
+              <Input icon="lock_outline" name={formatMessage(defaultMessages.userPassword)} type="password" />
               <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
-              <Button icon="lock_open" type="submit">Connexion</Button>
+              <Button icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
             </form>
           </div>
           <div className="text-center margin-top-20 margin-bottom-20 text-20">
-            <Link to={{ pathname: '/signup', state: { from: next_path } }}>Pas encore de compte ? Enregistre-toi !</Link>
+            <Link to={{ pathname: '/signup', state: { from: next_path } }}>{formatMessage(defaultMessages.userNoAccountYetMessage)}</Link>
           </div>
         </div>
       </div>
@@ -62,4 +65,4 @@ Login = reduxForm({
   form: 'login'
 })(connect(mapStateToProps, mapDispatchToProps)(Login));
 
-export default Login ;
+export default injectIntl(Login) ;

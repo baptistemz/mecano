@@ -24,3 +24,8 @@ node_modules
 
 # Ignore application configuration
 /config/application.yml
+
+
+#Ignore I18n-js
+client/app/libs/i18n/translations.js
+client/app/libs/i18n/default.js

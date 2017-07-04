@@ -170,6 +170,39 @@ to print @variable in the terminal
 Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.
 To debugg use the famous ```console.log```
 
+## i18n
+
+You must store all the text content tha your app provides in ```config/locales``` yml files.
+for example
+```
+#config/locales/fr.yml
+
+home:
+  welcome: bienvenue
+```
+To call the welcome message from the rails app you must call:
+```
+  t('home.welcome')
+```
+
+To call the welcome message from a react component:
+```
+...
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '*path_to*/libs/i18n/default';
+...
+class MyComponent extends Component{
+  ...
+  render(){
+    const { formatMessage } = this.props.intl
+    return(
+        <p>{formatMessage(defaultMessages.homeWelcome)}</p>
+    )
+  }
+}
+export default injectIntl(Home);
+```
+
 ## Useful API endpoints
 All the API endpoints only accept JSON data.
 

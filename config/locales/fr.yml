@@ -1,0 +1,34 @@
+fr:
+  type: Français
+  user:
+    first_name: prénom
+    last_name: nom de famille
+    email: email
+    password: mot de passe
+    password_confirmation: confirmation du mot de passe
+    no_account_yet_message: Pas encore de compte ? Enregistre toi !
+    already_account_message: Déjà un compte ? Connecte toi !
+    login: Se connecter
+    signup: Créer un compte
+  mecano:
+    pro: professionnel
+    non_pro: passionné
+    mobile: se déplace
+    non_mobile: ne se déplace pas
+    reviews: avis
+    vehicles: véhicules
+    contact: contacter
+    all_vehicles_message: intervient sur tous véhicules
+    technical_skills:
+      car_body: carrosserie
+      exhaust: carburation/échappement
+      wheels: roues
+      brakes: freins
+      timing: distribution
+      gearing_system: transmission
+      electricity: électricité
+      interior: intérieur
+      air_conditioning: climatisation
+      shock_absorbers: amortisseurs
+      electronic: électronique
+      maintenance: entretien
