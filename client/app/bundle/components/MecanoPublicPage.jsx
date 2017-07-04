@@ -14,11 +14,13 @@ class MecanoPublicPage extends Component {
     this.state = { loading : true }
   }
   componentWillMount(){
-    this.props.fetchMecanoProfile(this.props.match.params.id);
+    const splitted_slug = this.props.match.params.id.toString().split('_')
+    this.props.fetchMecanoProfile(splitted_slug[splitted_slug.length - 1]);
     this.setState({ loading: true });
   }
   componentWillReceiveProps(newProps){
-    if(newProps.id.toString() === this.props.match.params.id){
+    const splitted_slug = this.props.match.params.id.toString().split('_')
+    if(newProps.id.toString() === splitted_slug[splitted_slug.length - 1]){
       this.setState({ loading: false });
     }
   }
@@ -63,6 +65,7 @@ class MecanoPublicPage extends Component {
                   <ul className="collection">
                     {technical_skills.map((skill)=>{
                       let key = _.camelCase('mecano_technical_skills_' + skill.value)
+                      console.log(key)
                       return <li key={skill.id} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-number">0</a></div></li>
                     })}
                   </ul>

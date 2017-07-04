@@ -53,8 +53,8 @@ class MecanoSearchResults extends Component {
     return(
       <div>
         {mecano_search_results.map((mecano) =>{
-          const { id, distance, display_name, city, pro, mobile, price, picture } = mecano
-          return <MecanoCard key={id} id={id} title={ display_name } pro={ pro } imgSrc={ picture.thumb.url } mobile={ mobile } price={ price } rating={4.33} raters={13} distance={distance} />
+          const { id, distance, display_name, city, country, pro, mobile, price, picture } = mecano
+          return <MecanoCard key={id} id={id} title={ display_name } city={city} country={country} pro={ pro } imgSrc={ picture.thumb.url } mobile={ mobile } price={ price } rating={4.33} raters={13} distance={distance} />
         })}
       </div>
     )

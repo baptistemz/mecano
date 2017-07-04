@@ -34,6 +34,7 @@ export function searchMecano(params){
   return dispatch => {
     return axios.get('/api/mecano_profiles', { params })
       .then(response => {
+        console.log(response)
         dispatch(receivedSearchResults(response.data))
       }).catch((error) => {
         console.log(error)
