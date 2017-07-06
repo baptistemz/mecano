@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 export function setNextHeaders(headers){
   if(headers['access-token']){
-    console.log(headers['access-token'])
     setStorage(getHeadersObject(headers));
     axios.defaults.headers.common = getHeadersObject(headers);
   }

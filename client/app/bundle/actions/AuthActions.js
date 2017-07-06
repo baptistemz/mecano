@@ -17,7 +17,6 @@ export function validateToken(){
   return dispatch => {
     if(localStorage["reduxPersist:auth"] && JSON.parse(localStorage["reduxPersist:auth"]).isAuthenticated){
       axios.defaults.headers.common = getHeadersObject(localStorage);
-      console.log(axios.defaults.headers.common['access-token'])
       const request = axios.get('/api/auth/validate_token?unbatch=true')
       return request
         .then(response => {

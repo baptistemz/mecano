@@ -11,7 +11,7 @@ class ContactForm extends Component {
     // auto-expand textarea when content is bigger than the space let by the area
     $('textarea').keyup(function() {
       const height = parseInt($(this).css('height'), 10)
-      if( height + 34 < this.scrollHeight){
+      if( height + 39 < this.scrollHeight){
         $(this).css('height', `${this.scrollHeight}px`)
       }
     });
@@ -32,7 +32,7 @@ class ContactForm extends Component {
         <div className="box-shadow white-background marged-20 padded-20">
           <h5 className="capitalize text-center">Contacter ce mécano</h5>
           <div className="direction-row align-center">
-            <h6 style={{marginRight: "10px"}}>De:</h6>
+            <h6 style={{marginRight: "10px", marginBottom: "5px"}}>De:</h6>
             <p>{this.props.email}</p>
           </div>
           <div className="input-field">
@@ -45,7 +45,7 @@ class ContactForm extends Component {
           </div>
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <p>Une fois votre message envoyé, le mécano vous répondra par email sur l'adresse avec laquelle vous êtes connecté. Vérifiez que cette addresse est correcte. Si nécessaire, modifiez la dans <Link to={'/my_account'}>l'espace "mon compte"</Link></p>
+          <p>Une fois votre message envoyé, le mécano vous répondra par email sur l'adresse avec laquelle vous êtes connecté. Vérifiez que cette addresse est correcte. Si nécessaire, modifiez-la dans <Link to={'/my_account'}>l'espace "mon compte"</Link></p>
         </div>
       </div>
     )

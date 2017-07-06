@@ -7,8 +7,15 @@ class User < ActiveRecord::Base
   mount_base64_uploader :profile_picture, ProfilePictureUploader
   has_one :mecano_profile
   has_many :vehicles
+  after_create :send_welcome_email
 
   def token_validation_response
     UserSerializer.new(self).as_json
+  end
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
   end
 end
