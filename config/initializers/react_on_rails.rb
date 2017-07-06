@@ -70,7 +70,7 @@ ReactOnRails.configure do |config|
   # that will source for automatic generation on translations.js & default.js
   # By default(without this option) all yaml files from Rails.root.join("config", "locales") and installed gems are loaded
   # config.i18n_yml_dir = Rails.root.join("config", "locales", "client")
-  Rails.root.join("client", "app", "bundle", "libs", "i18n")
+  Rails.root.join("client", "app", "libs", "i18n")
   ################################################################################
   # MISCELLANEOUS OPTIONS
   ################################################################################

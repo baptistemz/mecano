@@ -7,7 +7,7 @@ import { MecanoCard } from './index';
 import { searchMecano, updateDistance } from '../../actions/index';
 import { Header, Loader, Button } from '../../common/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchResults extends Component {
   constructor(){

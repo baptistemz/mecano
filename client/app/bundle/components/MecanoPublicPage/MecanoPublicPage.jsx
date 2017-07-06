@@ -9,7 +9,7 @@ import { Header, ProfilePicture, Loader, Button } from '../../common/index';
 import ContactForm from './ContactForm'
 import Profile from './Profile'
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoPublicPage extends Component {
   constructor(props){

@@ -7,7 +7,7 @@ import { fetchVehicles, implementSearch } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
 import carQueryConfig from '../../utils/carQueryConfig';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearch extends Component {
   componentDidMount(){

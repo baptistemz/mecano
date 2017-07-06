@@ -7,7 +7,7 @@ import PictureUpdate from '../PictureUpdate';
 import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoRegistration extends Component {
   constructor() {

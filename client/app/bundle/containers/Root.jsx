@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { translations } from '../libs/i18n/translations';
-import { defaultLocale } from '../libs/i18n/default';
+import { translations } from '../../libs/i18n/translations';
+import { defaultLocale } from '../../libs/i18n/default';
 import ReduxToastr from 'react-redux-toastr';
 import { persistStore } from 'redux-persist';
 import { validateToken } from '../actions/index';
