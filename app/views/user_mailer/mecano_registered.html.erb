@@ -1,6 +1,8 @@
 <h1>Vous avez bien été enregistré en tant que Mécano</h1>
 
 <p>
+  Bonjour <%= @mecano.display_name%>, <br>
+  <br>
   Nous avons bien enregistré votre profil mécano. Il sera visible dans les recherches autour de vous. <br>
   Vous pouvez le modifier à tout moment dans votre <%= link_to 'espace mecano', "#{ENV['app_url']}/mecano_profile" %><br>
   <br>
