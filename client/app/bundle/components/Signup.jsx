@@ -6,7 +6,7 @@ import { reduxForm } from 'redux-form';
 import { signupUser } from '../actions/index';
 import { Input, Button, Header } from '../common/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../libs/i18n/default';
 
 const sanitize = (field) => {
   const sanitized_field = field ? field.trim() : '';

@@ -7,7 +7,7 @@ import { Header, EditableField, VehicleCard } from '../common/index';
 import VehicleCreation from './VehicleCreation';
 import { updateProfile, fetchVehicles, deleteVehicle } from '../actions/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../libs/i18n/default';
 
 class Account extends Component {
   componentDidMount(){

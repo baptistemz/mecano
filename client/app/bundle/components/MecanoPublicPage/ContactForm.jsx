@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { Button } from '../../common/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../../libs/i18n/default';
+import { defaultMessages } from '../../libs/i18n/default';
 
 class ContactForm extends Component {
   componentDidMount(){

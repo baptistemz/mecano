@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { fetchMecanoProfile } from '../../actions/index';
 import { Header, ProfilePicture } from '../../common/index';
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../../libs/i18n/default';
+import { defaultMessages } from '../../libs/i18n/default';
 
 class MecanoProfile extends Component {
   render(){
