@@ -1,31 +1,56 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchMecanoProfile } from '../actions/index';
-import { Header, ProfilePicture, Loader, Button } from '../common/index';
+import { Route, Link } from 'react-router-dom';
+import PrivateRoute from '../../containers/PrivateRoute';
+import { fetchMecanoProfile } from '../../actions/index';
+import { Header, ProfilePicture, Loader, Button } from '../../common/index';
+import ContactForm from './ContactForm'
+import Profile from './Profile'
 import { injectIntl } from 'react-intl';
-import { defaultMessages } from '../../libs/i18n/default';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoPublicPage extends Component {
-  constructor(){
-    super()
-    this.state = { loading : true }
+  constructor(props){
+    super(props)
+    const splitted_slug = props.match.params.id.toString().split('_')
+    this.state = {
+      loading : true,
+      id: splitted_slug[splitted_slug.length - 1],
+      inContactForm: false
+    }
   }
   componentWillMount(){
-    const splitted_slug = this.props.match.params.id.toString().split('_')
-    this.props.fetchMecanoProfile(splitted_slug[splitted_slug.length - 1]);
+    this.props.fetchMecanoProfile(this.state.id);
     this.setState({ loading: true });
   }
   componentWillReceiveProps(newProps){
-    const splitted_slug = this.props.match.params.id.toString().split('_')
-    if(newProps.id.toString() === splitted_slug[splitted_slug.length - 1]){
+    this.setState({inContactForm: newProps.location.pathname.endsWith("contact") })
+    if(newProps.id.toString() === this.state.id){
       this.setState({ loading: false });
     }
   }
+  contactButton(small=false){
+    const { formatMessage } = this.props.intl
+    const { inContactForm } = this.state
+    const props = {
+      linkClass: small ? "contact-btn" : "",
+      spanClass: small ? "hide-on-small-only" : "",
+      buttonIcon: inContactForm ? "navigate_before" : "chat_bubble_outline",
+      buttonText: inContactForm ? "Retour au profil" : formatMessage(defaultMessages.mecanoContact),
+      url: inContactForm ? this.props.match.url : `${this.props.match.url}/contact`
+    }
+      return(
+        <Link to={props.url} className={props.linkClass}>
+          <Button fullWidth={!small} icon={props.buttonIcon}>
+            <span className={props.spanClass}>{props.buttonText}</span>
+          </Button>
+        </Link>
+      )
+  }
   render(){
-    const { car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture } = this.props;
+    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return <Loader/>
@@ -46,9 +71,7 @@ class MecanoPublicPage extends Component {
                       <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
-                    <div className="contact-btn">
-                      <Button icon="chat_bubble_outline"></Button>
-                    </div>
+                    {this.contactButton(true)}
                   </div>
                   <hr/>
                   <div className="space-between">
@@ -56,33 +79,13 @@ class MecanoPublicPage extends Component {
                     {mobile ? <p className="no-margin green-text">{formatMessage(defaultMessages.mecanoMobile)}</p> : <p className="no-margin red-text">{formatMessage(defaultMessages.mecanoNonMobile)}</p>}
                   </div>
                 </div>
-                <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="capitalize text-center">{formatMessage(defaultMessages.mecanoReviews)}</h5>
-                </div>
-                <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="text-center">Domaines techniques</h5>
-                  <br/>
-                  <ul className="collection">
-                    {technical_skills.map((skill)=>{
-                      let key = _.camelCase('mecano_technical_skills_' + skill.value)
-                      console.log(key)
-                      return <li key={skill.id} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-number">0</a></div></li>
-                    })}
-                  </ul>
-                </div>
-                <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="text-center">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
-                  <br/>
-                  <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
-                    <ul className="collection">
-                      {car_makes.map((make)=>{
-                        return <li key={make.id} className="collection-item"><div className="capitalize">{make.name}<a className="secondary-content recommendation-number">0</a></div></li>
-                      })}
-                    </ul>
-                </div>
+                <Route exact path={this.props.match.url} render={() =>
+                    <Profile carMakes={car_makes} technicalSkills={technical_skills} allVehicles={all_vehicles} rating={rating}/>
+                  }/>
+                <PrivateRoute path={`${this.props.match.url}/contact`} isAuthenticated={isAuthenticated} registerMethod="login" component={ContactForm} />
               </div>
               <div className="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
-                <Button fullWidth="true" icon="chat_bubble_outline">{formatMessage(defaultMessages.mecanoContact)}</Button>
+                {this.contactButton()}
               </div>
             </div>
           </div>
@@ -110,6 +113,7 @@ function mapStateToProps({ mecano_visited, auth }) {
     all_vehicles: mecano_visited.all_vehicles,
     rating: mecano_visited.rating,
     picture: mecano_visited.picture,
+    isAuthenticated: auth.isAuthenticated
   }
 }
 

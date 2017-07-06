@@ -5,7 +5,8 @@ import {
   GOT_VEHICLES,
   CREATED_VEHICLE,
   DELETED_VEHICLE,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  LOGIN_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -27,8 +28,8 @@ export default function (state = INITIAL_STATE, action) {
       const index = new_list.indexOf(action.carMake);
       index !== -1 ? new_list.splice(index, 1) : new_list;
       return { ...state, selected_car_makes: new_list }
-    case GOT_VEHICLES:
-      return { ...state, user_vehicles: action.vehicles }
+    case LOGIN_SUCCESS:
+      return { ...state, user_vehicles: action.user.vehicles }
     case CREATED_VEHICLE:
       return { ...state, user_vehicles: [...state.user_vehicles, action.vehicle] }
     case DELETED_VEHICLE:

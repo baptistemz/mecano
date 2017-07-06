@@ -17,11 +17,12 @@ export function validateToken(){
   return dispatch => {
     if(localStorage["reduxPersist:auth"] && JSON.parse(localStorage["reduxPersist:auth"]).isAuthenticated){
       axios.defaults.headers.common = getHeadersObject(localStorage);
+      console.log(axios.defaults.headers.common['access-token'])
       const request = axios.get('/api/auth/validate_token?unbatch=true')
       return request
         .then(response => {
           if(response.data.success){
-            dispatch(receiveLogin(response.data.data));
+            dispatch(receiveUser(response.data.data));
             setNextHeaders(response.headers);
           }else{
             dispatch(receiveLogout());
@@ -37,10 +38,10 @@ export function loginUser(data, next_path) {
   return dispatch => {
     return axios.post('/api/auth/sign_in', data)
       .then(response => {
-        //SEND AN ACTION TO AUTH REDUCER TO REGISTER USER IN STORE
-        dispatch(receiveLogin(response.data.data))
         //STORE TOKEN IN LOCAL STORAGE AND IN AXIOS HEADERS FOR NEXT REQUEST
         setNextHeaders(response.headers)
+        //SEND AN ACTION TO AUTH REDUCER TO REGISTER USER IN STORE
+        dispatch(receiveUser(response.data.data))
         //Send a flash message
         toastr.success('Connecté', 'Succés de la connexion');
         //REDIRECT USER
@@ -57,10 +58,10 @@ export function signupUser(data, next_path) {
   return dispatch => {
     return axios.post('/api/auth', data)
       .then(response => {
-        //SEND AN ACTION TO AUTH REDUCER TO REGISTER USER IN STORE
-        dispatch(receiveLogin(response.data.data))
         //STORE TOKEN IN LOCAL STORAGE AND IN AXIOS HEADERS FOR NEXT REQUEST
         setNextHeaders(response.headers)
+        //SEND AN ACTION TO AUTH REDUCER TO REGISTER USER IN STORE
+        dispatch(receiveUser(response.data.data))
         //Send a flash message
         toastr.success('Connecté', 'Succés de la connexion');
         //REDIRECT USER
@@ -72,14 +73,16 @@ export function signupUser(data, next_path) {
   };
 }
 
-export function updateProfile(data) {
+export function updateProfile(data, success_message) {
   return dispatch => {
     return axios.put('/api/auth/', data)
     .then(response => {
-      console.log(response)
       setNextHeaders(response.headers)
-      dispatch(validateToken())
-    }).catch(error => {console.log("updateProfile error", error.response)})
+      if(success_message){
+        toastr.success(success_message);
+      }
+      dispatch(profileUpdated(response.data.data))
+    }).catch(error => {console.log("updateProfile error", error)})
   };
 }
 
@@ -126,10 +129,17 @@ function receiveLogout() {
   };
 }
 
-export function receiveLogin(user) {
+export function receiveUser(user) {
   return {
     type: LOGIN_SUCCESS,
     isAuthenticated: true,
+    user
+  };
+}
+
+export function profileUpdated(user) {
+  return {
+    type: PROFILE_UPDATED,
     user
   };
 }

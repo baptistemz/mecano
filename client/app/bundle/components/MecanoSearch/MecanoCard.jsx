@@ -6,7 +6,7 @@ import { ProfilePicture } from '../../common/index';
 const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, city, country }) => {
   return(
     <div className="col s12 offset-m2 m8 l6">
-      <Link to={`/mecanos/${title.replace(/\s/g, '')}_${city.replace(/\s/g, '')}_${country.replace(/\s/g, '')}_${id}`}>
+      <Link to={`/mecanos/${title.replace(/\s/g, '-')}_${city.replace(/\s/g, '-')}_${country.replace(/\s/g, '-')}_${id}`}>
         <div className="box-shadow mecano-card margin-top-20">
           { distance ?
             <div className="distance-chip">{distance.toFixed(1)} km</div>

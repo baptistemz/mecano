@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateProfile } from '../actions/index';
+import { updateProfile, validateToken } from '../actions/index';
 import { Loader, ProfilePicture } from '../common/index';
 import getBase64 from '../utils/getBase64'
 
@@ -21,7 +21,9 @@ class PictureUpdate extends Component {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.setState({ loadingImage: true });
-      this.props.updateProfile({ profile_picture: reader.result });
+      this.props.updateProfile({ profile_picture: reader.result }).then(()=>{
+        this.props.validateToken();
+      })
     }
     reader.onerror = function (error) {
       console.log('Error: ', error);
@@ -45,7 +47,7 @@ class PictureUpdate extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateProfile }, dispatch);
+  return bindActionCreators({ updateProfile, validateToken }, dispatch);
 }
 
 function mapStateToProps(state) {

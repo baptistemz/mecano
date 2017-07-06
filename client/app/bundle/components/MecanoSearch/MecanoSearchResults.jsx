@@ -17,15 +17,12 @@ class MecanoSearchResults extends Component {
   componentWillMount(){
     const search = () => {
       this.props.searchMecano(this.props.mecano_search_params)
-      this.setState({ loading: true });
     }
-    $(document).ready(function(){
-      search()
-    })
+    search()
   }
   componentDidMount(){
-    this.setState({ loading: false });
     $('select').material_select();
+    this.setState({ loading: false });
     const onDistanceChange = (event) => this.onDistanceChange(event);
     $('select').on('change', function(e) {
       onDistanceChange(e);

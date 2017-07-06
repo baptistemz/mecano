@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-import { setNextHeaders } from '../utils/tokenManagement';
 import {
   IMPLEMENT_SEARCH,
   ADD_DOMAINS_TO_SEARCH,

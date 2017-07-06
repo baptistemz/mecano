@@ -7,6 +7,10 @@
   // background-color: white
 }
 
+.no-margin{
+  margin:0
+}
+
 .space-between{
   display: flex;
   justify-content: space-between;
@@ -21,12 +25,9 @@
   display: flex;
   justify-content: center;
 }
-.align-start{
+.align-center{
   display: flex;
-  align-items: start;
-}
-.no-margin{
-  margin:0
+  align-items: center;
 }
 
 .direction-row{

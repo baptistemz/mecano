@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import PictureUpdate from './PictureUpdate';
 import { Header, EditableField, VehicleCard } from '../common/index';
 import VehicleCreation from './VehicleCreation';
 import { updateProfile, fetchVehicles, deleteVehicle } from '../actions/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../libs/i18n/default';
 
 class Account extends Component {
-  componentWillMount(){
-    this.props.fetchVehicles();
+  componentDidMount(){
+    // console.log("one call")
+    // this.props.fetchVehicles();
   }
   changeProfileField(type, text) {
+    const { formatMessage } = this.props.intl
     const data = {};
     data[type] = text;
-    this.props.updateProfile(data);
+    const key =  formatMessage(defaultMessages[_.camelCase('user_' + type)])
+    this.props.updateProfile(data, `Votre ${key} a bien été mis à jour pour "${text}"`);
   }
   onCardDelete(vehicle){
     this.props.deleteVehicle(vehicle.id)
@@ -90,4 +96,6 @@ function mapStateToProps({ auth, vehicle }) {
   }
 }
 
-export default connect(mapStateToProps,  mapDispatchToProps)(Account);
+Account = connect(mapStateToProps,  mapDispatchToProps)(Account);
+
+export default injectIntl(Account)

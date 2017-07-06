@@ -10,12 +10,10 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearch extends Component {
-  componentWillMount(){
-    if(this.props.isAuthenticated){
-      this.props.fetchVehicles();
-    }
-  }
   componentDidMount(){
+    // if(this.props.isAuthenticated){
+    //   this.props.fetchVehicles();
+    // }
     $('ul.tabs').tabs();
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };

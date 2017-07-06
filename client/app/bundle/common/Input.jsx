@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form'
 
 const Input = (props) => {
-  const { name, icon, type, value, error, label } = props
+  const { name, icon, type, value, error, label } = props;
   return (
     <div className="input-field">
       <i className="material-icons prefix">{icon}</i>
