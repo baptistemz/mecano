@@ -5,8 +5,9 @@ class ServiceMailer < ApplicationMailer
   #
   #   en.service_mailer.welcome.subject
   #
-  def contact(service)
+  def contact(service, message)
     @service = service
+    @message = message
     mail from: @service.user.email, to: @service.mecano_profile.user.email, subject:"Restor'it - Demande de service sur #{@service.vehicle.brand} #{@service.vehicle.model} #{@service.vehicle.trim} de #{@service.vehicle.year}"
   end
 end

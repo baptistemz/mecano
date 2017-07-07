@@ -72,7 +72,7 @@ export function signupUser(data, next_path) {
   };
 }
 
-export function updateProfile(data, success_message) {
+export function updateProfile(data, success_message, next_path) {
   return dispatch => {
     return axios.put('/api/auth/', data)
     .then(response => {
@@ -81,6 +81,7 @@ export function updateProfile(data, success_message) {
         toastr.success(success_message);
       }
       dispatch(profileUpdated(response.data.data))
+      if(next_path){dispatch(push(next_path.pathname))};
     }).catch(error => {console.log("updateProfile error", error)})
   };
 }

@@ -10,6 +10,10 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearch extends Component {
+  constructor(props){
+    super(props)
+    this.state = { registeredCar: props.isAuthenticated }
+  }
   componentDidMount(){
     // if(this.props.isAuthenticated){
     //   this.props.fetchVehicles();
@@ -80,8 +84,9 @@ class MecanoSearch extends Component {
       $('#model-string-group').css('display', 'none')
     }
   }
-  gatherValues(){
+  gatherVehicleValues(){
     const {year, brand, model_select, model_string, model_not_found } = this.refs
+    console.log(this)
     let trim = this.refs.trim.childNodes[0].innerHTML
     trim = (trim === "None" || model_not_found.checked) ? "" : trim;
     const model = model_not_found.checked ? model_string.value : model_select.value
@@ -89,7 +94,11 @@ class MecanoSearch extends Component {
     return values
   }
   submit(values){
-    values["vehicle"] = this.gatherValues();
+    if (this.state.registeredCar){
+      values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
+    }else{
+      values["vehicle"] = this.gatherVehicleValues();
+    }
     this.props.implementSearch(values);
   }
   vehicleDisplay(vehicle){

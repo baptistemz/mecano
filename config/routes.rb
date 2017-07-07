@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     mount_devise_token_auth_for 'User', at: 'auth'
     get 'authcheck/checkme'
     resources :vehicles, only: [:create, :index, :destroy]
+    resources :services, only: [:create]
     resources :mecano_profiles, only: [:create, :update, :show, :index, :destroy] do
       resources :domains, only: [:index]
       post 'domains/register_domains'

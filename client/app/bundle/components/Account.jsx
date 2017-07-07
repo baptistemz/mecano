@@ -15,11 +15,12 @@ class Account extends Component {
     // this.props.fetchVehicles();
   }
   changeProfileField(type, text) {
+    const next_path = this.props.location.state ? this.props.location.state.from : null
     const { formatMessage } = this.props.intl
     const data = {};
     data[type] = text;
     const key =  formatMessage(defaultMessages[_.camelCase('user_' + type)])
-    this.props.updateProfile(data, `Votre ${key} a bien été mis à jour pour "${text}"`);
+    this.props.updateProfile(data, `Votre ${key} a bien été mis à jour pour "${text}"`, next_path);
   }
   onCardDelete(vehicle){
     this.props.deleteVehicle(vehicle.id)

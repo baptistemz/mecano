@@ -3,7 +3,8 @@ import {
   ADD_DOMAINS_TO_SEARCH,
   IMPLEMENT_SEARCH,
   RECEIVED_SEARCH_RESULTS,
-  UPDATE_DISTANCE
+  UPDATE_DISTANCE,
+  CREATED_VEHICLE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -24,6 +25,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, domains: action.domains}
     case UPDATE_DISTANCE:
       return { ...state, distance: parseInt(action.distance)}
+    case CREATED_VEHICLE:
+      return { ...state, vehicle: action.vehicle }
     case RECEIVED_SEARCH_RESULTS:
       return { ...state, results: action.search_results}
     case LOGOUT_SUCCESS:

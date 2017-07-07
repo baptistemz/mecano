@@ -1,6 +1,7 @@
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains
+  has_many :services
 
   # scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
   scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| (domains_list - mecano.domains.pluck(:value)).empty? }.uniq}
