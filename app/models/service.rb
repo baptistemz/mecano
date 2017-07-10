@@ -5,4 +5,6 @@ class Service < ActiveRecord::Base
   belongs_to :vehicle
   has_many :vehicles
   enumerize :status, in: [:pending, :canceled, :finished]
+
+  validates_uniqueness_of :user_id, scope: [:mecano_profile_id, :status]
 end

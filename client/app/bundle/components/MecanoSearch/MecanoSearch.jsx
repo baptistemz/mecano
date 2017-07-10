@@ -86,7 +86,6 @@ class MecanoSearch extends Component {
   }
   gatherVehicleValues(){
     const {year, brand, model_select, model_string, model_not_found } = this.refs
-    console.log(this)
     let trim = this.refs.trim.childNodes[0].innerHTML
     trim = (trim === "None" || model_not_found.checked) ? "" : trim;
     const model = model_not_found.checked ? model_string.value : model_select.value
@@ -117,7 +116,6 @@ class MecanoSearch extends Component {
   render(){
     const { handleSubmit, vehicles, isAuthenticated, distance } = this.props;
     const { formatMessage } = this.props.intl;
-    console.log(this.props.initialValues)
     return (
       <div>
         <Header>Recherche mécano 1/2</Header>

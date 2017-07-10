@@ -32,7 +32,7 @@ class Account extends Component {
         <Header>Mon compte</Header>
         <div className="container">
           <div className="text-center">
-            <h2>Mes informations personnelles</h2>
+            <h2>Mes infos personnelles</h2>
           </div>
           <div className="row">
             <div className="col s6 m4">
@@ -61,6 +61,7 @@ class Account extends Component {
             </div>
           </div>
           <PictureUpdate />
+          <br/>
           <div className="text-center">
             <h2>Mes véhicules</h2>
           </div>

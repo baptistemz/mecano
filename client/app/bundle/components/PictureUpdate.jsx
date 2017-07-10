@@ -33,14 +33,17 @@ class PictureUpdate extends Component {
   render(){
     const img = this.state.loadingImage ? <Loader/> : <ProfilePicture currentUser={true} />
     return (
-      <div className="picture-update-group">
+      <div className="picture-update-group justify-center">
+        <div style={{marginRight: "20px"}}>
+          <h5>Ma photo de profil</h5>
+          <label htmlFor={"file"} className="fileLabel"><div className="btn">Choisir une image</div></label>
+          <input id="file" className="fileInput"
+            type="file"
+            onChange={(e)=>this.handleImageChange(e)} />
+        </div>
         <div className="thumb-image-container">
           {img}
         </div>
-        <label htmlFor={"file"} className="fileLabel"><div className="btn">Choisir une image</div></label>
-        <input id="file" className="fileInput"
-          type="file"
-          onChange={(e)=>this.handleImageChange(e)} />
       </div>
     );
   };

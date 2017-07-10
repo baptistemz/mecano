@@ -6,14 +6,13 @@ const Footer = (props) => {
       <div className="container">
         <h6>Name of the app</h6>
         <hr/>
-        <div className="space-between">
+        <div style={{margin: '0 -20px'}} className="space-between">
           <a>CGU</a>
-          <a>Contact</a>
-          <a>À propos</a>
-          <div className="space-around">
-            <a style={{ margin: '0 10px'}}><i className="fa fa-facebook"></i></a>
-            <a style={{ margin: '0 10px'}}><i className="fa fa-twitter"></i></a>
-            <a style={{ margin: '0 10px'}}><i className="fa fa-envelope"></i></a>
+          <a className="hide-on-small-only">Contact</a>
+          <div className="space-around social-links">
+            <a><i className="fa fa-facebook"></i></a>
+            <a><i className="fa fa-twitter"></i></a>
+            <a><i className="fa fa-envelope"></i></a>
           </div>
         </div>
       </div>

@@ -10,9 +10,11 @@ html {
   color: white;
   & a{
     color: white;
-    padding: 10px;
+    padding: 5px 20px;
     border-radius:2px;
     transition: background-color 0.3s ease;
+    line-height: 2em;
+    height: 40px;
   }
   & a:hover{
     background-color: #328BC3
@@ -23,6 +25,19 @@ html {
   & hr {
     margin-bottom: 10px;
     margin-top: 10px;
+  }
+}
+
+.social-links{
+  & a{
+    width: 46px;
+    height: 46px;
+    margin: 0 20px;
+    background-color: rgb(26, 44, 63);
+    border-radius: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

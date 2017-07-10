@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707153312) do
+ActiveRecord::Schema.define(version: 20170710175449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170707153312) do
     t.float   "min_lng"
     t.float   "max_lat"
     t.float   "max_lng"
+    t.text    "description"
     t.index ["user_id"], name: "index_mecano_profiles_on_user_id", using: :btree
   end
 

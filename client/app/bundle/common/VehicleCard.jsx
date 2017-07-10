@@ -1,6 +1,7 @@
 import React from 'react';
 
 const VehicleCard = ({ year, brand, model, trim, onDelete }) => {
+  console.log(brand)
   return(
     <div className="col s12 m6 l4">
       <div className="vehicle-card box-shadow margin-top-20">

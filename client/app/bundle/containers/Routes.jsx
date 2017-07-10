@@ -7,7 +7,7 @@ import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
-import MecanoPublicPage from '../components/MecanoPublicPage/MecanoPublicPage';
+import { MecanoPublicPage } from '../components/MecanoPublicPage/index';
 import { Header, Footer } from '../common/index';
 import { MecanoRegistration, VehicleChoice, DomainChoice, MecanoProfile } from '../components/MecanoRegistration/index';
 import { MecanoEdit, VehicleEdit, DomainEdit } from '../components/MecanoEdit/index';

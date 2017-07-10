@@ -23,6 +23,7 @@ const INITIAL_STATE = {
     rating: null,
     company_name: "",
     full_address: "",
+    description: "",
     technical_skills: [],
     car_makes: [],
     errors: {}
@@ -43,8 +44,8 @@ export default function (state = INITIAL_STATE, action) {
             if(!technical_skills.includes(domain.value)){technical_skills.push(domain.value)};
           }
         })
-        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name } = action.user.mecano_profile;
-        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name }
+        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.user.mecano_profile;
+        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description }
       }else{
         return state
       }
@@ -53,18 +54,13 @@ export default function (state = INITIAL_STATE, action) {
       const new_errors = Object.assign({}, state.errors, action.error);
       return { ...state, errors: new_errors }
     case REGISTERED_MECANO:{
-      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name } = action.mecano_profile;
-      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name }
+      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.mecano_profile;
+      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description }
     }
     case UPDATED_MECANO:{
-      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name } = action.mecano_profile;
-      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name }
+      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.mecano_profile;
+      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description }
     }
-    // case GOT_MECANO:{
-    //   const { mecano_profile, car_makes, domains } = action.data;
-    //   const {display_name, pro, price, city, country, mobile, all_vehicles, rating, picture} = mecano_profile;
-    //   return { ...state, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture }
-    // }
     case REGISTERED_DOMAINS:
       const new_car_makes = state.car_makes;
       const new_technical_skills = state.technical_skills;

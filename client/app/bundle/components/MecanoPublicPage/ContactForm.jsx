@@ -29,14 +29,14 @@ class ContactForm extends Component {
   }
   submitMessage(){
     const { vehicle, mecano_profile_id, contact, createVehicle } = this.props;
-    if(!vehicle.id){
-      createVehicle(vehicle)
-    }else if(this.state.newVehicle){
+    if(this.state.newVehicle){
       const {year, brand, model_select, model_string, model_not_found } = this.refs
       let trim = this.refs.trim.childNodes[0].innerHTML
       trim = (trim === "None" || model_not_found.checked) ? "" : trim;
       const model = model_not_found.checked ? model_string.value : model_select.value
       createVehicle({year: year.value, brand: brand.value, model , trim })
+    }else if(!vehicle.id){
+      createVehicle(vehicle)
     }else{
       contact({ first_message: this.refs.message.value, mecano_profile_id, vehicle_id: vehicle.id });
     }
@@ -156,6 +156,6 @@ function mapStateToProps({ mecano_visited, auth, search }) {
   }
 }
 
-ContactForm = connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+ContactForm = injectIntl(connect(mapStateToProps, mapDispatchToProps)(ContactForm))
 
-export default injectIntl(ContactForm);
+export { ContactForm }

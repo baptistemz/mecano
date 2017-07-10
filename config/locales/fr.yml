@@ -16,6 +16,8 @@ fr:
     mobile: se déplace
     non_mobile: ne se déplace pas
     reviews: avis
+    description: description
+    no_description_message: Votre description est vide. Avec une description votre profil sera mieux référencé et vous serez contacté par plus d'utilisateurs.
     vehicles: véhicules
     contact: contacter
     all_vehicles_message: intervient sur tous véhicules

@@ -37,4 +37,6 @@ class Profile extends Component {
   }
 }
 
-export default injectIntl(Profile);
+Profile = injectIntl(Profile)
+
+export { Profile }

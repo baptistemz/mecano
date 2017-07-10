@@ -172,7 +172,7 @@ To debugg use the famous ```console.log```
 
 ## i18n
 
-You must store all the text content tha your app provides in ```config/locales``` yml files.
+You must store all the text content that your app provides in ```config/locales``` yml files.
 for example
 ```
 #config/locales/fr.yml

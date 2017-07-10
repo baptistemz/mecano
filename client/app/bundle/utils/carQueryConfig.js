@@ -1,5 +1,4 @@
 export default function carQueryConfig(){
-  console.log("COUCOU")
   //Create a variable for the CarQuery object.  You can call it whatever you like.
    var carquery = new CarQuery();
 
