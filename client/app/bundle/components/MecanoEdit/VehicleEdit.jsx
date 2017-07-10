@@ -59,6 +59,7 @@ class VehicleEdit extends Component {
     const data = []
     if(values.all_vehicles === 'specific_brands'){
       selected_car_makes.map((make)=> data.push({kind: "car_make", value: make.tag}))
+      updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_profile')
       updateCarDomains(mecano_id, {domains: data})
     }else{
       updateCarDomains(mecano_id, {domains: data})
