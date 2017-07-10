@@ -40,3 +40,25 @@
   top: 20px;
   right: 20px;
 }
+
+.contated-banner{
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  color: white;
+  background-color: #4caf50;
+}
+
+.banner-btn{
+  display: flex;
+  border: 1px solid white;
+  align-items: center;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.banner-btn:hover{
+  background-color: white;
+  color: #4caf50;
+}

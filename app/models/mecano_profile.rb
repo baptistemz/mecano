@@ -34,14 +34,18 @@ class MecanoProfile < ActiveRecord::Base
     return "#{address}, #{city}, #{country}"
   end
 
+  def contacted(user)
+    self.services.where(user_id: user.id).any?
+  end
+
   private
 
   def is_pro?
-    self.pro == true
+    self.pro
   end
 
   def is_mobile?
-    self.mobile == true
+    self.mobile
   end
 
   def set_user_as_mecano

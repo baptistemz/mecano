@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { Route, Link } from 'react-router-dom';
 import PrivateRoute from '../../containers/PrivateRoute';
 import { fetchMecanoProfile } from '../../actions/index';
-import { Header, ProfilePicture, Loader, Button } from '../../common/index';
+import { Header, ProfilePicture, Loader, Button, ContactedBanner } from '../../common/index';
 import ContactForm from './ContactForm'
 import Profile from './Profile'
 import { injectIntl } from 'react-intl';
@@ -50,7 +50,7 @@ class MecanoPublicPage extends Component {
       )
   }
   render(){
-    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture } = this.props;
+    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture, isContacted } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return <Loader/>
@@ -59,6 +59,11 @@ class MecanoPublicPage extends Component {
       <div>
         <Header>{display_name}</Header>
         <div className="cover-picture"></div>
+        {isContacted ?
+          <ContactedBanner />
+        :
+          <div></div>
+        }
         <div className="profile-boxes">
           <div className="container">
             <div className="row">
@@ -71,7 +76,11 @@ class MecanoPublicPage extends Component {
                       <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
-                    {this.contactButton(true)}
+                    {!isContacted ?
+                      this.contactButton(true)
+                    :
+                      <div></div>
+                    }
                   </div>
                   <hr/>
                   <div className="space-between">
@@ -85,7 +94,11 @@ class MecanoPublicPage extends Component {
                 <PrivateRoute path={`${this.props.match.url}/contact`} isAuthenticated={isAuthenticated} registerMethod="login" component={ContactForm} />
               </div>
               <div className="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
-                {this.contactButton()}
+                {!isContacted ?
+                  this.contactButton()
+                :
+                  <div></div>
+                }
               </div>
             </div>
           </div>
@@ -113,7 +126,8 @@ function mapStateToProps({ mecano_visited, auth }) {
     all_vehicles: mecano_visited.all_vehicles,
     rating: mecano_visited.rating,
     picture: mecano_visited.picture,
-    isAuthenticated: auth.isAuthenticated
+    isContacted: mecano_visited.contacted,
+    isAuthenticated: auth.isAuthenticated,
   }
 }
 

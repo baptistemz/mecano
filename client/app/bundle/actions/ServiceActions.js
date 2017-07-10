@@ -1,5 +1,7 @@
+import { toastr } from 'react-redux-toastr';
 import axios from 'axios';
 import { push } from 'react-router-redux';
+import { setNextHeaders } from '../utils/tokenManagement';
 import {
   CONTACT_CONFIRMED
 } from './types';
@@ -13,12 +15,19 @@ export function contact(values){
     return axios.post(`/api/services`, values)
       .then(response => {
         setNextHeaders(response.headers)
-        console.log(response.data)
-        // dispatch(contactConfirmed(response.data.domains))
-        // dispatch(push(next_path || '/mecano_profile'))
+        dispatch(push(`/mecanos/${response.data.service.mecano_profile_id}`))
+        toastr.success('Le mécano a bien été contacté');
+        dispatch(contactConfirmed(response.data.service))
       }).catch(error => {
         console.log(error)
         // setNextHeaders(error.response.headers)
       })
   };
 };
+
+function contactConfirmed(service){
+  return {
+    type: CONTACT_CONFIRMED,
+    service
+  }
+}

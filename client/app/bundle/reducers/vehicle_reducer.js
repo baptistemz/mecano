@@ -6,13 +6,15 @@ import {
   CREATED_VEHICLE,
   DELETED_VEHICLE,
   LOGOUT_SUCCESS,
-  LOGIN_SUCCESS
+  LOGIN_SUCCESS,
+  VEHICLE_FORM_UPDATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
     car_makes_list: [],
     selected_car_makes: [],
-    user_vehicles: []
+    user_vehicles: [],
+    vehicle_form: {}
   };
 
 export default function (state = INITIAL_STATE, action) {

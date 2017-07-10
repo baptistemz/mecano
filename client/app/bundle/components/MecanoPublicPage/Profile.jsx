@@ -23,7 +23,7 @@ class Profile extends Component {
           </ul>
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <h5 className="text-center">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
+          <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
           <br/>
           <p className="green-text uppercase">{allVehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
           <ul className="collection">

@@ -1,5 +1,6 @@
 json.mecano_profile do
   json.extract! @mecano_profile, :id, :pro, :mobile, :price, :rating, :all_vehicles, :city, :country
+  json.contacted @mecano_profile.contacted(current_api_user)
   json.display_name @mecano_profile.display_name
   json.picture @mecano_profile.user.profile_picture
 end

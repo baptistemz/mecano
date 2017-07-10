@@ -65,12 +65,12 @@ class MecanoSearch extends Component {
               <input name="model_string" ref="model_string" id="model_string" />
             </div>
           </div>
-        </div>
-        <div className="col offset-l6 s12 l6">
-          <p>
-            <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
-            <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
-          </p>
+          <div className="col offset-l6 s12 l6">
+            <p>
+              <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
+              <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
+            </p>
+          </div>
         </div>
       </div>
     );
