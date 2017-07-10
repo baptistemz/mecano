@@ -35,7 +35,7 @@ class MecanoProfile < ActiveRecord::Base
   end
 
   def contacted(user)
-    self.services.where(user_id: user.id).any?
+    user ? self.services.where(user_id: user.id).any? : false
   end
 
   private
