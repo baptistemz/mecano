@@ -125,8 +125,8 @@ function mapStateToProps(state) {
 
 MecanoEdit = reduxForm({
   form: 'mecano_edit'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit));
+})(MecanoEdit);
 
-MecanoEdit = injectIntl(MecanoEdit)
+MecanoEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit))
 
 export { MecanoEdit };

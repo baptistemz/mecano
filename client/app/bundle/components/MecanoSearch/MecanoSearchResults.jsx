@@ -47,6 +47,26 @@ class MecanoSearchResults extends Component {
     if(this.state.loading){
       return <Loader />
     }
+    if(mecano_search_results.length === 0){
+      return(
+        <div className= "col s12 offset-m2 m8 l12 no-mecano-results">
+          <div className="left-arrow">
+            <i className="material-icons">redo</i>
+          </div>
+          <div className="right-arrow">
+            <i className="material-icons">undo</i>
+          </div>
+          <h5 className="text-center">Aucun mécano trouvé</h5>
+          <div className="col s5">
+            <p>modifiez le rayon de recherche</p>
+          </div>
+          <div style={{marginTop: '16px'}} className="col s2">OU</div>
+          <div className="col s5">
+            <p>modifiez les autres paramètres de recherche</p>
+          </div>
+        </div>
+      )
+    }
     return(
       <div>
         {mecano_search_results.map((mecano) =>{
@@ -77,7 +97,7 @@ class MecanoSearchResults extends Component {
                 </select>
                 <label>Distance</label>
               </div>
-              <div className="col s8 m6 m4 l6">
+              <div className="col s8 m6 l6">
                 <div id="search-data-recap" className= "space-between flex-end">
                   <div>
                     <p id="domain-list" className="capitalize">{domain_list.join(', ')}</p>

@@ -117,6 +117,7 @@ class MecanoSearch extends Component {
   render(){
     const { handleSubmit, vehicles, isAuthenticated, distance } = this.props;
     const { formatMessage } = this.props.intl;
+    console.log(this.props.initialValues)
     return (
       <div>
         <Header>Recherche mécano 1/2</Header>
@@ -186,8 +187,8 @@ function mapStateToProps({vehicle, auth, search}) {
 
 MecanoSearch = reduxForm({
   form: 'mecano_search'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
+})(MecanoSearch);
 
-MecanoSearch = injectIntl(MecanoSearch)
+MecanoSearch = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch))
 
 export { MecanoSearch };

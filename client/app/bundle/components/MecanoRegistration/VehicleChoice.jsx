@@ -77,31 +77,33 @@ class VehicleChoice extends Component {
     return (
       <div>
         <Header>Enregistrement mécano 2/3</Header>
-        <div className="container">
-          <form onSubmit={handleSubmit(values => this.submit(values))}>
-            <div className="col s12 l6 text-center">
-              <h2>Mes domaines de compétences</h2>
-              <br/>
-            </div>
-            <div className="col s12">
-              <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
-              <br/>
-              {
-                specific_vehicles ?
+        <div className="center-page-content">
+          <div className="container">
+            <form onSubmit={handleSubmit(values => this.submit(values))}>
+              <div className="col s12 l6 text-center">
+                <h2>Mes domaines de compétences</h2>
+                <br/>
+              </div>
+              <div className="col s12">
+                <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
+                <br/>
+                {
+                  specific_vehicles ?
                   <div className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
                     <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
                   </div>
-                :
+                  :
                   <div style={{ display: 'none' }} className="chips chips-autocomplete input-field" data-index="0" data-initialized="true">
                     <Field id="car_makes" ref="car_makes" name="car_makes" component="input" />
                   </div>
-              }
-              <div className="space-between">
-                <div></div>
-                <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
+                }
+                <div className="space-between">
+                  <div></div>
+                  <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     );

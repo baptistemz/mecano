@@ -34,18 +34,22 @@ class Login extends Component{
     return (
       <div>
         <Header>{formatMessage(defaultMessages.userLogin)}</Header>
-        <div className="container">
-          <br />
-          <div className="row">
-            <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-              <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
-              <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />
-              <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
-              <Button icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
-            </form>
-          </div>
-          <div className="text-center margin-top-20 margin-bottom-20 text-20">
-            <Link to={{ pathname: '/signup', state: { from: next_path } }}>{formatMessage(defaultMessages.userNoAccountYetMessage)}</Link>
+        <div className="center-page-content">
+          <div className="container">
+            <br />
+            <div className="row">
+              <div className="col s12 m8 l6 offset-m2 offset-l3">
+                <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
+                  <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
+                  <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />
+                  <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
+                  <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
+                </form>
+              </div>
+            </div>
+            <div className="text-center margin-top-20 margin-bottom-20 text-20">
+              <Link to={{ pathname: '/signup', state: { from: next_path } }}>{formatMessage(defaultMessages.userNoAccountYetMessage)}</Link>
+            </div>
           </div>
         </div>
       </div>

@@ -129,8 +129,8 @@ function mapStateToProps(state) {
 
 MecanoRegistration = reduxForm({
   form: 'mecano_registration'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+})(MecanoRegistration);
 
-MecanoRegistration = injectIntl(MecanoRegistration);
+MecanoRegistration = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
 
 export { MecanoRegistration };
