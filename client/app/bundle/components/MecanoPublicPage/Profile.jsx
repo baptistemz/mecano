@@ -5,10 +5,18 @@ import { defaultMessages } from '../../../libs/i18n/default';
 
 class Profile extends Component {
   render(){
-    const { carMakes, technicalSkills, allVehicles, rating } = this.props;
+    const { carMakes, technicalSkills, allVehicles, rating, description } = this.props;
     const { formatMessage } = this.props.intl
     return(
       <div>
+        {description === null || description.length === 0 ?
+          <div></div>
+        :
+          <div className="box-shadow white-background marged-20 padded-20">
+            <h5 className="capitalize text-center">{formatMessage(defaultMessages.mecanoDescription)}</h5>
+            <p>{description}</p>
+          </div>
+        }
         <div className="box-shadow white-background marged-20 padded-20">
           <h5 className="capitalize text-center">{formatMessage(defaultMessages.mecanoReviews)}</h5>
         </div>
@@ -28,7 +36,7 @@ class Profile extends Component {
           <p className="green-text uppercase">{allVehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
           <ul className="collection">
             {carMakes.map((make)=>{
-              return <li key={make.id} className="collection-item"><div className="capitalize">{make.name}<a className="secondary-content recommendation-number">0</a></div></li>
+              return <li key={make.id} className="collection-item"><div className="capitalize">{make.value}<a className="secondary-content recommendation-number">0</a></div></li>
             })}
           </ul>
         </div>

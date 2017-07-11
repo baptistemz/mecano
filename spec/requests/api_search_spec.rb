@@ -86,7 +86,7 @@ RSpec.describe "Search :", type: :request do
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
       domains = register_domains([{"kind" => "car_make", "value" => "audi"}], mecano_profile["id"])
       search(
-        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", vehicle: "audi" },
+        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", car_make: "audi" },
         true
       )
     end
@@ -95,14 +95,14 @@ RSpec.describe "Search :", type: :request do
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
       domains = register_domains([{"kind" => "technical_skill", "value" => "wheels"}], mecano_profile["id"])
       search(
-        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", vehicle: "audi" },
+        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", car_make: "audi" },
         true
       )
     end
     it "doesn't receive mecanos who have not registered the vehicle brand searched" do
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
       search(
-        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", vehicle: "audi" },
+        { full_address:"200 boulevard Vauban , Lille, France", distance: "5", car_make: "audi" },
         false
       )
     end

@@ -49,11 +49,12 @@ class MecanoPublicPage extends Component {
       )
   }
   render(){
-    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, picture, isContacted } = this.props;
+    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, description, picture, isContacted } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return <Loader/>
     }
+    console.log(car_makes)
     return (
       <div>
         <Header>{display_name}</Header>
@@ -88,7 +89,7 @@ class MecanoPublicPage extends Component {
                   </div>
                 </div>
                 <Route exact path={this.props.match.url} render={() =>
-                    <Profile carMakes={car_makes} technicalSkills={technical_skills} allVehicles={all_vehicles} rating={rating}/>
+                    <Profile carMakes={car_makes} technicalSkills={technical_skills} description={description} allVehicles={all_vehicles} rating={rating}/>
                   }/>
                 <PrivateRoute path={`${this.props.match.url}/contact`} isAuthenticated={isAuthenticated} registerMethod="login" component={ContactForm} />
               </div>
@@ -125,6 +126,7 @@ function mapStateToProps({ mecano_visited, auth }) {
     all_vehicles: mecano_visited.all_vehicles,
     rating: mecano_visited.rating,
     picture: mecano_visited.picture,
+    description: mecano_visited.description,
     isContacted: mecano_visited.contacted,
     isAuthenticated: auth.isAuthenticated,
   }

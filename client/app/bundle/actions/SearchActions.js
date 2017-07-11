@@ -30,6 +30,7 @@ export function addDomainsToSearch(domains){
 };
 
 export function searchMecano(params){
+  console.log(params)
   return dispatch => {
     return axios.get('/api/mecano_profiles', { params })
       .then(response => {
