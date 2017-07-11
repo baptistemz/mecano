@@ -33,6 +33,7 @@ class MecanoSearch extends Component {
       triggerAutocomplete(this.getPlace().formatted_address);
     });
     const triggerAutocomplete = (value) => {
+      console.log(value)
       this.props.change("mecano_search", "full_address", value)
     }
     carQueryConfig()
@@ -185,8 +186,8 @@ function mapStateToProps({vehicle, auth, search}) {
 
 MecanoSearch = reduxForm({
   form: 'mecano_search'
-})(MecanoSearch);
+})(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
 
-MecanoSearch = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch))
+MecanoSearch = injectIntl(MecanoSearch)
 
 export { MecanoSearch };
