@@ -38,6 +38,7 @@ export function updateTechnicalDomains(id, data){
   };
 };
 export function updateCarDomains(id, data){
+  console.log("updateCarDomains", axios.defaults.headers.common['access-token'])
   return dispatch => {
     return axios.post(`/api/mecano_profiles/${id}/domains/update_car_domains`, data)
       .then(response => {

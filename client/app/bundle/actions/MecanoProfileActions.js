@@ -26,6 +26,7 @@ export function registerMecano(data, next_path){
 };
 
 export function updateMecanoProfile(id, data, next_path){
+  console.log("updateMecanoProfile", axios.defaults.headers.common['access-token'])
   return dispatch => {
     return axios.put(`/api/mecano_profiles/${id}`, data)
       .then(response => {

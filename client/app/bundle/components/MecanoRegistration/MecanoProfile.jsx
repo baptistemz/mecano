@@ -3,12 +3,15 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { updateMecanoProfile } from '../../actions/index';
+import { updateMecanoProfile, validateToken } from '../../actions/index';
 import { Header, ProfilePicture, Button } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoProfile extends Component {
+  componentWillMount(){
+    this.props.validateToken()
+  }
   submitDescription(){
     const { mecano_id, updateMecanoProfile } = this.props;
     updateMecanoProfile(mecano_id, { description: this.refs.description.value });
@@ -64,7 +67,7 @@ class MecanoProfile extends Component {
                   </div>
                   <div id="description_modal" className="modal">
                     <div className="modal-content">
-                      <form>
+                      <form className="margin-bottom-20">
                         <div className="full-width text-center">
                           <h2>Saisissez votre description</h2>
                         </div>
@@ -72,7 +75,7 @@ class MecanoProfile extends Component {
                         <label htmlFor="descriptionText">{formatMessage(defaultMessages.mecanoDescription)}</label>
                         <textarea id="descriptionText" defaultValue={description} ref="description" className="materialize-textarea" data-length={400}></textarea>
                       </form>
-                      <Button clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">Enregistrer</Button>
+                      <Button style={{ marginTop: '20px' }} clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">Enregistrer</Button>
                     </div>
                   </div>
                   {description === null || description.length === 0 ?
@@ -124,7 +127,7 @@ class MecanoProfile extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMecanoProfile }, dispatch);
+  return bindActionCreators({ updateMecanoProfile, validateToken }, dispatch);
 }
 
 function mapStateToProps({ mecano, auth }) {

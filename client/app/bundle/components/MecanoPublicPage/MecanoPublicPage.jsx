@@ -54,7 +54,6 @@ class MecanoPublicPage extends Component {
     if(this.state.loading){
       return <Loader/>
     }
-    console.log(car_makes)
     return (
       <div>
         <Header>{display_name}</Header>
