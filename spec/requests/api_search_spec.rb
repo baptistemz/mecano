@@ -10,7 +10,6 @@ RSpec.describe "Search :", type: :request do
   let(:account) {signup(user_props, :ok)}
   let!(:user) {login(account, :ok)}
   let(:mecano_profile_props) { FactoryGirl.attributes_for(:mecano_profile) }
-  let(:mecano_profile_props) { FactoryGirl.attributes_for(:mecano_profile) }
   context "at home search" do
     it "receives mobile mecanos" do
       mecano_profile_props['mobile'] = true

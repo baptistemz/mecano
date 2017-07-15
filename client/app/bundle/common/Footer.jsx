@@ -6,7 +6,7 @@ const Footer = (props) => {
       <div className="container">
         <h6>Name of the app</h6>
         <hr/>
-        <div style={{margin: '0 -20px'}} className="space-between">
+        <div className="space-between">
           <a>CGU</a>
           <a className="hide-on-small-only">Contact</a>
           <div className="space-around social-links">

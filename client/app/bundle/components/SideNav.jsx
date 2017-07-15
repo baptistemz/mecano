@@ -80,9 +80,9 @@ class SideNav extends Component {
             <div className="space-between">
               <div className="space-between">
                 <Link to={'/'}><i className="material-icons">home</i><p>Accueil</p></Link>
-                <Link to={'/mecano_search'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
               </div>
               <div className="space-between">
+                <Link to={'/mecano_search'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
                 {isMecano ?
                   <Link to={'/mecano_profile'}><i className="material-icons">build</i><p>Mon profil mécano</p></Link>
                 :

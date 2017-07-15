@@ -12,7 +12,7 @@ import { defaultMessages } from '../../../libs/i18n/default';
 class MecanoSearch extends Component {
   constructor(props){
     super(props)
-    this.state = { registeredCar: props.isAuthenticated }
+    this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
   }
   componentDidMount(){
     // if(this.props.isAuthenticated){
@@ -33,8 +33,7 @@ class MecanoSearch extends Component {
       triggerAutocomplete(this.getPlace().formatted_address);
     });
     const triggerAutocomplete = (value) => {
-      console.log(value)
-      this.props.change("mecano_search", "full_address", value)
+      this.props.dispatch(change("mecano_search", "full_address", value))
     }
     carQueryConfig()
   }
@@ -63,7 +62,7 @@ class MecanoSearch extends Component {
           <div id="model-string-group">
             <div className="col s12 m12 l6">
               <label htmlFor="model_string">Modèle</label>
-              <input name="model_string" ref="model_string" id="model_string" />
+              <input style={{ margin: 0 }} name="model_string" ref="model_string" id="model_string" />
             </div>
           </div>
           <div className="col offset-l6 s12 l6">
@@ -99,6 +98,8 @@ class MecanoSearch extends Component {
     }else{
       values["vehicle"] = this.gatherVehicleValues();
     }
+    console.log(this.state)
+    console.log(values)
     this.props.implementSearch(values);
   }
   vehicleDisplay(vehicle){
@@ -118,44 +119,46 @@ class MecanoSearch extends Component {
     const { handleSubmit, vehicles, isAuthenticated, distance } = this.props;
     const { formatMessage } = this.props.intl;
     return (
-      <div>
+      <div className="boxes-background">
         <Header>Recherche mécano 1/2</Header>
         <div className="container">
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values))}>
-            <div className="col s12">
-              <div className="text-center">
-                <h2>Ma Voiture</h2>
-              </div>
-                { isAuthenticated ?
-                  <ul className="tabs tabs-fixed-width margin-bottom-20">
-                    <li className='tab'>
-                      <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
-                    </li>
-                    <li className="tab">
-                      <a onClick={() => this.setState({ registeredCar: false})} className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
-                    </li>
-                  </ul>
-                  :
-                  <div></div>
-                }
-                <div id="registered_vehicles" className="wrap">
-                  {
-                    vehicles.map((vehicle)=>{
-                      return this.vehicleDisplay(vehicle)
-                    })
-                  }
-                </div>
-                <div id="register_vehicles">
-                  {this.vehicleFields()}
-                </div>
-              </div>
-              <div className="col s12 text-center">
-                <h2>Lieu de réparation</h2>
-                <Input icon="explore" label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
-                <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
-              </div>
               <div className="col s12">
+                <div className="box-shadow marged-20 padded-50">
+                  <div className="text-center">
+                    <h2>Ma Voiture</h2>
+                  </div>
+                  { isAuthenticated ?
+                    <ul className="tabs tabs-fixed-width margin-bottom-20">
+                      <li className='tab'>
+                        <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
+                      </li>
+                      <li className="tab">
+                        <a onClick={() => this.setState({ registeredCar: false})} className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
+                      </li>
+                    </ul>
+                    :
+                    <div></div>
+                  }
+                  <div id="registered_vehicles" className="wrap">
+                    {
+                      vehicles.map((vehicle)=>{
+                        return this.vehicleDisplay(vehicle)
+                      })
+                    }
+                  </div>
+                  <div id="register_vehicles">
+                    {this.vehicleFields()}
+                  </div>
+                </div>
+                <div className="box-shadow marged-20 padded-20">
+                  <div className="text-center">
+                    <h2>Lieu de réparation</h2>
+                  </div>
+                  <Input icon="explore" label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
+                  <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
+                </div>
                 <p className="red-text"></p>
                 <div className="space-between">
                   <div></div>
@@ -170,24 +173,23 @@ class MecanoSearch extends Component {
   }
 }
 
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchVehicles, implementSearch, change }, dispatch);
+  return bindActionCreators({ fetchVehicles, implementSearch }, dispatch);
 }
 
 function mapStateToProps({vehicle, auth, search}) {
   return {
     vehicles: vehicle.user_vehicles,
     isAuthenticated: auth.isAuthenticated,
-    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address}
+    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address, vehicle_choice: search.vehicle.id, vehicle: search.vehicle }
   }
 }
 
 
 MecanoSearch = reduxForm({
   form: 'mecano_search'
-})(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch));
+})(MecanoSearch);
 
-MecanoSearch = injectIntl(MecanoSearch)
+MecanoSearch = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearch))
 
 export { MecanoSearch };

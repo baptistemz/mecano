@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import _ from 'lodash';
+import { toastr } from 'react-redux-toastr';
 import { Button } from '../../common/index';
 import { contact, createVehicle } from '../../actions/index';
 import carQueryConfig from '../../utils/carQueryConfig';
@@ -28,7 +29,7 @@ class ContactForm extends Component {
     carQueryConfig()
   }
   submitMessage(){
-    const { vehicle, mecano_profile_id, contact, createVehicle } = this.props;
+    const { vehicle, mecano_visited_id, contact, createVehicle } = this.props;
     if(this.state.newVehicle){
       const {year, brand, model_select, model_string, model_not_found } = this.refs
       let trim = this.refs.trim.childNodes[0].innerHTML
@@ -38,13 +39,13 @@ class ContactForm extends Component {
     }else if(!vehicle.id){
       createVehicle(vehicle)
     }else{
-      contact({ first_message: this.refs.message.value, mecano_profile_id, vehicle_id: vehicle.id });
+      contact({ first_message: this.refs.message.value, mecano_visited_id, vehicle_id: vehicle.id });
     }
   }
   componentWillReceiveProps(newProps){
-    const { vehicle, mecano_profile_id, contact, createVehicle } = this.props;
+    const { vehicle, mecano_visited_id, contact, createVehicle } = this.props;
     if(vehicle !== newProps.vehicle){
-      contact({ first_message: this.refs.message.value, mecano_profile_id, vehicle_id: newProps.vehicle.id });
+      contact({ first_message: this.refs.message.value, mecano_visited_id, vehicle_id: newProps.vehicle.id });
     }
   }
   manageInputs(){
@@ -81,7 +82,7 @@ class ContactForm extends Component {
           <div id="model-string-group">
             <div className="col s12 m12 l6">
               <label htmlFor="model_string">Modèle</label>
-              <input name="model_string" ref="model_string" id="model_string" />
+              <input style={{ margin: 0 }} name="model_string" ref="model_string" id="model_string" />
             </div>
           </div>
           <div className="col offset-l6 s12 l6">
@@ -96,9 +97,14 @@ class ContactForm extends Component {
 
   }
   render(){
-    const { location, intl, email, vehicle, isContacted } = this.props;
+    const { location, intl, email, vehicle, isContacted, user_mecano_id, mecano_visited_id } = this.props;
     const { formatMessage } = intl;
     if(isContacted){
+      toastr.info("Vous avez contacté cet utilisateur");
+      return <Redirect to={location.pathname.replace("/contact", "")}/>
+    }
+    if(user_mecano_id === mecano_visited_id){
+      toastr.info("Vous ne pouvez pas vous contacter vous-même via restor'it");
       return <Redirect to={location.pathname.replace("/contact", "")}/>
     }
     return(
@@ -145,9 +151,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ contact, createVehicle }, dispatch);
 }
 
-function mapStateToProps({ mecano_visited, auth, search }) {
+function mapStateToProps({ mecano_visited, mecano, auth, search }) {
   return {
-    mecano_profile_id: mecano_visited.id,
+    mecano_visited_id: mecano_visited.id,
+    user_mecano_id: mecano.id,
     email: auth.email,
     first_name: auth.first_name,
     last_name: auth.last_name,

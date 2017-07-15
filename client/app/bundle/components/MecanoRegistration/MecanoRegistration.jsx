@@ -30,7 +30,7 @@ class MecanoRegistration extends Component {
       triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
-      this.props.change('mecano_registration', 'full_address', value)
+      this.props.dispatch(change("mecano_search", "full_address", value));
     }
   }
 
@@ -129,8 +129,8 @@ function mapStateToProps(state) {
 
 MecanoRegistration = reduxForm({
   form: 'mecano_registration'
-})(MecanoRegistration);
+})(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
 
-MecanoRegistration = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoRegistration));
+MecanoRegistration = injectIntl(MecanoRegistration);
 
 export { MecanoRegistration };

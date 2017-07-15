@@ -55,7 +55,7 @@ class MecanoPublicPage extends Component {
       return <Loader/>
     }
     return (
-      <div>
+      <div className="boxes-background">
         <Header>{display_name}</Header>
         <div className="cover-picture"></div>
         {isContacted ?

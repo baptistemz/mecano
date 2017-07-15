@@ -7,3 +7,14 @@
   // background-color: rgba(12, 61, 94, 0.8);
   border-bottom: 2px solid #328BC3;
 }
+
+/* Custom Select */
+
+select {
+  color: #0C3D5E;
+  border: 0.5px solid #0C3D5E;
+  background-color: rgba(50, 139, 195, 0.1);
+}
+select:focus {
+  outline: none !important;
+}

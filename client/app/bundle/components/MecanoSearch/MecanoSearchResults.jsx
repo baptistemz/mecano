@@ -84,11 +84,11 @@ class MecanoSearchResults extends Component {
       return formatMessage(defaultMessages[key])
     })
     return (
-      <div>
+      <div className="boxes-background">
         <Header>Résultats de la recherche</Header>
-        <div className="container">
-          <div className="row">
-            <div className="filters-group margin-top-20">
+        <div className="filters-group">
+          <div className="container">
+            <div className="row">
               <div className="input-field col s4 offset-m2 m4 l6">
                 <select defaultValue={distance} onChange={(e) => {this.onDistanceChange(e)}}>
                   <option value="0">À domicile</option>
@@ -97,9 +97,9 @@ class MecanoSearchResults extends Component {
                 </select>
                 <label>Distance</label>
               </div>
-              <div className="col s8 m6 l6">
-                <div id="search-data-recap" className= "space-between flex-end">
-                  <div>
+              <div className="col s8 m4 l6">
+                <div className= "space-between flex-end">
+                  <div style={{maxWidth: 'calc(100% - 86px)'}}>
                     <p id="domain-list" className="capitalize">{domain_list.join(', ')}</p>
                     <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
                     <p>{`${vehicle.brand}, ${vehicle.model}`}</p>
@@ -110,7 +110,10 @@ class MecanoSearchResults extends Component {
                 </div>
               </div>
             </div>
-
+          </div>
+        </div>
+        <div className="container">
+          <div className="row">
             {this.searchResults()}
           </div>
         </div>

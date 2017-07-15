@@ -72,21 +72,18 @@ export default function (state = INITIAL_STATE, action) {
         }
       })
       return { ...state, technical_skills: new_technical_skills, car_makes: new_car_makes }
-      return state
     case UPDATED_TECHNICAL_DOMAINS:
       const updated_technical_skills = [];
       action.domains.map((domain) =>{
         if(!updated_technical_skills.includes(domain.value)){updated_technical_skills.push(domain.value)};
       })
       return { ...state, technical_skills: updated_technical_skills }
-      return state
     case UPDATED_CAR_DOMAINS:
       const updated_car_makes = [];
       action.domains.map((domain) =>{
         if(!updated_car_makes.includes(domain.value)){updated_car_makes.push(domain.value)};
       })
       return { ...state, car_makes: updated_car_makes }
-      return state
     default:
       return state;
   }

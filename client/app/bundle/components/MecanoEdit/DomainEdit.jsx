@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field, initialize } from 'redux-form';
+import domains from '../../utils/domains.js';
 import { updateTechnicalDomains } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class DomainEdit extends Component {
   componentDidMount(){
@@ -26,7 +29,8 @@ class DomainEdit extends Component {
     updateTechnicalDomains(mecano_id, {domains: data}, '/mecano_profile');
   }
   render(){
-    const { handleSubmit } = this.props
+    const { handleSubmit } = this.props;
+    const { formatMessage } = this.props.intl;
     return (
       <div>
         <Header>Édition du profil mécano</Header>
@@ -37,18 +41,10 @@ class DomainEdit extends Component {
             </div>
             <br/>
             <form onSubmit={handleSubmit(values => this.submit(values))}>
-              <SelectableCard value="wheels" picture='/domains/roues.jpeg' tags={["Jantes", "Roulements"]}>Roues/Pneus</SelectableCard>
-              <SelectableCard value="brakes" picture='/domains/freins.jpg' tags={["Plaquettes", "Disques", "Tambours"]}>Freins</SelectableCard>
-              <SelectableCard value="timing" picture='/domains/distribution.jpeg' tags={["Courroies", "Chaînes", "Galets"]}>Distribution</SelectableCard>
-              <SelectableCard value="exhaust" picture='/domains/echappement.jpeg' tags={["Admission", "Pot"]}>Carburation/Échappement</SelectableCard>
-              <SelectableCard value="gearing_system" picture='/domains/embrayage.jpg' tags={["Embrayage", "Boîte de vitesse", "Chaîne de traction"]}>Transmission</SelectableCard>
-              <SelectableCard value="car_body" picture='/domains/carrosserie.jpeg' tags={["Tôlerie", "Peinture", "Traitement anti-rouille"]}>Carrosserie</SelectableCard>
-              <SelectableCard value="electricity" picture='/domains/electricite.jpeg' tags={["Eclairage", "Batterie", "cables"]}>Électricité</SelectableCard>
-              <SelectableCard value="interior" picture='/domains/interieur.jpeg' tags={["Revêtements de sol", "Ciels de toit", "Garnissage"]}>Sellerie</SelectableCard>
-              <SelectableCard value="air_conditioning" picture='/domains/climatisation.jpg' tags={["Contrôle de circuit", "Filtres", "Recharge"]}>Climatisation</SelectableCard>
-              <SelectableCard value="shock_absorbers" picture='/domains/amortisseurs.jpg' tags={["Suspension", "Bras", "Triangle"]}>Amortisseurs</SelectableCard>
-              <SelectableCard value="electronic" picture='/domains/electronique.jpg' tags={["Diagnostic", "Son", "Ordinateur de bord"]}>Électronique</SelectableCard>
-              <SelectableCard value="maintenance" picture='/domains/entretien.jpg' tags={["Contrôles", "Vidanges"]}>Entretien</SelectableCard>
+              { Object.keys(domains).map((d)=> {
+                let key = _.camelCase('mecano_technical_skills_' + d);
+                return <SelectableCard key={d} value={d} picture={`/domains/${d}.jpg`} tags={domains[d]}>{ formatMessage(defaultMessages[key]) }</SelectableCard>
+              })}
             </form>
           </div>
           <div className="col s12">
@@ -81,6 +77,6 @@ function mapStateToProps({ mecano }) {
   }
 }
 
-DomainEdit = connect(mapStateToProps, mapDispatchToProps)(DomainEdit);
+DomainEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(DomainEdit));
 
 export { DomainEdit };

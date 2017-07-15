@@ -44,9 +44,7 @@ class Routes extends Component{
             <MecanoRoute path="/vehicle_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={VehicleEdit} />
             <MecanoRoute path="/domain_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={DomainEdit} />
           </div>
-          <div>
-            <Footer />
-          </div>
+          <Footer />
         </div>
       </ConnectedRouter>
     )

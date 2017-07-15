@@ -26,7 +26,7 @@ class MecanoEdit extends Component {
       triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
-      this.props.change('mecano_edit', 'full_address', value)
+      this.props.dispatch(change("mecano_search", "full_address", value));
     }
   }
   submit(values){
@@ -101,7 +101,7 @@ class MecanoEdit extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMecanoProfile, change }, dispatch);
+  return bindActionCreators({ updateMecanoProfile }, dispatch);
 }
 
 

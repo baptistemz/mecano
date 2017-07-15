@@ -21,7 +21,7 @@ const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, c
               <h4 className="secondary-text">{title}</h4>
             </div>
             <div className="space-between flex-end">
-              <p className="bold-grey">{pro ? "Professionnel" : "Passionné"}</p>
+              {pro ? <p className="bold-grey primary-text">Professionnel</p> : <p className="bold-grey ">Passionné</p>}
               <span><Rater interactive={false} rating={rating} /></span>
             </div>
             <div className="space-between flex-end">

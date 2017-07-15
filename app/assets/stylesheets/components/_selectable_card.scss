@@ -4,13 +4,20 @@
   display: block;
   background-size: cover;
   background-position: center;
+  -webkit-filter: contrast(0.1);
+  filter: contrast(0.1);
+  -webkit-filter: sepia(0.1);
+  filter: sepia(0.1);
   & .card-content{
     color: white;
     position: absolute;
     top:0;
     left:5px;
     z-index: 2;
-    text-shadow: 1px 1px 3px #565454;
+    text-shadow: 1px 1px 3px #000000;
+    & h4{
+      margin-top: 5px;
+    }
     & p{
       margin-bottom: 0
     }
@@ -28,12 +35,13 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background-color: rgba(12, 61, 94, 0.8);
+  background-color: rgb(12, 61, 94);
+  opacity: 0.1;
   transition: opacity ease 300ms;
   & i {
     color: white;
     font-size: 50px;
-    opacity: 0.6;
+    visibility: hidden
   }
 }
 
@@ -44,7 +52,10 @@
   margin: 4px;
 }
 .card-input:checked + .selectable-card .selection-overlay {
-  opacity: 1;
+  opacity: 0.9;
+  & i {
+    visibility: visible
+  }
 }
 
 .card-input {

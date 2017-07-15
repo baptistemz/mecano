@@ -10,6 +10,10 @@ fr:
     already_account_message: Déjà un compte ? Connecte toi !
     login: Se connecter
     signup: Créer un compte
+    current_password: Mot de passe actuel
+    new_password: Nouveau mot de passe
+    new_password_confirmation: Confirmation du nouveau mot de passe
+    change_password: Changer de mot de passe
   mecano:
     pro: professionnel
     non_pro: passionné

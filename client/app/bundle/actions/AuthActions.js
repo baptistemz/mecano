@@ -1,5 +1,6 @@
 import { toastr } from 'react-redux-toastr';
 import axios from 'axios';
+import { reset } from 'redux-form';
 import { push } from 'react-router-redux';
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import errorHandling from '../utils/errorHandling';
@@ -97,6 +98,22 @@ export function logoutUser() {
         console.log("logoutUser error", error.response)
         localStorage.clear();
         dispatch(receiveLogout());
+      })
+  };
+}
+
+export function updatePassword(data) {
+  return dispatch => {
+    axios.put('api/auth/password', data)
+      .then(response => {
+        console.log(response)
+        setNextHeaders(response.headers)
+        $('#password_modal').modal('close')
+        dispatch(reset('password_change'))
+        toastr.success(response.data.message);
+      }).catch((error)=>{
+        setNextHeaders(response.headers)
+        console.log("logoutUser error", error.response)
       })
   };
 }

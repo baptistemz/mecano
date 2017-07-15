@@ -23,7 +23,6 @@ end
 def logout(status = :ok)
   delete destroy_api_user_session_path, headers:access_tokens
   expect(response).to have_http_status(status)
-  # return response.ok? ? parsed_body["data"] : parsed_body
 end
 
 def access_tokens?

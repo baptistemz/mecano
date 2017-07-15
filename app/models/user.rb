@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   mount_base64_uploader :profile_picture, ProfilePictureUploader
   has_one :mecano_profile
-  has_many :vehicles
-  has_many :services
+  has_many :vehicles, dependent: :destroy 
+  has_many :services, dependent: :nullify
   after_create :send_welcome_email
 
   def token_validation_response

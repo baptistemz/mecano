@@ -31,7 +31,7 @@ class MecanoProfile extends Component {
     const { display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description } = this.props;
     const { formatMessage } = this.props.intl;
     return (
-      <div>
+      <div className="boxes-background">
         <Header>Mon profil mécano</Header>
         <div className="cover-picture"></div>
         <div className="profile-boxes">

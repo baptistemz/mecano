@@ -7,9 +7,9 @@ const Home = (props) => {
   const { formatMessage } = props.intl
   return (
     <div>
-      <Header h2={true}>Vroomate</Header>
+      <Header h2={true}>Restor'it</Header>
         <div className="container">
-          <h1 id="name-of-the-app">Vroomate</h1>
+          <h1 id="name-of-the-app">Restor'it</h1>
         </div>
     </div>
   );

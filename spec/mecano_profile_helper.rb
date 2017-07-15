@@ -2,6 +2,8 @@ def create_mecano_profile(mecano_params, status = :created)
   post api_mecano_profiles_path, params: mecano_params, headers: access_tokens
   expect(response).to have_http_status(status)
   payload = parsed_body
+  get api_mecano_profile_path id: payload['mecano_profile']['id']
+  pp parsed_body.user_id
 end
 
 def register_domains(domains, mecano_profile_id, success = true)
@@ -17,4 +19,5 @@ def register_domains(domains, mecano_profile_id, success = true)
       expect(d["value"]).to be_nil
     end
   end
+  return payload
 end

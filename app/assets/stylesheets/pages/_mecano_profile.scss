@@ -31,7 +31,7 @@
   margin-top: -2px;
   padding-top: 4px;
   color: white !important;
-  background-color: #328BC3;
+  background-color: #0C3D5E;
   border-radius: 2px;
 }
 
@@ -62,4 +62,17 @@
 .banner-btn:hover{
   background-color: white;
   color: #4caf50;
+}
+
+.collection .collection-item {
+    border-bottom: 3px solid rgba(50, 139, 195, 0.5);
+    color: #0C3D5E;
+    border-left: 3px solid #328BC3;
+    outline: 2px solid white;
+    background-color: white;
+}
+
+.collection{
+  border-color: white;
+  border-bottom: 1px solid rgba(50, 139, 195, 0.5);
 }

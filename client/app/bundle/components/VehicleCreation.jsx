@@ -59,7 +59,7 @@ class VehicleCreation extends Component {
             <div id="model-string-group">
               <div className="col s12 m12 l6">
                 <label htmlFor="model_string">Modèle</label>
-                <input name="model_string" ref="model_string" id="model_string" />
+                <input style={{ margin: 0 }} name="model_string" ref="model_string" id="model_string" />
               </div>
             </div>
             <div className="col offset-l6 s12 l6">

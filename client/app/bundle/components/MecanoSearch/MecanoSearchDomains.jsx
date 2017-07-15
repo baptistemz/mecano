@@ -5,6 +5,9 @@ import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addDomainsToSearch } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
+import domains from '../../utils/domains.js';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchDomains extends Component {
   submit(values){
@@ -14,9 +17,10 @@ class MecanoSearchDomains extends Component {
     addDomainsToSearch(data)
   }
   render(){
+    const { formatMessage } = this.props.intl;
     const { handleSubmit } = this.props
     return (
-      <div>
+      <div className="boxes-background">
         <Header>Recherche mécano 2/2</Header>
         <div className="container">
           <div className="row">
@@ -25,18 +29,10 @@ class MecanoSearchDomains extends Component {
             </div>
             <br/>
             <form onSubmit={handleSubmit(values => this.submit(values))}>
-              <SelectableCard value="wheels" picture='/domains/roues.jpeg' tags={["Jantes", "Roulements"]}>Roues/Pneus</SelectableCard>
-              <SelectableCard value="brakes" picture='/domains/freins.jpg' tags={["Plaquettes", "Disques", "Tambours"]}>Freins</SelectableCard>
-              <SelectableCard value="timing" picture='/domains/distribution.jpeg' tags={["Courroies", "Chaînes", "Galets"]}>Distribution</SelectableCard>
-              <SelectableCard value="exhaust" picture='/domains/echappement.jpeg' tags={["Admission", "Pot"]}>Carburation/Échappement</SelectableCard>
-              <SelectableCard value="gearing_system" picture='/domains/embrayage.jpg' tags={["Embrayage", "Boîte de vitesse", "Chaîne de traction"]}>Transmission</SelectableCard>
-              <SelectableCard value="car_body" picture='/domains/carrosserie.jpeg' tags={["Tôlerie", "Peinture", "Traitement anti-rouille"]}>Carrosserie</SelectableCard>
-              <SelectableCard value="electricity" picture='/domains/electricite.jpeg' tags={["Eclairage", "Batterie", "cables"]}>Électricité</SelectableCard>
-              <SelectableCard value="interior" picture='/domains/interieur.jpeg' tags={["Revêtements de sol", "Ciels de toit", "Garnissage"]}>Sellerie</SelectableCard>
-              <SelectableCard value="air_conditioning" picture='/domains/climatisation.jpg' tags={["Contrôle de circuit", "Filtres", "Recharge"]}>Climatisation</SelectableCard>
-              <SelectableCard value="shock_absorbers" picture='/domains/amortisseurs.jpg' tags={["Suspension", "Bras", "Triangle"]}>Amortisseurs</SelectableCard>
-              <SelectableCard value="electronic" picture='/domains/electronique.jpg' tags={["Diagnostic", "Son", "Ordinateur de bord"]}>Électronique</SelectableCard>
-              <SelectableCard value="maintenance" picture='/domains/entretien.jpg' tags={["Contrôles", "Vidanges"]}>Entretien</SelectableCard>
+              { Object.keys(domains).map((d)=> {
+                let key = _.camelCase('mecano_technical_skills_' + d);
+                return <SelectableCard key={d} value={d} picture={`/domains/${d}.jpg`} tags={domains[d]}>{ formatMessage(defaultMessages[key]) }</SelectableCard>
+              })}
             </form>
           </div>
           <div className="col s12">
@@ -51,9 +47,6 @@ class MecanoSearchDomains extends Component {
   }
 }
 
-MecanoSearchDomains = reduxForm({
-  form: 'domain_search'
-})(MecanoSearchDomains);
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addDomainsToSearch }, dispatch);
@@ -68,6 +61,10 @@ function mapStateToProps(state) {
   }
 }
 
-MecanoSearchDomains = connect(mapStateToProps, mapDispatchToProps)(MecanoSearchDomains);
+MecanoSearchDomains = reduxForm({
+  form: 'domain_search'
+})(MecanoSearchDomains);
+
+MecanoSearchDomains = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoSearchDomains));
 
 export { MecanoSearchDomains };
