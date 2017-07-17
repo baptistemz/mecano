@@ -2,17 +2,15 @@ module Api
   module Users
     class PasswordsController < DeviseTokenAuth::PasswordsController
       def edit
-        super do |resource|
-          resource.persistent_allow_password_change = true
-          resource.save!
-        end
+        super
+        @resource.persistent_allow_password_change = true
+        @resource.save!
       end
 
       def update
-        super do |resource|
-          resource.persistent_allow_password_change = false
-          resource.save!
-        end
+        super
+        @resource.persistent_allow_password_change = false
+        @resource.save!
       end
 
        protected
