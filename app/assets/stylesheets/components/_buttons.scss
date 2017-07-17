@@ -6,14 +6,14 @@
 }
 
 .btn{
-  border: 1px solid #328BC3;
-  background-color: #328BC3;
+  border: 1px solid #008bc6;
+  background-color: #008bc6;
   color: white;
   padding-right: 18px;
 }
 .btn:hover, .btn:focus{
   background-color: rgb(255,255,255);
-  color: #328BC3;
+  color: #008bc6;
 }
 
 .btn-floating i{
@@ -48,10 +48,10 @@
 }
 
 .radioinput:checked + label{
-  background-color: #328BC3;
+  background-color: #008bc6;
 }
 
 .radioinput:checked + label:before, .radioinput:checked + label:after{
   border-color: white;
-  background-color: #328BC3;
+  background-color: #008bc6;
 }
