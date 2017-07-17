@@ -4,13 +4,11 @@ module Api
       def edit
         super
         @resource.update!(persistent_allow_password_change: true)
-        # @resource.save!
       end
 
       def update
         super
         @resource.update!(persistent_allow_password_change: false)
-        # @resource.save!
       end
 
        protected
