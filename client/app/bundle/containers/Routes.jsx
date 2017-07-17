@@ -7,6 +7,8 @@ import SideNav from '../components/SideNav';
 import Account from '../components/Account';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
+import PasswordForgotten from '../components/PasswordForgotten';
+import NewPassword from '../components/NewPassword'
 import { MecanoPublicPage } from '../components/MecanoPublicPage/index';
 import { Header, Footer } from '../common/index';
 import { MecanoRegistration, VehicleChoice, DomainChoice, MecanoProfile } from '../components/MecanoRegistration/index';
@@ -31,6 +33,8 @@ class Routes extends Component{
             <Route exact path="/" component={Home} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
+            <Route path="/password_forgotten" component={PasswordForgotten} />
+            <Route path="/new_password" component={NewPassword} />
             <Route path="/mecano_search" component={MecanoSearch} />
             <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
             <Route exact path="/mecanos" component={MecanoSearchResults} />

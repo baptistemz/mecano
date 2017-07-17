@@ -49,6 +49,8 @@ class Login extends Component{
             </div>
             <div className="text-center margin-top-20 margin-bottom-20 text-20">
               <Link to={{ pathname: '/signup', state: { from: next_path } }}>{formatMessage(defaultMessages.userNoAccountYetMessage)}</Link>
+              <br/>
+              <Link to={{ pathname: '/password_forgotten', state: { from: next_path } }}>{formatMessage(defaultMessages.userPasswordForgotten)}</Link>
             </div>
           </div>
         </div>

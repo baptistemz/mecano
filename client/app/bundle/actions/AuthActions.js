@@ -102,18 +102,39 @@ export function logoutUser() {
   };
 }
 
-export function updatePassword(data) {
+export function updatePassword(data, params = nil) {
   return dispatch => {
+    if(params){
+      params.forEach((value, key) => {
+        axios.defaults.headers.common[key] = value;
+        axios.defaults.headers.common['reset'] = true;
+        if(key === 'token'){ axios.defaults.headers.common['access-token'] = value };
+        if(key === 'client_id'){ axios.defaults.headers.common['client'] = value };
+      });
+    }
     axios.put('api/auth/password', data)
       .then(response => {
         console.log(response)
         setNextHeaders(response.headers)
         $('#password_modal').modal('close')
         dispatch(reset('password_change'))
+        if(params){dispatch(push('/login'))}
         toastr.success(response.data.message);
       }).catch((error)=>{
-        setNextHeaders(response.headers)
-        console.log("logoutUser error", error.response)
+        // setNextHeaders(response.headers)
+        console.log("updatePassword error", error.response)
+      })
+  };
+}
+export function sendPasswordResetEmail(data) {
+  return dispatch => {
+    axios.post('api/auth/password', data)
+      .then(response => {
+        console.log(response)
+        dispatch(push("/login"))
+        toastr.success(response.data.message);
+      }).catch((error)=>{
+        console.log("sendPasswordReset error", error.response)
       })
   };
 }
