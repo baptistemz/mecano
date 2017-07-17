@@ -102,7 +102,7 @@ export function logoutUser() {
   };
 }
 
-export function updatePassword(data, params = nil) {
+export function updatePassword(data, params = null) {
   return dispatch => {
     if(params){
       params.forEach((value, key) => {
