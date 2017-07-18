@@ -26,13 +26,22 @@
   right: 10px;
 }
 
-.recommendation-number{
+.recommendation-chip{
   padding: 2px 10px;
-  margin-top: -2px;
+  margin: -26px 5px auto 5px;
   padding-top: 4px;
   color: white !important;
   background-color: #0C3D5E;
+  border: 1px solid #0C3D5E;
   border-radius: 2px;
+  cursor: pointer;
+}
+
+.recommendation-pictures-group{
+  height: 30px;
+  width: calc(100% - 270px);
+  margin: -26px 5px auto 5px;
+  display: block;
 }
 
 .contact-btn{
@@ -47,7 +56,7 @@
   left: 0;
   right: 0;
   color: white;
-  background-color: #4caf50;
+  background-color: #1bba75;
 }
 
 .banner-btn{
@@ -61,7 +70,7 @@
 }
 .banner-btn:hover{
   background-color: white;
-  color: #4caf50;
+  color: #1bba75;
 }
 
 .collection .collection-item {

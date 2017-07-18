@@ -114,7 +114,6 @@ export function updatePassword(data, params = null) {
     }
     axios.put('api/auth/password', data)
       .then(response => {
-        console.log(response)
         setNextHeaders(response.headers)
         $('#password_modal').modal('close')
         dispatch(reset('password_change'))
@@ -130,7 +129,6 @@ export function sendPasswordResetEmail(data) {
   return dispatch => {
     axios.post('api/auth/password', data)
       .then(response => {
-        console.log(response)
         dispatch(push("/login"))
         toastr.success(response.data.message);
       }).catch((error)=>{

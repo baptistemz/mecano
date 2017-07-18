@@ -20,7 +20,6 @@ export function contact(values){
         dispatch(contactConfirmed(response.data.service))
       }).catch(error => {
         console.log(error)
-        // setNextHeaders(error.response.headers)
       })
   };
 };

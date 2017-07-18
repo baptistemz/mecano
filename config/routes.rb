@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     get 'authcheck/checkme'
     resources :vehicles, only: [:create, :index, :destroy]
     resources :services, only: [:create]
+    resources :domains do
+      resources :recommendations, only: [:create]
+      delete 'recommendations/delete'
+      get 'recommendations/pictures'
+    end
     resources :mecano_profiles, only: [:create, :update, :show, :index, :destroy] do
       resources :domains, only: [:index]
       post 'domains/register_domains'

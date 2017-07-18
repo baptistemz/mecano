@@ -11,9 +11,32 @@
   color: white;
   padding-right: 18px;
 }
+
+.recommend-btn{
+  padding: 2px 10px;
+  margin: -26px 5px auto 5px;
+  padding-top: 4px;
+  color: white !important;
+  border-radius: 2px;
+  cursor: pointer;
+  width: 30px;
+  text-align: center;
+}
+
+.red-btn{
+  border: 1px solid #ed6d5a;
+  background-color: #ed6d5a;
+}
+
+.green-btn{
+  border: 1px solid #1bba75;
+  background-color: #1bba75;
+}
+
+
 .btn:hover, .btn:focus{
   background-color: rgb(255,255,255);
-  color: #008bc6;
+  color: #008bc6 !important;
 }
 
 .btn-floating i{

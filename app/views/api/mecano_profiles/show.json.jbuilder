@@ -4,6 +4,5 @@ json.mecano_profile do
   json.display_name @mecano_profile.display_name
   json.picture @mecano_profile.user.profile_picture
 end
-
-json.domains @mecano_profile.domains.where(kind:'technical_skill')
-json.car_makes @mecano_profile.domains.where(kind:'car_make')
+json.domains @mecano_profile.domains.where(kind:'technical_skill'), partial: 'api/domains/domain', as: :domain
+json.car_makes @mecano_profile.domains.where(kind:'car_make'), partial: 'api/domains/domain', as: :domain

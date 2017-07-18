@@ -29,7 +29,6 @@ export function fetchVehicles(){
   return dispatch => {
     axios.get('/api/vehicles')
       .then(response => {
-        console.log(response.headers)
         setNextHeaders(response.headers);
         dispatch(gotVehicles(response.data.vehicles));
       }).catch(error => {

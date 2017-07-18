@@ -98,8 +98,6 @@ class MecanoSearch extends Component {
     }else{
       values["vehicle"] = this.gatherVehicleValues();
     }
-    console.log(this.state)
-    console.log(values)
     this.props.implementSearch(values);
   }
   vehicleDisplay(vehicle){

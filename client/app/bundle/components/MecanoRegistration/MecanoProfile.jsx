@@ -98,7 +98,7 @@ class MecanoProfile extends Component {
                   <ul className="collection">
                     {technical_skills.map((skill)=>{
                       let key = _.camelCase('mecano_technical_skills_' + skill)
-                      return <li key={skill} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-number">0</a></div></li>
+                      return <li key={skill} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-chip">0</a></div></li>
                     })}
                   </ul>
                 </div>
@@ -113,7 +113,7 @@ class MecanoProfile extends Component {
                   <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
                     <ul className="collection">
                       {car_makes.map((make)=>{
-                        return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-number">0</a></div></li>
+                        return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-chip">0</a></div></li>
                       })}
                     </ul>
                 </div>
