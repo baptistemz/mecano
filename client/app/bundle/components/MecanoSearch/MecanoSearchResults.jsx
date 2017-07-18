@@ -22,7 +22,6 @@ class MecanoSearchResults extends Component {
   }
   componentDidMount(){
     $('select').material_select();
-    this.setState({ loading: false });
     const onDistanceChange = (event) => this.onDistanceChange(event);
     $('select').on('change', function(e) {
       onDistanceChange(e);
@@ -45,7 +44,11 @@ class MecanoSearchResults extends Component {
   searchResults(){
     const { mecano_search_results } = this.props;
     if(this.state.loading){
-      return <Loader />
+      return(
+        <div className="search-loader-center">
+          <Loader />
+        </div>
+      )
     }
     if(mecano_search_results.length === 0){
       return(

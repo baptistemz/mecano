@@ -19,9 +19,9 @@ class DomainListItem extends Component {
   }
   recommendButton(id, recommended){
     if(recommended){
-      return <a onClick={() => this.props.unrecommend(id)} className="secondary-content recommend-btn red-btn">-</a>
+      return <a onClick={() => this.props.unrecommend(id)} className="secondary-content recommend-btn red-btn">-1</a>
     }else{
-      return <a onClick={() => this.props.recommend(id)} className="secondary-content recommend-btn green-btn">+</a>
+      return <a onClick={() => this.props.recommend(id)} className="secondary-content recommend-btn green-btn">+1</a>
     }
   }
 
