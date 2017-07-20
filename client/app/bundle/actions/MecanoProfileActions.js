@@ -44,6 +44,7 @@ export function fetchMecanoProfile(id){
   return dispatch => {
     axios.get(`/api/mecano_profiles/${id}`)
       .then(response => {
+        console.log(response)
         setNextHeaders(response.headers)
         dispatch(gotMecanoProfile(response.data));
       }).catch(error => {

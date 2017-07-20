@@ -10,70 +10,80 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720170452) do
+ActiveRecord::Schema.define(version: 20170720180404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "domains", force: :cascade do |t|
-    t.string  "name"
-    t.string  "kind"
-    t.integer "mecano_profile_id"
-    t.string  "value"
+    t.string   "name"
+    t.string   "kind"
+    t.integer  "mecano_profile_id"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["mecano_profile_id"], name: "index_domains_on_mecano_profile_id", using: :btree
   end
 
   create_table "mecano_profiles", force: :cascade do |t|
-    t.integer "user_id"
-    t.boolean "pro"
-    t.string  "company_name"
-    t.string  "wall_picture"
-    t.float   "rating"
-    t.boolean "mobile"
-    t.string  "address"
-    t.integer "radius"
-    t.integer "price"
-    t.string  "city"
-    t.string  "country"
-    t.boolean "all_vehicles"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "min_lat"
-    t.float   "min_lng"
-    t.float   "max_lat"
-    t.float   "max_lng"
-    t.text    "description"
-    t.integer "rates_number"
+    t.integer  "user_id"
+    t.boolean  "pro"
+    t.string   "company_name"
+    t.string   "wall_picture"
+    t.float    "rating"
+    t.boolean  "mobile"
+    t.string   "address"
+    t.integer  "radius"
+    t.integer  "price"
+    t.string   "city"
+    t.string   "country"
+    t.boolean  "all_vehicles"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.float    "min_lat"
+    t.float    "min_lng"
+    t.float    "max_lat"
+    t.float    "max_lng"
+    t.text     "description"
+    t.integer  "rates_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["user_id"], name: "index_mecano_profiles_on_user_id", using: :btree
   end
 
   create_table "recommendations", force: :cascade do |t|
-    t.integer "mecano_profile_id"
-    t.integer "user_id"
-    t.integer "domain_id"
+    t.integer  "mecano_profile_id"
+    t.integer  "user_id"
+    t.integer  "domain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["domain_id"], name: "index_recommendations_on_domain_id", using: :btree
     t.index ["mecano_profile_id"], name: "index_recommendations_on_mecano_profile_id", using: :btree
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "mark"
-    t.integer "service_id"
-    t.integer "mecano_profile_id"
-    t.integer "user_id"
-    t.text    "comment"
+    t.integer  "mark"
+    t.integer  "service_id"
+    t.integer  "mecano_profile_id"
+    t.integer  "user_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["mecano_profile_id"], name: "index_reviews_on_mecano_profile_id", using: :btree
     t.index ["service_id"], name: "index_reviews_on_service_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
   end
 
   create_table "services", force: :cascade do |t|
-    t.string  "status",            default: "pending"
-    t.integer "amount"
-    t.integer "vehicle_id"
-    t.integer "user_id"
-    t.integer "mecano_profile_id"
-    t.string  "cancel_reason"
+    t.string   "status",            default: "pending"
+    t.integer  "amount"
+    t.integer  "vehicle_id"
+    t.integer  "user_id"
+    t.integer  "mecano_profile_id"
+    t.string   "cancel_reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["mecano_profile_id"], name: "index_services_on_mecano_profile_id", using: :btree
     t.index ["user_id"], name: "index_services_on_user_id", using: :btree
     t.index ["vehicle_id"], name: "index_services_on_vehicle_id", using: :btree
@@ -111,11 +121,13 @@ ActiveRecord::Schema.define(version: 20170720170452) do
   end
 
   create_table "vehicles", force: :cascade do |t|
-    t.string  "brand"
-    t.string  "model"
-    t.integer "year"
-    t.integer "user_id"
-    t.string  "trim"
+    t.string   "brand"
+    t.string   "model"
+    t.integer  "year"
+    t.integer  "user_id"
+    t.string   "trim"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["user_id"], name: "index_vehicles_on_user_id", using: :btree
   end
 

@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     UserSerializer.new(self).as_json
   end
 
+  def display_name
+    return "#{first_name.capitalize} #{last_name[0].capitalize}"
+  end
+
   private
 
   def send_welcome_email

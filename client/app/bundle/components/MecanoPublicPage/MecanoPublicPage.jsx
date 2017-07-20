@@ -49,7 +49,7 @@ class MecanoPublicPage extends Component {
       )
   }
   render(){
-    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, description, picture, isContacted } = this.props;
+    const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, isContacted } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return(
@@ -92,7 +92,7 @@ class MecanoPublicPage extends Component {
                   </div>
                 </div>
                 <Route exact path={this.props.match.url} render={() =>
-                    <Profile carMakes={car_makes} technicalSkills={technical_skills} description={description} allVehicles={all_vehicles} rating={rating}/>
+                    <Profile carMakes={car_makes} technicalSkills={technical_skills} description={description} allVehicles={all_vehicles} rating={rating} ratesNumber={rates_number} />
                   }/>
                 <PrivateRoute path={`${this.props.match.url}/contact`} isAuthenticated={isAuthenticated} registerMethod="login" component={ContactForm} />
                 <PrivateRoute path={`${this.props.match.url}/review`} isAuthenticated={isAuthenticated} registerMethod="login" component={Review} />
@@ -129,6 +129,7 @@ function mapStateToProps({ mecano_visited, auth }) {
     mobile: mecano_visited.mobile,
     all_vehicles: mecano_visited.all_vehicles,
     rating: mecano_visited.rating,
+    rates_number: mecano_visited.rates_number,
     picture: mecano_visited.picture,
     description: mecano_visited.description,
     isContacted: mecano_visited.contacted,
