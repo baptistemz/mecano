@@ -2,7 +2,8 @@ import {
   GOT_MECANO,
   RECOMMENDED_DOMAIN,
   UNRECOMMENDED_DOMAIN,
-  GOT_RECOMMENDATION_PICTURES
+  GOT_RECOMMENDATION_PICTURES,
+  REVIEW_POSTED
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -21,6 +22,7 @@ const INITIAL_STATE = {
     technical_skills: [],
     car_makes: [],
     errors: {},
+    rates_number: 0,
     recommendation_pictures: []
   };
 
@@ -28,8 +30,8 @@ export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GOT_MECANO:{
       const { mecano_profile, car_makes, domains } = action.data;
-      const {id, display_name, pro, price, city, country, mobile, all_vehicles, rating, description, picture, contacted} = mecano_profile;
-      return { ...state, id, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, description, picture, contacted }
+      const {id, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted} = mecano_profile;
+      return { ...state, id, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted }
     }
     case RECOMMENDED_DOMAIN:{
       const car_makes = state.car_makes.map((make) => {
@@ -67,6 +69,9 @@ export default function (state = INITIAL_STATE, action) {
     }
     case GOT_RECOMMENDATION_PICTURES:{
       return { ...state, recommendation_pictures: action.pictures }
+    }
+    case REVIEW_POSTED:{
+      return { ...state, contacted: false, rating: action.data.mecano_profile.rating }
     }
     default:
       return state;

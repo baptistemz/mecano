@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { reduxForm, initialize, change } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
 import { updateMecanoProfile } from '../../actions/index';

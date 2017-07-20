@@ -2,6 +2,7 @@ class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains, dependent: :destroy
   has_many :services, dependent: :nullify
+  has_many :reviews, dependent: :destroy
 
   # scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
   scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| (domains_list - mecano.domains.pluck(:value)).empty? }.uniq}
@@ -35,7 +36,7 @@ class MecanoProfile < ActiveRecord::Base
   end
 
   def contacted(user)
-    user ? self.services.where(user_id: user.id).any? : false
+    user ? self.services.where(status: "pending", user_id: user.id).any? : false
   end
 
   private

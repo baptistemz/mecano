@@ -3,6 +3,7 @@ class Service < ActiveRecord::Base
   belongs_to :mecano_profile
   belongs_to :user
   belongs_to :vehicle
+  has_one :review
   enumerize :status, in: [:pending, :canceled, :finished]
   validates_presence_of :user_id, :mecano_profile_id, :status
   validates_uniqueness_of :user_id, scope: [:mecano_profile_id], unless: :advanced_service?

@@ -65,6 +65,7 @@
   align-items: center;
   border-radius: 2px;
   cursor: pointer;
+  color: white;
   margin: 0 14px;
   font-size: 1em;
   padding: 18px 8px;
@@ -85,4 +86,16 @@
 .collection{
   border-color: white;
   border-bottom: 1px solid rgba(50, 139, 195, 0.5);
+}
+
+.price-unit{
+  font-size: 26px;
+  margin-top: 20px;
+}
+
+.big-stars{
+  text-align: center;
+  & a {
+    font-size: 40px;
+  }
 }

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, withRouter } from 'react-router-dom';
 import PrivateRoute from '../../containers/PrivateRoute';
 import { fetchMecanoProfile } from '../../actions/index';
 import { Header, ProfilePicture, Loader, Button } from '../../common/index';
-import { ContactForm, ContactedBanner, Profile } from './index';
+import { ContactForm, ContactedBanner, Profile, Review } from './index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
@@ -52,14 +52,18 @@ class MecanoPublicPage extends Component {
     const { isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, description, picture, isContacted } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
-      return <Loader/>
+      return(
+        <div className="search-loader-center">
+          <Loader />
+        </div>
+      )
     }
     return (
       <div className="boxes-background">
         <Header>{display_name}</Header>
         <div className="cover-picture"></div>
         {isContacted ?
-          <ContactedBanner />
+          <ContactedBanner url={this.props.match.url} />
         :
           <div></div>
         }
@@ -91,6 +95,7 @@ class MecanoPublicPage extends Component {
                     <Profile carMakes={car_makes} technicalSkills={technical_skills} description={description} allVehicles={all_vehicles} rating={rating}/>
                   }/>
                 <PrivateRoute path={`${this.props.match.url}/contact`} isAuthenticated={isAuthenticated} registerMethod="login" component={ContactForm} />
+                <PrivateRoute path={`${this.props.match.url}/review`} isAuthenticated={isAuthenticated} registerMethod="login" component={Review} />
               </div>
               <div className="col s10 offset-s1 m8 offset-m2 l6 offset-l3">
                 {!isContacted ?
@@ -131,7 +136,8 @@ function mapStateToProps({ mecano_visited, auth }) {
   }
 }
 
+MecanoPublicPage = withRouter(connect(mapStateToProps, mapDispatchToProps)(MecanoPublicPage))
 
-MecanoPublicPage = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoPublicPage))
+MecanoPublicPage = injectIntl(MecanoPublicPage)
 
 export { MecanoPublicPage }

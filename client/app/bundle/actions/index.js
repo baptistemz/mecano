@@ -5,3 +5,4 @@ export * from './DomainActions';
 export * from './SearchActions';
 export * from './ServiceActions';
 export * from './RecommendationActions';
+export * from './ReviewActions';

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717090035) do
+ActiveRecord::Schema.define(version: 20170720170452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170717090035) do
     t.float   "max_lat"
     t.float   "max_lng"
     t.text    "description"
+    t.integer "rates_number"
     t.index ["user_id"], name: "index_mecano_profiles_on_user_id", using: :btree
   end
 
@@ -55,12 +56,24 @@ ActiveRecord::Schema.define(version: 20170717090035) do
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "mark"
+    t.integer "service_id"
+    t.integer "mecano_profile_id"
+    t.integer "user_id"
+    t.text    "comment"
+    t.index ["mecano_profile_id"], name: "index_reviews_on_mecano_profile_id", using: :btree
+    t.index ["service_id"], name: "index_reviews_on_service_id", using: :btree
+    t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
+  end
+
   create_table "services", force: :cascade do |t|
     t.string  "status",            default: "pending"
     t.integer "amount"
     t.integer "vehicle_id"
     t.integer "user_id"
     t.integer "mecano_profile_id"
+    t.string  "cancel_reason"
     t.index ["mecano_profile_id"], name: "index_services_on_mecano_profile_id", using: :btree
     t.index ["user_id"], name: "index_services_on_user_id", using: :btree
     t.index ["vehicle_id"], name: "index_services_on_vehicle_id", using: :btree
@@ -111,6 +124,9 @@ ActiveRecord::Schema.define(version: 20170717090035) do
   add_foreign_key "recommendations", "domains"
   add_foreign_key "recommendations", "mecano_profiles"
   add_foreign_key "recommendations", "users"
+  add_foreign_key "reviews", "mecano_profiles"
+  add_foreign_key "reviews", "services"
+  add_foreign_key "reviews", "users"
   add_foreign_key "services", "mecano_profiles"
   add_foreign_key "services", "users"
   add_foreign_key "services", "vehicles"

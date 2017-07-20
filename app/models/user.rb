@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :vehicles, dependent: :destroy
   has_many :services, dependent: :nullify
   has_many :recommendations, dependent: :destroy
+  has_many :reviews, dependent: :nullify
   after_create :send_welcome_email
 
   def token_validation_response

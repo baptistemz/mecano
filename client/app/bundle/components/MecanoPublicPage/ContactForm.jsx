@@ -39,13 +39,13 @@ class ContactForm extends Component {
     }else if(!vehicle.id){
       createVehicle(vehicle)
     }else{
-      contact({ first_message: this.refs.message.value, mecano_visited_id, vehicle_id: vehicle.id });
+      contact({ first_message: this.refs.message.value, mecano_profile_id: mecano_visited_id, vehicle_id: vehicle.id });
     }
   }
   componentWillReceiveProps(newProps){
     const { vehicle, mecano_visited_id, contact, createVehicle } = this.props;
     if(vehicle !== newProps.vehicle){
-      contact({ first_message: this.refs.message.value, mecano_visited_id, vehicle_id: newProps.vehicle.id });
+      contact({ first_message: this.refs.message.value, mecano_profile_id: mecano_visited_id, vehicle_id: newProps.vehicle.id });
     }
   }
   manageInputs(){
@@ -134,7 +134,6 @@ class ContactForm extends Component {
           </div>
 
           <div className="input-field">
-            <i className="material-icons prefix">create</i>
             <textarea id="messageText" ref="message" className="materialize-textarea"></textarea>
             <label htmlFor="messageText">Message</label>
           </div>

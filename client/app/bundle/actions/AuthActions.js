@@ -92,8 +92,8 @@ export function logoutUser() {
     axios.delete('api/auth/sign_out')
       .then(response => {
         localStorage.clear();
-        dispatch(receiveLogout());
         toastr.success('Déconnexion', 'A bientôt !');
+        dispatch(receiveLogout());
       }).catch((error)=>{
         console.log("logoutUser error", error.response)
         localStorage.clear();
@@ -117,8 +117,8 @@ export function updatePassword(data, params = null) {
         setNextHeaders(response.headers)
         $('#password_modal').modal('close')
         dispatch(reset('password_change'))
-        if(params){dispatch(push('/login'))}
         toastr.success(response.data.message);
+        if(params){dispatch(push('/login'))}
       }).catch((error)=>{
         // setNextHeaders(response.headers)
         console.log("updatePassword error", error.response)
@@ -129,8 +129,8 @@ export function sendPasswordResetEmail(data) {
   return dispatch => {
     axios.post('api/auth/password', data)
       .then(response => {
-        dispatch(push("/login"))
         toastr.success(response.data.message);
+        dispatch(push("/login"))
       }).catch((error)=>{
         console.log("sendPasswordReset error", error.response)
       })

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'recommendations/pictures'
     end
     resources :mecano_profiles, only: [:create, :update, :show, :index, :destroy] do
+      resource :reviews, only: [:create]
       resources :domains, only: [:index]
       post 'domains/register_domains'
       post 'domains/update_technical_domains'
