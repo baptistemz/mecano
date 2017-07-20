@@ -6,7 +6,7 @@ class Service < ActiveRecord::Base
   has_one :review
   enumerize :status, in: [:pending, :canceled, :finished]
   validates_presence_of :user_id, :mecano_profile_id, :status
-  validates_uniqueness_of :user_id, scope: [:mecano_profile_id], unless: :advanced_service?
+  validates_uniqueness_of :user_id, scope: [:mecano_profile_id, :status], unless: :advanced_service?
   validate :no_self_service #important (a mecano who wants good advices mustn't be able to contact and then rate himself)
 
 

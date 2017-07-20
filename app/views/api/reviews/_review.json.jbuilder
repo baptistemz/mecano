@@ -1,5 +1,5 @@
 json.extract! review, :id, :comment, :mark, :created_at
 json.user do
-  display_name review.user.display_name
-  picture review.profile_picture
+  json.display_name review.user.display_name
+  json.picture review.user.profile_picture.thumb
 end

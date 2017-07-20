@@ -4,7 +4,7 @@ import {Button} from './index';
 
 const ContactedBanner = ({ url }) => {
   return (
-    <div className="contated-banner justify-center align-center">
+    <div className="contacted-banner justify-center align-center">
       <p>Mécano contacté.</p>
       <Link to={{ pathname: `${url}/review`, state: { status:"finished" }}}>
         <div className="banner-btn btn-small hide-on-small-only"><i className="material-icons">done</i> Service effectué</div>

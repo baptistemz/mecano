@@ -6,4 +6,4 @@ json.mecano_profile do
 end
 json.domains @mecano_profile.domains.where(kind:'technical_skill'), partial: 'api/domains/domain', as: :domain
 json.car_makes @mecano_profile.domains.where(kind:'car_make'), partial: 'api/domains/domain', as: :domain
-json.reviews @mecano_profile.reviews.last(2), partial: 'api/reviews/review', as: :mecano_profile
+json.reviews @mecano_profile.reviews.last(2).sort_by(&:created_at).reverse, partial: 'api/reviews/review', as: :review

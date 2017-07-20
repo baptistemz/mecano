@@ -11,7 +11,7 @@ class DomainList extends Component {
     const { domains, kind, isAuthenticated } = this.props;
     const { formatMessage } = this.props.intl
     return(
-      <ul className="collection">
+      <ul className="collection simple-field-collection">
         {domains.map((domain)=>{
           const { id, value, recommendation_number, recommended } = domain;
           let key = kind === "technical_skills" ? _.camelCase('mecano_technical_skills_' + value) : "";

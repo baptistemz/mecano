@@ -2,7 +2,7 @@ module Api
   class VehiclesController < BaseController
     before_action :authenticate_api_user!
     def create
-      @vehicle =current_api_user.vehicles.create(vehicle_params)
+      @vehicle =current_api_user.vehicles.find_or_create_by(vehicle_params)
       if @vehicle.save
         render :show, status: :created
       else
