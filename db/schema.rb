@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170720180404) do
+ActiveRecord::Schema.define(version: 20170720183126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.string   "kind"
     t.integer  "mecano_profile_id"
     t.string   "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["mecano_profile_id"], name: "index_domains_on_mecano_profile_id", using: :btree
   end
 
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.float    "max_lng"
     t.text     "description"
     t.integer  "rates_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["user_id"], name: "index_mecano_profiles_on_user_id", using: :btree
   end
 
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.integer  "mecano_profile_id"
     t.integer  "user_id"
     t.integer  "domain_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["domain_id"], name: "index_recommendations_on_domain_id", using: :btree
     t.index ["mecano_profile_id"], name: "index_recommendations_on_mecano_profile_id", using: :btree
     t.index ["user_id"], name: "index_recommendations_on_user_id", using: :btree
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.integer  "mecano_profile_id"
     t.integer  "user_id"
     t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["mecano_profile_id"], name: "index_reviews_on_mecano_profile_id", using: :btree
     t.index ["service_id"], name: "index_reviews_on_service_id", using: :btree
     t.index ["user_id"], name: "index_reviews_on_user_id", using: :btree
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.integer  "user_id"
     t.integer  "mecano_profile_id"
     t.string   "cancel_reason"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.index ["mecano_profile_id"], name: "index_services_on_mecano_profile_id", using: :btree
     t.index ["user_id"], name: "index_services_on_user_id", using: :btree
     t.index ["vehicle_id"], name: "index_services_on_vehicle_id", using: :btree
@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(version: 20170720180404) do
     t.integer  "year"
     t.integer  "user_id"
     t.string   "trim"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_vehicles_on_user_id", using: :btree
   end
 
