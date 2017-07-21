@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Rater from 'react-rater';
 import _ from 'lodash';
 import { updateMecanoProfile, validateToken } from '../../actions/index';
-import { Header, ProfilePicture, Button } from '../../common/index';
+import { Header, ProfilePicture, Button, ReviewList, DomainList } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
@@ -13,8 +14,8 @@ class MecanoProfile extends Component {
     this.props.validateToken()
   }
   submitDescription(){
-    const { mecano_id, updateMecanoProfile } = this.props;
-    updateMecanoProfile(mecano_id, { description: this.refs.description.value });
+    const { id, updateMecanoProfile } = this.props;
+    updateMecanoProfile(id, { description: this.refs.description.value });
     $('#description_modal').modal('close');
   }
   componentDidMount(){
@@ -28,7 +29,7 @@ class MecanoProfile extends Component {
     $('#descriptionText').characterCounter();
   }
   render(){
-    const { display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description } = this.props;
+    const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews } = this.props;
     const { formatMessage } = this.props.intl;
     return (
       <div className="boxes-background">
@@ -85,7 +86,17 @@ class MecanoProfile extends Component {
                   }
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoReviews)}</h5>
+                  <div className="big-stars">
+                    <Rater rating={rating} interactive={false} />
+                    <span>({rates_number})</span>
+                  </div>
+                  {reviews.length > 0 ?
+                    <ReviewList title={formatMessage(defaultMessages.mecanoReviews)}
+                      reviews={reviews} expandable={ reviews.length < rates_number}
+                      loadMessage="Autres avis..." id={id} />
+                  :
+                    <div></div>
+                  }
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/domain_edit'}>
@@ -95,12 +106,7 @@ class MecanoProfile extends Component {
                   </Link>
                   <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h5>
                   <br/>
-                  <ul className="collection">
-                    {technical_skills.map((skill)=>{
-                      let key = _.camelCase('mecano_technical_skills_' + skill)
-                      return <li key={skill} className="collection-item"><div className="capitalize">{formatMessage(defaultMessages[key])}<a className="secondary-content recommendation-chip">0</a></div></li>
-                    })}
-                  </ul>
+                  <DomainList kind="technical_skills" domains={technical_skills}/>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/vehicle_edit'}>
@@ -111,11 +117,8 @@ class MecanoProfile extends Component {
                   <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
                   <br/>
                   <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
-                    <ul className="collection">
-                      {car_makes.map((make)=>{
-                        return <li key={make} className="collection-item"><div className="capitalize">{make}<a className="secondary-content recommendation-chip">0</a></div></li>
-                      })}
-                    </ul>
+                  <DomainList kind="car_makes" domains={car_makes}/>
+
                 </div>
               </div>
             </div>
@@ -130,20 +133,12 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateMecanoProfile, validateToken }, dispatch);
 }
 
-function mapStateToProps({ mecano, auth }) {
+function mapStateToProps({ mecano }) {
+  const {car_makes, technical_skills, display_name, pro, id, price, city, country,
+    mobile, all_vehicles, rating, rates_number, description, reviews} = mecano
   return {
-    car_makes: mecano.car_makes,
-    technical_skills: mecano.technical_skills,
-    display_name: mecano.display_name,
-    pro: mecano.pro,
-    mecano_id: mecano.id,
-    price: mecano.price,
-    city: mecano.city,
-    country: mecano.country,
-    mobile: mecano.mobile,
-    all_vehicles: mecano.all_vehicles,
-    rating: mecano.rating,
-    description: mecano.description,
+    car_makes, technical_skills, display_name, pro, id, price, city,
+    country, mobile, all_vehicles, rating, rates_number, description, reviews
   }
 }
 

@@ -7,6 +7,7 @@ import {
   UPDATED_TECHNICAL_DOMAINS,
   UPDATED_CAR_DOMAINS,
   LOGOUT_SUCCESS,
+  AUTOCOMPLETE_ADDRESS,
   // GOT_MECANO
 } from '../actions/types';
 
@@ -21,11 +22,13 @@ const INITIAL_STATE = {
     mobile: null,
     all_vehicles: null,
     rating: null,
+    rates_number: null,
     company_name: "",
     full_address: "",
     description: "",
     technical_skills: [],
     car_makes: [],
+    reviews:[],
     errors: {}
   };
 
@@ -35,17 +38,8 @@ export default function (state = INITIAL_STATE, action) {
       return INITIAL_STATE;
     case LOGIN_SUCCESS:{
       if(action.user.mecano_profile){
-        const car_makes = state.car_makes;
-        const technical_skills = state.technical_skills;
-        action.user.mecano_profile.domains.map((domain) =>{
-          if(domain.kind === 'car_make'){
-            if(!car_makes.includes(domain.value)){car_makes.push(domain.value)};
-          }else{
-            if(!technical_skills.includes(domain.value)){technical_skills.push(domain.value)};
-          }
-        })
-        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.user.mecano_profile;
-        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description }
+        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills } = action.user.mecano_profile;
+        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills }
       }else{
         return state
       }
@@ -84,6 +78,8 @@ export default function (state = INITIAL_STATE, action) {
         if(!updated_car_makes.includes(domain.value)){updated_car_makes.push(domain.value)};
       })
       return { ...state, car_makes: updated_car_makes }
+    case AUTOCOMPLETE_ADDRESS:
+      return { ...state, full_address: action.address }
     default:
       return state;
   }

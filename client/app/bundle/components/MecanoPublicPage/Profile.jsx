@@ -23,9 +23,13 @@ class Profile extends Component {
             <Rater rating={rating} interactive={false} />
             <span>({ratesNumber})</span>
           </div>
-          <ReviewList title={formatMessage(defaultMessages.mecanoReviews)}
-            reviews={reviews} expandable={ reviews.length < ratesNumber}
-            loadMessage="Autres avis..." id={id} />
+          {reviews.length > 0 ?
+            <ReviewList title={formatMessage(defaultMessages.mecanoReviews)}
+              reviews={reviews} expandable={ reviews.length < ratesNumber}
+              loadMessage="Autres avis..." id={id} />
+          :
+            <div></div>
+          }
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
           <h5 className="text-center">Domaines techniques</h5>

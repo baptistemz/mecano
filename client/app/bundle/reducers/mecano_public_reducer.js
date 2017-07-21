@@ -72,7 +72,6 @@ export default function (state = INITIAL_STATE, action) {
     case GOT_RECOMMENDATION_PICTURES:
       return { ...state, recommendation_pictures: action.pictures }
     case REVIEW_POSTED:
-      console.log(action.data)
       return { ...state, contacted: false, rating: action.data.mecano_profile.rating, rates_number: action.data.mecano_profile.rates_number }
     case GOT_REVIEWS:
       return { ...state, reviews: action.reviews }
