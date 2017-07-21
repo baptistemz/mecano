@@ -10,15 +10,13 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchResults extends Component {
-  constructor(){
-    super()
-    this.state = { loading : true }
-  }
-  componentWillMount(){
+  constructor(props){
+    super(props)
     const search = () => {
-      this.props.searchMecano(this.props.mecano_search_params)
+      props.searchMecano(props.mecano_search_params)
     }
     search()
+    this.state = { loading : true }
   }
   componentDidMount(){
     $('select').material_select();

@@ -39,6 +39,12 @@ class MecanoProfile < ActiveRecord::Base
     user ? self.services.where(status: "pending", user_id: user.id).any? : false
   end
 
+  def update_average_rating
+    rates_number = reviews.length
+    rating = (reviews.pluck(:mark).inject(:+).to_f / reviews.length.to_f).round(2)
+    self.update(rating: rating, rates_number: rates_number)
+  end
+
   private
 
   def is_pro?

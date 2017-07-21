@@ -22,9 +22,10 @@ export function updateDistance(distance){
     dispatch({ type: UPDATE_DISTANCE, distance })
   }
 };
-export function addDomainsToSearch(domains){
+export function addDomainsToSearch(domains, search_params){
   return dispatch => {
     dispatch({ type: ADD_DOMAINS_TO_SEARCH, domains })
+    dispatch(searchMecano(search_params))
     dispatch(push('/mecanos'));
   }
 };

@@ -9,8 +9,6 @@ class Review < ActiveRecord::Base
   private
 
   def update_mecano_review_data
-    new_rating = (mecano_profile.rating.to_f + mark) / (mecano_profile.rates_number.to_i + 1)
-    new_rates_number = mecano_profile.rates_number.to_i + 1
-    mecano_profile.update!(rating: new_rating, rates_number: new_rates_number)
+    mecano_profile.update_average_rating
   end
 end

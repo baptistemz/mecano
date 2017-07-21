@@ -20,11 +20,7 @@ export default class Root extends Component {
     this.state = { rehydrated: false }
   }
   componentWillMount(){
-    $(window).bind("pageshow", function(event) {
-        if (event.originalEvent.persisted) {
-            window.location.reload()
-        }
-    });
+    //SAVE STORE IN LOCALSTORAGE SO THAT ON PAGE REFRESH FRONTEND DATA IS STILL ALIVE
     persistStore(store, {}, () => {
       store.dispatch(validateToken())
       this.setState({ rehydrated: true });

@@ -11,10 +11,10 @@ import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchDomains extends Component {
   submit(values){
-    const { addDomainsToSearch, mecano_profile } = this.props;
+    const { addDomainsToSearch, mecano_profile, mecano_search_params } = this.props;
     const data = []
     Object.keys(values).map((k)=> {if(values[k] === true){data.push(k)}});
-    addDomainsToSearch(data)
+    addDomainsToSearch(data, mecano_search_params)
   }
   render(){
     const { formatMessage } = this.props.intl;
@@ -52,12 +52,19 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addDomainsToSearch }, dispatch);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ search, mecano }) {
   const initialValues= {}
-  state.search.domains.map((domain)=>{initialValues[domain] = true})
+  search.domains.map((domain)=>{initialValues[domain] = true})
+  const { results, distance, vehicle, full_address, domains } = search
   return {
-    mecano_profile: state.mecano.mecano_profile,
-    initialValues
+    mecano_profile: mecano.mecano_profile,
+    initialValues,
+    mecano_search_params: {
+      distance,
+      vehicle,
+      full_address,
+      domains
+    }
   }
 }
 

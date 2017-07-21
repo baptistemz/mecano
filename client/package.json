@@ -48,5 +48,7 @@
     "redux-thunk": "^2.2.0",
     "webpack": "^2.3.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "list-dependencies": "^1.0.0"
+  }
 }
