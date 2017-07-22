@@ -8,6 +8,10 @@ class Review < ActiveRecord::Base
 
   private
 
+  def name
+    return "#{mark}-#{mecano_profile.display_name}-#{user.display_name}"
+  end
+  
   def update_mecano_review_data
     mecano_profile.update_average_rating
   end

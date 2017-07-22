@@ -6,7 +6,7 @@ class RecommendationPictures extends Component {
     return(
       <div className="justify-end full-width">
         {pictures.map((picture) => {
-          return <img key={picture.url} src={picture.url} className="micro-avatar"/>
+          return <img key={picture.url} src={picture.url || "/thumb/default_profile.png"} className="micro-avatar"/>
         })}
       </div>
     )

@@ -26,21 +26,26 @@ class Signup extends Component{
     const { handleSubmit, errorMessages } = this.props;
     const { formatMessage } = this.props.intl;
     return (
-      <div>
+      <div className="boxes-background">
         <Header>{formatMessage(defaultMessages.userSignup)}</Header>
         <div className="container">
           <br />
           <div className="row">
-            <div className="col s12 m8 l6 offset-m2 offset-l3">
-              <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-                <Input icon="perm_identity" name="first_name" label={formatMessage(defaultMessages.userFirstName)}  type="text" error={errorMessages["first_name"]} />
-                <Input icon="perm_identity" name="last_name" label={formatMessage(defaultMessages.userLastName)} type="text" error={errorMessages["last_name"]} />
-                <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" error={errorMessages["email"]} />
-                <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)}  type="password" error={errorMessages["password"]} />
-                <Input icon="lock_outline" name="password_confirmation" label={formatMessage(defaultMessages.userPasswordConfirmation)} type="password" error={errorMessages["password_confirmation"]} />
-                <p className="red-text">{errorMessages.main}</p>
-                <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userSignup)}</Button>
-              </form>
+            <div className="col s12 m10 l8 offset-m1 offset-l2">
+              <div className="box-shadow padded-50-except-top">
+                <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
+                  <div className="text-center padded-20">
+                    <h5>Inscription</h5>
+                  </div>
+                  <Input icon="perm_identity" name="first_name" label={formatMessage(defaultMessages.userFirstName)}  type="text" error={errorMessages["first_name"]} />
+                  <Input icon="perm_identity" name="last_name" label={formatMessage(defaultMessages.userLastName)} type="text" error={errorMessages["last_name"]} />
+                  <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" error={errorMessages["email"]} />
+                  <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)}  type="password" error={errorMessages["password"]} />
+                  <Input icon="lock_outline" name="password_confirmation" label={formatMessage(defaultMessages.userPasswordConfirmation)} type="password" error={errorMessages["password_confirmation"]} />
+                  <p className="red-text">{errorMessages.main}</p>
+                  <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userSignup)}</Button>
+                </form>
+              </div>
             </div>
           </div>
           <div className="text-center">

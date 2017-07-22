@@ -102,8 +102,8 @@ class MecanoSearchResults extends Component {
                 <div className= "space-between flex-end">
                   <div style={{maxWidth: 'calc(100% - 86px)'}}>
                     <p id="domain-list" className="capitalize">{domain_list.join(', ')}</p>
-                    <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
                     <p>{`${vehicle.brand}, ${vehicle.model}`}</p>
+                    <p>{full_address.split(",").slice(full_address.split(",").length - 2)}</p>
                   </div>
                   <Link to={"/mecano_search"}>
                     <Button icon="edit" />

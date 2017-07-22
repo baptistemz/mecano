@@ -46,10 +46,11 @@
 
 // RADIO BUTTONS
 .radioinput:not(:checked) + label, .radioinput:checked + label{
-  padding: 10px 16px 30px 41px;
+  padding: 10px 16px 10px 41px;
   border-radius: 3px;
   margin: 0 5px;
-  line-height: 20px;
+  line-height: 19px;
+  height: auto;
 }
 
 .radioinput + label:before, .radioinput + label:after{

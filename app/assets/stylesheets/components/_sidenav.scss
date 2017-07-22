@@ -9,7 +9,7 @@
 
 .large-navbar{
   & a{
-    color: #008bc6;
+    color: #0C3D5E;
     display: block;
     height: 56px;
     text-align: center;
@@ -26,8 +26,8 @@
     }
   }
   & a:hover{
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #0C3D5E;
+    background-color: rgba(0, 0, 0, 0.04);
+    color: #008bc6;
   }
 }
 .button-collapse{

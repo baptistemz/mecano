@@ -31,6 +31,10 @@ class MecanoProfile < ActiveRecord::Base
     end
   end
 
+  def name
+    display_name
+  end
+
   def full_address
     return "#{address}, #{city}, #{country}"
   end

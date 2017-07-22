@@ -12,6 +12,10 @@ class Service < ActiveRecord::Base
 
   private
 
+  def name
+    return "#{mecano_profile.display_name}-#{user.display_name}"
+  end
+
   def no_self_service
     errors.add(:user_id, "Vous ne pouvez pas vous contacter vous-même") if user_id == mecano_profile.user_id
   end

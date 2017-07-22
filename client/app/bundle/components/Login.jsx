@@ -32,19 +32,24 @@ class Login extends Component{
     const { handleSubmit, errorMessages } = this.props;
     const { formatMessage } = this.props.intl
     return (
-      <div>
+      <div className="boxes-background">
         <Header>{formatMessage(defaultMessages.userLogin)}</Header>
         <div className="center-page-content">
           <div className="container">
             <br />
             <div className="row">
-              <div className="col s12 m8 l6 offset-m2 offset-l3">
-                <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
-                  <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
-                  <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />
-                  <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
-                  <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
-                </form>
+              <div className="col s12 m10 l8 offset-m1 offset-l2">
+                <div className="box-shadow padded-50-except-top">
+                  <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
+                    <div className="text-center padded-20">
+                      <h5>Identification</h5>
+                    </div>
+                    <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
+                    <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />
+                    <p className="red-text">{errorMessages.main ? errorMessages.main : ''}</p>
+                    <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userLogin)}</Button>
+                  </form>
+                </div>
               </div>
             </div>
             <div className="text-center margin-top-20 margin-bottom-20 text-20">

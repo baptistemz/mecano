@@ -7,6 +7,9 @@ class Domain < ActiveRecord::Base
   validates_presence_of :kind, :value, :mecano_profile_id
   validates_uniqueness_of :value, scope: :mecano_profile_id
 
+  def name
+    value
+  end
 
   def recommendation_number
     recommendations.length

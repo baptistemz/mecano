@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     return "#{first_name.capitalize} #{last_name[0].capitalize}"
   end
 
+  def name
+    display_name
+  end
+
   private
 
   def send_welcome_email

@@ -32,7 +32,7 @@ class Account extends Component {
       <div className="boxes-background">
         <Header>Mon compte</Header>
         <div className="container">
-          <div className="box-shadow marged-20 padded-50">
+          <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
               <h2>Mes infos personnelles</h2>
             </div>
@@ -71,7 +71,7 @@ class Account extends Component {
               </div>
             </div>
           </div>
-          <div className="box-shadow marged-20 padded-50">
+          <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
               <h2>Mes véhicules</h2>
             </div>

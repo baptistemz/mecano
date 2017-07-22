@@ -43,6 +43,9 @@ gem 'cloudinary'
 gem 'figaro'
 gem 'geocoder'
 
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
+
 gem "react_on_rails", "~> 7"
 
 group :development, :test do

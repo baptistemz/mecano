@@ -38,12 +38,15 @@
 }
 
 .recommendation-pictures-group{
+  width: calc(100% - 132px);
+  overflow: hidden;
   height: 30px;
-  width: calc(100% - 270px);
   margin: -26px 5px auto 5px;
   display: block;
 }
-
+.recommendation-picture{
+  height: 30px;
+}
 .contact-btn{
   position: absolute;
   top: 88px;

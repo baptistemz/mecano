@@ -123,17 +123,23 @@ class MecanoSearch extends Component {
           <div className="row">
             <form onSubmit={handleSubmit(values => this.submit(values))}>
               <div className="col s12">
-                <div className="box-shadow marged-20 padded-50">
+                <div className="box-shadow marged-20 padded-50-except-top">
                   <div className="text-center">
-                    <h2>Ma Voiture</h2>
+                    <h2>Mon véhicule</h2>
                   </div>
                   { isAuthenticated ?
                     <ul className="tabs tabs-fixed-width margin-bottom-20">
                       <li className='tab'>
-                        <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>Véhicules enregistrés</a>
+                        <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>
+                          <span className="hide-on-small-only">Véhicules enregistrés</span>
+                          <span className="hide-on-med-and-up">Enregistrés</span>
+                        </a>
                       </li>
                       <li className="tab">
-                        <a onClick={() => this.setState({ registeredCar: false})} className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">enregister un véhicule</a>
+                        <a onClick={() => this.setState({ registeredCar: false})} className={vehicles.length === 0 ? 'active' : ''} href="#register_vehicles">
+                          <span className="hide-on-small-only">enregister un véhicule</span>
+                          <span className="hide-on-med-and-up">nouveau</span>
+                        </a>
                       </li>
                     </ul>
                     :
