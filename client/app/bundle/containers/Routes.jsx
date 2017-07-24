@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
 import Home from '../components/Home';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
@@ -15,12 +16,17 @@ import { MecanoRegistration, VehicleChoice, DomainChoice, MecanoProfile } from '
 import { MecanoEdit, VehicleEdit, DomainEdit } from '../components/MecanoEdit/index';
 import { MecanoSearch, MecanoSearchDomains, MecanoSearchResults } from '../components/MecanoSearch/index';
 import history from '../store/history';
+import { setWhiteNavbar } from '../actions/index';
 import PrivateRoute from './PrivateRoute';
 import MecanoRoute from './MecanoRoute';
 
 
 
 class Routes extends Component{
+  componentWillMount(){
+    console.log("willMount")
+    this.props.setWhiteNavbar(false)
+  }
   render(){
     const { isAuthenticated, isMecano } = this.props;
     return(
@@ -30,7 +36,10 @@ class Routes extends Component{
             <SideNav />
           </div>
           <div className="body-height">
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={() => {
+                this.props.setWhiteNavbar(true);
+                return <Home />;
+            } } />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <Route path="/password_forgotten" component={PasswordForgotten} />
@@ -62,4 +71,8 @@ function mapStateToProps({ auth }) {
   }
 }
 
-export default connect(mapStateToProps, null)(Routes);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setWhiteNavbar }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);

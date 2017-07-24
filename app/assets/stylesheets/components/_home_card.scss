@@ -1,0 +1,42 @@
+.home-card{
+  padding: 30px;
+  color:white;
+  text-align: center;
+  position: initial !important;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 4px 0px rgba(12, 61, 94, 0.2);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(12, 61, 94, 0.2);
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(12, 61, 94, 0.2);
+  -o-box-shadow: 0px 1px 4px 0px rgba(12, 61, 94, 0.2);
+  box-shadow: 0px 1px 4px 0px rgba(12, 61, 94, 0.2);
+  & .divider {
+    height: 5px;
+    width: 20%;
+    margin: auto;
+  }
+  & img {
+    width: max-content;
+    margin: auto;
+  }
+}
+
+.translucid-background{
+  background-color: rgba(255,255,255,0.1);
+  & .divider{
+    background-color: #0C3D5E;
+  }
+}
+
+.secondary-background{
+  background-color: #0C3D5E;
+  & .divider{
+    background-color: #008bc6;
+  }
+}
+
+.column-card{
+  margin: 20px 0;
+  height: 300px;
+  align-items: center
+}

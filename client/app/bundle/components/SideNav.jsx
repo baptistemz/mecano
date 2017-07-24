@@ -72,25 +72,25 @@ class SideNav extends Component {
     );
   }
   render() {
-    const { isAuthenticated, isMecano } = this.props;
+    const { isAuthenticated, isMecano, white_navbar } = this.props;
     return (
       <div>
         <div className="navbar">
           <div className="large-navbar hide-on-med-and-down">
             <div className="space-between">
               <div className="space-between">
-                <Link to={'/'}><i className="material-icons">home</i><p>Accueil</p></Link>
+                <Link className={`${white_navbar ? 'white-shadowed-text' : ''}`} to={'/'}><i className="material-icons">home</i><p>Accueil</p></Link>
               </div>
               <div className="space-between">
-                <Link to={'/mecano_search'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
+                <Link className={`${white_navbar ? 'white-shadowed-text' : ''}`} to={'/mecano_search'}><i className="material-icons">search</i><p>Trouver un mécano</p></Link>
                 {isMecano ?
-                  <Link to={'/mecano_profile'}><i className="material-icons">build</i><p>Mon profil mécano</p></Link>
+                  <Link className={`${white_navbar ? 'white-shadowed-text' : ''}`} to={'/mecano_profile'}><i className="material-icons">build</i><p>Mon profil mécano</p></Link>
                 :
-                  <Link to={'/mecano_signup'}><i className="material-icons">build</i><p>Inscription mécano</p></Link>
+                  <Link className={`${white_navbar ? 'white-shadowed-text' : ''}`} to={'/mecano_signup'}><i className="material-icons">build</i><p>Inscription mécano</p></Link>
                 }
                 {isAuthenticated ?
                   <div>
-                    <a className='dropdown-button' data-activates='dropdown-connected'><i className="material-icons">account_circle</i><p>Mon compte</p></a>
+                    <a className={`dropdown-button ${white_navbar ? 'white-shadowed-text' : ''}`} data-activates='dropdown-connected'><i className="material-icons">account_circle</i><p>Mon compte</p></a>
                     <div id='dropdown-connected' className='dropdown-background dropdown-content'>
                       <div className="userView margin-top-20">
                         {this.profileThumb()}
@@ -99,7 +99,7 @@ class SideNav extends Component {
                   </div>
                 :
                   <div>
-                    <a className='dropdown-button' data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
+                    <a className={`dropdown-button ${white_navbar ? 'white-shadowed-text' : ''}`} data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
                     <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
                       <div className="userView margin-top-20">
                         {this.connectLinks()}
@@ -126,21 +126,22 @@ class SideNav extends Component {
             }
           </ul>
           <a data-activates="slide-out" className="button-collapse">
-            <i className="material-icons hide-on-large-only" id="burger-menu">menu</i>
+            <i className={`material-icons hide-on-large-only ${white_navbar ? 'white-shadowed-text' : ''}`} id="burger-menu">menu</i>
           </a>
         </div>
       </div>
     );
   }
 };
-function mapStateToProps({ auth }) {
+function mapStateToProps({ auth, display }) {
   return {
     isAuthenticated: auth.isAuthenticated,
     email: auth.email || 'unknown@unknown.com',
     first_name: auth.first_name || 'unknown',
     last_name: auth.last_name || 'unknown',
     isMecano: auth.is_mecano,
-    profile_picture: auth.profile_picture.thumb.url
+    profile_picture: auth.profile_picture.thumb.url,
+    white_navbar: display.white_navbar
   }
 }
 function mapDispatchToProps(dispatch) {

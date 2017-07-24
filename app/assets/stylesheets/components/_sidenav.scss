@@ -26,7 +26,11 @@
     }
   }
   & a:hover{
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #008bc6;
+  }
+  & .white-shadowed-text:hover{
+    background-color: rgba(12, 61, 94, 0.6);
     color: #008bc6;
   }
 }

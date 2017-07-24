@@ -1,20 +1,69 @@
 @media only screen and (min-width : 0px) and (max-width: 600px) {
+  .trapeze-container{
+  	width:0;
+    height: 1000px;
+    border: 0px solid #008bc6;
+    border-color: transparent transparent transparent #008bc6;
+    border-left-width: 5000px;
+    border-top-width: 300px;
+    border-bottom-width: 300px;
+    flex-direction: column;
+    & div:first-child{
+      flex-direction: column;
+      top: 1085px;
+    }
+  }
   .sidenav-background{
     height:198px
+  }
+  .home-card-width-managed{
+    margin: 10px 5%;
+    width: 90%;
+    height: 270px;
   }
 }
 @media only screen and (min-width: 600px) and (max-width : 992px) {
+  .trapeze-container{
+  	width:0;
+    height: 1000px;
+    border: 0px solid #008bc6;
+    border-color: transparent transparent transparent #008bc6;
+    border-left-width: 5000px;
+    border-top-width: 300px;
+    border-bottom-width: 300px;
+    & div:first-child{
+      flex-direction: column;
+      top: 1085px;
+    }
+  }
   .sidenav-background{
     height:198px
   }
+  .home-card-width-managed{
+    margin: 10px 5%;
+    width: 90%
+  }
 }
-@media only screen and (min-width: 992px) and (max-width : 1200px) {
+@media only screen and (min-width: 992px) {
+  .trapeze-container{
+  	width:0;
+    height: 500px;
+    border: 0px solid #008bc6;
+    border-color: transparent transparent transparent #008bc6;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border-left-width: 5000px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+  }
   .sidenav-background{
     height:200px
   }
-}
-@media only screen and (min-width: 1200px) {
-  .sidenav-background{
-    height:200px
+  .trapeze-container div:first-child{
+    justify-content: space-between;
+  }
+  .home-card-width-managed{
+    width: 23%;
+    margin: 70px 5%;
   }
 }
