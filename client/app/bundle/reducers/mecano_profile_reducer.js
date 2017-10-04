@@ -58,6 +58,8 @@ export default function (state = INITIAL_STATE, action) {
     case REGISTERED_DOMAINS:
       const new_car_makes = state.car_makes;
       const new_technical_skills = state.technical_skills;
+      console.log("ACTION", action)
+      console.log("DOMAINS", action.domains)
       action.domains.map((domain) =>{
         if(domain.kind === 'car_make'){
           if(!new_car_makes.includes(domain.value)){new_car_makes.push(domain.value)};

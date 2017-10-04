@@ -11,7 +11,7 @@ import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoProfile extends Component {
   componentWillMount(){
-    this.props.validateToken()
+    // this.props.validateToken()
   }
   submitDescription(){
     const { id, updateMecanoProfile } = this.props;
@@ -48,7 +48,7 @@ class MecanoProfile extends Component {
                   <div className="direction-row">
                     <ProfilePicture currentUser={true}/>
                     <div className="profile-content">
-                      <h5 className="capitalize">{ display_name }</h5>
+                      <h3 className="capitalize">{ display_name }</h3>
                       <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>
@@ -60,7 +60,7 @@ class MecanoProfile extends Component {
                   </div>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
-                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoDescription)}</h5>
+                  <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoDescription)}</h4>
                   <div className="modal-trigger" data-target="description_modal">
                     <div className="box-edit btn btn-floating">
                       <i className="material-icons">edit</i>
@@ -104,9 +104,9 @@ class MecanoProfile extends Component {
                       <i className="material-icons">edit</i>
                     </div>
                   </Link>
-                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h5>
+                  <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h4>
                   <br/>
-                  <DomainList kind="technical_skills" domains={technical_skills}/>
+                  <DomainList kind="technical_skills" domains={technical_skills}  ownProfile={ false }/>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
                   <Link to={'/vehicle_edit'}>
@@ -114,11 +114,10 @@ class MecanoProfile extends Component {
                       <i className="material-icons">edit</i>
                     </div>
                   </Link>
-                  <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
+                  <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h4>
                   <br/>
                   <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
-                  <DomainList kind="car_makes" domains={car_makes}/>
-
+                  <DomainList kind="car_makes" domains={car_makes} ownProfile={ false }/>
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@ class PasswordChange extends Component {
     const { formatMessage } = this.props.intl
     return(
       <div>
-        <a className="waves-effect waves-light btn" href="#password_modal">{formatMessage(defaultMessages.userPassword)}</a>
+        <a href="#password_modal"><button className="waves-effect waves-light full-width btn">{formatMessage(defaultMessages.userChangePassword)}</button></a>
         <div id="password_modal" className="modal">
           <div className="modal-content">
             <div className="text-center">

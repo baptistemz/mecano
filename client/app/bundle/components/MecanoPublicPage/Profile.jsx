@@ -21,10 +21,10 @@ class Profile extends Component {
         <div className="box-shadow white-background marged-20 padded-20">
           <div className="big-stars">
             <Rater rating={rating} interactive={false} />
-            <span>({ratesNumber})</span>
+            <span>({ratesNumber || 0})</span>
           </div>
           {reviews.length > 0 ?
-            <ReviewList title={formatMessage(defaultMessages.mecanoReviews)}
+            <ReviewList title={`${formatMessage(defaultMessages.mecanoReviews)} (${ratesNumber})`}
               reviews={reviews} expandable={ reviews.length < ratesNumber}
               loadMessage="Autres avis..." id={id} />
           :
@@ -32,15 +32,15 @@ class Profile extends Component {
           }
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <h5 className="text-center">Domaines techniques</h5>
+          <h4 className="text-center">Domaines techniques</h4>
           <br/>
-          <DomainList kind="technical_skills" domains={technicalSkills}/>
+          <DomainList kind="technical_skills" domains={technicalSkills} ownProfile={ true }/>
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <h5 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h5>
+          <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h4>
           <br/>
           <p className="green-text uppercase">{allVehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
-          <DomainList kind="car_makes" domains={carMakes}/>
+          <DomainList kind="car_makes" domains={carMakes} ownProfile={ true }/>
         </div>
       </div>
     )

@@ -26,11 +26,11 @@ class DomainListItem extends Component {
   }
 
   render(){
-    const { id, recommended, recommendationNumber, text, isAuthenticated, pictures } = this.props
+    const { id, recommended, recommendationNumber, text, isAuthenticated, pictures, recommendBtn } = this.props
     return(
       <li className="collection-item">
         <div className="capitalize">{text}</div>
-        {isAuthenticated ?
+        {isAuthenticated && recommendBtn ?
           this.recommendButton(id, recommended)
           :
           <a></a>

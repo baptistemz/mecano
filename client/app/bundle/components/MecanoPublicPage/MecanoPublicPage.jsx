@@ -75,7 +75,7 @@ class MecanoPublicPage extends Component {
                   <div className="direction-row">
                     <ProfilePicture imgSrc={picture.thumb.url} currentUser={false}/>
                     <div className="profile-content">
-                      <h5 className="capitalize">{display_name}</h5>
+                      <h3 className="capitalize">{display_name}</h3>
                       <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
                       <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
                     </div>

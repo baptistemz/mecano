@@ -55,10 +55,10 @@ RSpec.describe "MecanoProfiles :", type: :request do
         mecano_profile = create_mecano_profile(mecano_profile_props)
         register_domains([{"kind" => "technical_skill", "value" => "brakes"}, {"kind" => "technical_skill", "value" => "wheels"}], mecano_profile["id"])
       end
-      # it "doen't register technical_skills if they are not in enumerable list" do
-      #   mecano_profile = create_mecano_profile(mecano_profile_props)
-      #   register_domains([{"kind" => "technical_skill", "value" => "plumbing"}, {"kind" => "technical_skill", "value" => "others"}], mecano_profile["id"], false)
-      # end
+      it "doen't register technical_skills if they are not in enumerable list" do
+        mecano_profile = create_mecano_profile(mecano_profile_props)
+        register_domains([{"kind" => "technical_skill", "value" => "plumbing"}, {"kind" => "technical_skill", "value" => "others"}], mecano_profile["id"], false)
+      end
     end
   end
 end

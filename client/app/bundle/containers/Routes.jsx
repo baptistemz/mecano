@@ -24,7 +24,6 @@ import MecanoRoute from './MecanoRoute';
 
 class Routes extends Component{
   componentWillMount(){
-    console.log("willMount")
     this.props.setWhiteNavbar(false)
   }
   render(){

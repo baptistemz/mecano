@@ -15,9 +15,7 @@ class Home extends Component{
   componentWillMount(){
     this.props.setWhiteNavbar(true);
   }
-  componentWillReceiveProps(){
-    console.log(this)
-  }
+
   componentWillUnmount(){
     this.props.setWhiteNavbar(false);
   }
@@ -50,15 +48,15 @@ class Home extends Component{
             </div>
             <div className="home-card home-card-width-managed translucid-background">
               <img src="/home_icon_2.png" alt=""/>
-              <h5>{"Tous types d'interventions"}</h5>
+              <h5>À proximité ou à domicile</h5>
               <div className="divider"></div>
-              <p>Réparation, entrerien, rénovation…  Trouvez le mécano correspondant à vos besoins.</p>
+              <p>Si vous ne pouvez pas vous déplacer, recherchez un mécano pouvant intervenir à domicile.</p>
             </div>
             <div className="home-card home-card-width-managed translucid-background">
               <img src="/home_icon_3.png" alt=""/>
-              <h5>{"Tous types d'interventions"}</h5>
+              <h5>Une solution économique</h5>
               <div className="divider"></div>
-              <p>Réparation, entrerien, rénovation…  Trouvez le mécano correspondant à vos besoins.</p>
+              <p>{"Sur Restor'it, faîtes-vous conseiller par un passionné ou payez uniquement la main d’oeuvre d’un professionnel."}</p>
             </div>
           </div>
         </div>
@@ -87,17 +85,17 @@ class Home extends Component{
                   <p>Rejoignez une communauté locale aimant les mêmes voitures que vous. Donnez et recevez des conseils pour vos travaux mécaniques.</p>
                 </div>
               </div>
-              <br/>
-              <br/>
-              {this.props.isMecano ?
-                <Link to={'/mecano_profile'}>
-                  <Button>Mon profil mécano</Button>
-                </Link>
-                :
-                <Link to={'/mecano_registration'}>
-                  <Button>Créer un profil mécano</Button>
-                </Link>
-              }
+              <div className="margin-top-50" style={{ display: "inline-block" }}>
+                {this.props.isMecano ?
+                  <Link to={'/mecano_profile'}>
+                    <Button>Mon profil mécano</Button>
+                  </Link>
+                  :
+                  <Link to={'/mecano_signup'}>
+                    <Button>Créer un profil mécano</Button>
+                  </Link>
+                }
+              </div>
             </div>
           </div>
         </div>

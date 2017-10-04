@@ -8,7 +8,7 @@ import { defaultMessages } from '../../libs/i18n/default';
 
 class DomainList extends Component {
   render(){
-    const { domains, kind, isAuthenticated } = this.props;
+    const { domains, kind, isAuthenticated, ownProfile } = this.props;
     const { formatMessage } = this.props.intl
     return(
       <ul className="collection simple-field-collection">
@@ -24,7 +24,8 @@ class DomainList extends Component {
             unrecommend={() => this.props.unrecommend(id)}
             recommended={recommended}
             recommendationNumber={recommendation_number}
-            isAuthenticated={isAuthenticated} />
+            isAuthenticated={isAuthenticated}
+            recommendBtn={ ownProfile } />
         })}
       </ul>
     )

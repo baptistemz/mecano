@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import PictureUpdate from './PictureUpdate';
-import { Header, EditableField, VehicleCard } from '../common/index';
+import { Header, EditableField, VehicleCard, Button } from '../common/index';
 import VehicleCreation from './VehicleCreation';
 import PasswordChange from './PasswordChange';
 import { updateProfile, fetchVehicles, deleteVehicle } from '../actions/index';
@@ -63,11 +63,19 @@ class Account extends Component {
               </div>
             </div>
             <div className="row">
-              <div className="col s12 m6">
+              <div className="col s12 offset-m3 m6">
                 <PictureUpdate />
               </div>
-              <div className="col s12 m6 password-change-group" style={{paddingLeft: '15%'}}>
+            </div>
+          </div>
+          <div className="box-shadow marged-20 padded-20">
+            <div className="row">
+              <div className="col s12 offset-m3 m6">
                 <PasswordChange />
+                <br/>
+              </div>
+              <div className="col s12 offset-m3 m6">
+                <Button fullWidth={true} icon="delete">Supprimer le compte</Button>
               </div>
             </div>
           </div>
