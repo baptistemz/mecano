@@ -146,13 +146,20 @@ While developping the API and the React app, test them frequently.
 ### Testing the API
 
 While working on the API, you must run the tests frequently to check if you don't break any of the core functionnalities. You must also write the tests related to the functionnalities you want to develop on the API. These tests are written with rspec. A simple ```$rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
-If you want to run only specific API tests run ```$rspec path_to_test_file```.
+If you want to run only specific API tests run
+```
+$rspec path_to_test_file
+```
 
 The API test files are located in the ```spec```directory.
 
 ### Testing the react app
 
-While working on the react app, you must run the tests constantly and check if you don't break any of the core functionnalities. A simple ```$npm run react-test``` will start the hot reloading test environment. Each time you'll save changes to a file of the react app all the tests will be re-run automatically. You'll just have to check no test has turned red each time you save a change. You must also write the tests related to the functionnalities you want to develop on the React app.
+While working on the react app, you must run the tests constantly and check if you don't break any of the core functionnalities. A simple
+```
+$npm run react-test
+```
+will start the hot reloading test environment. Each time you'll save changes to a file of the react app all the tests will be re-run automatically. You'll just have to check no test has turned red each time you save a change. You must also write the tests related to the functionnalities you want to develop on the React app.
 
 The React app test files are located in the ```client/test```directory.
 
