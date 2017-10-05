@@ -9,7 +9,8 @@
   "scripts": {
     "postinstall": "cd client && npm install",
     "rails-server": "echo 'visit http://localhost:3000/' && foreman start -f Procfile.dev",
-    "test": "rspec"
+    "all-tests": "rspec && cd client && npm run test:watch",
+    "react-test": "cd client && npm run test:watch"
   },
   "dependencies": {
   }

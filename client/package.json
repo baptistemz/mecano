@@ -9,7 +9,9 @@
   "scripts": {
     "build:test": "webpack --config webpack.config.js",
     "build:production": "NODE_ENV=production webpack --config webpack.config.js",
-    "build:development": "webpack -w --config webpack.config.js"
+    "build:development": "webpack -w --config webpack.config.js",
+    "test": "mocha --compilers js:babel-core/register --require ./app/test/test_helper.js --recursive ./app/test",
+    "test:watch": "npm run test -- --watch"
   },
   "cacheDirectories": [
     "node_modules",
