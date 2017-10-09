@@ -12,6 +12,8 @@
     "all-tests": "rspec && cd client && npm run test:watch",
     "react-test": "cd client && npm run test:watch"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "intl": "^1.2.5"
   }
 }

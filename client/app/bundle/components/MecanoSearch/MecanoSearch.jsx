@@ -39,7 +39,7 @@ class MecanoSearch extends Component {
   }
   vehicleFields(){
     return(
-      <div>
+      <div id="mecano_search">
         <div className="row">
           <div className="col s12 m6 l3">
             <label htmlFor="year">Année</label>
