@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { Intl } from 'intl';
 import { translations } from '../../libs/i18n/translations';
 import { defaultLocale } from '../../libs/i18n/default';
+import ReduxToastr from 'react-redux-toastr';
 import { persistStore } from 'redux-persist';
 import { validateToken } from '../actions/index';
 import { Loader } from '../common/index';
@@ -13,9 +15,8 @@ const store = configureStore();
 const locale = defaultLocale;
 const messages = translations[locale];
 
-export default class ServerRoot extends Component {
-  constructor() {
-    console.log("SERVER")
+class RootWithoutRailsContext extends Component {
+  constructor(props) {
     super()
     this.state = { rehydrated: false }
   }
@@ -27,17 +28,26 @@ export default class ServerRoot extends Component {
     })
   }
   render() {
-    if(!this.state.rehydrated){
-      return <div className="window-height"><Loader /></div>
-    }
+    console.log("SERVER ROOT")
     return (
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <ServerRoutes />
+            <ServerRoutes location={this.props.railsContext.location}/>
+            <ReduxToastr
+              timeOut={4000}
+              preventDuplicates
+              position="bottom-right"
+              />
           </div>
         </IntlProvider>
       </Provider>
     );
   }
 }
+
+const ServerRoot = (props, railsContext) => (
+  <RootWithoutRailsContext {...{...props, railsContext}}/>
+)
+
+export default ServerRoot;

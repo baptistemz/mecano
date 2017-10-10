@@ -19,19 +19,12 @@ import { setWhiteNavbar } from '../actions/index';
 import PrivateRoute from './PrivateRoute';
 import MecanoRoute from './MecanoRoute';
 
-
-
 class ServerRoutes extends Component{
-  constructor(props, _railsContext) {
-    super(props)
-    this.state = { railsContext: _railsContext } // Object {}
-  }
   componentWillMount(){
     this.props.setWhiteNavbar(false);
   }
   render(){
-    const { isAuthenticated, isMecano } = this.props;
-    const { location } = this.state.railsContext;
+    const { isAuthenticated, isMecano, location } = this.props;
     const context = {};
     return(
       <StaticRouter location={location} context={context}>
@@ -41,7 +34,6 @@ class ServerRoutes extends Component{
           </div>
           <div className="body-height">
             <Route exact path="/" render={() => {
-                this.props.setWhiteNavbar(true);
                 return <Home />;
             } } />
             <Route path="/signup" component={Signup} />

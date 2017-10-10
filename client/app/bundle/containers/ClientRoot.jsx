@@ -16,7 +16,6 @@ const messages = translations[locale];
 
 export default class ClientRoot extends Component {
   constructor() {
-    console.log("CLIENT")
     super()
     this.state = { rehydrated: false }
   }
@@ -28,9 +27,7 @@ export default class ClientRoot extends Component {
     })
   }
   render() {
-    if(!this.state.rehydrated){
-      return <div className="window-height"><Loader /></div>
-    }
+    console.log("CLIENT ROOT")
     return (
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>

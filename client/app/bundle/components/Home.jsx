@@ -12,7 +12,6 @@ class Home extends Component{
   componentWillMount(){
     this.props.setWhiteNavbar(true);
   }
-
   componentWillUnmount(){
     this.props.setWhiteNavbar(false);
   }

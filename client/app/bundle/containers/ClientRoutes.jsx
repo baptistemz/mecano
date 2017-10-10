@@ -36,7 +36,6 @@ class ClientRoutes extends Component{
           </div>
           <div className="body-height">
             <Route exact path="/" render={() => {
-                this.props.setWhiteNavbar(true);
                 return <Home />;
             } } />
             <Route path="/signup" component={Signup} />
