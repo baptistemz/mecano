@@ -17,7 +17,7 @@ def geocode_addresses()
         'coordinates'  => [50.6324107, 3.0511614],
         'latitude'     => 50.6324107,
         'longitude'    => 3.0511614,
-        'address'      => '200 Rue Nationale, Lille, France',
+        'address'      => '200 rue Nationale, Lille, France',
         'country'      => 'France',
         'country_code' => 'FR'
       }

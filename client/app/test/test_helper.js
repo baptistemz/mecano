@@ -14,10 +14,12 @@ import { IntlProvider } from 'react-intl';
 
 const history = createHistory();
 
-
 //set up environment to run like a browser in the command line
-global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.window = global.document.defaultView;
+const doc = new jsdom.JSDOM('<!doctype html><html><body></body></html>');
+const win = doc.window;
+
+global.document = win.document;
+global.window = win;
 const $ = jquery(global.window)
 
 // build renderComponent helper that should render a given react class

@@ -22,9 +22,9 @@ import MecanoRoute from './MecanoRoute';
 
 
 
-class Routes extends Component{
+class ClientRoutes extends Component{
   componentWillMount(){
-    this.props.setWhiteNavbar(false)
+    this.props.setWhiteNavbar(false);
   }
   render(){
     const { isAuthenticated, isMecano } = this.props;
@@ -74,4 +74,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ setWhiteNavbar }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Routes);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientRoutes);

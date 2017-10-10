@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get '/', to: 'react_app#index'
+  get '/mecano/:id', to: 'mecano_profiles#show'
   namespace :api, defaults: { format: :json } do
     mount_devise_token_auth_for 'User', at: 'auth', controllers: { passwords: 'api/users/passwords' }
     get 'authcheck/checkme'

@@ -3,19 +3,19 @@ import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { translations } from '../../libs/i18n/translations';
 import { defaultLocale } from '../../libs/i18n/default';
-import ReduxToastr from 'react-redux-toastr';
 import { persistStore } from 'redux-persist';
 import { validateToken } from '../actions/index';
 import { Loader } from '../common/index';
-import configureStore from '../store/configureStore';
-import Routes from './Routes';
+import configureStore from '../store/serverConfigureStore';
+import ServerRoutes from './ServerRoutes';
 
 const store = configureStore();
 const locale = defaultLocale;
 const messages = translations[locale];
 
-export default class Root extends Component {
+export default class ServerRoot extends Component {
   constructor() {
+    console.log("SERVER")
     super()
     this.state = { rehydrated: false }
   }
@@ -34,12 +34,7 @@ export default class Root extends Component {
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <Routes />
-            <ReduxToastr
-              timeOut={4000}
-              preventDuplicates
-              position="bottom-right"
-              />
+            <ServerRoutes />
           </div>
         </IntlProvider>
       </Provider>

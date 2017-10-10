@@ -50,6 +50,8 @@ class MecanoPublicPage extends Component {
   }
   render(){
     const { id, isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, isContacted, reviews } = this.props;
+    console.log("render")
+    console.log(display_name)
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return(
