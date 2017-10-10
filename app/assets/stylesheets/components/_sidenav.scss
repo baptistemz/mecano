@@ -62,7 +62,7 @@
 }
 
 .side-nav li > a{
-  padding: 10px 16px;
+  padding: 10px 0;
   height: 70px;
 }
 
@@ -112,19 +112,10 @@
   }
 }
 
+
 @media only screen and (max-width: 992px){
   .side-nav a {
-    padding: 10px 16px;
+    padding: 10px 0;
     height: 70px
   }
-}
-@media only screen and (max-width: 992px){
-  .side-nav a {
-    padding: 10px 16px;
-    height: 70px
-  }
-}
-.side-nav a {
-  padding: 10px 16px;
-  height: 70px
 }
