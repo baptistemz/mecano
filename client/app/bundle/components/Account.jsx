@@ -64,17 +64,6 @@ class Account extends Component {
               </div>
             </div>
           </div>
-          <div className="box-shadow marged-20 padded-20">
-            <div className="row">
-              <div className="col s12 offset-m3 m6">
-                <PasswordChange />
-                <br/>
-              </div>
-              <div className="col s12 offset-m3 m6">
-                <Button fullWidth={true} icon="delete">Supprimer le compte</Button>
-              </div>
-            </div>
-          </div>
           <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
               <h2>Mes véhicules</h2>
@@ -93,6 +82,17 @@ class Account extends Component {
               })}
             </div>
             <VehicleCreation wholeForm={true} />
+          </div>
+          <div className="box-shadow marged-20 padded-20">
+            <div className="row">
+              <div className="col s12 offset-m3 m6">
+                <PasswordChange />
+                <br/>
+              </div>
+              <div className="col s12 offset-m3 m6">
+                <Button fullWidth={true} icon="delete">Supprimer le compte</Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

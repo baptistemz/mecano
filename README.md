@@ -1,10 +1,7 @@
-# README
+##### Table of Contents  
+[Ruby Version](#rubyv)  
 
-This README will document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
+<a name="rubyv"/>
 ## Ruby version
 
 You may install ruby v > 2.3 and rails v > 5.0 to run this app locally.
@@ -174,7 +171,7 @@ This app is deployed on Heroku. For a good deployment don't forget to pass the e
 ### The API
 
 Read the logs after having started the server. Rails will often give you the method and the line an error comes from.
-To debugg the rails API use Rails logger debugger to print anything in the console
+To debug the rails API use Rails logger debugger to print anything in the console
 For example to print the value of ```@variable``` write :
 ```
 Rails.logger.debug("@variable: #{@variable}")
@@ -192,7 +189,7 @@ to print @variable in the terminal
 ### The React app
 
 Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.
-To debugg use the famous ```console.log```
+To debug use the famous ```console.log```
 
 ## i18n
 
@@ -228,7 +225,7 @@ export default injectIntl(Home);
 ```
 
 ## Useful API endpoints
-All the API endpoints only accept JSON data.
+All the API endpoints only accept (and return) JSON data.
 
 ### Non-protected endpoints
 
