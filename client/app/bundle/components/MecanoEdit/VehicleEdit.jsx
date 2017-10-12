@@ -6,11 +6,9 @@ import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMe
 import { Header, Input, RadioButtons } from '../../common/index';
 
 class VehicleEdit extends Component {
-  componentWillMount(){
-    //GET CAR MAKES LIST
-    this.props.fetchCarMakes()
-  }
   componentDidMount(){
+    //GET CAR MAKES LIST
+    this.props.fetchCarMakes();
     const { selectCarMake, removeCarMake, car_makes_list }= this.props
     $('.chips').on('chip.add', function(e, chip){
       //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST

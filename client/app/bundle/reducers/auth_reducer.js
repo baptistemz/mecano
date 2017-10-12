@@ -24,6 +24,7 @@ export default function (state = INITIAL_STATE, action) {
       return INITIAL_STATE
     case LOGIN_SUCCESS:{
       const { email, first_name, last_name, profile_picture, is_mecano, id } = action.user
+      console.log("reducer isMecano", is_mecano)
       return { ...state, isAuthenticated: true, errors: {}, email, first_name, last_name, profile_picture, is_mecano, id }
     }
     case PROFILE_UPDATED:{

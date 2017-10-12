@@ -22,6 +22,7 @@ class MecanoProfile < ActiveRecord::Base
   after_validation :geocode, if: :address_changed?
   after_validation :set_bound_box
   after_create :set_user_as_mecano
+  after_destroy :set_user_as_not_mecano
 
   def display_name
     if self.pro
@@ -61,6 +62,10 @@ class MecanoProfile < ActiveRecord::Base
 
   def set_user_as_mecano
     self.user.update(is_mecano: true)
+  end
+
+  def set_user_as_not_mecano
+    self.user.update(is_mecano: false)
   end
 
   def set_bound_box

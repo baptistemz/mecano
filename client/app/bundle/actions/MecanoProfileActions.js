@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toastr } from 'react-redux-toastr';
 import { push } from 'react-router-redux'
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import {
@@ -15,12 +16,13 @@ export function registerMecano(data, next_path){
   return dispatch => {
     return axios.post('/api/mecano_profiles', data)
       .then(response => {
+        setNextHeaders(response.headers)
         dispatch(push(next_path || '/mecano_profile'))
         dispatch(registeredMecano(response.data.mecano_profile))
-        setNextHeaders(response.headers)
       }).catch(error => {
-        mecanoRegistrationError(error.response)
-        setNextHeaders(error.response.headers)
+        console.log(error)
+        // mecanoRegistrationError(error.response)
+        // setNextHeaders(error.response.headers)
       })
   };
 };
@@ -77,6 +79,12 @@ export function gotMecanoProfile(data) {
 }
 
 export function mecanoRegistrationError(errors) {
+  // let error_array = []
+  // Object.keys(errors).map(function(key, index){
+  //   error_array.push(`${key}: ${errors[key]}`)
+  // })
+  // console.log(error_array)
+  // toastr.error(error_array);
   if(!errors){
     return {
       type: MECANO_REGISTRATION_ERROR,
@@ -89,6 +97,6 @@ export function mecanoRegistrationError(errors) {
   });
   return {
     type: MECANO_REGISTRATION_ERROR,
-    payload: errorGroup
+    payload: error
   }
 }

@@ -25,7 +25,6 @@ class ServerRoutes extends Component{
   }
   render(){
     const { isAuthenticated, isMecano, location } = this.props;
-    console.log(location)
     const context = {};
     return(
       <StaticRouter location={location} context={context}>

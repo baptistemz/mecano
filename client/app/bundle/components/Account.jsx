@@ -11,10 +11,6 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
 
 class Account extends Component {
-  componentDidMount(){
-    // console.log("one call")
-    // this.props.fetchVehicles();
-  }
   changeProfileField(type, text) {
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { formatMessage } = this.props.intl
