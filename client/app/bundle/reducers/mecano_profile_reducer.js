@@ -69,13 +69,13 @@ export default function (state = INITIAL_STATE, action) {
     case UPDATED_TECHNICAL_DOMAINS:
       const updated_technical_skills = [];
       action.domains.map((domain) =>{
-        if(!updated_technical_skills.includes(domain.value)){updated_technical_skills.push(domain.value)};
+        if(!updated_technical_skills.includes(domain)){updated_technical_skills.push(domain)};
       })
       return { ...state, technical_skills: updated_technical_skills }
     case UPDATED_CAR_DOMAINS:
       const updated_car_makes = [];
       action.domains.map((domain) =>{
-        if(!updated_car_makes.includes(domain.value)){updated_car_makes.push(domain.value)};
+        if(!updated_car_makes.includes(domain)){updated_car_makes.push(domain)};
       })
       return { ...state, car_makes: updated_car_makes }
     case AUTOCOMPLETE_ADDRESS:

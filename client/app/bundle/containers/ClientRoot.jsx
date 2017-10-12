@@ -10,17 +10,17 @@ import { Loader } from '../common/index';
 import configureStore from '../store/clientConfigureStore';
 import ClientRoutes from './ClientRoutes';
 
-const store = configureStore();
 const locale = defaultLocale;
 const messages = translations[locale];
 
-export default class ClientRoot extends Component {
+class RootWithoutRailsContext extends Component {
   constructor() {
     super()
     this.state = { rehydrated: false }
   }
   componentWillMount(){
     //SAVE STORE IN LOCALSTORAGE SO THAT ON PAGE REFRESH FRONTEND DATA IS STILL ALIVE
+    const { store } = this.props
     persistStore(store, {}, () => {
       store.dispatch(validateToken())
       this.setState({ rehydrated: true });
@@ -28,19 +28,29 @@ export default class ClientRoot extends Component {
   }
   render() {
     console.log("CLIENT ROOT")
+    const { store } = this.props;
     return (
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <ClientRoutes />
+            <ClientRoutes rehydrated={ this.state.rehydrated } />
             <ReduxToastr
               timeOut={4000}
               preventDuplicates
               position="bottom-right"
-              />
+            />
           </div>
         </IntlProvider>
       </Provider>
     );
   }
 }
+
+const ClientRoot = (props, railsContext) => {
+  const store = configureStore(props);
+  return(
+    <RootWithoutRailsContext {...{...props, railsContext, store}}/>
+  )
+}
+
+export default ClientRoot;

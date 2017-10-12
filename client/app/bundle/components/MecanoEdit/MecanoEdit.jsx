@@ -37,7 +37,7 @@ class MecanoEdit extends Component {
       values['city'] = splitted_address[splitted_address.length - 2];
       values['address'] = splitted_address[splitted_address.length - 3];
     }else{
-      this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
+      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
     this.props.updateMecanoProfile(this.props.mecano_id, values);
   }

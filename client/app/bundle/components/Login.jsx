@@ -23,6 +23,9 @@ class Login extends Component{
       toastr.info("Veuillez vous connecter pour réaliser cette action")
     }
   }
+  // componentDidMount() {
+  //   // Materialize.updateTextFields();
+  // }
   submit({ email, password }, next_path){
     const creds = { email: sanitize(email), password: sanitize(password) };
     this.props.loginUser(creds, next_path);

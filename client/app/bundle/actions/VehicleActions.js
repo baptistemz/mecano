@@ -76,12 +76,14 @@ export function gotCarMakes(data) {
 
 
 export function selectCarMake(carMake){
+  console.log("selectCarMake", carMake)
   return {
     type: SELECTED_CAR_MAKE,
     carMake: carMake
   };
 };
 export function removeCarMake(carMake){
+  console.log("removeCarMake", carMake)
   return {
     type: REMOVED_CAR_MAKE,
     carMake: carMake

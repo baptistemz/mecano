@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile } from '../../actions/index';
+import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
 import { Header, Input, RadioButtons } from '../../common/index';
 
@@ -11,17 +11,49 @@ class VehicleChoice extends Component {
     //GET CAR MAKES LIST
     this.props.fetchCarMakes()
   }
-  componentDidMount(car_makes_list){
-    const { removeCarMake } = this.props;
+  componentDidMount(){
+    const { selectCarMake, removeCarMake, car_makes_list }= this.props
+    if (car_makes_list.length === 0){
+     const car_makes_list = {
+       "abarth": null, "ac": null, "acura": null, "alfa-romeo": null, "allard": null, "alpina": null, "alpine": null, "alvis": null, "amc": null, "ariel": null, "armstrong-siddeley": null, "ascari": null, "aston-martin": null, "audi": null, "austin": null, "austin-healey": null, "autobianchi": null, "auverland": null, "avanti": null, "beijing": null, "bentley": null, "berkeley": null, "bitter": null, "bizzarrini": null, "bmw": null, "brilliance": null, "bristol": null, "bugatti": null, "buick": null, "cadillac": null, "caterham": null, "checker": null, "chevrolet": null, "chrysler": null, "citroen": null, "dacia": null, "daewoo": null, "daf": null, "daihatsu": null, "daimler": null, "datsun": null, "de-tomaso": null, "dkw": null, "dodge": null, "donkervoort": null, "eagle": null, "fairthorpe": null, "ferrari": null, "fiat": null, "fisker": null, "ford": null, "gaz": null, "geely": null, "ginetta": null, "gmc": null, "holden": null, "honda": null, "hudson": null, "humber": null, "hummer": null, "hyundai": null, "infiniti": null, "innocenti": null, "isuzu": null, "italdesign": null, "jaguar": null, "jeep": null, "jensen": null, "kia": null, "koenigsegg": null, "lada": null, "lamborghini": null, "lancia": null, "land-rover": null, "lexus": null, "lincoln": null, "lotec": null, "lotus": null, "luxgen": null, "mahindra": null, "marcos": null, "maserati": null, "matra-simca": null, "maybach": null, "mazda": null, "mcc": null, "mclaren": null, "mercedes-benz": null, "mercury": null, "mg": null, "mini": null, "mitsubishi": null, "monteverdi": null, "moretti": null, "morgan": null, "morris": null, "nissan": null, "noble": null, "nsu": null, "oldsmobile": null, "opel": null, "packard": null, "pagani": null, "panoz": null, "peugeot": null, "pininfarina": null, "plymouth": null, "pontiac": null, "porsche": null, "proton": null, "reliant": null, "renault": null, "riley": null, "rolls-royce": null, "rover": null, "saab": null, "saleen": null, "samsung": null, "saturn": null, "scion": null, "seat": null, "simca": null, "singer": null, "skoda": null, "smart": null, "spyker": null, "ssangyong": null, "ssc": null, "steyr": null, "studebaker": null, "subaru": null, "sunbeam": null, "suzuki": null, "talbot": null, "tata": null, "tatra": null, "tesla": null, "toyota": null, "trabant": null, "triumph": null, "tvr": null, "vauxhall": null, "vector": null, "venturi": null, "volkswagen": null, "volvo": null, "wartburg": null, "westfield": null, "willys-overland": null, "xedos": null, "zagato": null, "zastava": null, "zaz": null, "zenvo": null, "zil": null,
+     }
+    }
+    $('.chips').on('chip.add', function(e, chip){
+      console.log("le add est enregistré", chip)
+      console.log("le add est enregistré 0", e)
+      //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
+      if(!(chip.tag in car_makes_list)){
+        console.log("le add est enregistré 2", chip.tag)
+        console.log("le add est enregistré 3", car_makes_list)
+        for(var key in e.target.children) {
+          if(e.target.children.hasOwnProperty(key)){
+            if( e.target.children[key].innerText === `${chip.tag}close`){
+              e.target.children[key].remove()
+            }
+          }
+        }
+      }else{
+        console.log("oui ca avance")
+        selectCarMake(chip)
+      }
+    });
+    $('.chips').material_chip({
+      placeholder: 'Marques',
+      secondaryPlaceholder: 'Marques',
+      data: this.props.selected_car_makes,
+      autocompleteOptions: {
+        data: this.props.car_makes_list,
+        limit: Infinity,
+        minLength: 0
+      }
+    });
     $('.chips').on('chip.delete', function(e, chip){
       removeCarMake(chip)
     });
-    $('.chips').on('chip.add', function(e, chip){
-      chipAdd(e, chip)
-    });
-    const chipAdd = (e, chip) =>{
-      this.chipAdd(e, chip)
-    }
+  }
+  componentDidUpdate(){
+    //AUTOCOMPLETE
+    $('.chips').material_chip();
     $('.chips-autocomplete').material_chip({
       placeholder: 'Marques',
       secondaryPlaceholder: 'Marques',
@@ -33,43 +65,16 @@ class VehicleChoice extends Component {
       }
     });
   }
-  chipAdd(e, chip){
-    const { selectCarMake, car_makes_list } = this.props;
-    //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
-    if(!(chip.tag in car_makes_list)){
-      for(var key in e.target.children) {
-        if(e.target.children.hasOwnProperty(key)){
-          if( e.target.children[key].innerText === `${chip.tag}close`){
-            e.target.children[key].remove()
-          }
-        }
-      }
-    }else{
-      selectCarMake(chip)
-    }
-  }
-  componentWillReceiveProps(newProps){
-    //AUTOCOMPLETE
-    $('.chips').material_chip();
-    $('.chips-autocomplete').material_chip({
-      placeholder: 'Marques',
-      secondaryPlaceholder: 'Marques',
-      data: newProps.selected_car_makes,
-      autocompleteOptions: {
-        data: newProps.car_makes_list,
-        limit: Infinity,
-        minLength: 1
-      }
-    });
-  }
   submit(values){
-    const { registerDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
+    const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     if(values.all_vehicles === 'specific_brands'){
       const data = []
       selected_car_makes.map((e)=> data.push({kind: "car_make", value: e.tag}))
-      registerDomains(mecano_id, {domains: data}, '/mecano_domains')
+      updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_profile')
+      updateCarDomains(mecano_id, {domains: data})
     }else{
-      updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_domains')
+      updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_profile')
+      updateCarDomains(mecano_id, {domains: data})
     }
   }
   render(){
@@ -113,7 +118,7 @@ VehicleChoice = reduxForm({
 })(VehicleChoice);
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, registerDomains, updateMecanoProfile }, dispatch);
+  return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile }, dispatch);
 }
 
 function mapStateToProps(state) {

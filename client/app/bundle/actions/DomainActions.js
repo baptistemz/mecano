@@ -29,7 +29,7 @@ export function updateTechnicalDomains(id, data){
     return axios.post(`/api/mecano_profiles/${id}/domains/update_technical_domains`, data)
       .then(response => {
         setNextHeaders(response.headers)
-        dispatch(updatedTechnicalDomains(response.data.domains))
+        dispatch(updatedTechnicalDomains(response.data))
         dispatch(push('/mecano_profile'))
       }).catch(error => {
         domainRegistrationError(error)
@@ -42,7 +42,7 @@ export function updateCarDomains(id, data){
     return axios.post(`/api/mecano_profiles/${id}/domains/update_car_domains`, data)
       .then(response => {
         setNextHeaders(response.headers)
-        dispatch(updatedCarDomains(response.data.domains))
+        dispatch(updatedCarDomains(response.data))
         dispatch(push('/mecano_profile'))
       }).catch(error => {
         domainRegistrationError(error)

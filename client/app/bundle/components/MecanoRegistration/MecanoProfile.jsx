@@ -80,7 +80,7 @@ class MecanoProfile extends Component {
                     </div>
                   </div>
                   {description === null || description.length === 0 ?
-                    <p className="red-text">{formatMessage(defaultMessages.mecanoNoDescriptionMessage)}</p>
+                    <i><p className="red-text">/!\ {formatMessage(defaultMessages.mecanoNoDescriptionMessage)}</p></i>
                   :
                     <p>{description}</p>
                   }

@@ -21,6 +21,7 @@ class RootWithoutRailsContext extends Component {
     this.state = { rehydrated: false }
   }
   componentWillMount(){
+    const { store } = this.props;
     //SAVE STORE IN LOCALSTORAGE SO THAT ON PAGE REFRESH FRONTEND DATA IS STILL ALIVE
     persistStore(store, {}, () => {
       store.dispatch(validateToken())
@@ -29,13 +30,15 @@ class RootWithoutRailsContext extends Component {
   }
   render() {
     console.log("SERVER ROOT")
+    const { railsContext, store } = this.props;
     return (
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <ServerRoutes location={this.props.railsContext.location}/>
+            <ServerRoutes location={railsContext.location}/>
             <ReduxToastr
               timeOut={4000}
+              newestOnTop={false}
               preventDuplicates
               position="bottom-right"
               />
@@ -46,8 +49,12 @@ class RootWithoutRailsContext extends Component {
   }
 }
 
-const ServerRoot = (props, railsContext) => (
-  <RootWithoutRailsContext {...{...props, railsContext}}/>
-)
+const ServerRoot = (props, railsContext) => {
+  const store = configureStore(props);
+  return(
+    <RootWithoutRailsContext {...{...props, railsContext, store}}/>
+  )
+}
+
 
 export default ServerRoot;

@@ -1,1 +1,20 @@
-<%= react_component("Root") %>
+<%= react_component("Root",
+  props: {
+    mecano_visited: {
+      id: @mecano_profile.id,
+      display_name: @mecano_profile.display_name,
+      pro: @mecano_profile.pro,
+      price: @mecano_profile.price,
+      city: @mecano_profile.city,
+      country: @mecano_profile.country,
+      description: @mecano_profile.description,
+      mobile: @mecano_profile.mobile,
+      all_vehicles: @mecano_profile.all_vehicles,
+      rating: @mecano_profile.rating,
+      rates_number: @mecano_profile.rates_number,
+      contacted: @mecano_profile.contacted(current_api_user),
+      picture: @mecano_profile.user.profile_picture,
+      technical_skills: @technical_skills,
+      car_makes: @car_makes
+    }
+  }, prerender: true) %>

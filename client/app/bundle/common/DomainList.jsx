@@ -15,7 +15,7 @@ class DomainList extends Component {
         {domains.map((domain)=>{
           const { id, value, recommendation_number, recommended } = domain;
           let key = kind === "technical_skills" ? _.camelCase('mecano_technical_skills_' + value) : "";
-          const text = (kind === "technical_skills") ? formatMessage(defaultMessages[key]) : value
+          const text = kind === "technical_skills" ? formatMessage(defaultMessages[key]) || value : value;
           return <DomainListItem
             key={id}
             text={text}

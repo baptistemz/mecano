@@ -15,8 +15,9 @@ class DomainEdit extends Component {
   handleInitialize() {
     const initData = {};
     this.props.domains.map((domain)=>{
-      initData[domain] = true;
+      initData[domain.value] = true;
     });
+    console.log(initData)
     this.props.initialize(initData);
   }
   submit(values){

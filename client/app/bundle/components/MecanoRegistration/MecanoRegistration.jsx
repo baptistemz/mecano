@@ -30,7 +30,7 @@ class MecanoRegistration extends Component {
       triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
-      this.props.dispatch(change("mecano_search", "full_address", value));
+      this.props.dispatch(change("mecano_registration", "full_address", value));
     }
   }
 
@@ -43,10 +43,14 @@ class MecanoRegistration extends Component {
       values['city'] = splitted_address[splitted_address.length - 2];
       values['address'] = splitted_address[splitted_address.length - 3];
     }else{
-      this.props.mecanoRegistrationError({errors: "Saisissez une addresse sous le format 'n°, rue, Ville, Pays' "});
+      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
-    this.setState({ loading: true });
-    this.props.registerMecano(values, '/mecano_vehicles')
+    if( values['country'] && values['city'] && values['address']){
+      this.setState({ loading: true });
+      this.props.registerMecano(values, '/mecano_vehicles')
+    }else{
+      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
+    }
   }
 
   render(){

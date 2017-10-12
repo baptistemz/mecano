@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
+import ReduxToastr from 'react-redux-toastr';
 import Home from '../components/Home';
 import SideNav from '../components/SideNav';
 import Account from '../components/Account';
@@ -27,7 +28,9 @@ class ClientRoutes extends Component{
     this.props.setWhiteNavbar(false);
   }
   render(){
-    const { isAuthenticated, isMecano } = this.props;
+    const { isAuthenticated, isMecano, rehydrated } = this.props;
+    const authenticated = rehydrated ? isAuthenticated : true
+    const mecano = rehydrated ? isMecano : true
     return(
       <ConnectedRouter history={history}>
         <div>
@@ -46,14 +49,14 @@ class ClientRoutes extends Component{
             <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
             <Route exact path="/mecanos" component={MecanoSearchResults} />
             <Route path="/mecanos/:id" component={MecanoPublicPage} />
-            <PrivateRoute path="/my_account" isAuthenticated={isAuthenticated} registerMethod="login" component={Account} />
-            <PrivateRoute path="/mecano_signup" isAuthenticated={isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
-            <PrivateRoute path="/mecano_vehicles" isAuthenticated={isAuthenticated} registerMethod="login" component={VehicleChoice} />
-            <PrivateRoute path="/mecano_domains" isAuthenticated={isAuthenticated} registerMethod="login" component={DomainChoice} />
-            <MecanoRoute path="/mecano_profile" isAuthenticated={isAuthenticated} isMecano={isMecano} component={MecanoProfile} />
-            <MecanoRoute path="/mecano_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={MecanoEdit} />
-            <MecanoRoute path="/vehicle_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={VehicleEdit} />
-            <MecanoRoute path="/domain_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={DomainEdit} />
+            <PrivateRoute path="/my_account" isAuthenticated={authenticated} registerMethod="login" component={Account} />
+            <PrivateRoute path="/mecano_signup" isAuthenticated={authenticated} registerMethod="signup" component={MecanoRegistration} />
+            <PrivateRoute path="/mecano_vehicles" isAuthenticated={authenticated} registerMethod="login" component={VehicleChoice} />
+            <PrivateRoute path="/mecano_domains" isAuthenticated={authenticated} registerMethod="login" component={DomainChoice} />
+            <MecanoRoute path="/mecano_profile" isAuthenticated={authenticated} isMecano={mecano} component={MecanoProfile} />
+            <MecanoRoute path="/mecano_edit" isAuthenticated={authenticated} isMecano={mecano} component={MecanoEdit} />
+            <MecanoRoute path="/vehicle_edit" isAuthenticated={authenticated} isMecano={mecano} component={VehicleEdit} client={true} />
+            <MecanoRoute path="/domain_edit" isAuthenticated={authenticated} isMecano={mecano} component={DomainEdit} />
           </div>
           <Footer />
         </div>

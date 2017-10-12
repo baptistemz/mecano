@@ -77,7 +77,6 @@ export function gotMecanoProfile(data) {
 }
 
 export function mecanoRegistrationError(errors) {
-  console.log(errors)
   if(!errors){
     return {
       type: MECANO_REGISTRATION_ERROR,
@@ -88,4 +87,8 @@ export function mecanoRegistrationError(errors) {
   Object.keys(errors).forEach(function(key,index) {
     errorGroup[key] = errors[key];
   });
+  return {
+    type: MECANO_REGISTRATION_ERROR,
+    payload: errorGroup
+  }
 }

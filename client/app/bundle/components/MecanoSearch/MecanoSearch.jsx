@@ -95,6 +95,8 @@ class MecanoSearch extends Component {
   submit(values){
     if (this.state.registeredCar){
       values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
+    }else if(!this.refs.year.value && !this.refs.brand.value){
+      values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
     }else{
       values["vehicle"] = this.gatherVehicleValues();
     }

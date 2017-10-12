@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
-import autocomplete from '../../utils/autocomplete';
 import { Header, Input, RadioButtons } from '../../common/index';
 
 class VehicleEdit extends Component {
@@ -41,14 +40,14 @@ class VehicleEdit extends Component {
       removeCarMake(chip)
     });
   }
-  componentWillReceiveProps(newProps){
+  componentDidUpdate(){
     //AUTOCOMPLETE
     $('.chips-autocomplete').material_chip({
       placeholder: 'Marques',
       secondaryPlaceholder: 'Marques',
-      data: newProps.selected_car_makes,
+      data: this.props.selected_car_makes,
       autocompleteOptions: {
-        data: newProps.car_makes_list,
+        data: this.props.car_makes_list,
         limit: Infinity,
         minLength: 0
       }
@@ -62,8 +61,8 @@ class VehicleEdit extends Component {
       updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_profile')
       updateCarDomains(mecano_id, {domains: data})
     }else{
-      updateCarDomains(mecano_id, {domains: data})
       updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_profile')
+      updateCarDomains(mecano_id, {domains: data})
     }
   }
   render(){

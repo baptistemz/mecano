@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toastr } from 'react-redux-toastr';
 import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
 import { sendPasswordResetEmail } from '../actions/index';

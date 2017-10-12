@@ -25,6 +25,7 @@ class ServerRoutes extends Component{
   }
   render(){
     const { isAuthenticated, isMecano, location } = this.props;
+    console.log(location)
     const context = {};
     return(
       <StaticRouter location={location} context={context}>
@@ -44,14 +45,14 @@ class ServerRoutes extends Component{
             <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
             <Route exact path="/mecanos" component={MecanoSearchResults} />
             <Route path="/mecanos/:id" component={MecanoPublicPage} />
-            <PrivateRoute path="/my_account" isAuthenticated={isAuthenticated} registerMethod="login" component={Account} />
-            <PrivateRoute path="/mecano_signup" isAuthenticated={isAuthenticated} registerMethod="signup" component={MecanoRegistration} />
-            <PrivateRoute path="/mecano_vehicles" isAuthenticated={isAuthenticated} registerMethod="login" component={VehicleChoice} />
-            <PrivateRoute path="/mecano_domains" isAuthenticated={isAuthenticated} registerMethod="login" component={DomainChoice} />
-            <MecanoRoute path="/mecano_profile" isAuthenticated={isAuthenticated} isMecano={isMecano} component={MecanoProfile} />
-            <MecanoRoute path="/mecano_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={MecanoEdit} />
-            <MecanoRoute path="/vehicle_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={VehicleEdit} />
-            <MecanoRoute path="/domain_edit" isAuthenticated={isAuthenticated} isMecano={isMecano} component={DomainEdit} />
+            <PrivateRoute path="/my_account" isAuthenticated={true} registerMethod="login" component={Account} />
+            <PrivateRoute path="/mecano_signup" isAuthenticated={true} registerMethod="signup" component={MecanoRegistration} />
+            <PrivateRoute path="/mecano_vehicles" isAuthenticated={true} registerMethod="login" component={VehicleChoice} />
+            <PrivateRoute path="/mecano_domains" isAuthenticated={true} registerMethod="login" component={DomainChoice} />
+            <MecanoRoute path="/mecano_profile" isAuthenticated={true} isMecano={true} component={MecanoProfile} />
+            <MecanoRoute path="/mecano_edit" isAuthenticated={true} isMecano={true} component={MecanoEdit} />
+            <MecanoRoute path="/vehicle_edit" isAuthenticated={true} isMecano={true} component={VehicleEdit} client={false} />
+            <MecanoRoute path="/domain_edit" isAuthenticated={true} isMecano={true} component={DomainEdit} />
           </div>
           <Footer />
         </div>
