@@ -1,11 +1,15 @@
 ## Table of Contents  
-[Ruby Version](#rubyv)  
-[Ruby installation on Mac OSX](#rubyim)  
-[Ruby installation on Linux](#rubyil)  
-[Ruby Version](#rubyv)  
-[Ruby Version](#rubyv)  
-[Ruby Version](#rubyv)  
-[Ruby Version](#rubyv)  
+* [Ruby Version](#rubyv)  
+* [Ruby installation](#rubyinst)  
+* [On Mac OSX](#rubyil)
+* [on Linux](#rubyil)  
+* [PostgreSQL installation](#pginst)  
+* [on Mac OSX](#pgim)  
+* [on Linux](#pgil)  
+* [Configuration](#configuration)  
+* [Database initialization](#dbi)
+* [How to run the app locally](#apploc)  
+* [How to run the test suite](#test)  
 [Ruby Version](#rubyv)  
 
 
@@ -18,9 +22,11 @@ You may install ruby v > 2.3 and rails v > 5.0 to run this app locally.
 If you work on windows you may install a Linux subset to get rails running properly. Maybe you could read this tutorial by gorails : https://gorails.com/setup/windows/10.
 Or this one (using Cloud 9) by lewagon: https://c9.io/
 
-<a name="rubyim"/>
+<a name="rubyinst"/>
 
-## Ruby installation on Mac OSX
+## Ruby installation
+
+### on Mac OSX
 
 First we need to clean up any previous Ruby installation you might have:
 
@@ -57,7 +63,7 @@ You should see something starting with ```ruby 2.3.3p```.
 
 <a name="rubyil"/>
 
-## Ruby installation on Linux
+### on Linux
 
 First we need to clean up any previous Ruby installation you might have:
 
@@ -96,8 +102,11 @@ Then restart your Terminal.
 ```ruby -v```
 You should see something starting with ```ruby 2.3.3p```
 
+<a name="pginst"/>
 
-## Postgresql installation
+## postrgeSQL installation
+
+<a name="pgim"/>
 
 ### on Mac OSX
 
@@ -119,7 +128,9 @@ postgres=#
 To quit it, type ```\q``` then ```Enter```.
 
 
-## Ruby installation on Linux
+<a name="pgil"/>
+
+### on Linux
 
 ```
 sudo apt-get install -y postgresql postgresql-contrib libpq-dev build-essential
