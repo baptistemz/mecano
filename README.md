@@ -6,11 +6,20 @@
 * [PostgreSQL installation](#pginst)  
   - [on Mac OSX](#pgim)  
   - [on Linux](#pgil)  
-* [Configuration](#configuration)  
 * [Database initialization](#dbi)
 * [How to run the app locally](#apploc)  
 * [How to run the test suite](#test)  
-[Ruby Version](#rubyv)  
+  - [Testing the API](#testapi)  
+  - [Testing the react app](#testreact)  
+* [Deployment](#deploy)  
+* [Debugging](#debugg)  
+  - [The API](#debuggapi)  
+  - [The React app](#debuggreact)  
+* [i18n](#i18n)  
+* [Useful API endpoints](#end)  
+- [Non-protected endpoints](#npend)  
+- [Auth endpoints](#authend)  
+- [Protected endpoints](#pend)  
 
 
 
@@ -141,18 +150,22 @@ exit
 rm -f /tmp/caller
 ```
 
-## Configuration
+<a name="dbi"/>
 
 ## Database initialization
 To create your local database, run ```$rails db:create```
 Then migrate its content with ```$rails db:migrate```
 
 
+<a name="apploc"/>
+
 ## How to run the app locally
 
 
 The command ```$foreman start -f Procfile.dev```will start webpack and the rails server. The visit the app on ```http://localhost:3000```.
 
+
+<a name="test"/>
 
 ## How to run the test suite
 
@@ -165,6 +178,8 @@ $npm run all-tests
 
 While developping the API and the React app, test them frequently.
 
+<a name="testapi"/>
+
 ### Testing the API
 
 While working on the API, you must run the tests frequently to check if you don't break any of the core functionnalities. You must also write the tests related to the functionnalities you want to develop on the API. These tests are written with rspec. A simple ```$rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
@@ -174,6 +189,8 @@ $rspec path_to_test_file
 ```
 
 The API test files are located in the ```spec```directory.
+
+<a name="testreact"/>
 
 ### Testing the react app
 
@@ -185,13 +202,18 @@ will start the hot reloading test environment. Each time you'll save changes to 
 
 The React app test files are located in the ```client/test```directory.
 
-## Services (job queues, cache servers, search engines, etc.)
+
+<a name="deploy"/>
 
 ## Deployment
 
 This app is deployed on Heroku. For a good deployment don't forget to pass the environment vars added to your application.yml to heroku. This can be done with the command ```$ figaro heroku:set -e production```or directly in the heroku dashboard. If you added changes to your local database, run ```$heroku run rails db:migrate``` after deploying to get these changes live in production.
 
+<a name="debugg"/>
+
 ## Debugging
+
+<a name="debuggapi"/>
 
 ### The API
 
@@ -211,10 +233,14 @@ pp "@variable: #{@variable}"
 
 to print @variable in the terminal
 
+<a name="debuggreact"/>
+
 ### The React app
 
 Read the logs in your browser inspector. React often gives the component, function and line of code an error comes from.
 To debug use the famous ```console.log```
+
+<a name="i18n"/>
 
 ## i18n
 
@@ -249,10 +275,16 @@ class MyComponent extends Component{
 export default injectIntl(Home);
 ```
 
+<a name="end"/>
+
 ## Useful API endpoints
 All the API endpoints only accept (and return) JSON data.
 
+<a name="npend"/>
+
 ### Non-protected endpoints
+
+<a name="authend"/>
 
 ### Auth endpoints
 
@@ -263,6 +295,7 @@ The authentications endpoints will respond with "client", "uid", "access-token" 
 * ```GET /api/auth/validate_token``` checks your headers and responds with the user info and a new token in headers if they are correct.
 * ```DELETE /api/auth/sign_out``` logs your user out.
 
+<a name="pend"/>
 
 ### Protected endpoints
 All these API endpoints are protected by authentication. The app user must be logged in and request the API with the right authenticated headers.
