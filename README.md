@@ -17,9 +17,9 @@
   - [The React app](#debuggreact)  
 * [i18n](#i18n)  
 * [Useful API endpoints](#end)  
-- [Non-protected endpoints](#npend)  
-- [Auth endpoints](#authend)  
-- [Protected endpoints](#pend)  
+  - [Non-protected endpoints](#npend)  
+  - [Auth endpoints](#authend)  
+  - [Protected endpoints](#pend)  
 
 
 
