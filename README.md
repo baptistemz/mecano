@@ -169,15 +169,6 @@ The command ```$foreman start -f Procfile.dev```will start webpack and the rails
 
 ## How to run the test suite
 
-This API is tested by tests written in rspec and the React app is tested by test written in javascript thanks to "chai" (npm package) helpers and run thanks to "mocha" (npm package).
-
-Before pushing any code, run the whole test suite using the following command :
-```
-$npm run all-tests
-```
-
-While developping the API and the React app, test them frequently.
-
 <a name="testapi"/>
 
 ### Testing the API
@@ -189,18 +180,6 @@ $rspec path_to_test_file
 ```
 
 The API test files are located in the ```spec```directory.
-
-<a name="testreact"/>
-
-### Testing the react app
-
-While working on the react app, you must run the tests constantly and check if you don't break any of the core functionnalities. A simple
-```
-$npm run react-test
-```
-will start the hot reloading test environment. Each time you'll save changes to a file of the react app all the tests will be re-run automatically. You'll just have to check no test has turned red each time you save a change. You must also write the tests related to the functionnalities you want to develop on the React app.
-
-The React app test files are located in the ```client/test```directory.
 
 
 <a name="deploy"/>
@@ -288,7 +267,7 @@ All the API endpoints only accept (and return) JSON data.
 
 ### Auth endpoints
 
-The authentications endpoints will respond with "client", "uid", "access-token" and "expiry" headers. Your requests to protected endpoints must have these headers to prove the user who is making the requests is well authenticated. After each request to a protected endpoint, the "access-token" sent in response will change. So the default headers of the client must be updated between each of these requests.
+The authentication endpoints will respond with "client", "uid", "access-token" and "expiry" headers. Your requests to protected endpoints must have these headers to prove the user who is making the requests is well authenticated. After each request to a protected endpoint, the "access-token" sent in response will change. So the default headers of the client must be updated between each of these requests.
 
 * ```POST /api/auth/sign_in``` Creates a new session. Accepts ```email:string``` and ```password:string``` params.
 * ```POST /api/auth``` Creates (register) a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
