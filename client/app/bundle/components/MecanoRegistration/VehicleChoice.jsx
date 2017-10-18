@@ -68,10 +68,10 @@ class VehicleChoice extends Component {
       const data = []
       selected_car_makes.map((e)=> data.push({kind: "car_make", value: e.tag}))
       updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_domains')
-      updateCarDomains(mecano_id, {domains: data})
+      updateCarDomains(mecano_id, {domains: data}, '/mecano_domains')
     }else{
       updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_domains')
-      updateCarDomains(mecano_id, {domains: data})
+      updateCarDomains(mecano_id, {domains: data}, '/mecano_domains')
     }
   }
   render(){

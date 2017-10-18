@@ -90,8 +90,10 @@
   line-height:24px;
 }
 
-#dropdown-connected{
+#dropdown-connected, #dropdown-not-connected{
   top: 57px !important;
+  width: 300px !important;
+  right: 0 !important;
   border: 1px solid white ;
 }
 

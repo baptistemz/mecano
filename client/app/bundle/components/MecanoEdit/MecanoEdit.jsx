@@ -39,7 +39,7 @@ class MecanoEdit extends Component {
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
-    this.props.updateMecanoProfile(this.props.mecano_id, values);
+    this.props.updateMecanoProfile(this.props.mecano_id, values, '/mecano_profile');
   }
   render(){
     const { handleSubmit, errors, pro, mobile } = this.props;

@@ -2,38 +2,36 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
+import { fetchCarMakes, selectCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import { Header, Input, RadioButtons } from '../../common/index';
 
 class VehicleEdit extends Component {
-  componentDidMount(){
-    //GET CAR MAKES LIST
-    this.props.fetchCarMakes();
-    const { selectCarMake, removeCarMake, car_makes_list }= this.props
-    $('.chips').on('chip.add', function(e, chip){
-      //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
-      if(!(chip.tag in car_makes_list)){
-        for(var key in e.target.children) {
-          if(e.target.children.hasOwnProperty(key)){
-            if( e.target.children[key].innerText === `${chip.tag}close`){
-              e.target.children[key].remove()
-            }
+  componentWillMount(){
+    // MARK ALREADY REGISTERED CAR MAKES AS SELECTED
+    this.props.selectCarMakes(this.props.mecano_car_makes)
+  }
+  addChip(e, chip){
+    //DO NOT SAVE AS A CHIP IF TEXT IS NOT CONTAINED IN AUTOCOMPLETE LIST
+    if(!(chip.tag in this.props.car_makes_list)){
+      for(var key in e.target.children) {
+        if(e.target.children.hasOwnProperty(key)){
+          if( e.target.children[key].innerText === `${chip.tag}close`){
+            e.target.children[key].remove()
           }
         }
-      }else{
-        selectCarMake(chip)
       }
-    });
-    $('.chips').material_chip({
-      placeholder: 'Marques',
-      secondaryPlaceholder: 'Marques',
-      data: this.props.selected_car_makes,
-      autocompleteOptions: {
-        data: this.props.car_makes_list,
-        limit: Infinity,
-        minLength: 0
-      }
-    });
+    }else{
+      this.props.selectCarMake(chip)
+    }
+  }
+  autocomplete(){
+
+  }
+  componentDidMount(){
+    this.props.fetchCarMakes();
+    //GET CAR MAKES LIST
+    const { removeCarMake, car_makes_list }= this.props
+    $('.chips').on('chip.add', (e, chip) => this.addChip(e, chip));
     $('.chips').on('chip.delete', function(e, chip){
       removeCarMake(chip)
     });
@@ -51,15 +49,17 @@ class VehicleEdit extends Component {
       }
     });
   }
+
+
   submit(values){
     const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     const data = []
     if(values.all_vehicles === 'specific_brands'){
       selected_car_makes.map((make)=> data.push({kind: "car_make", value: make.tag}))
-      updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_profile')
+      updateMecanoProfile(mecano_id, { "all_vehicles": false })
       updateCarDomains(mecano_id, {domains: data})
     }else{
-      updateMecanoProfile(mecano_id, { "all_vehicles": true }, '/mecano_profile')
+      updateMecanoProfile(mecano_id, { "all_vehicles": true })
       updateCarDomains(mecano_id, {domains: data})
     }
   }
@@ -105,7 +105,7 @@ VehicleEdit = reduxForm({
 })(VehicleEdit);
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile }, dispatch);
+  return bindActionCreators({ fetchCarMakes, selectCarMake, selectCarMakes, removeCarMake, updateCarDomains, updateMecanoProfile }, dispatch);
 }
 
 function mapStateToProps({form, mecano, vehicle}) {

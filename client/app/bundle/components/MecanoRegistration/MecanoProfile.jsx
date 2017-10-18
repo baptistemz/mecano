@@ -10,6 +10,10 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoProfile extends Component {
+  constructor(){
+    super();
+    this.state={ description: "" }
+  }
   componentWillMount(){
     // this.props.validateToken()
   }
@@ -18,6 +22,15 @@ class MecanoProfile extends Component {
     updateMecanoProfile(id, { description: this.refs.description.value });
     $('#description_modal').modal('close');
   }
+  textareaChange(e){
+    e ? e.preventDefault() : null
+    this.setState({ description: e.target.value})
+  }
+  componentDidUpdate(previousProps){
+    const { description } = this.props;
+    if (description != previousProps.description){this.setState({ description })};
+  }
+
   componentDidMount(){
     $('.modal').modal();
     $('textarea').keyup(function() {
@@ -74,7 +87,7 @@ class MecanoProfile extends Component {
                         </div>
                         <br/>
                         <label htmlFor="descriptionText">{formatMessage(defaultMessages.mecanoDescription)}</label>
-                        <textarea id="descriptionText" defaultValue={description} ref="description" className="materialize-textarea" data-length={400}></textarea>
+                        <textarea id="descriptionText" onChange={() => this.textareaChange()} value={this.state.description || ""} ref="description" className="materialize-textarea" data-length={400}></textarea>
                       </form>
                       <Button style={{ marginTop: '20px' }} clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">Enregistrer</Button>
                     </div>

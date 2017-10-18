@@ -1,6 +1,7 @@
 import {
   GOT_CAR_MAKES,
   SELECTED_CAR_MAKE,
+  SELECTED_CAR_MAKES,
   REMOVED_CAR_MAKE,
   GOT_VEHICLES,
   CREATED_VEHICLE,
@@ -25,6 +26,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, car_makes_list: action.car_makes_list}
     case SELECTED_CAR_MAKE:
       return { ...state, selected_car_makes: [...state.selected_car_makes, action.carMake] }
+    case SELECTED_CAR_MAKES:
+      return { ...state, selected_car_makes: action.carMakeArray }
     case REMOVED_CAR_MAKE:
       const new_list = state.selected_car_makes
       const index = new_list.indexOf(action.carMake);

@@ -29,7 +29,6 @@ class RootWithoutRailsContext extends Component {
     })
   }
   render() {
-    console.log("SERVER ROOT")
     const { railsContext, store } = this.props;
     return (
       <Provider store={store}>

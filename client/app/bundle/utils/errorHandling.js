@@ -1,10 +1,18 @@
 import { toastr } from 'react-redux-toastr';
 
-export default function errorHandling(response) {
+export function authErrorHandling(response) {
   console.log("error", response)
 
-  const messages = response.data.errors.full_messages || response.data.errors;
-  for (var i = 0; i < messages.length; i++) {
-    toastr.error(messages[i]);
+};
+
+export function errorHandling(error) {
+  if(!error.response){
+    console.log(error);
+    toastr.error("Une erreur est survenue. Veuillez réessayer plus tard ou nous contacter.");
+  }else{
+    const messages = error.response.data.errors.full_messages || error.response.data.errors;
+    for (var i = 0; i < messages.length; i++) {
+      toastr.error(messages[i]);
+    }
   }
 };

@@ -4,6 +4,7 @@ import { setNextHeaders } from '../utils/tokenManagement';
 import {
   GOT_CAR_MAKES,
   SELECTED_CAR_MAKE,
+  SELECTED_CAR_MAKES,
   REMOVED_CAR_MAKE,
   GOT_VEHICLES,
   CREATED_VEHICLE,
@@ -79,6 +80,14 @@ export function selectCarMake(carMake){
   return {
     type: SELECTED_CAR_MAKE,
     carMake: carMake
+  };
+};
+export function selectCarMakes(carMakes){
+  let carMakeArray = []
+  carMakes.map((make) =>{ carMakeArray.push({tag: make.value}) });
+  return {
+    type: SELECTED_CAR_MAKES,
+    carMakeArray
   };
 };
 export function removeCarMake(carMake){

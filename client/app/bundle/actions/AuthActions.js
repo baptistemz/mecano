@@ -3,7 +3,7 @@ import axios from 'axios';
 import { reset } from 'redux-form';
 import { push } from 'react-router-redux';
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
-import errorHandling from '../utils/errorHandling';
+import { errorHandling } from '../utils/errorHandling';
 import {
   LOGOUT_SUCCESS,
   LOGIN_SUCCESS,
@@ -49,7 +49,7 @@ export function loginUser(data, next_path) {
       }).catch((error) => {
         console.log(error)
         dispatch(authError(error.response.data.errors));
-        errorHandling(error.response);
+        errorHandling(error);
       })
   };
 }
@@ -68,7 +68,7 @@ export function signupUser(data, next_path) {
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
         dispatch(authError(error.response.data.errors));
-        errorHandling(error.response);
+        errorHandling(error);
       });
   };
 }
