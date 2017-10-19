@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toastr } from 'react-redux-toastr';
 import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import { loginUser } from '../actions/index';
+import { loginUser, authError } from '../actions/index';
 import { Input, Button, Header } from '../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
@@ -14,6 +14,9 @@ const sanitize = (field) => {
   return sanitized_field
 }
 class Login extends Component{
+  componentWillMount(){
+    this.props.authError({})
+  }
   constructor(props) {
     super(props);
   }
@@ -68,7 +71,7 @@ class Login extends Component{
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ loginUser }, dispatch);
+  return bindActionCreators({ loginUser, authError }, dispatch);
 }
 
 function mapStateToProps(state) {

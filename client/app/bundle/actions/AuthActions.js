@@ -47,7 +47,6 @@ export function loginUser(data, next_path) {
         //REDIRECT USER
         dispatch(push(next_path ? next_path.pathname : '/'));
       }).catch((error) => {
-        console.log(error)
         dispatch(authError(error.response.data.errors));
         errorHandling(error);
       })
@@ -83,7 +82,10 @@ export function updateProfile(data, success_message, next_path) {
       }
       dispatch(profileUpdated(response.data.data))
       if(next_path){dispatch(push(next_path.pathname))};
-    }).catch(error => {console.log("updateProfile error", error)})
+    }).catch((error) => {
+      dispatch(authError(error.response.data.errors));
+      errorHandling(error);
+    })
   };
 }
 
@@ -95,7 +97,7 @@ export function logoutUser() {
         toastr.success('Déconnexion', 'A bientôt !');
         dispatch(receiveLogout());
       }).catch((error)=>{
-        console.log("logoutUser error", error.response)
+        console.log("logoutUser error", error.response);
         localStorage.clear();
         dispatch(receiveLogout());
       })
@@ -118,10 +120,12 @@ export function updatePassword(data, params = null) {
         $('#password_modal').modal('close')
         dispatch(reset('password_change'))
         toastr.success(response.data.message);
+        errorHandling({});
         if(params){dispatch(push('/login'))}
       }).catch((error)=>{
-        // setNextHeaders(response.headers)
-        console.log("updatePassword error", error.response)
+        // setNextHeaders(error.response.headers)
+        dispatch(authError(error.response.data.errors));
+        errorHandling(error);
       })
   };
 }
@@ -129,10 +133,13 @@ export function sendPasswordResetEmail(data) {
   return dispatch => {
     axios.post('api/auth/password', data)
       .then(response => {
+        dispatch(authError({}));
         toastr.success(response.data.message);
+        errorHandling({});
         dispatch(push("/login"))
       }).catch((error)=>{
-        console.log("sendPasswordReset error", error.response)
+        dispatch(authError(error.response.data.errors));
+        errorHandling(error);
       })
   };
 }
@@ -140,8 +147,18 @@ export function sendPasswordResetEmail(data) {
 
 // REDUX ACTION CREATORS
 
-function authError(errors){
-  if (errors.length === 1){
+export function authError(errors){
+  if(!errors){
+    return {
+      type: AUTH_ERROR,
+      payload: {main: "Une erreur est survenue. Réessayez ou contactez-nous."}
+    }
+  }else if (errors.length === 0){
+    return {
+      type: AUTH_ERROR,
+      payload: {}
+    }
+  }else if (errors.length === 1){
     return {
       type: AUTH_ERROR,
       payload: { main: errors[0] }

@@ -31,7 +31,7 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, isAuthenticated: true, errors: {}, email, first_name, last_name, profile_picture, is_mecano, id }
     }
     case REGISTERED_MECANO:
-      return { ...state, is_mecano: true }
+      return { ...state, is_mecano: true, errors: {} }
     case AUTH_ERROR:
       return { ...state, errors: action.payload }
     default:

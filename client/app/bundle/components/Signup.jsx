@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { reduxForm } from 'redux-form';
-import { signupUser } from '../actions/index';
+import { signupUser, authError } from '../actions/index';
 import { Input, Button, Header } from '../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
@@ -13,7 +13,11 @@ const sanitize = (field) => {
   return sanitized_field
 }
 class Signup extends Component{
+  componentWillMount(){
+    this.props.authError({})
+  }
   submit({ first_name, last_name, email, password, password_confirmation }, next_path){
+    console.log("next_page", next_page)
     const creds = { first_name: sanitize(first_name),
                     last_name: sanitize(last_name),
                     email: sanitize(email) ,
@@ -58,11 +62,13 @@ class Signup extends Component{
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ signupUser }, dispatch);
+  return bindActionCreators({ signupUser, authError }, dispatch);
 }
 
 function mapStateToProps(state) {
-  return { errorMessages: state.auth.errors}
+  return {
+    errorMessages: state.auth.errors
+  }
 }
 
 Signup = reduxForm({

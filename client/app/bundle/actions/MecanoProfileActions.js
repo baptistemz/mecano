@@ -79,6 +79,7 @@ export function gotMecanoProfile(data) {
 }
 
 export function mecanoRegistrationError(errors) {
+  console.log(errors)
   // let error_array = []
   // Object.keys(errors).map(function(key, index){
   //   error_array.push(`${key}: ${errors[key]}`)

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
           #, :omniauthable
   include DeviseTokenAuth::Concerns::User
   mount_base64_uploader :profile_picture, ProfilePictureUploader
+  validates_uniqueness_of :email
+  validates_presence_of :first_name, :last_name
   has_one :mecano_profile
   has_many :vehicles, dependent: :destroy
   has_many :services, dependent: :nullify

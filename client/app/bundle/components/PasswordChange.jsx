@@ -20,7 +20,7 @@ class PasswordChange extends Component {
     $('.modal').modal();
   }
   render(){
-    const { handleSubmit } = this.props;
+    const { handleSubmit, errorMessages } = this.props;
     const { formatMessage } = this.props.intl
     return(
       <div>
@@ -31,9 +31,9 @@ class PasswordChange extends Component {
               <h2>{formatMessage(defaultMessages.userChangePassword)}</h2>
             </div>
             <form onSubmit={handleSubmit(values => this.submit(values))}>
-              <Input icon="lock_outline" name="current_password" label={formatMessage(defaultMessages.userCurrentPassword)} type="password" />
-              <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userNewPassword)} type="password" />
-              <Input icon="lock_outline" name="password_confirmation" label={formatMessage(defaultMessages.userNewPasswordConfirmation)} type="password" />
+              <Input icon="lock_outline" name="current_password" label={formatMessage(defaultMessages.userCurrentPassword)} error={errorMessages["current_password"]} type="password" />
+              <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userNewPassword)} type="password" error={errorMessages["password"]} />
+              <Input icon="lock_outline" name="password_confirmation" label={formatMessage(defaultMessages.userNewPasswordConfirmation)} type="password"  error={errorMessages["password_confirmation"]}/>
               <Button fullWidth={true} icon="lock_open" type="submit">{formatMessage(defaultMessages.userChangePassword)}</Button>
             </form>
           </div>

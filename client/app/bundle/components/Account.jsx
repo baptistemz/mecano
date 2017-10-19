@@ -6,11 +6,14 @@ import PictureUpdate from './PictureUpdate';
 import { Header, EditableField, VehicleCard, Button } from '../common/index';
 import VehicleCreation from './VehicleCreation';
 import PasswordChange from './PasswordChange';
-import { updateProfile, fetchVehicles, deleteVehicle } from '../actions/index';
+import { updateProfile, fetchVehicles, deleteVehicle, authError } from '../actions/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
 
 class Account extends Component {
+  componentWillMount(){
+    this.props.authError({})
+  }
   changeProfileField(type, text) {
     const next_path = this.props.location.state ? this.props.location.state.from : null
     const { formatMessage } = this.props.intl
@@ -23,7 +26,7 @@ class Account extends Component {
     this.props.deleteVehicle(vehicle.id)
   }
   render() {
-    const { first_name, last_name, email, vehicles } = this.props;
+    const { first_name, last_name, email, vehicles, errorMessages } = this.props;
     return (
       <div className="boxes-background">
         <Header>Mon compte</Header>
@@ -39,6 +42,7 @@ class Account extends Component {
                   type="first_name"
                   onSubmit={this.changeProfileField.bind(this)}
                   value={first_name}
+                  error={errorMessages["first_name"]}
                   />
               </div>
               <div className="col s6 m4">
@@ -47,6 +51,7 @@ class Account extends Component {
                   type="last_name"
                   onSubmit={this.changeProfileField.bind(this)}
                   value={last_name}
+                  error={errorMessages["last_name"]}
                   />
               </div>
               <div className="col s12 m4">
@@ -55,6 +60,7 @@ class Account extends Component {
                   type="email"
                   onSubmit={this.changeProfileField.bind(this)}
                   value={email}
+                  error={errorMessages["email"]}
                   />
               </div>
             </div>
@@ -86,7 +92,7 @@ class Account extends Component {
           <div className="box-shadow marged-20 padded-20">
             <div className="row">
               <div className="col s12 offset-m3 m6">
-                <PasswordChange />
+                <PasswordChange errorMessages={errorMessages} />
                 <br/>
               </div>
               <div className="col s12 offset-m3 m6">
@@ -101,11 +107,12 @@ class Account extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateProfile, fetchVehicles, deleteVehicle }, dispatch);
+  return bindActionCreators({ updateProfile, fetchVehicles, deleteVehicle, authError }, dispatch);
 }
 
 function mapStateToProps({ auth, vehicle }) {
   return {
+    errorMessages: auth.errors,
     email: auth.email,
     first_name: auth.first_name,
     last_name: auth.last_name,

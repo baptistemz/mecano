@@ -105,8 +105,15 @@ fr:
             password_confirmation:
               confirmation: ne correspond pas
             password:
+              blank: n'est pas fourni
+              too_short: est trop court
+            current_password:
+              blank: n'est pas fourni
+              invalid: n'est pas correct
               too_short: est trop court
             email:
+              blank: n'est pas fourni
+              invalid: n'est pas correct
               taken: est déjà utilisé pour un compte
   admin:
     js:

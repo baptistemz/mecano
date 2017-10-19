@@ -53,9 +53,10 @@ class EditableField extends Component {
     );
   }
   render() {
+    const {error} = this.props;
     return (
       <div>
-        <label>{this.props.label}</label>
+        <label>{this.props.label}<span className="red-text">{error ? error : ''}</span></label>
         {this.state.editMode ? this.renderInput() : this.renderParagraph()}
       </div>
     );

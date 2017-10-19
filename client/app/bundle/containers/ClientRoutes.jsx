@@ -38,11 +38,9 @@ class ClientRoutes extends Component{
             <SideNav />
           </div>
           <div className="body-height">
-            <Route exact path="/" render={() => {
-                return <Home />;
-            } } />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
+            <Route exact path="/" component={Home}/>
+            <Route path="/signup" component={isAuthenticated ? Home : Signup} />
+            <Route path="/login" component={isAuthenticated ? Home : Login} />
             <Route path="/password_forgotten" component={PasswordForgotten} />
             <Route path="/new_password" component={NewPassword} />
             <Route path="/mecano_search" component={MecanoSearch} />
