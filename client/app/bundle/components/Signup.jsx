@@ -17,7 +17,6 @@ class Signup extends Component{
     this.props.authError({})
   }
   submit({ first_name, last_name, email, password, password_confirmation }, next_path){
-    console.log("next_page", next_page)
     const creds = { first_name: sanitize(first_name),
                     last_name: sanitize(last_name),
                     email: sanitize(email) ,

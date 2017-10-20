@@ -38,7 +38,6 @@ export default function (state = INITIAL_STATE, action) {
       return INITIAL_STATE;
     case MECANO_REGISTRATION_ERROR:
       const errors = action.payload
-      console.log("receive error in reducer", errors)
       return { ...state, errors }
     case LOGIN_SUCCESS:{
       if(action.user.mecano_profile){
@@ -54,7 +53,6 @@ export default function (state = INITIAL_STATE, action) {
     }
     case UPDATED_MECANO:{
       const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.mecano_profile;
-      console.log("REDUCER", action.mecano_profile)
       return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, errors: {} }
     }
     case REGISTERED_DOMAINS:

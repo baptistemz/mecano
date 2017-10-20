@@ -13,7 +13,9 @@ class Home extends Component{
     this.props.setWhiteNavbar(true);
   }
   componentWillUnmount(){
-    this.props.setWhiteNavbar(false);
+    if (this.props.history.location.pathname !== '/'){
+      this.props.setWhiteNavbar(false);
+    }
   }
   render(){
     const { formatMessage } = this.props.intl;
