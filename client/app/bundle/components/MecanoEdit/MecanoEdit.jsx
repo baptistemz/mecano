@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, initialize, change } from 'redux-form';
+import { reduxForm, initialize, change, reset } from 'redux-form';
 import PictureUpdate from '../PictureUpdate';
-import { updateMecanoProfile } from '../../actions/index';
+import { updateMecanoProfile, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
@@ -25,21 +25,27 @@ class MecanoEdit extends Component {
       triggerAutocomplete(this.getPlace().formatted_address)
     });
     const triggerAutocomplete = (value) => {
-      this.props.dispatch(change("mecano_search", "full_address", value));
+      this.props.dispatch(change("mecano_edit", "full_address", value));
     }
   }
   submit(values){
-    if(values.full_address){
-      const splitted_address = values.full_address.split(',');
-      values['mobile'] = this.props.mobile;
-      values['pro'] = this.props.pro;
-      values['country'] = splitted_address[splitted_address.length - 1];
-      values['city'] = splitted_address[splitted_address.length - 2];
-      values['address'] = splitted_address[splitted_address.length - 3];
+    let api_values = values
+    if(api_values.full_address){
+      const splitted_address = api_values.full_address.split(',');
+      api_values['mobile'] = this.props.mobile === 'mobile';
+      api_values['pro'] = this.props.pro === 'pro';
+      api_values['country'] = splitted_address[splitted_address.length - 1];
+      api_values['city'] = splitted_address[splitted_address.length - 2];
+      api_values['address'] = splitted_address[splitted_address.length - 3];
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
-    this.props.updateMecanoProfile(this.props.mecano_id, values, '/mecano_profile');
+    if( api_values['country'] && api_values['city'] && api_values['address']){
+      this.setState({ loading: true });
+      this.props.updateMecanoProfile(this.props.mecano_id, api_values, '/mecano_profile')
+    }else{
+      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
+    }
   }
   render(){
     const { handleSubmit, errors, pro, mobile } = this.props;
@@ -55,10 +61,10 @@ class MecanoEdit extends Component {
               <PictureUpdate/>
               <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} />
               {
-                pro ?
+                pro === "pro" ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.rate} />
+                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.price} />
                     <Input icon="business" name="company_name" label={formatMessage(defaultMessages.mecanoCompanyName)} type="text" error={errors.company_name} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
@@ -73,7 +79,7 @@ class MecanoEdit extends Component {
               <Input icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
               <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
               {
-                mobile ?
+                mobile === "mobile" ?
                 <div className="row">
                   <div className="col s9">
                     <Input icon="explore" name="radius" label={formatMessage(defaultMessages.mecanoRadius)} type="number" error={errors.radius} />
@@ -85,7 +91,7 @@ class MecanoEdit extends Component {
               }
             </div>
             <div className="col s12">
-              <p className="red-text">{errors ? errors[0] : ''}</p>
+              <p className="red-text">{errors ? errors['main'] : ''}</p>
               <div className="space-between">
                 <div></div>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
@@ -100,19 +106,20 @@ class MecanoEdit extends Component {
 
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMecanoProfile }, dispatch);
+  return bindActionCreators({ updateMecanoProfile, mecanoRegistrationError }, dispatch);
 }
 
 
 function mapStateToProps(state) {
   const { mecano_edit } = state.form
   return {
-    mobile: (mecano_edit && mecano_edit.values && (mecano_edit.values.mobile === "mobile")),
-    pro: (mecano_edit && mecano_edit.values && (mecano_edit.values.pro === "pro")),
+    mobile: mecano_edit ? mecano_edit.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
+    pro: mecano_edit ? mecano_edit.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
     mecano_id: state.mecano.id,
+    mecano_edit: mecano_edit,
     initialValues: {
-      pro: state.mecano.pro ? "pro" : "non_pro",
-      mobile: state.mecano.mobile ? "mobile" : "non_mobile",
+      pro: (state.mecano.pro ? "pro" : "non_pro"),
+      mobile: (state.mecano.mobile ? "mobile" : "non_mobile"),
       radius: state.mecano.radius,
       full_address: state.mecano.full_address,
       price: state.mecano.price,
@@ -123,7 +130,9 @@ function mapStateToProps(state) {
 }
 
 MecanoEdit = reduxForm({
-  form: 'mecano_edit'
+  form: 'mecano_edit',
+  enableReinitialize: true,
+  destroyOnUnmount: false
 })(MecanoEdit);
 
 MecanoEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit))

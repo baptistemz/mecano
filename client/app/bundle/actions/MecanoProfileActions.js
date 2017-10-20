@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { toastr } from 'react-redux-toastr';
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
+import {reset} from 'redux-form';
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import {
   MECANO_REGISTRATION_ERROR,
@@ -31,12 +32,12 @@ export function updateMecanoProfile(id, data, next_path){
   return dispatch => {
     return axios.put(`/api/mecano_profiles/${id}`, data)
       .then(response => {
-        if(next_path){dispatch(push(next_path))};
+        console.log(response)
         dispatch(updatedMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
+        if(next_path){dispatch(push(next_path))};
       }).catch(error => {
-        console.log(error)
-        mecanoRegistrationError(error.response)
+        dispatch(mecanoRegistrationError(error.response.data.errors));
         setNextHeaders(error.response.headers)
       })
   };
@@ -79,25 +80,24 @@ export function gotMecanoProfile(data) {
 }
 
 export function mecanoRegistrationError(errors) {
-  console.log(errors)
-  // let error_array = []
-  // Object.keys(errors).map(function(key, index){
-  //   error_array.push(`${key}: ${errors[key]}`)
-  // })
-  // console.log(error_array)
-  // toastr.error(error_array);
-  if(!errors){
+  if(errors){
+    let errorsGroup = {};
+    Object.keys(errors).forEach(function(key,index) {
+      if(typeof errors[key] === 'object'){
+        errors[key].map((arrayEl) => { errorsGroup[key] = arrayEl })
+      }else{
+        errorsGroup[key] = errors[key]
+      };
+    });
+    console.log('errorsGroup', errorsGroup)
+    return {
+      type: MECANO_REGISTRATION_ERROR,
+      payload: errorsGroup
+    }
+  }else{
     return {
       type: MECANO_REGISTRATION_ERROR,
       payload: { main: "erreur d'enregistrement" }
     }
-  }
-  const errorGroup = {};
-  Object.keys(errors).forEach(function(key,index) {
-    errorGroup[key] = errors[key];
-  });
-  return {
-    type: MECANO_REGISTRATION_ERROR,
-    payload: error
   }
 }

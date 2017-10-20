@@ -79,11 +79,13 @@ fr:
     vehicles: véhicules
     contact: contacter
     all_vehicles_message: intervient sur tous véhicules
+    no_vehicle_message: Pour que votre profil soit visible, vous devez spécifier les marques de véhicules sur lesquelles vous travaillez !
     price: tarif
     company_name: entreprise
     full_address: adresse
     radius: rayon
     technical_skills_string: domaines techniques
+    no_technical_skill_message: Pour que votre profil soit visible, vous devez spécifier vos compétences techniques !
     technical_skills:
       car_body: carrosserie
       exhaust: carburation/échappement
@@ -115,6 +117,20 @@ fr:
               blank: n'est pas fourni
               invalid: n'est pas correct
               taken: est déjà utilisé pour un compte
+        mecano_profile:
+            attributes:
+              price:
+                blank: n'est pas fourni
+                invalid: n'est pas correct
+              radius:
+                blank: n'est pas fourni
+                invalid: n'est pas correct
+              company_name:
+                blank: n'est pas fournie
+                invalid: n'est pas correct
+              address:
+                blank: n'est pas fournie
+                invalid: doit être sous le format 'rue (et n°), ville, pays'
   admin:
     js:
       true: Vrai

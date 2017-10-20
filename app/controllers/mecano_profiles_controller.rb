@@ -1,4 +1,3 @@
-
 class MecanoProfilesController < ApplicationController
   def show
     @mecano_profile = MecanoProfile.find(params[:id].split("_").last)

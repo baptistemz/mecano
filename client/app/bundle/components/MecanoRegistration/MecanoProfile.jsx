@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Rater from 'react-rater';
 import _ from 'lodash';
 import { updateMecanoProfile, validateToken } from '../../actions/index';
+import { MissingContentBanner } from './index';
 import { Header, ProfilePicture, Button, ReviewList, DomainList } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
@@ -13,9 +14,6 @@ class MecanoProfile extends Component {
   constructor(){
     super();
     this.state={ description: "" }
-  }
-  componentWillMount(){
-    // this.props.validateToken()
   }
   submitDescription(){
     const { id, updateMecanoProfile } = this.props;
@@ -48,6 +46,12 @@ class MecanoProfile extends Component {
       <div className="boxes-background">
         <Header>Mon profil mécano</Header>
         <div className="cover-picture"></div>
+        {
+          technical_skills.length < 1 || (car_makes.length < 1 && !all_vehicles) ?
+            <MissingContentBanner domains={!technical_skills} vehicles={!all_vehicles && !car_makes}/>
+            :
+            <div></div>
+        }
         <div className="profile-boxes">
           <div className="container">
             <div className="row">
@@ -119,6 +123,7 @@ class MecanoProfile extends Component {
                   </Link>
                   <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h4>
                   <br/>
+                  {technical_skills.length < 1 ? <div className="red-text"><i className="material-icons">error</i>{formatMessage(defaultMessages.mecanoNoTechnicalSkillMessage)}</div> : <div></div>}
                   <DomainList kind="technical_skills" domains={technical_skills}  ownProfile={ false }/>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">
@@ -129,6 +134,7 @@ class MecanoProfile extends Component {
                   </Link>
                   <h4 className="text-center capitalize">{formatMessage(defaultMessages.mecanoVehicles)}</h4>
                   <br/>
+                  {(car_makes.length < 1 && !all_vehicles) ? <div className="red-text"><i className="material-icons">error</i>{formatMessage(defaultMessages.mecanoNoVehicleMessage)}</div> : <div></div>}
                   <p className="green-text uppercase">{all_vehicles ? formatMessage(defaultMessages.mecanoAllVehiclesMessage) : ''}</p>
                   <DomainList kind="car_makes" domains={car_makes} ownProfile={ false }/>
                 </div>
@@ -146,12 +152,10 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ mecano }) {
-  const {car_makes, technical_skills, display_name, pro, id, price, city, country,
-    mobile, all_vehicles, rating, rates_number, description, reviews} = mecano
-  return {
-    car_makes, technical_skills, display_name, pro, id, price, city,
-    country, mobile, all_vehicles, rating, rates_number, description, reviews
-  }
+  const { car_makes, technical_skills, display_name, pro, id, price, city, country,
+    mobile, all_vehicles, rating, rates_number, description, reviews } = mecano
+  return { car_makes, technical_skills, display_name, pro, id, price, city,
+    country, mobile, all_vehicles, rating, rates_number, description, reviews }
 }
 
 MecanoProfile = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoProfile))

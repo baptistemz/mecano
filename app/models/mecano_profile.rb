@@ -37,7 +37,7 @@ class MecanoProfile < ActiveRecord::Base
   end
 
   def full_address
-    return "#{address}, #{city}, #{country}"
+    return "#{address},#{city},#{country}"
   end
 
   def contacted(user)
