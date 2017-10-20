@@ -10,10 +10,6 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoRegistration extends Component {
-  constructor() {
-    super()
-    this.state = { loading: false }
-  }
   componentDidMount(){
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
@@ -46,7 +42,6 @@ class MecanoRegistration extends Component {
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
     if( values['country'] && values['city'] && values['address']){
-      this.setState({ loading: true });
       this.props.registerMecano(values, '/mecano_vehicles')
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
@@ -58,9 +53,6 @@ class MecanoRegistration extends Component {
     const { formatMessage } = this.props.intl
     if(isMecano){
       return <Redirect to={{pathname: '/mecano_vehicles'}}/>
-    }
-    if(this.state.loading){
-      return <Loader />
     }
     return (
       <div>
@@ -76,7 +68,7 @@ class MecanoRegistration extends Component {
                 pro ?
                 <div className="row">
                   <div className="col s9">
-                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.rate} />
+                    <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.price} />
                     <Input icon="business" name="company_name" label={formatMessage(defaultMessages.mecanoCompanyName)} type="text" error={errors.company_name} />
                   </div>
                   <p className="col s3" style={{ fontSize: 17, marginTop: 24}}>€/heure</p>
@@ -103,7 +95,7 @@ class MecanoRegistration extends Component {
               }
             </div>
             <div className="col s12">
-              <p className="red-text">{errors ? errors[0] : ''}</p>
+              <p className="red-text">{errors ? errors['main'] : ''}</p>
               <div className="space-between">
                 <div></div>
                 <a onClick={handleSubmit(values => this.submit(values))} className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">keyboard_arrow_right</i></a>
@@ -124,8 +116,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
   return {
-    mobile: (mecano_registration && mecano_registration.values && (mecano_registration.values.mobile === "mobile")),
-    pro: (mecano_registration && mecano_registration.values && (mecano_registration.values.pro === "pro")),
+    mobile: mecano_registration ? mecano_registration.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
+    pro: mecano_registration ? mecano_registration.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
     isMecano: state.auth.is_mecano,
     errors : state.mecano.errors
   }

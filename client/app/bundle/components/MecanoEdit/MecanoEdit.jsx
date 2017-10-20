@@ -29,20 +29,18 @@ class MecanoEdit extends Component {
     }
   }
   submit(values){
-    let api_values = values
-    if(api_values.full_address){
-      const splitted_address = api_values.full_address.split(',');
-      api_values['mobile'] = this.props.mobile === 'mobile';
-      api_values['pro'] = this.props.pro === 'pro';
-      api_values['country'] = splitted_address[splitted_address.length - 1];
-      api_values['city'] = splitted_address[splitted_address.length - 2];
-      api_values['address'] = splitted_address[splitted_address.length - 3];
+    if(values.full_address){
+      const splitted_address = values.full_address.split(',');
+      values['mobile'] = this.props.mobile === 'mobile';
+      values['pro'] = this.props.pro === 'pro';
+      values['country'] = splitted_address[splitted_address.length - 1];
+      values['city'] = splitted_address[splitted_address.length - 2];
+      values['address'] = splitted_address[splitted_address.length - 3];
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
-    if( api_values['country'] && api_values['city'] && api_values['address']){
-      this.setState({ loading: true });
-      this.props.updateMecanoProfile(this.props.mecano_id, api_values, '/mecano_profile')
+    if( values['country'] && values['city'] && values['address']){
+      this.props.updateMecanoProfile(this.props.mecano_id, values, '/mecano_profile')
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }
@@ -130,9 +128,7 @@ function mapStateToProps(state) {
 }
 
 MecanoEdit = reduxForm({
-  form: 'mecano_edit',
-  enableReinitialize: true,
-  destroyOnUnmount: false
+  form: 'mecano_edit'
 })(MecanoEdit);
 
 MecanoEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoEdit))

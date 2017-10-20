@@ -18,12 +18,12 @@ export function registerMecano(data, next_path){
     return axios.post('/api/mecano_profiles', data)
       .then(response => {
         setNextHeaders(response.headers)
-        dispatch(push(next_path ? next_path : '/mecano_vehicles'))
         dispatch(registeredMecano(response.data.mecano_profile))
+        dispatch(push(next_path ? next_path : '/mecano_vehicles'))
       }).catch(error => {
         console.log(error)
-        // mecanoRegistrationError(error.response)
-        // setNextHeaders(error.response.headers)
+        dispatch(mecanoRegistrationError(error.response.data.errors));
+        setNextHeaders(error.response.headers)
       })
   };
 };
