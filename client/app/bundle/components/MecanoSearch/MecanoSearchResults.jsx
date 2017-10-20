@@ -128,10 +128,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ search }) {
-  const { results, distance, vehicle, full_address, domains } = search
+  const { results, distance, vehicle, full_address, domains, car_make } = search
   return {
     mecano_search_results: results,
     mecano_search_params: {
+      car_make,
       distance,
       vehicle,
       full_address,

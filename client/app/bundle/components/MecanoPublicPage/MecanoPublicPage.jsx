@@ -20,7 +20,7 @@ class MecanoPublicPage extends Component {
       inContactForm: false
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchMecanoProfile(this.state.id);
     this.setState({ loading: true });
   }

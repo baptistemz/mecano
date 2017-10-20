@@ -32,7 +32,6 @@ export function updateMecanoProfile(id, data, next_path){
   return dispatch => {
     return axios.put(`/api/mecano_profiles/${id}`, data)
       .then(response => {
-        console.log(response)
         dispatch(updatedMecano(response.data.mecano_profile))
         setNextHeaders(response.headers)
         if(next_path){dispatch(push(next_path))};
@@ -45,6 +44,7 @@ export function updateMecanoProfile(id, data, next_path){
 
 export function fetchMecanoProfile(id){
   return dispatch => {
+    axios.defaults.headers.common = getHeadersObject(localStorage)
     axios.get(`/api/mecano_profiles/${id}`)
       .then(response => {
         setNextHeaders(response.headers)

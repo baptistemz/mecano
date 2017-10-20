@@ -20,9 +20,7 @@ module Api
 
     def index
       @mecano_profile = MecanoProfile.find(review_params[:mecano_profile_id])
-      Rails.logger.debug("@mecano_profile: #{@mecano_profile}")
       @reviews = @mecano_profile.reviews.last(params[:batch_size]).sort_by(&:created_at).reverse
-      Rails.logger.debug("@reviews: #{@reviews}")
       render :index
     end
 

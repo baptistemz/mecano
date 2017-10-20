@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
+import { setNextHeaders } from '../utils/tokenManagement';
 import {
   IMPLEMENT_SEARCH,
   ADD_DOMAINS_TO_SEARCH,
@@ -34,6 +35,7 @@ export function searchMecano(params){
   return dispatch => {
     return axios.get('/api/mecano_profiles', { params })
       .then(response => {
+        setNextHeaders(response.headers)
         dispatch(receivedSearchResults(response.data))
       }).catch((error) => {
         console.log(error)

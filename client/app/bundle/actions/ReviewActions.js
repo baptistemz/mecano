@@ -30,6 +30,7 @@ export function loadReviews(id, batch_size){
   return dispatch => {
     return axios.get(`/api/mecano_profiles/${id}/reviews`, { params: { batch_size: batch_size }})
       .then(response => {
+        setNextHeaders(response.headers)
         dispatch(gotReviews(response.data))
       }).catch(error => {
         console.log("ERROR", error.response)

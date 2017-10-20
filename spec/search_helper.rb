@@ -12,7 +12,7 @@ end
 def geocode_addresses()
   Geocoder.configure(:lookup => :test)
   Geocoder::Lookup::Test.add_stub(
-    "200 rue Nationale, Lille, France", [
+    "200 rue Nationale,Lille,France", [
       {
         'coordinates'  => [50.6324107, 3.0511614],
         'latitude'     => 50.6324107,

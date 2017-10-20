@@ -17,9 +17,10 @@ export function contact(values){
         setNextHeaders(response.headers)
         dispatch(push(`/mecanos/${response.data.service.mecano_profile_id}`))
         toastr.success('Le mécano a bien été contacté');
+        console.log(response.data)
         dispatch(contactConfirmed(response.data.service))
       }).catch(error => {
-        console.log(error)
+        if(error.response.data.errors.user_id){toastr.error(error.response.data.errors.user_id)}
       })
   };
 };

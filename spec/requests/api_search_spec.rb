@@ -99,6 +99,7 @@ RSpec.describe "Search :", type: :request do
       )
     end
     it "doesn't receive mecanos who have not registered the vehicle brand searched" do
+      mecano_profile_props["all_vehicles"] = false
       mecano_profile = create_mecano_profile(mecano_profile_props, :created)
       search(
         { full_address:"200 boulevard Vauban , Lille, France", distance: "5", car_make: "audi" },

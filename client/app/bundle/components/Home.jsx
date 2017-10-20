@@ -22,10 +22,11 @@ class Home extends Component{
     return (
       <div>
         <div className="banner">
-          <img id="banner_logo" src="/wrong_logo.png" alt=""/>
-          <div id="banner_title">
+          <div className="title-group">
             <h1 className='white-shadowed-text'>Restor'it</h1>
-            <p className='white-shadowed-text'><big>Entretiens, montages  et réparations <br/> réalisés par vos voisins ou des professionnels proches de chez vous.</big></p>
+            <hr/>
+            <h2 className='white-shadowed-text'>Entretiens, montages  et réparations</h2>
+            <h3 className='white-shadowed-text'>Par des passionnés et professionnels proches de chez vous.</h3>
           </div>
         </div>
         <div className="huge-border"></div>

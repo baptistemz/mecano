@@ -118,19 +118,23 @@ fr:
               invalid: n'est pas correct
               taken: est déjà utilisé pour un compte
         mecano_profile:
-            attributes:
-              price:
-                blank: n'est pas fourni
-                invalid: n'est pas correct
-              radius:
-                blank: n'est pas fourni
-                invalid: n'est pas correct
-              company_name:
-                blank: n'est pas fournie
-                invalid: n'est pas correct
-              address:
-                blank: n'est pas fournie
-                invalid: doit être sous le format 'rue (et n°), ville, pays'
+          attributes:
+            price:
+              blank: n'est pas fourni
+              invalid: n'est pas correct
+            radius:
+              blank: n'est pas fourni
+              invalid: n'est pas correct
+            company_name:
+              blank: n'est pas fournie
+              invalid: n'est pas correct
+            address:
+              blank: n'est pas fournie
+              invalid: doit être sous le format 'rue (et n°), ville, pays'
+        service:
+          attributes:
+            user_id:
+              taken: Vous avez déjà contacté ce mécano.
   admin:
     js:
       true: Vrai

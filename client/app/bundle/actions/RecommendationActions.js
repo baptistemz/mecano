@@ -42,6 +42,7 @@ export function fetchRecommendationPictures(domain_id){
   return dispatch => {
     return axios.get(`/api/domains/${domain_id}/recommendations/pictures`)
       .then(response => {
+        setNextHeaders(response.headers)
         dispatch(gotRecommendationPictures(response.data))
       }).catch(error => {
         console.log(error)

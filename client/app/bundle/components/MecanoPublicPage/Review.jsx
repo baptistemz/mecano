@@ -51,7 +51,7 @@ class Review extends Component {
               <div>
                 <br/>
                 <div className='justify-center'>
-                  <Input icon="monetization_on" name="amount" label="Montant facturé*" type="number" />
+                  <Input icon="monetization_on" name="amount" label="Montant facturé* (optionnel)" type="number" />
                   <span className="price-unit">€</span>
                 </div>
                 <div className="text-center">
