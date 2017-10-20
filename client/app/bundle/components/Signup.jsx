@@ -51,7 +51,7 @@ class Signup extends Component{
               </div>
             </div>
           </div>
-          <div className="text-center">
+          <div className="text-center margin-bottom-20">
             <Link to={{ pathname: '/login', state: { from: next_path } }}>{formatMessage(defaultMessages.userAlreadyAccountMessage)}</Link>
           </div>
         </div>

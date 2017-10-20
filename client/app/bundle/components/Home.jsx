@@ -26,7 +26,7 @@ class Home extends Component{
             <h1 className='white-shadowed-text'>Restor'it</h1>
             <hr/>
             <h2 className='white-shadowed-text'>Vos <span className="bigger-text">entretiens</span>, <span className="bigger-text">montages</span> et <span className="bigger-text">réparations</span></h2>
-            <h2 className='white-shadowed-text'>Par des <span className="primary-text">passionnés</span> et <span className="primary-text">professionnels</span> proches de chez vous.</h2>
+            <h2 className='white-shadowed-text'>Par des <span className="primary-text">passionnés</span> et des <span className="primary-text">professionnels</span> proches de chez vous.</h2>
           </div>
         </div>
         <div className="huge-border"></div>
