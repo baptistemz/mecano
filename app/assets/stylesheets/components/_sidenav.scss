@@ -15,8 +15,8 @@
     text-align: center;
     padding: 12px 20px;
     cursor: pointer;
-    transition: background-color 2s ease;
-    transition: color 2s ease;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
     & i{
       margin: auto;
     }
@@ -34,8 +34,8 @@
   & .white-shadowed-text:hover{
     background-color: rgba(12, 61, 94, 0.6);
     color: #008bc6;
-    transition: background-color 2s ease;
-    transition: color 2s ease;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
   }
 }
 .button-collapse{

@@ -10,6 +10,7 @@ import { contact, createVehicle } from '../../actions/index';
 import carQueryConfig from '../../utils/carQueryConfig';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
+import textareaExpand from '../../utils/textareaExpand'
 
 class ContactForm extends Component {
   constructor(props){
@@ -18,12 +19,7 @@ class ContactForm extends Component {
   }
   componentDidMount(){
     // auto-expand textarea when content is bigger than the space let by the area
-    $('textarea').keyup(function() {
-      const height = parseInt($(this).css('height'), 10)
-      if( height + 39 < this.scrollHeight){
-        $(this).css('height', `${this.scrollHeight}px`)
-      }
-    });
+    textareaExpand($('#messageText'));
   }
   componentDidUpdate(){
     carQueryConfig()
@@ -34,7 +30,7 @@ class ContactForm extends Component {
       const {year, brand, model_select, model_string, model_not_found } = this.refs
       let trim = this.refs.trim.childNodes[0].innerHTML
       trim = (trim === "None" || model_not_found.checked) ? "" : trim;
-      const model = model_not_found.checked ? model_string.value : model_select.value
+      const model = model_not_found.checked ? model_string.value : model_select.value;
       createVehicle({year: year.value, brand: brand.value, model , trim })
     }else if(!vehicle.id){
       createVehicle(vehicle)
@@ -134,7 +130,7 @@ class ContactForm extends Component {
           </div>
 
           <div className="input-field">
-            <textarea id="messageText" ref="message" className="materialize-textarea"></textarea>
+            <textarea id="messageText" ref="message" className="materialize-textarea" data-length={5000}></textarea>
             <label htmlFor="messageText">Message</label>
           </div>
           <div>

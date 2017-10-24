@@ -34,7 +34,7 @@ class RootWithoutRailsContext extends Component {
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <ServerRoutes location={railsContext.location}/>
+            <ServerRoutes location={railsContext.location} rehydrated={ this.state.rehydrated }/>
             <ReduxToastr
               timeOut={4000}
               newestOnTop={false}

@@ -7,6 +7,7 @@ import PictureUpdate from '../PictureUpdate';
 import { registerMecano, mecanoRegistrationError } from '../../actions/index';
 import { Header, Loader, RadioButtons, Input } from '../../common/index';
 import { injectIntl } from 'react-intl';
+import { googleMapsAutocomplete, formatRegistrationData } from '../../utils/mecanoRegistrationUtils'
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoRegistration extends Component {
@@ -14,30 +15,12 @@ class MecanoRegistration extends Component {
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
-    //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
-    google.maps.event.addDomListener(input, 'keydown', function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-      }
-    });
-    // Change value on autocomplete click
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      triggerAutocomplete(this.getPlace().formatted_address)
-    });
-    const triggerAutocomplete = (value) => {
-      this.props.dispatch(change("mecano_registration", "full_address", value));
-    }
+    googleMapsAutocomplete(input, options, this.props.dispatch, "mecano_registration", "full_address")
   }
 
   submit(values){
     if(values.full_address){
-      const splitted_address = values.full_address.split(',');
-      values['mobile'] = this.props.mobile;
-      values['pro'] = this.props.pro;
-      values['country'] = splitted_address[splitted_address.length - 1];
-      values['city'] = splitted_address[splitted_address.length - 2];
-      values['address'] = splitted_address[splitted_address.length - 3];
+      values = formatRegistrationData(values, this.props.mobile, this.props.pro);
     }else{
       this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
     }

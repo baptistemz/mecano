@@ -8,7 +8,7 @@ import { createVehicle } from '../actions/index';
 
 class VehicleCreation extends Component {
   componentDidMount(){
-    carQueryConfig()
+    carQueryConfig();
   }
   manageInputs(){
     if(this.refs.model_not_found.checked){

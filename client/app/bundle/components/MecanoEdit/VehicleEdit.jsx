@@ -24,9 +24,6 @@ class VehicleEdit extends Component {
       this.props.selectCarMake(chip)
     }
   }
-  autocomplete(){
-
-  }
   componentDidMount(){
     this.props.fetchCarMakes();
     //GET CAR MAKES LIST

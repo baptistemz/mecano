@@ -10,13 +10,13 @@ class Profile extends Component {
     const { formatMessage } = this.props.intl
     return(
       <div>
-        {description === null || description.length === 0 ?
-          <div></div>
-        :
+        {description ?
           <div className="box-shadow white-background marged-20 padded-20">
-            <h6 className="capitalize text-center">{formatMessage(defaultMessages.mecanoDescription)}</h6>
+            <h4 className="capitalize text-center">{formatMessage(defaultMessages.mecanoDescription)}</h4>
             <p>{description}</p>
           </div>
+        :
+          <div></div>
         }
         <div className="box-shadow white-background marged-20 padded-20">
           <div className="big-stars">

@@ -9,11 +9,12 @@ import { MissingContentBanner } from './index';
 import { Header, ProfilePicture, Button, ReviewList, DomainList } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
+import textareaExpand from '../../utils/textareaExpand'
 
 class MecanoProfile extends Component {
-  constructor(){
-    super();
-    this.state={ description: "" }
+  constructor(props){
+    super(props);
+    this.state={ description: props.decription }
   }
   submitDescription(){
     const { id, updateMecanoProfile } = this.props;
@@ -31,13 +32,7 @@ class MecanoProfile extends Component {
 
   componentDidMount(){
     $('.modal').modal();
-    $('textarea').keyup(function() {
-      const height = parseInt($(this).css('height'), 10)
-      if( height + 39 < this.scrollHeight){
-        $(this).css('height', `${this.scrollHeight}px`)
-      }
-    });
-    $('#descriptionText').characterCounter();
+    textareaExpand($('#descriptionText'));
   }
   render(){
     const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews } = this.props;

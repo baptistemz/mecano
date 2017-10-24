@@ -10,9 +10,11 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
 
 const sanitize = (field) => {
+  // REMOVES USELESS SPACES
   const sanitized_field = field ? field.trim() : '';
   return sanitized_field
 }
+
 class Login extends Component{
   componentWillMount(){
     this.props.authError({})
@@ -26,9 +28,6 @@ class Login extends Component{
       toastr.info("Veuillez vous connecter pour réaliser cette action")
     }
   }
-  // componentDidMount() {
-  //   // Materialize.updateTextFields();
-  // }
   submit({ email, password }, next_path){
     const creds = { email: sanitize(email), password: sanitize(password) };
     this.props.loginUser(creds, next_path);

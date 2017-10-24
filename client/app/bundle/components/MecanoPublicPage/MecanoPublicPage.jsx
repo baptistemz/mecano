@@ -25,7 +25,7 @@ class MecanoPublicPage extends Component {
     this.setState({ loading: true });
   }
   componentWillReceiveProps(newProps){
-    this.setState({inContactForm: newProps.location.pathname.endsWith("contact") })
+    this.setState({ inContactForm: newProps.location.pathname.endsWith("contact") })
     if(newProps.id.toString() === this.state.id){
       this.setState({ loading: false });
     }

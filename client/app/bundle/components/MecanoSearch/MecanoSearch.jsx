@@ -7,35 +7,21 @@ import { fetchVehicles, implementSearch } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
 import carQueryConfig from '../../utils/carQueryConfig';
 import { injectIntl } from 'react-intl';
+import { googleMapsAutocomplete } from '../../utils/mecanoRegistrationUtils'
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearch extends Component {
   constructor(props){
     super(props)
     this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
+    console.log("Contruct", props.isAuthenticated)
   }
-  componentDidMount(){
-    // if(this.props.isAuthenticated){
-    //   this.props.fetchVehicles();
-    // }
-    $('ul.tabs').tabs();
+  componentDidUpdate(){
+    if(this.props.isAuthenticated){$('ul.tabs').tabs()};
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
-    //DON'T SUBMIT ON PRESS-ENTER IN AUTOCOMPLETE
-    google.maps.event.addDomListener(input, 'keydown', function(event) {
-      if (event.keyCode === 13) {
-        event.preventDefault();
-      }
-    });
-    // Change value on autocomplete click
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      triggerAutocomplete(this.getPlace().formatted_address);
-    });
-    const triggerAutocomplete = (value) => {
-      this.props.dispatch(change("mecano_search", "full_address", value))
-    }
-    carQueryConfig()
+    googleMapsAutocomplete(input, options, this.props.dispatch, "mecano_search", "full_address");
+    carQueryConfig();
   }
   vehicleFields(){
     return(

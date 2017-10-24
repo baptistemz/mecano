@@ -8,17 +8,12 @@ import { changeMark, postReview } from '../../actions/index';
 import { Button, RadioButtons, Input } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
+import textareaExpand from '../../utils/textareaExpand'
 
 class Review extends Component {
   componentDidMount(){
-    $('textarea').keyup(function() {
-      const height = parseInt($(this).css('height'), 10)
-      if( height + 39 < this.scrollHeight){
-        $(this).css('height', `${this.scrollHeight}px`)
-      }
-    });
-    $('#commentText').characterCounter();
     const { location, dispatch } = this.props
+    textareaExpand($('#commentText'));
     if(location.state){
       dispatch(change("mecano_review", "status", location.state.status));
     }

@@ -6,6 +6,7 @@ import domains from '../../utils/domains.js';
 import { updateTechnicalDomains } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
 import { injectIntl } from 'react-intl';
+import { formatDomainDataForSubmit } from '../../utils/mecanoRegistrationUtils'
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class DomainEdit extends Component {
@@ -21,11 +22,7 @@ class DomainEdit extends Component {
   }
   submit(values){
     const { updateTechnicalDomains, mecano_id } = this.props;
-    const data = []
-    Object.keys(values).map((k)=>{
-        if(values[k] !== ""){data.push({kind: "technical_skill", value: k})};
-      }
-    )
+    const data = formatDomainDataForSubmit(values)
     updateTechnicalDomains(mecano_id, {domains: data}, '/mecano_profile');
   }
   render(){
