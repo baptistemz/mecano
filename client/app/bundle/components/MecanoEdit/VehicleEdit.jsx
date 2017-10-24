@@ -50,7 +50,7 @@ class VehicleEdit extends Component {
 
   submit(values){
     const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
-    const data = []
+    let data = []
     if(values.all_vehicles === 'specific_brands'){
       selected_car_makes.map((make)=> data.push({kind: "car_make", value: make.tag}))
       updateMecanoProfile(mecano_id, { "all_vehicles": false })

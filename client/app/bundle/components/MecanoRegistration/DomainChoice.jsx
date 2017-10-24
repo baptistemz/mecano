@@ -12,7 +12,8 @@ import { defaultMessages } from '../../../libs/i18n/default';
 class DomainChoice extends Component {
   submit(values){
     const { updateTechnicalDomains, mecano_id } = this.props;
-    const data = formatDomainDataForSubmit(values)
+    const data = formatDomainDataForSubmit(values);
+    console.log("data", data);
     updateTechnicalDomains(mecano_id, {domains: data}, '/mecano_profile');
   }
   render(){

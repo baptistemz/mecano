@@ -6,6 +6,7 @@ export function formatDomainDataForSubmit(values){
       if(values[k] !== ""){data.push({kind: "technical_skill", value: k})};
     }
   )
+  return data
 }
 
 export function googleMapsAutocomplete(input, options, dispatch, form, field){

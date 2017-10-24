@@ -34,6 +34,7 @@ class MecanoRegistration extends Component {
   render(){
     const { handleSubmit, errors, pro, mobile, isMecano, full_address } = this.props;
     const { formatMessage } = this.props.intl
+    console.log(pro)
     if(isMecano){
       return <Redirect to={{pathname: '/mecano_vehicles'}}/>
     }
@@ -48,7 +49,7 @@ class MecanoRegistration extends Component {
               <PictureUpdate/>
               <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} />
               {
-                pro ?
+                pro === "pro" ?
                 <div className="row">
                   <div className="col s9">
                     <Input icon="monetization_on" name="price" label={formatMessage(defaultMessages.mecanoPrice)} type="number" error={errors.price} />
@@ -66,7 +67,7 @@ class MecanoRegistration extends Component {
               <Input id='gplaces' icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
               <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
               {
-                mobile ?
+                mobile === "mobile" ?
                 <div className="row">
                   <div className="col s9">
                     <Input icon="explore" name="radius" label={formatMessage(defaultMessages.mecanoRadius)} type="number" error={errors.radius} />
@@ -98,9 +99,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
+  console.log(mecano_registration)
   return {
-    mobile: mecano_registration ? mecano_registration.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
-    pro: mecano_registration ? mecano_registration.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
+    mobile: mecano_registration && mecano_registration.values ? mecano_registration.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
+    pro: mecano_registration && mecano_registration.values ? mecano_registration.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
     isMecano: state.auth.is_mecano,
     errors : state.mecano.errors
   }
