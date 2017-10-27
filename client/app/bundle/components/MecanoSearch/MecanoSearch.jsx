@@ -14,7 +14,6 @@ class MecanoSearch extends Component {
   constructor(props){
     super(props)
     this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
-    console.log("Contruct", props.isAuthenticated)
   }
   componentDidUpdate(){
     if(this.props.isAuthenticated){$('ul.tabs').tabs()};

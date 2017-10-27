@@ -34,7 +34,6 @@ class MecanoRegistration extends Component {
   render(){
     const { handleSubmit, errors, pro, mobile, isMecano, full_address } = this.props;
     const { formatMessage } = this.props.intl
-    console.log(pro)
     if(isMecano){
       return <Redirect to={{pathname: '/mecano_vehicles'}}/>
     }
@@ -99,7 +98,6 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   const { mecano_registration } = state.form
-  console.log(mecano_registration)
   return {
     mobile: mecano_registration && mecano_registration.values ? mecano_registration.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
     pro: mecano_registration && mecano_registration.values ? mecano_registration.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
