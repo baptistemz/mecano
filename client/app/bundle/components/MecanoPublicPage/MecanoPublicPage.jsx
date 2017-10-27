@@ -49,7 +49,7 @@ class MecanoPublicPage extends Component {
       )
   }
   render(){
-    const { id, isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, isContacted, reviews } = this.props;
+    const { id, isAuthenticated, car_makes, technical_skills, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, isContacted, reviews, wall_picture } = this.props;
     const { formatMessage } = this.props.intl
     if(this.state.loading){
       return(
@@ -61,7 +61,7 @@ class MecanoPublicPage extends Component {
     return (
       <div className="boxes-background">
         <Header>{display_name}</Header>
-        <div className="cover-picture"></div>
+        <div className="cover-picture" style={{ backgroundImage: `url(${wall_picture.url})` }}></div>
         {isContacted ?
           <ContactedBanner url={this.props.match.url} />
         :
@@ -134,6 +134,7 @@ function mapStateToProps({ mecano_visited, auth }) {
     description: mecano_visited.description,
     isContacted: mecano_visited.contacted,
     reviews: mecano_visited.reviews,
+    wall_picture: mecano_visited.wall_picture,
     isAuthenticated: auth.isAuthenticated,
   }
 }

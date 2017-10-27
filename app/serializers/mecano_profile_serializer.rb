@@ -4,6 +4,10 @@ class MecanoProfileSerializer < ActiveModel::Serializer
   has_many :technical_skills
   has_many :reviews
 
+  def wall_picture
+    object.wall_picture.url ? object.wall_picture : { url: "/cover_default.jpeg" }
+  end
+
   def technical_skills
     object.domains.where(kind: 'technical_skill').collect { |ts| {id: ts.id, kind: ts.kind, value: ts.value, mecano_profile_id: ts.mecano_profile_id, recommendation_number: ts.recommendation_number}}
   end

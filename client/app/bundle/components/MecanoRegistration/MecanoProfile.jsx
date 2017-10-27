@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Rater from 'react-rater';
 import _ from 'lodash';
 import { updateMecanoProfile, validateToken } from '../../actions/index';
-import { MissingContentBanner } from './index';
+import { MissingContentBanner, WallPictureUpdate } from './index';
 import { Header, ProfilePicture, Button, ReviewList, DomainList } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
@@ -35,12 +35,26 @@ class MecanoProfile extends Component {
     textareaExpand($('#descriptionText'));
   }
   render(){
-    const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews } = this.props;
+    const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews, wall_picture } = this.props;
     const { formatMessage } = this.props.intl;
     return (
       <div className="boxes-background">
         <Header>Mon profil mécano</Header>
-        <div className="cover-picture"></div>
+        <div className="cover-picture" style={{ backgroundImage: `url(${wall_picture.url})` }}>
+          <div className="modal-trigger" data-target="wall_picture_modal">
+            <div className="background-edit btn btn-floating">
+              <i className="material-icons">edit</i>
+            </div>
+          </div>
+          <div id="wall_picture_modal" className="modal">
+            <div className="modal-content">
+              <div className="full-width text-center">
+                <h2>Changez la photo de votre page</h2>
+                <WallPictureUpdate />
+              </div>
+            </div>
+          </div>
+        </div>
         {
           technical_skills.length < 1 || (car_makes.length < 1 && !all_vehicles) ?
             <MissingContentBanner domains={!technical_skills} vehicles={!all_vehicles && !car_makes}/>
@@ -148,9 +162,9 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ mecano }) {
   const { car_makes, technical_skills, display_name, pro, id, price, city, country,
-    mobile, all_vehicles, rating, rates_number, description, reviews } = mecano
-  return { car_makes, technical_skills, display_name, pro, id, price, city,
-    country, mobile, all_vehicles, rating, rates_number, description, reviews }
+    mobile, all_vehicles, rating, rates_number, description, reviews, wall_picture } = mecano
+  return { car_makes, technical_skills, display_name, pro, id, price, city, country,
+    mobile, all_vehicles, rating, rates_number, description, reviews, wall_picture }
 }
 
 MecanoProfile = injectIntl(connect(mapStateToProps, mapDispatchToProps)(MecanoProfile))

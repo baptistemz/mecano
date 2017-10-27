@@ -4,6 +4,7 @@ json.mecano_profile do
   json.display_name @mecano_profile.display_name
   json.full_address @mecano_profile.full_address
   json.picture @mecano_profile.user.profile_picture
+  json.wall_picture @mecano_profile.wall_picture.url ? @mecano_profile.wall_picture : { url: "/cover_default.jpeg" }
 end
 json.domains @mecano_profile.domains.where(kind:'technical_skill'), partial: 'api/domains/domain', as: :domain
 json.car_makes @mecano_profile.domains.where(kind:'car_make'), partial: 'api/domains/domain', as: :domain

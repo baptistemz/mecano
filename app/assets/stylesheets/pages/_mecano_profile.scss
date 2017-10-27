@@ -1,5 +1,5 @@
 .cover-picture{
-  background: url('/cover_default.jpeg') no-repeat bottom center fixed;
+  background-position: center;
   background-size: cover;
   height: 400px;
   width: 100%;
@@ -16,6 +16,13 @@
   & h3{
     margin: 5px 0;
   }
+}
+
+.background-edit{
+  z-index: 0;
+  position: absolute;
+  top: 70px;
+  right: 10px;
 }
 
 .box-shadow .box-edit{

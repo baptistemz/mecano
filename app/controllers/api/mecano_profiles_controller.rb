@@ -55,7 +55,7 @@ module Api
     private
 
     def mecano_profile_params
-      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano, :all_vehicles, :description)
+      params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano, :all_vehicles, :description, :wall_picture)
     end
 
     def render_error

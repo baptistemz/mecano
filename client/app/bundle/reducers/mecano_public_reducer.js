@@ -25,6 +25,7 @@ const INITIAL_STATE = {
     errors: {},
     rates_number: 0,
     recommendation_pictures: [],
+    wall_picture: { url: "/cover_default.jpeg" },
     reviews: [],
   };
 
@@ -32,8 +33,8 @@ export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case GOT_MECANO:{
       const { mecano_profile, car_makes, domains, reviews } = action.data;
-      const {id, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted} = mecano_profile;
-      return { ...state, id, reviews, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted }
+      const {id, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted, wall_picture} = mecano_profile;
+      return { ...state, id, reviews, car_makes, technical_skills: domains, display_name, pro, price, city, country, mobile, all_vehicles, rating, rates_number, description, picture, contacted, wall_picture }
     }
     case RECOMMENDED_DOMAIN:{
       const car_makes = state.car_makes.map((make) => {

@@ -43,6 +43,7 @@ export function updateMecanoProfile(id, data, next_path){
 };
 
 export function fetchMecanoProfile(id){
+  console.log(id)
   return dispatch => {
     axios.defaults.headers.common = getHeadersObject(localStorage)
     axios.get(`/api/mecano_profiles/${id}`)

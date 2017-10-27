@@ -29,6 +29,7 @@ const INITIAL_STATE = {
     technical_skills: [],
     car_makes: [],
     reviews:[],
+    wall_picture: { url: "/cover_default.jpeg" },
     errors: {}
   };
 
@@ -41,8 +42,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, errors }
     case LOGIN_SUCCESS:{
       if(action.user.mecano_profile){
-        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills } = action.user.mecano_profile;
-        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, errors:{} }
+        const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, wall_picture } = action.user.mecano_profile;
+        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, wall_picture, errors:{} }
       }else{
         return state
       }
@@ -52,8 +53,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, errors:{} }
     }
     case UPDATED_MECANO:{
-      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.mecano_profile;
-      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, errors: {} }
+      const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, wall_picture } = action.mecano_profile;
+      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, wall_picture, errors: {} }
     }
     case REGISTERED_DOMAINS:
       const new_car_makes = state.car_makes;

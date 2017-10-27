@@ -33,7 +33,7 @@ class ClientRoutes extends Component{
     const mecano = rehydrated ? isMecano : true
     return(
       <ConnectedRouter history={history}>
-        <div style={{ overflowX: 'hidden' }}>
+        <div>
           <div>
             <SideNav />
           </div>
