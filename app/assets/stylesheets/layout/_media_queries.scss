@@ -10,7 +10,7 @@
     flex-direction: column;
     & div:first-child{
       flex-direction: column;
-      top: 1085px;
+      top: calc( 100vh + 384px);
     }
   }
   .sidenav-background{
@@ -33,7 +33,7 @@
     border-bottom-width: 300px;
     & div:first-child{
       flex-direction: column;
-      top: 1085px;
+      top: calc( 100vh + 384px);
     }
   }
   .sidenav-background{
