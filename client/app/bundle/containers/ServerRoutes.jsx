@@ -20,9 +20,9 @@ import PrivateRoute from './PrivateRoute';
 import MecanoRoute from './MecanoRoute';
 
 class ServerRoutes extends Component{
-  componentWillMount(){
-    this.props.location === '/' ? this.props.setWhiteNavbar(true) : this.props.setWhiteNavbar(false);
-  }
+  // componentWillMount(){
+  //   this.props.location === '/' ? this.props.setWhiteNavbar(true) : this.props.setWhiteNavbar(false);
+  // }
   render(){
     const { isAuthenticated, isMecano, location } = this.props;
     const context = {};
