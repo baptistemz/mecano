@@ -119,6 +119,9 @@ fr:
               taken: est déjà utilisé pour un compte
         mecano_profile:
           attributes:
+            wall_picture:
+              size_too_small: n'est pas d'une réslution assez grande
+              size_too_big: est trop volumineuse
             price:
               blank: n'est pas fourni
               invalid: n'est pas correct

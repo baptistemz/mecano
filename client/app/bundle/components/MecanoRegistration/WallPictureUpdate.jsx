@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateMecanoProfile, validateToken } from '../../actions/index';
+import toastr from 'react-redux-toastr';
+import { updateMecanoProfile, validateToken, mecanoRegistrationError } from '../../actions/index';
 import { Loader } from '../../common/index';
 import getBase64 from '../../utils/getBase64'
 
@@ -11,22 +12,32 @@ class WallPictureUpdate extends Component {
     this.state = { loadingImage: false }
   }
   componentWillReceiveProps(nextprops){
-    const loadingImage = !nextprops.wall_picture
-    this.setState({ loadingImage })
-    if(!loadingImage){
+    const loadingImage = (nextprops.wall_picture === this.props.wall_picture);
+    const loadingError = nextprops.error;
+    this.setState({ loadingImage });
+    if(!loadingImage && !loadingError){
       $('#wall_picture_modal').modal('close');
     }
   }
   handleImageChange(e) {
+    const { mecanoRegistrationError, updateMecanoProfile, mecano_id, validateToken } = this.props;
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.setState({ loadingImage: true });
-      this.props.updateMecanoProfile(this.props.mecano_id, { wall_picture: reader.result }).then(()=>{
-        this.props.validateToken();
-      })
+      var image = new Image();
+      image.src = reader.result;
+      image.onload = (e) => {
+        if(e.path[0].width < 900 || e.path[0].height < 300){
+          mecanoRegistrationError({wall_picture: "les dimensions de l'image doivent être supérieures ou égales à 900x300"})
+        }else{
+          this.setState({ loadingImage: true });
+          updateMecanoProfile(mecano_id, { wall_picture: reader.result }).then(()=>{
+            validateToken();
+          })
+        }
+      };
     }
     reader.onerror = function (error) {
       console.log('Error: ', error);
@@ -34,7 +45,8 @@ class WallPictureUpdate extends Component {
   }
 
   render(){
-    const img = this.state.loadingImage ? <Loader/> : <div style={{ backgroundImage:`url(${this.props.wall_picture})`,
+    const { wall_picture, error } = this.props;
+    const img = this.state.loadingImage ? <Loader/> : <div style={{ backgroundImage:`url(${wall_picture})`,
                                                                     backgroundSize: "cover",
                                                                     backgroundPosition: "center",
                                                                     height: "200px", width: "70%"}} className="margin-auto"
@@ -49,19 +61,21 @@ class WallPictureUpdate extends Component {
             type="file"
             onChange={(e)=>this.handleImageChange(e)} />
         </div>
+        <p className="red-text">{error}</p>
       </div>
     );
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateMecanoProfile, validateToken }, dispatch);
+  return bindActionCreators({ updateMecanoProfile, validateToken, mecanoRegistrationError }, dispatch);
 }
 
 function mapStateToProps({ mecano }) {
   return {
     mecano_id: mecano.id,
-    wall_picture: mecano.wall_picture.url
+    wall_picture: mecano.wall_picture.url,
+    error: mecano.errors.wall_picture
   }
 }
 

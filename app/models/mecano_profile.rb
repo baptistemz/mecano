@@ -1,3 +1,4 @@
+require 'file_size_validator'
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains, dependent: :destroy
@@ -6,7 +7,6 @@ class MecanoProfile < ActiveRecord::Base
 
   mount_base64_uploader :wall_picture, WallPictureUploader
 
-  # scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| mecano.domains.pluck(:value).sort == domains_list.sort}.uniq}
   scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| (domains_list - mecano.domains.pluck(:value)).empty? }.uniq}
   scope :with_car_make, -> (car_make) { joins(:domains).where( '(domains.value = ?) OR (all_vehicles = ?)', car_make, true).distinct }
   validates_uniqueness_of :user_id

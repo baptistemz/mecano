@@ -43,7 +43,6 @@ export function updateMecanoProfile(id, data, next_path){
 };
 
 export function fetchMecanoProfile(id){
-  console.log(id)
   return dispatch => {
     axios.defaults.headers.common = getHeadersObject(localStorage)
     axios.get(`/api/mecano_profiles/${id}`)
@@ -81,6 +80,7 @@ export function gotMecanoProfile(data) {
 }
 
 export function mecanoRegistrationError(errors) {
+  if(errors.wall_picture){toastr.error("dimensions incorrectes")};
   if(errors){
     let errorsGroup = {};
     Object.keys(errors).forEach(function(key,index) {
@@ -90,7 +90,6 @@ export function mecanoRegistrationError(errors) {
         errorsGroup[key] = errors[key]
       };
     });
-    console.log('errorsGroup', errorsGroup)
     return {
       type: MECANO_REGISTRATION_ERROR,
       payload: errorsGroup

@@ -10,7 +10,8 @@ const RadioButtons = ({ name, options, label }) => {
           Object.keys(options).map(function(key, index) {
             return(
               <p key={key} style={{ margin: 0 }}>
-                <Field className='radioinput' name={ name } component="input" type="radio" id={ key } value={ key } />
+                <Field className='radioinput' name={ name } component="input"
+                  type="radio" id={ key } value={ key } />
                 <label htmlFor={ key }>{ options[key] }</label>
               </p>
             )

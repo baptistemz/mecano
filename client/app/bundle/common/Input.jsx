@@ -6,8 +6,11 @@ const Input = (props) => {
   return (
     <div className="input-field">
       <i className="material-icons prefix">{icon}</i>
-      <Field id={`icon_${name}`} type={type} value={value} name={name} component="input" className={`validate ${error ? 'invalid' : ''}`} placeholder="" />
-      <label className="capitalize" htmlFor={`icon_${name}`}>{label} <span className="red-text">{error ? error : ''}</span></label>
+      <Field id={`icon_${name}`} type={type} value={value} name={name}
+        component="input" className={`validate ${error ? 'invalid' : ''}`} placeholder="" />
+      <label className="capitalize" htmlFor={`icon_${name}`}>
+        {label} <span className="red-text">{error ? error : ''}</span>
+      </label>
     </div>
   );
 };

@@ -39,6 +39,7 @@ export default function (state = INITIAL_STATE, action) {
       return INITIAL_STATE;
     case MECANO_REGISTRATION_ERROR:
       const errors = action.payload
+      console.log(errors)
       return { ...state, errors }
     case LOGIN_SUCCESS:{
       if(action.user.mecano_profile){

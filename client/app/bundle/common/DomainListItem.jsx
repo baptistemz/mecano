@@ -19,14 +19,17 @@ class DomainListItem extends Component {
   }
   recommendButton(id, recommended){
     if(recommended){
-      return <a onClick={() => this.props.unrecommend(id)} className="secondary-content recommend-btn red-btn">-1</a>
+      return <a onClick={() => this.props.unrecommend(id)}
+        className="secondary-content recommend-btn red-btn">-1</a>
     }else{
-      return <a onClick={() => this.props.recommend(id)} className="secondary-content recommend-btn green-btn">+1</a>
+      return <a onClick={() => this.props.recommend(id)}
+        className="secondary-content recommend-btn green-btn">+1</a>
     }
   }
 
   render(){
-    const { id, recommended, recommendationNumber, text, isAuthenticated, pictures, recommendBtn } = this.props
+    const { id, recommended, recommendationNumber, text,
+      isAuthenticated, pictures, recommendBtn } = this.props
     return(
       <li className="collection-item">
         <div className="capitalize">{text}</div>
@@ -46,7 +49,9 @@ class DomainListItem extends Component {
               <div className="secondary-content recommendation-pictures-group"></div>
             )
           :
-            <div className="secondary-content recommendation-pictures-group"><RecommendationPictures pictures={pictures} /></div>
+            <div className="secondary-content recommendation-pictures-group">
+              <RecommendationPictures pictures={pictures} />  
+            </div>
         :
           <div></div>
         }

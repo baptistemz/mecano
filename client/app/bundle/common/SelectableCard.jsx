@@ -4,7 +4,8 @@ import { Field } from 'redux-form'
 const SelectableCard = ({ children, value, tags, picture }) => {
   return(
     <label className="col s12 m6 l4">
-      <Field className='card-input' component="input" type="checkbox" name={value} value={value}/>
+      <Field className='card-input' component="input"
+        type="checkbox" name={value} value={value}/>
       <div className="selectable-card" style={{ backgroundImage: `url(${picture})` }}>
         <div className="selection-overlay">
           <i className="material-icons">done</i>
