@@ -74,6 +74,7 @@ class SideNav extends Component {
   }
   render() {
     const { isAuthenticated, isMecano, white_navbar } = this.props;
+    console.log('component :', white_navbar)
     return (
       <div>
         <div className="navbar">
@@ -135,6 +136,7 @@ class SideNav extends Component {
   }
 };
 function mapStateToProps({ auth, display }) {
+  console.log('in mapSatetoProps', display.white_navbar);
   return {
     isAuthenticated: auth.isAuthenticated,
     email: auth.email || 'unknown@unknown.com',
