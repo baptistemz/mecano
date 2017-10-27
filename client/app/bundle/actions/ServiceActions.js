@@ -20,6 +20,7 @@ export function contact(values){
         dispatch(contactConfirmed(response.data.service))
       }).catch(error => {
         if(error.response.data.errors.user_id){toastr.error(error.response.data.errors.user_id)}
+        console.log(error)
       })
   };
 };

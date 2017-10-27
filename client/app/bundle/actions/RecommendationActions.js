@@ -18,8 +18,8 @@ export function recommend(domain_id){
         dispatch(recommendedDomain(response.data.recommendation))
         toastr.info('Recommandation enregistrée');
       }).catch(error => {
+        if(error.response.data.errors.user_id){toastr.error(error.response.data.errors.user_id)}
         console.log(error)
-        // setNextHeaders(error.response.headers)
       })
   };
 };
