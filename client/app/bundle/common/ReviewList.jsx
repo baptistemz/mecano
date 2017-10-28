@@ -16,7 +16,7 @@ class ReviewList extends Component{
         {reviews.map((review)=>{
           return(
             <li key={review.id} className="collection-item avatar">
-              <img src={review.user.picture.url} alt="" className="circle" />
+              <img src={review.user.picture.url || "/thumb/default_profile.png" } alt="" className="circle" />
               <h6>{review.user.display_name} <Rater rating={review.mark} interactive={false} /></h6>
               <p>{review.comment}</p>
             </li>

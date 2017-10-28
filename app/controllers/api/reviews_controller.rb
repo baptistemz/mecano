@@ -3,7 +3,7 @@ module Api
     before_action :authenticate_api_user!, only: [:create]
 
     def create
-      service = getService(review_params[:mecano_profile_id])
+      service = get_service(review_params[:mecano_profile_id])
       service.update!(
         status: params[:status],
         cancel_reason: params[:cancel_reason],
@@ -27,7 +27,7 @@ module Api
 
     private
 
-    def getService(mecano_id)
+    def get_service(mecano_id)
       current_api_user.services.where(
         mecano_profile_id: mecano_id,
         status: "pending"

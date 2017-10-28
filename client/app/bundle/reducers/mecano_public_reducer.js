@@ -4,6 +4,8 @@ import {
   UNRECOMMENDED_DOMAIN,
   GOT_RECOMMENDATION_PICTURES,
   REVIEW_POSTED,
+  CONTACT_CONFIRMED,
+  SERVICE_CANCELED,
   GOT_REVIEWS
 } from '../actions/types';
 
@@ -72,10 +74,14 @@ export default function (state = INITIAL_STATE, action) {
     }
     case GOT_RECOMMENDATION_PICTURES:
       return { ...state, recommendation_pictures: action.pictures }
+    case CONTACT_CONFIRMED:
+      return { ...state, contacted: true }
     case REVIEW_POSTED:
       return { ...state, contacted: false, rating: action.data.mecano_profile.rating, rates_number: action.data.mecano_profile.rates_number }
     case GOT_REVIEWS:
       return { ...state, reviews: action.reviews }
+    case SERVICE_CANCELED:
+      return { ...state, contacted: false }
     default:
       return state;
   }

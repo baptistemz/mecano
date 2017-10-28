@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'authcheck/checkme'
     resources :vehicles, only: [:create, :index, :destroy]
     resources :services, only: [:create]
+    post 'services/cancel'
     resources :domains do
       resources :recommendations, only: [:create]
       delete 'recommendations/delete'

@@ -1,4 +1,3 @@
-require 'file_size_validator'
 class MecanoProfile < ActiveRecord::Base
   belongs_to :user
   has_many :domains, dependent: :destroy

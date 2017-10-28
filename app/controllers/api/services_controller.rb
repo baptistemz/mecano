@@ -14,6 +14,15 @@ module Api
       end
     end
 
+    def cancel
+      @service = current_api_user.services.where(mecano_profile_id: params[:mecano_profile_id], status: :pending).last
+      if @service.update(status: "canceled")
+        render :show
+      else
+        render_error
+      end
+    end
+
     private
 
     def render_error
@@ -22,7 +31,7 @@ module Api
     end
 
     def service_params
-      params.permit(:mecano_profile_id, :first_message, :vehicle_id)
+      params.permit(:mecano_profile_id, :first_message, :vehicle_id, :status, :cancel_reason)
     end
   end
 end

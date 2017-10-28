@@ -16,6 +16,7 @@ class MecanoSearch extends Component {
     this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
   }
   componentDidUpdate(){
+    console.log("coucou")
     if(this.props.isAuthenticated){$('ul.tabs').tabs()};
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };

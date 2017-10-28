@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { reduxForm, change, Field } from 'redux-form';
 import Rater from 'react-rater';
-import { changeMark, postReview } from '../../actions/index';
+import { changeMark, postReview, cancelService } from '../../actions/index';
 import { Button, RadioButtons, Input } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
@@ -19,10 +19,16 @@ class Review extends Component {
     }
   }
   submit(values){
-    values.status === 'finished' ? delete values['cancel_reason'] : delete values['amount'];
-    values['comment'] = this.refs.comment.value;
-    values['mark'] = this.props.mark;
-    this.props.postReview(this.props.id, values);
+    console.log("submit values", values)
+    if(values.status === 'finished'){
+      delete values['cancel_reason']
+      values['comment'] = this.refs.comment.value;
+      values['mark'] = this.props.mark;
+      this.props.postReview(this.props.id, values);
+    }else{
+      values['mecano_profile_id'] = this.props.id
+      this.props.cancelService(values);
+    }
   }
   render(){
     const { display_name, isContacted, handleSubmit, finished, mark, changeMark } = this.props;
@@ -53,22 +59,21 @@ class Review extends Component {
                   <div className="grey-text">* Cette information restera entièrement confidentielle</div>
                 </div>
                 <br/>
+                <div className="text-center">
+                  <h5>Notez {display_name}</h5>
+                </div>
+                <div className="big-stars">
+                  <Rater rating={mark} onRate={(e)=> changeMark(e.rating)} />
+                </div>
+                <div className="input-field">
+                  <textarea id="commentText" ref="comment" className="materialize-textarea" data-length={200}></textarea>
+                  <label htmlFor="commentText">Votre avis sur {display_name}</label>
+                </div>
               </div>
             )
           :
             <Input icon="edit" name="cancel_reason" label="Cause de l'annulation" type="text" />
           }
-          <br/>
-          <div className="text-center">
-            <h5>Notez {display_name}</h5>
-          </div>
-          <div className="big-stars">
-            <Rater rating={mark} onRate={(e)=> changeMark(e.rating)} />
-          </div>
-          <div className="input-field">
-            <textarea id="commentText" ref="comment" className="materialize-textarea" data-length={200}></textarea>
-            <label htmlFor="commentText">Votre avis sur {display_name}</label>
-          </div>
           <br/>
           <div className="full-width justify-center">
             <Button onClick={handleSubmit(values => this.submit(values))} icon="playlist_add_check">Valider</Button>
@@ -80,7 +85,7 @@ class Review extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ changeMark, postReview }, dispatch);
+  return bindActionCreators({ changeMark, postReview, cancelService }, dispatch);
 }
 
 function mapStateToProps(state) {
