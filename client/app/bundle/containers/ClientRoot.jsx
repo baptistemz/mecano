@@ -20,8 +20,8 @@ class RootWithoutRailsContext extends Component {
   }
   componentWillMount(){
     //SAVE STORE IN LOCALSTORAGE SO THAT ON PAGE REFRESH FRONTEND DATA IS STILL ALIVE
-    const { store } = this.props
-    persistStore(store, {}, () => {
+    const { store } = this.props;
+    persistStore(store, {blacklist: ['display']}, () => {
       store.dispatch(validateToken())
       this.setState({ rehydrated: true });
     })

@@ -19,7 +19,6 @@ class Review extends Component {
     }
   }
   submit(values){
-    console.log("submit values", values)
     if(values.status === 'finished'){
       delete values['cancel_reason']
       values['comment'] = this.refs.comment.value;

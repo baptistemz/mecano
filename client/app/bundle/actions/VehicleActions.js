@@ -16,7 +16,7 @@ import {
 
 export function fetchCarMakes(){
   return dispatch => {
-    $.getJSON("https://www.carqueryapi.com/api/0.3/?callback=?", {cmd:"getMakes"}, function(data){
+    $.getJSON("https://www.carqueryapi.com/api/0.3/?callback=?", { cmd:"getMakes" }, function(data){
       if(!data.error){
         dispatch(gotCarMakes(data));
       }else{

@@ -29,9 +29,11 @@ class MecanoSearchResults extends Component {
     this.setState({ loading: false });
     if(JSON.stringify(nextProps.mecano_search_params)
     !== JSON.stringify(this.props.mecano_search_params)){
-      // TRIGGERED IF SEARCH PARAMS HAVE CHANGeD
-      this.props.searchMecano(nextProps.mecano_search_params)
-      this.setState({ loading: true });
+      if(nextProps.mecano_search_params.car_make){
+        // TRIGGERED IF SEARCH PARAMS HAVE CHANGeD
+        this.props.searchMecano(nextProps.mecano_search_params);
+        this.setState({ loading: true });
+      }
     }
   }
 
@@ -128,7 +130,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ search }) {
-  const { results, distance, vehicle, full_address, domains, car_make } = search
+  const { results, distance, vehicle, full_address, domains, car_make } = search;
   return {
     mecano_search_results: results,
     mecano_search_params: {

@@ -25,8 +25,7 @@ export function updateDistance(distance){
 };
 export function addDomainsToSearch(domains, search_params){
   return dispatch => {
-    dispatch({ type: ADD_DOMAINS_TO_SEARCH, domains })
-    dispatch(searchMecano(search_params))
+    dispatch({ type: ADD_DOMAINS_TO_SEARCH, domains });
     dispatch(push('/mecanos'));
   }
 };

@@ -30,7 +30,6 @@ export function cancelService(data){
   return dispatch => {
     return axios.post(`/api/services/cancel`, data)
       .then(response => {
-        console.log("updateService response", response)
         setNextHeaders(response.headers);
         dispatch(serviceCanceled(response.data));
         dispatch(push(`/mecanos/${response.data.service.mecano_profile_id}`))
