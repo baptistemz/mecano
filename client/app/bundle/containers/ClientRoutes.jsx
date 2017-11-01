@@ -24,9 +24,9 @@ import MecanoRoute from './MecanoRoute';
 
 
 class ClientRoutes extends Component{
-  // componentWillMount(){
-  //   history.location.pathname === '/' ? this.props.setWhiteNavbar(true) : this.props.setWhiteNavbar(false);
-  // }
+  componentWillMount(){
+    history.location.pathname === '/' ? this.props.setWhiteNavbar(true) : this.props.setWhiteNavbar(false);
+  }
   render(){
     const { isAuthenticated, isMecano, rehydrated } = this.props;
     const authenticated = rehydrated ? isAuthenticated : true
