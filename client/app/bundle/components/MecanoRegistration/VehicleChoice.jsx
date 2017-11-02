@@ -64,8 +64,8 @@ class VehicleChoice extends Component {
   }
   submit(values){
     const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
+    let data = []
     if(values.all_vehicles === 'specific_brands'){
-      let data = []
       selected_car_makes.map((e)=> data.push({kind: "car_make", value: e.tag}))
       updateMecanoProfile(mecano_id, { "all_vehicles": false }, '/mecano_domains')
       updateCarDomains(mecano_id, {domains: data}, '/mecano_domains')

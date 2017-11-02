@@ -14,7 +14,7 @@ const INITIAL_STATE = {
     email: '',
     first_name: '',
     last_name: '',
-    profile_picture: {thumb: '', medium: ''},
+    profile_picture: {thumb: {url: null}, medium: {url: null}},
     is_mecano : false
   };
 

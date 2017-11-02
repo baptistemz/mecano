@@ -10,8 +10,8 @@ class PictureUpdate extends Component {
     super(props);
     this.state = { loadingImage: false }
   }
-  componentWillReceiveProps(nextprops){
-    const loadingImage = !nextprops.profile_picture
+  componentWillReceiveProps(nextProps){
+    const loadingImage = !nextProps.profile_picture
     this.setState({ loadingImage })
   }
   handleImageChange(e) {

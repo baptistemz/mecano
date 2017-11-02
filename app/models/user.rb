@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   mount_base64_uploader :profile_picture, ProfilePictureUploader
   validates_uniqueness_of :email
   validates_presence_of :first_name, :last_name
-  has_one :mecano_profile
+  has_one :mecano_profile, dependent: :destroy
   has_many :vehicles, dependent: :destroy
   has_many :services, dependent: :nullify
   has_many :recommendations, dependent: :destroy
