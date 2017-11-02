@@ -28,7 +28,7 @@ class ServerRoutes extends Component{
     const context = {};
     return(
       <StaticRouter location={location} context={context}>
-        <div>
+        <div style={{ overflowX: "hidden" }}>
           <div>
             <SideNav />
           </div>
