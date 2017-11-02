@@ -162,14 +162,14 @@ Then migrate its content with ```$rails db:migrate```
 ## How to run the app locally
 
 
-The command ```$foreman start -f Procfile.dev```will start webpack and the rails server. The visit the app on ```http://localhost:3000```.
+The command ```$npm run rails-server```will start the rails server and webpack (our React development server). Then visit the app on ```http://localhost:3000```.
 
 
 <a name="test"/>
 
 ## How to run the test suite
 
-This API is tested by tests written in rspec and the React app is tested by test written in javascript thanks to "chai" (npm package) helpers and run thanks to "mocha" (npm package).		
+This API contains tests written in rspec. The React app tests are written in javascript thanks to "chai" (npm package) helpers and run thanks to "mocha" (npm package).		
 
 Before pushing any code, run the whole test suite using the following command :		
 ```		
@@ -219,7 +219,7 @@ This app is deployed on Heroku. For a good deployment don't forget to pass the e
 
 ### The API
 
-Read the logs after having started the server. Rails will often give you the method and the line an error comes from.
+Read the logs in the rails server terminal tab. Rails will often give you the method and the line your error comes from.
 To debug the rails API use Rails logger debugger to print anything in the console
 For example to print the value of ```@variable``` write :
 ```
@@ -227,7 +227,7 @@ Rails.logger.debug("@variable: #{@variable}")
 ```
 At the place you want to check its value and read the logs in your terminal
 
-If you want to debug your rspec tests you must ```require 'pp'``` at the top of your spec file and then user
+If you want to debug your rspec tests you must ```require 'pp'``` at the top of your spec file and then use
 
 ```
 pp "@variable: #{@variable}"
@@ -286,6 +286,12 @@ All the API endpoints only accept (and return) JSON data.
 
 ### Non-protected endpoints
 
+All these API endpoints are not protected by authentication. Any visitor of the app can access them.
+
+* ```GET /api/mecano_profiles/:id``` search mecano profiles corresponding to params. Accepts ```full_address:string```, ```distance:integer``` (0 for "at home" search), ```domains:array``` and ```car_make:string``` as params.
+* ```GET /api/mecano_profiles``` responds with the mecano profile and all its domains.
+* ```GET /api/domains/:id/recommendations/pictures``` responds with the profile pictures of the users who recommended the targeted domain.
+
 <a name="authend"/>
 
 ### Auth endpoints
@@ -302,11 +308,15 @@ The authentication endpoints will respond with "client", "uid", "access-token" a
 ### Protected endpoints
 All these API endpoints are protected by authentication. The app user must be logged in and request the API with the right authenticated headers.
 * ```POST /api/mecano_profiles``` creates a mecano_profile belonging to the current user. Accepts ```pro:boolean```,```price:integer```, ```company_name:string```, ```address:string```, ```city:string```, ```country:string```, ```mobile:boolean``` and ```radius:integer``` params.
+* ```PUT /api/mecano_profiles``` updates a mecano_profile belonging to the current user. (same params as POST)
 * ```POST /api/mecano_profiles/:mecano_profile_id/domains/register_domains``` must be called with a list of domains. ```[{ kind:string, name:string }]```, the "kind" of each domain must be either "car_make" of "technical_skill".
 * ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_technical_domains``` deletes the domains of the current user's mecano_profile which kind is "technical_skill" and rewrites them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "technical_skill".
 * ```POST /api/mecano_profiles/:mecano_profile_id/domains/update_car_domains``` deletes the domains of the current user's mecano_profile which kind is "car_make" and rewrites them. Call this endpoint with the same format than for the domain creation. All the sumbmitted domains kind value must be "car_make".
-* ```GET /api/mecano_profiles/:id``` responds with the mecano profile and all its domains.
-* ```GET /api/mecano_profiles/:mecano_profile_id/domains``` responds with all the domains of a mecano.
 * ```GET  /api/vehicles``` responds with the current user's registered vehicles.
 * ```POST /api/vehicles``` creates a new vehicle belonging to the current user. Accepts ```brand:string```, ```model:string``` and ```year:integer``` as params.
 * ```DELETE /api/vehicles/:id``` deletes the vehicle only if it belongs to the current user making the request.
+* ```POST /api/services``` creates a service between the current_user, one of his vehicles and a mecano_profile. It also sends an email from the current_user email address to the mecano_profile's one with the ```first_message``` param as body. Accepts ```mecano_profile_id:integer```, ```vehicle_id:integer```, ```status:string```, ```first_message:text``` as params.
+* ```POST /api/services/cancel``` changes the status of the current_user and targeted mecano_profile current service to "canceled". It accepts ```mecano_profile_id:integer``` and ```cancel_reason:string``` as params.
+* ```POST /api/domains/:id/recommendations``` create a recommendation from the current_user to the domain targeted. Accepts ```domain_id:integer``` as param.
+* ```DELETE /api/domains/:id/recommendations/delete``` deletes the recommendation made by the current_user to the domain targeted.
+* ```POST /api/mecano_profiles/:id/reviews``` create a review from the current_user to the mecano_prodile targeted and updates the service with status: "pending" between those two. Accepts ```amount:integer```, ```mark:integer```, ```comment:text```, ```status:string``` (for the service), ```cancel_reason:string``` (for the service) as params.
