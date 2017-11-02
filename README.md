@@ -288,8 +288,8 @@ All the API endpoints only accept (and return) JSON data.
 
 All these API endpoints are not protected by authentication. Any visitor of the app can access them.
 
-* ```GET /api/mecano_profiles/:id``` search mecano profiles corresponding to params. Accepts ```full_address:string```, ```distance:integer``` (0 for "at home" search), ```domains:array``` and ```car_make:string``` as params.
-* ```GET /api/mecano_profiles``` responds with the mecano profile and all its domains.
+* ```GET /api/mecano_profiles``` search mecano profiles corresponding to params. Accepts ```full_address:string```, ```distance:integer``` (0 for "at home" search), ```domains:array``` and ```car_make:string``` as params.
+* ```GET /api/mecano_profiles/:id``` responds with the mecano profile and all of its domains.
 * ```GET /api/domains/:id/recommendations/pictures``` responds with the profile pictures of the users who recommended the targeted domain.
 
 <a name="authend"/>
@@ -300,6 +300,7 @@ The authentication endpoints will respond with "client", "uid", "access-token" a
 
 * ```POST /api/auth/sign_in``` Creates a new session. Accepts ```email:string``` and ```password:string``` params.
 * ```POST /api/auth``` Creates (register) a new user. Accepts ```first_name:string```, ```last_name:string```, ```email:string```, ```password:string```, ```password_confirmation:string``` params.
+* ```PUT /api/auth``` Updates the user. Accepts ```first_name:string```, ```last_name:string```, ```email:string``` params.
 * ```GET /api/auth/validate_token``` checks your headers and responds with the user info and a new token in headers if they are correct.
 * ```DELETE /api/auth/sign_out``` logs your user out.
 
