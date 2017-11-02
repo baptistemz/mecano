@@ -29,8 +29,8 @@ class WallPictureUpdate extends Component {
       var image = new Image();
       image.src = reader.result;
       image.onload = (e) => {
-        if(e.path[0].width < 600 || e.path[0].width > 1800){
-          mecanoRegistrationError({wall_picture: "les dimensions de l'image doivent être comprises entre 600x200 et 1800x600"})
+        if(e.path[0].width < 600 || e.path[0].width > 2400){
+          mecanoRegistrationError({wall_picture: "les dimensions de l'image doivent être comprises entre 600x200 et 2400x800"})
         }else{
           this.setState({ loadingImage: true });
           updateMecanoProfile(mecano_id, { wall_picture: reader.result }).then(()=>{
