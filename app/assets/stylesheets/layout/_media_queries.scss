@@ -47,7 +47,9 @@
 @media only screen and (min-width: 992px) {
   .trapeze-container{
   	width:0;
-    height: 500px;
+    height: 450px;
+    display: flex;
+    align-items: center;
     border: 0px solid #008bc6;
     border-color: transparent transparent transparent #008bc6;
     margin-top: 1px;
