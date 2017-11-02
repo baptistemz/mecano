@@ -22,6 +22,7 @@ class MecanoProfile extends Component {
     $('#description_modal').modal('close');
   }
   textareaChange(e){
+    console.log(e)
     e ? e.preventDefault() : null
     this.setState({ description: e.target.value})
   }
@@ -100,7 +101,7 @@ class MecanoProfile extends Component {
                         </div>
                         <br/>
                         <label htmlFor="descriptionText">{formatMessage(defaultMessages.mecanoDescription)}</label>
-                        <textarea id="descriptionText" onChange={() => this.textareaChange()} value={this.state.description || ""} ref="description" className="materialize-textarea" data-length={400}></textarea>
+                        <textarea id="descriptionText" onChange={(e) => this.textareaChange(e)} value={this.state.description || ""} ref="description" className="materialize-textarea" data-length={400}></textarea>
                       </form>
                       <Button style={{ marginTop: '20px' }} clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">Enregistrer</Button>
                     </div>
