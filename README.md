@@ -169,17 +169,40 @@ The command ```$foreman start -f Procfile.dev```will start webpack and the rails
 
 ## How to run the test suite
 
+This API is tested by tests written in rspec and the React app is tested by test written in javascript thanks to "chai" (npm package) helpers and run thanks to "mocha" (npm package).		
+
+Before pushing any code, run the whole test suite using the following command :		
+```		
+$npm run all-tests		
+```		
+
+While developping the API and the React app, test them frequently.
+
 <a name="testapi"/>
 
 ### Testing the API
 
-While working on the API, you must run the tests frequently to check if you don't break any of the core functionnalities. You must also write the tests related to the functionnalities you want to develop on the API. These tests are written with rspec. A simple ```$rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
+While working on the API, you must run the tests frequently to check if you don't break any of the core features. You must also write the tests related to the features you want to develop on the API. These tests are written with rspec. A simple ```$rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
 If you want to run only specific API tests run
 ```
 $rspec path_to_test_file
 ```
 
 The API test files are located in the ```spec```directory.
+
+<a name="testreact"/>		
+
+### Testing the react app		
+
+While working on the react app, you must run the tests and check if you don't break any of the core features. A simple		
+```		
+$npm run react-test		
+```		
+will start the hot reloading test environment. Each time you'll save changes to a file of the react app all the tests will be re-run automatically. You'll just have to check no test has turned red each time you save a change. You must also write the tests related to the features you want to develop on the React app.		
+
+The React app test files are located in the ```client/test```directory.		
+
+WARNING: the test suite is using jsdom which simulates a fake DOM to test your code on. For the moment this fake DOM doesn't provide any ```document``` or ```window``` object (check for updates on https://github.com/tmpvar/jsdom). Features based on these objects (Jquery features for example) can not be tested with our test suite for the moment.
 
 
 <a name="deploy"/>

@@ -13,15 +13,4 @@ describe('Home', () => {
   it('displays the CTAs', () => {
     expect(component.find('.banner')).to.exist;
   });
-  describe('CTAs', () => {
-    it('links to mecano search', () => {
-      // component.find('button').first().simulate('click');
-    });
-    it('links to mecano profile if already mecano', () => {
-
-    });
-    it('links to mecano creation if not already mecano', () => {
-
-    });
-  });
 });
