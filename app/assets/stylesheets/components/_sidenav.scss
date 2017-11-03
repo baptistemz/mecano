@@ -13,7 +13,7 @@
     display: block;
     height: 56px;
     text-align: center;
-    padding: 12px 10px;
+    padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     transition: color 0.3s ease;
@@ -24,7 +24,7 @@
       font-weight: bold;
       width: 110px;
       margin: -5px 0 0 0;
-      font-size: 11px
+      font-size: 0.82em;
     }
   }
   & a:hover{

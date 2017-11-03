@@ -34,4 +34,5 @@ export const REVIEW_POSTED = 'REVIEW_POSTED';
 export const SERVICE_CANCELED = 'SERVICE_CANCELED';
 export const GOT_REVIEWS = 'GOT_REVIEWS';
 export const WHITE_NAVBAR_SET = 'WHITE_NAVBAR_SET';
+export const SEARCH_ERROR = 'SEARCH_ERROR';
 export const REHYDRATE = 'persist/REHYDRATE';

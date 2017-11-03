@@ -17,6 +17,11 @@ class Home extends Component{
       this.props.setWhiteNavbar(false);
     }
   }
+  componentDidMount(){
+    let scrollTo = (element, time) => {$('html, body').animate({ scrollTop: element.offset().top}, time)}
+    let goDown = () => scrollTo($("#firstAnchor"), 1000);
+    $("#topArrow").click(goDown);
+  }
   render(){
     const { formatMessage } = this.props.intl;
     return (
@@ -28,8 +33,11 @@ class Home extends Component{
             <h2 className='white-shadowed-text'>Vos entretiens, montages et réparations</h2>
             <h2 className='white-shadowed-text'>Par des <span className="primary-text">passionnés</span> et des <span className="primary-text">professionnels</span> proches de chez vous.</h2>
           </div>
+          <a id="topArrow" className="scroll-arrow">
+            <i className="material-icons">keyboard_arrow_down</i>
+          </a>
         </div>
-        <div className="huge-border"></div>
+        <div id="firstAnchor" className="huge-border"></div>
         <div className="container text-center vertical-marged-100">
           <p><big>Besoin d’un entretien, un montage de pièces ou une réparation ?</big></p>
           <Link to={'/mecano_search'}>

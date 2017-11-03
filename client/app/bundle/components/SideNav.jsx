@@ -100,7 +100,7 @@ class SideNav extends Component {
                   </div>
                 :
                   <div>
-                    <a className={`dropdown-button ${white_navbar ? 'white-shadowed-text' : ''}`} data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Hors ligne</p></a>
+                    <a className={`dropdown-button ${white_navbar ? 'white-shadowed-text' : ''}`} data-activates='dropdown-not-connected'><i className="material-icons">lock</i><p>Se connecter</p></a>
                     <div id='dropdown-not-connected' className='dropdown-background dropdown-content'>
                       <div className="userView margin-top-20">
                         {this.connectLinks()}

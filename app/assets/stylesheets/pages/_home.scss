@@ -14,7 +14,7 @@
     width: 85%;
     margin-left: 7.5%;
     padding-left: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
     border-left: 20px solid #008bc6;
   }
   & h2{
@@ -54,4 +54,23 @@
   left: 0;
   right: 0;
   display: flex;
+}
+
+.scroll-arrow{
+  & i{
+    font-size: 60px;
+  }
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  left: calc(50% - 30px);
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce{
+     from {bottom: 0px;}
+     25%  {bottom: 6px;}
+     50%  {bottom: 8px;}
+     75%  {bottom: 6px;}
+     to   {bottom: 0px;}
 }

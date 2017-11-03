@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field, change } from 'redux-form';
 import { Link } from 'react-router-dom';
-import { fetchVehicles, implementSearch } from '../../actions/index';
+import { fetchVehicles, implementSearch, searchError } from '../../actions/index';
 import { Header, RadioButtons, Input } from '../../common/index';
 import carQueryConfig from '../../utils/carQueryConfig';
 import { injectIntl } from 'react-intl';
@@ -15,7 +15,8 @@ class MecanoSearch extends Component {
     super(props)
     this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
   }
-  componentDidUpdate(){
+  componentDidUpdate(newProps){
+    if(newProps.vehicles != this.props.vehicles){this.setState({ registeredCar: true })}
     if(this.props.isAuthenticated){$('ul.tabs').tabs()};
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
@@ -23,20 +24,21 @@ class MecanoSearch extends Component {
     carQueryConfig();
   }
   vehicleFields(){
+    const {errors} = this.props;
     return(
       <div id="mecano_search">
         <div className="row">
           <div className="col s12 m6 l3">
-            <label htmlFor="year">Année</label>
+            <label htmlFor="year">Année <span className="red-text">{errors.year ? errors.year : ''}</span></label>
             <select name="year" ref="year" id="year" />
           </div>
           <div className="col s12 m6 l3">
-            <label htmlFor="brand">Contructeur</label>
+            <label htmlFor="brand">Contructeur <span className="red-text">{errors.brand ? errors.brand : ''}</span></label>
             <select name="brand" ref="brand" id="brand" />
           </div>
           <div id="model-select-group">
             <div className="col s12 m6 l3">
-              <label htmlFor="model_select">Modèle</label>
+              <label htmlFor="model_select">Modèle <span className="red-text">{errors.model ? errors.model : ''}</span></label>
               <select name="model_select" ref="model_select" id="model_select" />
             </div>
             <div className="col s12 m6 l3">
@@ -46,7 +48,7 @@ class MecanoSearch extends Component {
           </div>
           <div id="model-string-group">
             <div className="col s12 m12 l6">
-              <label htmlFor="model_string">Modèle</label>
+              <label htmlFor="model_string">Modèle <span className="red-text">{errors.model ? errors.model : ''}</span></label>
               <input style={{ margin: 0 }} name="model_string" ref="model_string" id="model_string" />
             </div>
           </div>
@@ -78,14 +80,23 @@ class MecanoSearch extends Component {
     return values
   }
   submit(values){
-    if (this.state.registeredCar){
-      values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
-    }else if(!this.refs.year.value && !this.refs.brand.value){
-      values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
+    console.log("this.state", this.state)
+    const {year, brand, model_select, model_string, model_not_found } = this.refs
+    if(values.full_address && values.full_address.split(",").length > 1){
+      if (this.state.registeredCar){
+        console.log("values.vehicle_choice", values.vehicle_choice)
+        if(!values.vehicle_choice){return this.props.searchError({ vehicle_choice: "Veuillez choisir un véhicule ou en enregistrer un nouveau" })}
+        values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
+      }else{
+        values["vehicle"] = this.gatherVehicleValues();
+        if(!year.value){ return this.props.searchError({ year: "requis", brand: "requis", model: "requis" })};
+        if(!brand.value){ return this.props.searchError({ brand: "requis", model: "requis" })};
+        if(!(model_select.value || model_string)){ return this.props.searchError({ model: "requis" })};
+      }
+      this.props.implementSearch(values);
     }else{
-      values["vehicle"] = this.gatherVehicleValues();
+      this.props.searchError({ full_address: "Saisissez au moins une ville et un pays au format 'Ville, Pays'" });
     }
-    this.props.implementSearch(values);
   }
   vehicleDisplay(vehicle){
     return(
@@ -101,8 +112,9 @@ class MecanoSearch extends Component {
     )
   }
   render(){
-    const { handleSubmit, vehicles, isAuthenticated, distance } = this.props;
+    const { handleSubmit, vehicles, isAuthenticated, distance, errors } = this.props;
     const { formatMessage } = this.props.intl;
+    console.log(errors)
     return (
       <div className="boxes-background">
         <Header>Recherche mécano 1/2</Header>
@@ -114,7 +126,7 @@ class MecanoSearch extends Component {
                   <div className="text-center">
                     <h2>Mon véhicule</h2>
                   </div>
-                  { isAuthenticated ?
+                  { isAuthenticated && vehicles.length > 0 ?
                     <ul className="tabs tabs-fixed-width margin-bottom-20">
                       <li className='tab'>
                         <a onClick={() => this.setState({ registeredCar: true})} href="#registered_vehicles" className= {vehicles.length === 0 ? 'disabled' : 'active'}>
@@ -138,6 +150,7 @@ class MecanoSearch extends Component {
                         return this.vehicleDisplay(vehicle)
                       })
                     }
+                    <p className="red-text">{ errors.vehicle_choice }</p>
                   </div>
                   <div id="register_vehicles">
                     {this.vehicleFields()}
@@ -147,7 +160,7 @@ class MecanoSearch extends Component {
                   <div className="text-center">
                     <h2>Lieu de réparation</h2>
                   </div>
-                  <Input icon="explore" label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" />
+                  <Input icon="explore" label={formatMessage(defaultMessages.mecanoFullAddress)} name="full_address" type="text" error={errors.full_address} />
                   <RadioButtons name="distance" value={ distance } label="" options={{"0":"À domicile", "10":"< 10 km", "50":"< 50 km"}} />
                 </div>
                 <p className="red-text"></p>
@@ -165,14 +178,15 @@ class MecanoSearch extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchVehicles, implementSearch }, dispatch);
+  return bindActionCreators({ fetchVehicles, implementSearch, searchError }, dispatch);
 }
 
 function mapStateToProps({vehicle, auth, search}) {
   return {
     vehicles: vehicle.user_vehicles,
     isAuthenticated: auth.isAuthenticated,
-    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address, vehicle_choice: search.vehicle.id, vehicle: search.vehicle }
+    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address },
+    errors: search.errors
   }
 }
 

@@ -5,7 +5,8 @@ import {
   IMPLEMENT_SEARCH,
   ADD_DOMAINS_TO_SEARCH,
   RECEIVED_SEARCH_RESULTS,
-  UPDATE_DISTANCE
+  UPDATE_DISTANCE,
+  SEARCH_ERROR
 } from './types';
 
 
@@ -30,6 +31,7 @@ export function addDomainsToSearch(domains, search_params){
   }
 };
 
+
 export function searchMecano(params){
   return dispatch => {
     return axios.get('/api/mecano_profiles', { params })
@@ -48,3 +50,10 @@ function receivedSearchResults(search_results){
     search_results
   };
 }
+
+export function searchError(errors){
+  return {
+    type: SEARCH_ERROR,
+    errors
+  }
+};
