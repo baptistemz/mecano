@@ -80,11 +80,9 @@ class MecanoSearch extends Component {
     return values
   }
   submit(values){
-    console.log("this.state", this.state)
     const {year, brand, model_select, model_string, model_not_found } = this.refs
     if(values.full_address && values.full_address.split(",").length > 1){
       if (this.state.registeredCar){
-        console.log("values.vehicle_choice", values.vehicle_choice)
         if(!values.vehicle_choice){return this.props.searchError({ vehicle_choice: "Veuillez choisir un véhicule ou en enregistrer un nouveau" })}
         values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
       }else{

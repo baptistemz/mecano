@@ -4,13 +4,16 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
-import { Header, Input, RadioButtons } from '../../common/index';
+import { Header, Input, RadioButtons, Loader } from '../../common/index';
 
 class VehicleChoice extends Component {
+  constructor(){
+    super();
+    this.state = { loading: true };
+  }
   componentDidMount(){
     //GET CAR MAKES LIST
     this.props.fetchCarMakes();
-
     const { selectCarMake, removeCarMake, car_makes_list }= this.props;
     let list
     if (car_makes_list.length === 0){
@@ -48,21 +51,25 @@ class VehicleChoice extends Component {
       removeCarMake(chip)
     });
   }
-  componentDidUpdate(){
-    //AUTOCOMPLETE
-    $('.chips').material_chip();
-    $('.chips-autocomplete').material_chip({
-      placeholder: 'Marques',
-      secondaryPlaceholder: 'Marques',
-      data: this.props.selected_car_makes,
-      autocompleteOptions: {
-        data: this.props.car_makes_list,
-        limit: Infinity,
-        minLength: 1
-      }
-    });
+  componentDidUpdate(previousProps){
+    if (previousProps.car_makes_list !== this.props.car_makes_list){
+      //AUTOCOMPLETE
+      $('.chips').material_chip();
+      $('.chips-autocomplete').material_chip({
+        placeholder: 'Marques',
+        secondaryPlaceholder: 'Marques',
+        data: this.props.selected_car_makes,
+        autocompleteOptions: {
+          data: this.props.car_makes_list,
+          limit: Infinity,
+          minLength: 1
+        }
+      });
+      this.setState({ loading: false })
+    }
   }
   submit(values){
+    this.setState({ loading: true });
     const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     let data = []
     if(values.all_vehicles === 'specific_brands'){
@@ -80,6 +87,12 @@ class VehicleChoice extends Component {
       <div>
         <Header>Enregistrement mécano 2/3</Header>
         <div className="container">
+          {
+            this.state.loading ?
+              <Loader background={true} />
+            :
+              <div></div>
+          }
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <h2>Mes domaines de compétences</h2>

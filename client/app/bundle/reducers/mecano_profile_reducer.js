@@ -44,18 +44,18 @@ export default function (state = INITIAL_STATE, action) {
     case LOGIN_SUCCESS:{
       if(action.user.mecano_profile){
         const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, wall_picture } = action.user.mecano_profile;
-        return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, wall_picture, errors:{} }
+        return { ...state, id, display_name, price, city, country, pro: pro ? "pro" : "non_pro", mobile: mobile ? "mobile" : "non_mobile", all_vehicles, radius, rating, rates_number, full_address, company_name, description, reviews, car_makes, technical_skills, wall_picture, errors:{} }
       }else{
         return state
       }
     }
     case REGISTERED_MECANO:{
       const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description } = action.mecano_profile;
-      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, errors:{} }
+      return { ...state, id, display_name, pro: pro ? "pro" : "non_pro", mobile: mobile ? "mobile" : "non_mobile", price, city, country, all_vehicles, radius, rating, full_address, company_name, description, errors:{} }
     }
     case UPDATED_MECANO:{
       const { id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, wall_picture } = action.mecano_profile;
-      return { ...state, id, display_name, pro, price, city, country, mobile, all_vehicles, radius, rating, full_address, company_name, description, wall_picture, errors: {} }
+      return { ...state, id, display_name, price, city, country, pro: pro ? "pro" : "non_pro", mobile: mobile ? "mobile" : "non_mobile", all_vehicles, radius, rating, full_address, company_name, description, wall_picture, errors: {} }
     }
     case REGISTERED_DOMAINS:
       const new_car_makes = state.car_makes;

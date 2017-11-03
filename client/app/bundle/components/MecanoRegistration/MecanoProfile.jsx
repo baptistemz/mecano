@@ -6,7 +6,7 @@ import Rater from 'react-rater';
 import _ from 'lodash';
 import { updateMecanoProfile, validateToken } from '../../actions/index';
 import { MissingContentBanner, WallPictureUpdate } from './index';
-import { Header, ProfilePicture, Button, ReviewList, DomainList } from '../../common/index';
+import { Header, ProfilePicture, Button, ReviewList, DomainList, Loader } from '../../common/index';
 import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 import textareaExpand from '../../utils/textareaExpand'
@@ -14,7 +14,7 @@ import textareaExpand from '../../utils/textareaExpand'
 class MecanoProfile extends Component {
   constructor(props){
     super(props);
-    this.state={ description: props.decription }
+    this.state={ description: props.decription, loading: true }
   }
   submitDescription(){
     const { id, updateMecanoProfile } = this.props;
@@ -22,18 +22,19 @@ class MecanoProfile extends Component {
     $('#description_modal').modal('close');
   }
   textareaChange(e){
-    console.log(e)
     e ? e.preventDefault() : null
     this.setState({ description: e.target.value})
   }
   componentDidUpdate(previousProps){
-    const { description } = this.props;
+    const { description, display_name } = this.props;
     if (description != previousProps.description){this.setState({ description })};
+    if (display_name && !previousProps.display_name){this.setState({ loading: false })};
   }
 
   componentDidMount(){
     $('.modal').modal();
     textareaExpand($('#descriptionText'));
+    if(this.props.display_name){this.setState({ loading: false })}
   }
   render(){
     const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews, wall_picture } = this.props;
@@ -41,6 +42,12 @@ class MecanoProfile extends Component {
     return (
       <div className="boxes-background">
         <Header>Mon profil mécano</Header>
+        {
+          this.state.loading ?
+            <Loader background={true} />
+          :
+            <div></div>
+        }
         <div className="cover-picture" style={{ backgroundImage: `url(${wall_picture.url})` }}>
           <div className="modal-trigger" data-target="wall_picture_modal">
             <div className="background-edit btn btn-floating">
@@ -76,14 +83,14 @@ class MecanoProfile extends Component {
                     <ProfilePicture currentUser={true}/>
                     <div className="profile-content">
                       <h3 className="capitalize">{ display_name }</h3>
-                      <p>{pro? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
-                      <h6 className="primary-text">{pro? `${price}€/h` : '' }</h6>
+                      <p>{pro === "pro" ? formatMessage(defaultMessages.mecanoPro) : formatMessage(defaultMessages.mecanoNonPro)}</p>
+                      <h6 className="primary-text">{pro === "pro"? `${price}€/h` : '' }</h6>
                     </div>
                   </div>
                   <hr/>
                   <div className="space-between">
                     <p className="no-margin">{city}, {country}</p>
-                    {mobile ? <p className="no-margin green-text">{formatMessage(defaultMessages.mecanoMobile)}</p> : <p className="no-margin red-text">{formatMessage(defaultMessages.mecanoNonMobile)}</p>}
+                    {mobile === "mobile" ? <p className="no-margin green-text">{formatMessage(defaultMessages.mecanoMobile)}</p> : <p className="no-margin red-text">{formatMessage(defaultMessages.mecanoNonMobile)}</p>}
                   </div>
                 </div>
                 <div className="box-shadow white-background marged-20 padded-20">

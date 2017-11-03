@@ -11,24 +11,25 @@ import { googleMapsAutocomplete, formatRegistrationData } from '../../utils/meca
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoRegistration extends Component {
+  constructor(props){
+    super(props);
+    this.state = { loading: !props.mecano_registration };
+  }
   componentDidMount(){
     //SET GOOGLE-PLACE-AUTOCOMPLETE ON THE ADDRESS FIELD
     var input = document.getElementById('icon_full_address');
     var options = { componentRestrictions: {country: ['fr', 'be', 'ch']} };
     googleMapsAutocomplete(input, options, this.props.dispatch, "mecano_registration", "full_address")
   }
-
+  componentDidUpdate(previousProps){
+    if((this.props.mecano_registration && !previousProps.mecano_registration) || (this.props.errors !== previousProps.errors)){
+      this.setState({loading: false})
+    }
+  }
   submit(values){
-    if(values.full_address){
-      values = formatRegistrationData(values, this.props.mobile, this.props.pro);
-    }else{
-      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
-    }
-    if( values['country'] && values['city'] && values['address']){
-      this.props.registerMecano(values, '/mecano_vehicles')
-    }else{
-      this.props.mecanoRegistrationError({ address: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' " });
-    }
+    this.setState({ loading: true });
+    values = formatRegistrationData(values, this.props.mobile, this.props.pro);
+    this.props.registerMecano(values, '/mecano_vehicles')
   }
 
   render(){
@@ -41,12 +42,18 @@ class MecanoRegistration extends Component {
       <div>
         <Header>Enregistrement mécano 1/3</Header>
         <div className="container">
+          {
+            this.state.loading ?
+              <Loader background={true} />
+            :
+              <div></div>
+          }
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <br/>
               <h2>Mon profil</h2>
               <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} />
+              <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} error={ errors.pro } />
               {
                 pro === "pro" ?
                 <div className="row">
@@ -64,7 +71,7 @@ class MecanoRegistration extends Component {
               <br/>
               <h2>Données géographiques</h2>
               <Input id='gplaces' icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
+              <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} error={ errors.mobile }/>
               {
                 mobile === "mobile" ?
                 <div className="row">
@@ -101,6 +108,7 @@ function mapStateToProps(state) {
   return {
     mobile: mecano_registration && mecano_registration.values ? mecano_registration.values.mobile : (state.mecano.mobile ? 'mobile' : 'non_mobile'),
     pro: mecano_registration && mecano_registration.values ? mecano_registration.values.pro : (state.mecano.pro ? 'pro' : 'non_pro'),
+    mecano_registration: mecano_registration,
     isMecano: state.auth.is_mecano,
     errors : state.mecano.errors
   }

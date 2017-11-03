@@ -119,6 +119,16 @@ fr:
               taken: est déjà utilisé pour un compte
         mecano_profile:
           attributes:
+            mobile:
+              blank: doit être spécifié
+            pro:
+              blank: doit être spécifié
+            country:
+              blank: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' "
+            address:
+              blank: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' "
+            city:
+              blank: "Saisissez une addresse sous le format 'n° & rue, Ville, Pays' "
             wall_picture:
               size_too_small: n'est pas d'une réslution assez grande
               size_too_big: est trop volumineuse

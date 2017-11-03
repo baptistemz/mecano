@@ -3,9 +3,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
-import { Header, Input, RadioButtons } from '../../common/index';
+import { Header, Input, RadioButtons, Loader } from '../../common/index';
 
 class VehicleEdit extends Component {
+  constructor(){
+    super();
+    this.state = { loading: false };
+  }
   componentWillMount(){
     // MARK ALREADY REGISTERED CAR MAKES AS SELECTED
     this.props.selectCarMakes(this.props.mecano_car_makes)
@@ -33,7 +37,7 @@ class VehicleEdit extends Component {
       removeCarMake(chip)
     });
   }
-  componentDidUpdate(){
+  componentDidUpdate(previousProps){
     //AUTOCOMPLETE
     $('.chips-autocomplete').material_chip({
       placeholder: 'Marques',
@@ -49,6 +53,7 @@ class VehicleEdit extends Component {
 
 
   submit(values){
+    this.setState({ loading: true });
     const { updateCarDomains, updateMecanoProfile, mecano_id, selected_car_makes } = this.props
     let data = []
     if(values.all_vehicles === 'specific_brands'){
@@ -67,6 +72,12 @@ class VehicleEdit extends Component {
       <div>
         <Header>Édition du profil mécano</Header>
         <div className="container">
+          {
+            this.state.loading ?
+              <Loader background={true} />
+            :
+              <div></div>
+          }
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <h2>Mes domaines de compétences</h2>

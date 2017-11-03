@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toastr } from 'react-redux-toastr';
 import { push } from 'react-router-redux';
-import {reset} from 'redux-form';
+import {initialize} from 'redux-form';
 import { getHeadersObject, setNextHeaders } from '../utils/tokenManagement';
 import {
   MECANO_REGISTRATION_ERROR,
@@ -21,8 +21,17 @@ export function registerMecano(data, next_path){
         dispatch(registeredMecano(response.data.mecano_profile))
         dispatch(push(next_path ? next_path : '/mecano_vehicles'))
       }).catch(error => {
-        console.log(error)
+        console.log(error.response.data.errors)
         dispatch(mecanoRegistrationError(error.response.data.errors));
+        const data = JSON.parse(error.response.config.data)
+        dispatch(initialize("mecano_registration", {
+          pro: data.pro ? "pro" : "non_pro",
+          mobile: data.mobile ? "mobile" : "non_mobile",
+          radius: data.radius,
+          full_address: data.full_address,
+          price: data.price,
+          company_name: data.company_name
+        }))
         setNextHeaders(error.response.headers)
       })
   };
@@ -37,6 +46,15 @@ export function updateMecanoProfile(id, data, next_path){
         if(next_path){dispatch(push(next_path))};
       }).catch(error => {
         dispatch(mecanoRegistrationError(error.response.data.errors));
+        const data = JSON.parse(error.response.config.data)
+        dispatch(initialize("mecano_edit", {
+          pro: data.pro ? "pro" : "non_pro",
+          mobile: data.mobile ? "mobile" : "non_mobile",
+          radius: data.radius,
+          full_address: data.full_address,
+          price: data.price,
+          company_name: data.company_name
+        }))
         setNextHeaders(error.response.headers)
       })
   };
