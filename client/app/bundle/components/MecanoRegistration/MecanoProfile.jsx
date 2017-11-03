@@ -14,7 +14,7 @@ import textareaExpand from '../../utils/textareaExpand'
 class MecanoProfile extends Component {
   constructor(props){
     super(props);
-    this.state={ description: props.decription, loading: true }
+    this.state={ description: props.decription, loading: !props.display_name }
   }
   submitDescription(){
     const { id, updateMecanoProfile } = this.props;
@@ -34,7 +34,6 @@ class MecanoProfile extends Component {
   componentDidMount(){
     $('.modal').modal();
     textareaExpand($('#descriptionText'));
-    if(this.props.display_name){this.setState({ loading: false })}
   }
   render(){
     const { id, display_name, car_makes, technical_skills, pro, price, mobile, city, country, all_vehicles, description, rating, rates_number, reviews, wall_picture } = this.props;

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import PictureUpdate from './PictureUpdate';
-import { Header, EditableField, VehicleCard, Button } from '../common/index';
+import { Header, EditableField, VehicleCard, Button, Loader } from '../common/index';
 import VehicleCreation from './VehicleCreation';
 import PasswordChange from './PasswordChange';
 import { updateProfile, fetchVehicles, deleteVehicle, authError } from '../actions/index';
@@ -11,8 +11,15 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../libs/i18n/default';
 
 class Account extends Component {
+  constructor(props){
+    super(props);
+    this.state = { loading: !props.email };
+  }
   componentWillMount(){
     this.props.authError({})
+  }
+  componentDidUpdate(previousProps){
+    if (this.props.email && !previousProps.email){this.setState({ loading: false })};
   }
   changeProfileField(type, text) {
     const next_path = this.props.location.state ? this.props.location.state.from : null
@@ -31,6 +38,12 @@ class Account extends Component {
       <div className="boxes-background">
         <Header>Mon compte</Header>
         <div className="container">
+          {
+            this.state.loading ?
+              <Loader background={true} />
+            :
+              <div></div>
+          }
           <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
               <h2>Mes infos personnelles</h2>
