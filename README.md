@@ -6,6 +6,7 @@
 * [PostgreSQL installation](#pginst)  
   - [on Mac OSX](#pgim)  
   - [on Linux](#pgil)  
+* [Clone the app](#clone)
 * [Database initialization](#dbi)
 * [How to run the app locally](#apploc)  
 * [How to run the test suite](#test)  
@@ -148,6 +149,15 @@ sudo su - postgres
 psql --command "CREATE ROLE `cat /tmp/caller` LOGIN createdb;"
 exit
 rm -f /tmp/caller
+```
+
+<a name="clone"/>
+
+## Clone the app
+
+```
+git clone git@github.com:baptistemz/mecano.git
+cd mecano
 ```
 
 <a name="dbi"/>
