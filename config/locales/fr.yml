@@ -1,6 +1,22 @@
 fr:
   type: Français
   confirm: confirmer
+  save: Enregistrer
+  contact: contact
+  yes_word: oui
+  no_word: non
+  or: ou
+  terms_of_use: CGU
+  headers:
+    mecano_profile_edit: Édition du profil mécano
+    mecano_registration_1: Enregistrement mécano 1/3
+    mecano_registration_2: Enregistrement mécano 2/3
+    mecano_registration_3: Enregistrement mécano 3/3
+    my_mecano_profile: Mon profil mécano
+    mecano_search_1: Recherche mécano 1/2
+    mecano_search_2: Recherche mécano 2/2
+    search_results: Résultats de la recherche
+    my_account: Mon compte
   datetime:
     distance_in_words:
       half_a_minute: "30 secondes"
@@ -63,11 +79,18 @@ fr:
     no_account_yet_message: Pas encore de compte ? Enregistre toi !
     already_account_message: Déjà un compte ? Connecte toi !
     login: Se connecter
+    logoff: Déconnexion
+    registration: Inscription
+    identification: Identification
     signup: Créer un compte
     current_password: Mot de passe actuel
     new_password: Nouveau mot de passe
     new_password_confirmation: Confirmation du nouveau mot de passe
     change_password: Changer de mot de passe
+  recommendation:
+    no_self_recommendation_message: "Vous ne pouvez pas vous recommander vous-même"
+  service:
+    no_self_contact_message: "Vous ne pouvez pas vous contacter vous-même"
   mecano:
     pro: professionnel
     non_pro: passionné
@@ -86,6 +109,28 @@ fr:
     radius: rayon
     technical_skills_string: domaines techniques
     no_technical_skill_message: Pour que votre profil soit visible, vous devez spécifier vos compétences techniques !
+    missing_content_banner_message: Votre profil n'est pas visible par les utilisateurs de Restor'it. Révisez les erreurs ci-dessous.
+    other_reviews: "Autres avis..."
+    contact_form:
+      email_warning_message: Une fois votre message envoyé, le mécano vous répondra par email sur l'adresse avec laquelle vous êtes connecté. Vérifiez que cette addresse est correcte. Si nécessaire, modifiez-la dans
+      my_account_space: l'espace "mon compte"
+      choose_another_vehicle: Choisir un autre véhicule
+      send_message: Envoyer le message
+    contacted_banner:
+      contacted_mecano: Mécano contacté.
+      done_service: Service effectué
+      done: effectué
+      canceled_service: Service annulé
+      canceled: annulé
+    review:
+      your_feedback: Votre Retour
+      about_the_service: À propos du service
+      finished: Effectué
+      canceled: Annulé
+      amount: "Montant facturé* (optionnel)"
+      confidential_amount_message: "* Cette information restera entièrement confidentielle"
+      rate: notez
+      your_opinion_on: Votre avis sur
     technical_skills:
       car_body: carrosserie
       exhaust: carburation/échappement
@@ -148,6 +193,71 @@ fr:
           attributes:
             user_id:
               taken: Vous avez déjà contacté ce mécano.
+  sidenav:
+    not_connected_login: Non connecté. Identifiez vous
+    or_signup: ou créez un compte
+    home: Accueil
+  mecano_registration:
+    my_domains: Mes domaines de compétences
+    my_profile: Mon profil
+    i_am_a: Je suis un
+    i_am_mobile: Je me déplace
+    i_work_on: Je travaille sur
+    all_vehicles: tous véhicules
+    specific_brands: certaines marques
+    geographic_data: Données géographiques
+    change_page_picture: Changez la photo de votre page
+    type_your_description: Saisissez votre description
+  mecano_search:
+    my_vehicle: Mon véhicule
+    saved_vehicles: Véhicules enregistrés
+    saved: Enregistrés
+    register_new_vehicle: Enregister un véhicule
+    new: Nouveau
+    service_place: Lieu de réparation
+    at_home: À domicile
+    year: Année
+    make: Contructeur
+    model: Modèle
+    trim: extension
+    model_not_found_message: Je ne trouve pas mon modèle.
+    skills_required: Compétences recherchées
+    distance: distance
+    no_mecano_found: Aucun mécano trouvé
+    change_search_radius: modifiez le rayon de recherche
+    change_search_params: modifiez les autres paramètres de recherche
+  account:
+    my_personal_data: Mes infos personnelles
+    my_vehicles: Mes véhicules
+    my_profile_picture: Ma photo de profil
+    choose_a_picture: Choisir une image
+  home:
+    banner_subtitle: Vos entretiens, montages et réparations
+    made_by: Par des
+    non_pros: passionnés
+    and: et des
+    pros: professionnels
+    close_to_you: proches de chez vous.
+    need_mecano_question: Besoin d’un entretien, un montage de pièces ou une réparation ?
+    find_a_mecano: Trouver un mécano
+    first_user_card_title: Tous types d'interventions
+    first_user_card_text: "Réparation, entrerien, rénovation…  Trouvez le mécano correspondant à vos besoins."
+    second_user_card_title: "À proximité ou à domicile"
+    second_user_card_text: Si vous ne pouvez pas vous déplacer, recherchez un mécano pouvant intervenir à domicile.
+    third_user_card_title: Une solution économique
+    third_user_card_text: Sur Restor'it, faîtes-vous conseiller par un passionné ou payez uniquement la main d’oeuvre d’un professionnel.
+    mecanos: Mécanos
+    mecano_card_intro: Professionnels ou passionnés, aidez les propriétaires de voitures proches de vous à effectuer tous leurs travaux mécaniques.
+    first_mecano_card_title: Professionnels
+    first_mecano_card_text: Agrandissez votre clientelle. Proposez vos services aux propriétaires de voitures qui ont besoin de vous.
+    second_mecano_card_title: Passionnés
+    second_mecano_card_text: Rejoignez une communauté locale aimant les mêmes voitures que vous. Donnez et recevez des conseils pour vos travaux mécaniques.
+    my_mecano_profile: Mon profil mécano
+    create_a_mecano_profile: Créer un profil mécano
+  validations:
+    vehicle_needed: Veuillez choisir un véhicule ou en enregistrer un nouveau
+    required: Requis
+    address_at_least: "Saisissez au moins une ville et un pays au format 'Ville, Pays'"
   admin:
     js:
       true: Vrai

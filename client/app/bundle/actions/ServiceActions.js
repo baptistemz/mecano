@@ -15,6 +15,7 @@ export function contact(values){
   return dispatch => {
     return axios.post(`/api/services`, values)
       .then(response => {
+        console.log("response", response)
         setNextHeaders(response.headers)
         dispatch(push(`/mecanos/${response.data.service.mecano_profile_id}`))
         toastr.success('Le mécano a bien été contacté');

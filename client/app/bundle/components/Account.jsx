@@ -34,9 +34,10 @@ class Account extends Component {
   }
   render() {
     const { first_name, last_name, email, vehicles, errorMessages } = this.props;
+    const { formatMessage } = this.props.intl;
     return (
       <div className="boxes-background">
-        <Header>Mon compte</Header>
+        <Header>{formatMessage(defaultMessages.headersMyAccount)}</Header>
         <div className="container">
           {
             this.state.loading ?
@@ -46,7 +47,7 @@ class Account extends Component {
           }
           <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
-              <h2>Mes infos personnelles</h2>
+              <h2>{formatMessage(defaultMessages.accountMyPersonalData)}</h2>
             </div>
             <div className="row">
               <div className="col s6 m4">
@@ -85,7 +86,7 @@ class Account extends Component {
           </div>
           <div className="box-shadow marged-20 padded-50-except-top">
             <div className="text-center">
-              <h2>Mes véhicules</h2>
+              <h2>{formatMessage(defaultMessages.accountMyVehicles)}</h2>
             </div>
             <div className="row">
               {vehicles.map((vehicle)=>{
@@ -105,11 +106,8 @@ class Account extends Component {
           <div className="box-shadow marged-20 padded-20">
             <div className="row">
               <div className="col s12 offset-m3 m6">
-                <PasswordChange errorMessages={errorMessages} />
                 <br/>
-              </div>
-              <div className="col s12 offset-m3 m6">
-                <Button fullWidth={true} icon="delete">Supprimer le compte</Button>
+                <PasswordChange errorMessages={errorMessages} />
               </div>
             </div>
           </div>

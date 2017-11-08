@@ -11,6 +11,7 @@ import { createStore } from 'redux';
 import reducers from '../bundle/reducers';
 import chaiJquery from 'chai-jquery';
 import { IntlProvider } from 'react-intl';
+import { defaultLocale } from '../libs/i18n/default';
 
 const history = createHistory();
 
@@ -21,12 +22,13 @@ const win = doc.window;
 global.document = win.document;
 global.window = win;
 const $ = jquery(global.window)
+global.$ = $
 
 // build renderComponent helper that should render a given react class
 function renderComponent(ComponentClass, props, state){
   const componentInstance = TestUtils.renderIntoDocument(
     <Provider store={createStore(reducers, state)}>
-      <IntlProvider locale="fr">
+      <IntlProvider>
         <ConnectedRouter history={history}>
           <ComponentClass { ...props }/>
         </ConnectedRouter>

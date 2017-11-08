@@ -21,11 +21,11 @@ class MecanoSearchDomains extends Component {
     const { handleSubmit } = this.props
     return (
       <div className="boxes-background">
-        <Header>Recherche mécano 2/2</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoSearch2)}</Header>
         <div className="container">
           <div className="row">
             <div className="col s12 text-center">
-              <h2>Compétences recherchées</h2>
+              <h2>{formatMessage(defaultMessages.mecanoSearchSkillsRequired)}</h2>
             </div>
             <br/>
             <form onSubmit={handleSubmit(values => this.submit(values))}>

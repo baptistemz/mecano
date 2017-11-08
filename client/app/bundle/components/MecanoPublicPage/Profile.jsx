@@ -32,7 +32,7 @@ class Profile extends Component {
           }
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <h4 className="text-center">Domaines techniques</h4>
+          <h4 className="text-center">{formatMessage(defaultMessages.mecanoTechnicalSkillsString)}</h4>
           <br/>
           <DomainList kind="technical_skills" domains={technicalSkills} ownProfile={ true }/>
         </div>

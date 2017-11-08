@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../libs/i18n/default';
 import { updateProfile, validateToken } from '../actions/index';
 import { Loader, ProfilePicture } from '../common/index';
 import getBase64 from '../utils/getBase64'
@@ -11,7 +13,9 @@ class PictureUpdate extends Component {
     this.state = { loadingImage: false }
   }
   componentWillReceiveProps(nextProps){
-    const loadingImage = !nextProps.profile_picture
+    let loadingImage = !(nextProps.profile_picture);
+    if (nextProps.profile_picture === null){loadingImage = false};
+    console.log(nextProps.profile_picture)
     this.setState({ loadingImage })
   }
   handleImageChange(e) {
@@ -32,11 +36,12 @@ class PictureUpdate extends Component {
 
   render(){
     const img = this.state.loadingImage ? <Loader/> : <ProfilePicture currentUser={true} />
+    const { formatMessage } = this.props.intl
     return (
       <div className="picture-update-group justify-center">
         <div style={{marginRight: "20px"}}>
-          <h5>Ma photo de profil</h5>
-          <label htmlFor={"file"} className="fileLabel"><div className="btn">Choisir une image</div></label>
+          <h5>{formatMessage(defaultMessages.accountMyProfilePicture)}</h5>
+          <label htmlFor={"file"} className="fileLabel"><div className="btn">{formatMessage(defaultMessages.accountChooseAPicture)}</div></label>
           <input id="file" className="fileInput"
             type="file"
             onChange={(e)=>this.handleImageChange(e)} />
@@ -59,4 +64,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PictureUpdate);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(PictureUpdate));

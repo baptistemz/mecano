@@ -3,7 +3,7 @@ class Service < ActiveRecord::Base
   belongs_to :mecano_profile
   belongs_to :user
   belongs_to :vehicle
-  has_one :review
+  has_one :review, dependent: :nullify
   enumerize :status, in: [:pending, :canceled, :finished]
   validates_presence_of :user_id, :mecano_profile_id, :status
   validates_uniqueness_of :user_id, scope: [:mecano_profile_id, :status], unless: :advanced_service?
@@ -17,7 +17,7 @@ class Service < ActiveRecord::Base
   end
 
   def no_self_service
-    errors.add(:user_id, "Vous ne pouvez pas vous contacter vous-même") if user_id == mecano_profile.user_id
+    errors.add(:user_id, I18n.t('recommendation.no_self_contact_message')) if user_id == mecano_profile.user_id
   end
 
   def advanced_service?

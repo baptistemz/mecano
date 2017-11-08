@@ -106,7 +106,7 @@ class ContactForm extends Component {
     return(
       <div>
         <div className="box-shadow white-background marged-20 padded-20">
-          <p>Une fois votre message envoyé, le mécano vous répondra par email sur l'adresse avec laquelle vous êtes connecté. Vérifiez que cette addresse est correcte. Si nécessaire, modifiez-la dans <Link to={{ pathname: '/my_account', state: { from: this.props.location, redirected: true } }}>l'espace "mon compte"</Link></p>
+          <p>{formatMessage(defaultMessages.mecanoContactFormEmailWarningMessage)} <Link to={{ pathname: '/my_account', state: { from: this.props.location, redirected: true } }}>{formatMessage(defaultMessages.mecanoContactFormMyAccountSpace)}</Link></p>
         </div>
         <div className="box-shadow white-background marged-20 padded-20">
           <h5 className="capitalize text-center">Contacter ce mécano</h5>
@@ -124,17 +124,19 @@ class ContactForm extends Component {
                   <p>{vehicle.brand} {vehicle.model} {vehicle.trim} de {vehicle.year}</p>
                   <div className="btn btn-small" onClick={() =>{
                       this.setState({newVehicle: true})
-                    }}>Choisir un autre véhicule</div>
+                    }}>{formatMessage(defaultMessages.mecanoContactFormChooseAnotherVehicle)}</div>
                 </div>
             }
           </div>
 
           <div className="input-field">
             <textarea id="messageText" ref="message" className="materialize-textarea" data-length={5000}></textarea>
-            <label htmlFor="messageText">Message</label>
+            <label htmlFor="messageText">{formatMessage(defaultMessages.adminTableHeadersMessage)}</label>
           </div>
           <div>
-            <Button clickTrigger={() => this.submitMessage()} className= "full-width" icon="mail_outline">Envoyer le message</Button>
+            <Button clickTrigger={() => this.submitMessage()} className= "full-width" icon="mail_outline">
+              {formatMessage(defaultMessages.mecanoContactFormSendMessage)}
+            </Button>
           </div>
         </div>
       </div>

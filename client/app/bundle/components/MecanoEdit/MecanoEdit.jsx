@@ -35,7 +35,7 @@ class MecanoEdit extends Component {
     const { formatMessage } = this.props.intl
     return (
       <div>
-        <Header>Édition du profil mécano</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoProfileEdit)}</Header>
         <div className="container">
           {
             this.state.loading ?
@@ -46,9 +46,9 @@ class MecanoEdit extends Component {
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <br/>
-              <h2>Mon profil</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationMyProfile)}</h2>
               <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} />
+              <RadioButtons name="pro" label={formatMessage(defaultMessages.mecanoRegistrationIAmA)} options={{ "pro": formatMessage(defaultMessages.mecanoPro), "non_pro":formatMessage(defaultMessages.mecanoNonPro) }} />
               {
                 pro === "pro" ?
                 <div className="row">
@@ -64,9 +64,9 @@ class MecanoEdit extends Component {
             </div>
             <div className="col s12 l6 text-center">
               <br/>
-              <h2>Données géographiques</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationGeographicData)}</h2>
               <Input icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address || errors.city || errors.country} />
-              <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} />
+              <RadioButtons label={formatMessage(defaultMessages.mecanoRegistrationIAmMobile)} name="mobile" options={{"mobile": formatMessage(defaultMessages.yesWord), "non_mobile": formatMessage(defaultMessages.noWord)}} />
               {
                 mobile === "mobile" ?
                 <div className="row">

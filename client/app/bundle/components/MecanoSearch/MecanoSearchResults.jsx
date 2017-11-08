@@ -42,6 +42,7 @@ class MecanoSearchResults extends Component {
   }
 
   searchResults(){
+    const { formatMessage } = this.props.intl;
     const { mecano_search_results } = this.props;
     if(this.state.loading){
       return(
@@ -59,13 +60,13 @@ class MecanoSearchResults extends Component {
           <div className="right-arrow">
             <i className="material-icons">undo</i>
           </div>
-          <h5 className="text-center">Aucun mécano trouvé</h5>
+          <h5 className="text-center">{formatMessage(defaultMessages.mecanoSearchNoMecanoFound)}</h5>
           <div className="col s5">
-            <p>modifiez le rayon de recherche</p>
+            <p>{formatMessage(defaultMessages.mecanoSearchChangeSearchRadius)}</p>
           </div>
-          <div style={{marginTop: '16px'}} className="col s2">OU</div>
+          <div style={{marginTop: '16px'}} className="col s2">{formatMessage(defaultMessages.or).toUpperCase()}</div>
           <div className="col s5">
-            <p>modifiez les autres paramètres de recherche</p>
+            <p>{formatMessage(defaultMessages.mecanoSearchChangeSearchParams)}</p>
           </div>
         </div>
       )
@@ -88,17 +89,17 @@ class MecanoSearchResults extends Component {
     })
     return (
       <div className="boxes-background">
-        <Header>Résultats de la recherche</Header>
+        <Header>{formatMessage(defaultMessages.headersSearchResults)}</Header>
         <div className="filters-group">
           <div className="container">
             <div className="row">
               <div className="input-field col s4 offset-m2 m4 l6">
                 <select defaultValue={distance} onChange={(e) => {this.onDistanceChange(e)}}>
-                  <option value="0">À domicile</option>
+                  <option value="0">{formatMessage(defaultMessages.mecanoSearchAtHome)}</option>
                   <option value="10">{'< 10km'}</option>
                   <option value="50">{'< 50km'}</option>
                 </select>
-                <label>Distance</label>
+                <label>{formatMessage(defaultMessages.mecanoSearchDistance)}</label>
               </div>
               <div className="col s8 m4 l6">
                 <div className= "space-between flex-end">

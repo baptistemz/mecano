@@ -5,10 +5,7 @@ class Recommendation < ActiveRecord::Base
   validate :no_self_recommendation #important (a mecano mustn't be able to recommend himself)
 
   def no_self_recommendation
-    Rails.logger.debug("user_id: #{user_id}")
-    Rails.logger.debug("domain: #{domain.id}")
-    Rails.logger.debug("mecano_profile: #{domain.mecano_profile.user_id}")
-    errors.add(:user_id, "Vous ne pouvez pas vous recommander vous-même") if user_id == domain.mecano_profile.user_id
+    errors.add(:user_id, I18n.t('recommendation.no_self_recommendation_message')) if user_id == domain.mecano_profile.user_id
   end
 
   def name

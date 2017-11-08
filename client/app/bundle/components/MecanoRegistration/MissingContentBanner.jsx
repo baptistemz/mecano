@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Button} from './index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
-const MissingContentBanner = () => {
+let MissingContentBanner = (props) => {
+  const { formatMessage } = props.intl;
   return (
     <div className="missing-content-banner justify-center align-center">
       <i className="material-icons">error</i>
       <p>
-        Votre profil n'est pas visible par les utilisateurs de Restor'it. Révisez les erreurs ci-dessous.
+        {formatMessage(defaultMessages.mecanoMissingContentBannerMessage)}
       </p>
     </div>
   );
 };
+
+MissingContentBanner = injectIntl(MissingContentBanner);
 
 export { MissingContentBanner };

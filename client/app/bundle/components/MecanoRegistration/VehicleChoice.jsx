@@ -5,6 +5,8 @@ import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import autocomplete from '../../utils/autocomplete';
 import { Header, Input, RadioButtons, Loader } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class VehicleChoice extends Component {
   constructor(){
@@ -83,9 +85,10 @@ class VehicleChoice extends Component {
   }
   render(){
     const { handleSubmit, specific_vehicles, car_makes_list } = this.props;
+    const { formatMessage } = this.props.intl;
     return (
       <div>
-        <Header>Enregistrement mécano 2/3</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoRegistration2)}</Header>
         <div className="container">
           {
             this.state.loading ?
@@ -95,11 +98,11 @@ class VehicleChoice extends Component {
           }
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
-              <h2>Mes domaines de compétences</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationMyDomains)}</h2>
               <br/>
             </div>
             <div className="col s12">
-              <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
+              <RadioButtons name="all_vehicles" label={formatMessage(defaultMessages.mecanoRegistrationIWorkOn)} options={{"all_vehicles": formatMessage(defaultMessages.mecanoRegistrationAllVehicles), "specific_brands":formatMessage(defaultMessages.mecanoRegistrationSpecificBrands)}} />
               <br/>
               {
                 specific_vehicles ?
@@ -141,7 +144,7 @@ function mapStateToProps(state) {
   }
 }
 
-VehicleChoice = connect(mapStateToProps, mapDispatchToProps)(VehicleChoice)
+VehicleChoice = injectIntl(connect(mapStateToProps, mapDispatchToProps)(VehicleChoice));
 
 
 export { VehicleChoice };

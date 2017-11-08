@@ -24,7 +24,7 @@ export default function (state = INITIAL_STATE, action) {
       return INITIAL_STATE
     case LOGIN_SUCCESS:{
       const { email, first_name, last_name, profile_picture, is_mecano, id } = action.user;
-      return { ...state, isAuthenticated: true, errors: {}, email, first_name, last_name, profile_picture, is_mecano, id }
+      return { ...state, email, first_name, last_name, profile_picture, is_mecano, id, isAuthenticated: true, errors: {} }
     }
     case PROFILE_UPDATED:{
       const { email, first_name, last_name, profile_picture, is_mecano, id } = action.user;

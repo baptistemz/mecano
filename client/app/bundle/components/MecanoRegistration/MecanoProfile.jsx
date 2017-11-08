@@ -40,7 +40,7 @@ class MecanoProfile extends Component {
     const { formatMessage } = this.props.intl;
     return (
       <div className="boxes-background">
-        <Header>Mon profil mécano</Header>
+        <Header>{formatMessage(defaultMessages.headersMyMecanoProfile)}</Header>
         {
           this.state.loading ?
             <Loader background={true} />
@@ -56,7 +56,7 @@ class MecanoProfile extends Component {
           <div id="wall_picture_modal" className="modal">
             <div className="modal-content">
               <div className="full-width text-center">
-                <h2>Changez la photo de votre page</h2>
+                <h2>{formatMessage(defaultMessages.mecanoRegistrationChangePagePicture)}</h2>
                 <WallPictureUpdate />
               </div>
             </div>
@@ -103,13 +103,13 @@ class MecanoProfile extends Component {
                     <div className="modal-content">
                       <form className="margin-bottom-20">
                         <div className="full-width text-center">
-                          <h2>Saisissez votre description</h2>
+                          <h2>{formatMessage(defaultMessages.mecanoRegistrationTypeYourDescription)}</h2>
                         </div>
                         <br/>
                         <label htmlFor="descriptionText">{formatMessage(defaultMessages.mecanoDescription)}</label>
                         <textarea id="descriptionText" onChange={(e) => this.textareaChange(e)} value={this.state.description || ""} ref="description" className="materialize-textarea" data-length={400}></textarea>
                       </form>
-                      <Button style={{ marginTop: '20px' }} clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">Enregistrer</Button>
+                      <Button style={{ marginTop: '20px' }} clickTrigger={() => this.submitDescription()} fullWidth={true} type="submit">{formatMessage(defaultMessages.save)}</Button>
                     </div>
                   </div>
                   {description === null || description.length === 0 ?
@@ -126,7 +126,7 @@ class MecanoProfile extends Component {
                   {reviews.length > 0 ?
                     <ReviewList title={formatMessage(defaultMessages.mecanoReviews)}
                       reviews={reviews} expandable={ reviews.length < rates_number}
-                      loadMessage="Autres avis..." id={id} />
+                      loadMessage={formatMessage(defaultMessages.mecanoOtherReviews)} id={id} />
                   :
                     <div></div>
                   }

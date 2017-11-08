@@ -30,8 +30,8 @@ class Home extends Component{
           <div className="title-group">
             <h1 className='white-shadowed-text'>Restor'it</h1>
             <hr/>
-            <h2 className='white-shadowed-text'>Vos entretiens, montages et réparations</h2>
-            <h2 className='white-shadowed-text'>Par des <span className="primary-text">passionnés</span> et des <span className="primary-text">professionnels</span> proches de chez vous.</h2>
+            <h2 className='white-shadowed-text'>{formatMessage(defaultMessages.homeBannerSubtitle)}</h2>
+            <h2 className='white-shadowed-text'>{formatMessage(defaultMessages.homeMadeBy)} <span className="primary-text">{formatMessage(defaultMessages.homeNonPros)}</span> {formatMessage(defaultMessages.homeAnd)} <span className="primary-text">{formatMessage(defaultMessages.homePros)}</span> {formatMessage(defaultMessages.homeCloseToYou)}</h2>
           </div>
           <a id="topArrow" className="scroll-arrow">
             <i className="material-icons">keyboard_arrow_down</i>
@@ -39,9 +39,9 @@ class Home extends Component{
         </div>
         <div id="firstAnchor" className="huge-border"></div>
         <div className="container text-center vertical-marged-100">
-          <p><big>Besoin d’un entretien, un montage de pièces ou une réparation ?</big></p>
+          <p><big>{formatMessage(defaultMessages.homeNeedMecanoQuestion)}</big></p>
           <Link to={'/mecano_search'}>
-            <Button>Trouver un mécano</Button>
+            <Button>{formatMessage(defaultMessages.homeFindAMecano)}</Button>
           </Link>
         </div>
         <div className="huge-border hide-on-med-and-down"></div>
@@ -49,21 +49,21 @@ class Home extends Component{
           <div>
             <div className="home-card home-card-width-managed translucid-background">
               <img src="/home_icon_1.png" alt=""/>
-              <h5>{"Tous types d'interventions"}</h5>
+              <h5>{formatMessage(defaultMessages.homeFirstUserCardTitle)}</h5>
               <div className="divider"></div>
-              <p>Réparation, entrerien, rénovation…  Trouvez le mécano correspondant à vos besoins.</p>
+              <p>{formatMessage(defaultMessages.homeFirstUserCardText)}</p>
             </div>
             <div className="home-card home-card-width-managed translucid-background">
               <img src="/home_icon_2.png" alt=""/>
-              <h5>À proximité ou à domicile</h5>
+              <h5>{formatMessage(defaultMessages.homeSecondUserCardTitle)}</h5>
               <div className="divider"></div>
-              <p>Si vous ne pouvez pas vous déplacer, recherchez un mécano pouvant intervenir à domicile.</p>
+              <p>{formatMessage(defaultMessages.homeSecondUserCardText)}</p>
             </div>
             <div className="home-card home-card-width-managed translucid-background">
               <img src="/home_icon_3.png" alt=""/>
-              <h5>Une solution économique</h5>
+              <h5>{formatMessage(defaultMessages.homeThirdUserCardTitle)}</h5>
               <div className="divider"></div>
-              <p>{"Sur Restor'it, faîtes-vous conseiller par un passionné ou payez uniquement la main d’oeuvre d’un professionnel."}</p>
+              <p>{formatMessage(defaultMessages.homeThirdUserCardText)}</p>
             </div>
           </div>
         </div>
@@ -72,34 +72,34 @@ class Home extends Component{
           <div className="row">
             <div className="text-center">
               <br/>
-              <h3>Mécanos</h3>
+              <h3>{formatMessage(defaultMessages.homeMecanos)}</h3>
               <br/>
-              <p>Professionnels ou passionnés, aidez les propriétaires de voitures proches de vous à effectuer tous leurs travaux mécaniques. </p>
+              <p>{formatMessage(defaultMessages.homeMecanoCardIntro)}</p>
               <br/>
               <div className="col s12 l6">
                 <div className="home-card column-card secondary-background">
                   <img src="/home_icon_4.png" alt=""/>
-                  <h5>Professionnels</h5>
+                  <h5>{formatMessage(defaultMessages.homeFirstMecanoCardTitle)}</h5>
                   <div className="divider"></div>
-                  <p>Agrandissez votre clientelle. proposez vos services aux propriétaires de voitures qui ont besoin de vous.</p>
+                  <p>{formatMessage(defaultMessages.homeFirstMecanoCardText)}</p>
                 </div>
               </div>
               <div className="col s12 l6">
                 <div className="home-card column-card secondary-background">
                   <img src="/home_icon_5.png" alt=""/>
-                  <h5>Passionnés</h5>
+                  <h5>{formatMessage(defaultMessages.homeSecondMecanoCardTitle)}</h5>
                   <div className="divider"></div>
-                  <p>Rejoignez une communauté locale aimant les mêmes voitures que vous. Donnez et recevez des conseils pour vos travaux mécaniques.</p>
+                  <p>{formatMessage(defaultMessages.homeSecondMecanoCardText)}</p>
                 </div>
               </div>
               <div className="margin-top-50" style={{ display: "inline-block" }}>
                 {this.props.isMecano ?
                   <Link to={'/mecano_profile'}>
-                    <Button>Mon profil mécano</Button>
+                    <Button>{formatMessage(defaultMessages.homeMyMecanoProfile)}</Button>
                   </Link>
                   :
                   <Link to={'/mecano_signup'}>
-                    <Button>Créer un profil mécano</Button>
+                    <Button>{formatMessage(defaultMessages.homeCreateAMecanoProfile)}</Button>
                   </Link>
                 }
               </div>

@@ -22,10 +22,10 @@ class Login extends Component{
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
+  componentDidMount() {
     if(this.props.location.state
       && this.props.location.state.redirected){
-      toastr.info("Veuillez vous connecter pour réaliser cette action")
+        toastr.info("Veuillez vous connecter pour réaliser cette action")
     }
   }
   submit({ email, password }, next_path){
@@ -47,7 +47,7 @@ class Login extends Component{
                 <div className="box-shadow padded-50-except-top">
                   <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
                     <div className="text-center padded-20">
-                      <h5>Identification</h5>
+                      <h5>{formatMessage(defaultMessages.userIdentification)}</h5>
                     </div>
                     <Input icon="email" name="email" label={formatMessage(defaultMessages.userEmail)} type="email" />
                     <Input icon="lock_outline" name="password" label={formatMessage(defaultMessages.userPassword)} type="password" />

@@ -38,7 +38,7 @@ class Signup extends Component{
               <div className="box-shadow padded-50-except-top">
                 <form onSubmit={handleSubmit(values => this.submit(values, next_path))}>
                   <div className="text-center padded-20">
-                    <h5>Inscription</h5>
+                    <h5>{formatMessage(defaultMessages.userRegistration)}</h5>
                   </div>
                   <Input icon="perm_identity" name="first_name" label={formatMessage(defaultMessages.userFirstName)}  type="text" error={errorMessages["first_name"]} />
                   <Input icon="perm_identity" name="last_name" label={formatMessage(defaultMessages.userLastName)} type="text" error={errorMessages["last_name"]} />

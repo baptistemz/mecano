@@ -256,7 +256,7 @@ home:
 ```
 To call the welcome message from the rails app you must call:
 ```
-  t('home.welcome')
+  I18n.t('home.welcome')
 ```
 
 To call the welcome message from a react component:

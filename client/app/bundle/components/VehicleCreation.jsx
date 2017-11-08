@@ -5,6 +5,8 @@ import { Field, reduxForm } from 'redux-form';
 import carQueryConfig from '../utils/carQueryConfig';
 import { Button } from '../common/index';
 import { createVehicle } from '../actions/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../libs/i18n/default';
 
 class VehicleCreation extends Component {
   componentDidMount(){
@@ -34,43 +36,44 @@ class VehicleCreation extends Component {
   }
   render(){
     const { handleSubmit, wholeForm } = this.props;
+    const { formatMessage } = this.props.intl;
     return(
       <form onSubmit={(e) => this.submit(e)}>
         <div>
           <div className="row">
             <div className="col s12 m6 l3">
-              <label htmlFor="year">Année</label>
+              <label htmlFor="year">{formatMessage(defaultMessages.mecanoSearchYear)}</label>
               <select name="year" ref="year" id="year" />
             </div>
             <div className="col s12 m6 l3">
-              <label htmlFor="brand">Contructeur</label>
+              <label htmlFor="brand">{formatMessage(defaultMessages.mecanoSearchMake)}</label>
               <select name="brand" ref="brand" id="brand" />
             </div>
             <div id="model-select-group">
               <div className="col s12 m6 l3">
-                <label htmlFor="model_select">Modèle</label>
+                <label htmlFor="model_select">{formatMessage(defaultMessages.mecanoSearchModel)}</label>
                 <select name="model_select" ref="model_select" id="model_select" />
               </div>
               <div className="col s12 m6 l3">
-                <label htmlFor="trim">Extension</label>
+                <label htmlFor="trim">{formatMessage(defaultMessages.mecanoSearchTrim)}</label>
                 <select name="trim" ref="trim" id="trim" />
               </div>
             </div>
             <div id="model-string-group">
               <div className="col s12 m12 l6">
-                <label htmlFor="model_string">Modèle</label>
+                <label htmlFor="model_string">{formatMessage(defaultMessages.mecanoSearchModel)}</label>
                 <input style={{ margin: 0 }} name="model_string" ref="model_string" id="model_string" />
               </div>
             </div>
             <div className="col offset-l6 s12 l6">
               <p>
                 <input type="checkbox" ref="model_not_found" id="model-not-found" onChange={() => this.manageInputs()} />
-                <label htmlFor="model-not-found">Je ne trouve pas mon modèle.</label>
+                <label htmlFor="model-not-found">{formatMessage(defaultMessages.mecanoSearchModelNotFoundMessage)}</label>
               </p>
             </div>
           </div>
         </div>
-        <Button icon="drive_eta" type="submit">enregistrer un véhicule</Button>
+        <Button icon="drive_eta" type="submit">{formatMessage(defaultMessages.mecanoSearchRegisterNewVehicle)}</Button>
       </form>
     )
   }
@@ -80,4 +83,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ createVehicle }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(VehicleCreation)
+export default injectIntl(connect(null, mapDispatchToProps)(VehicleCreation));

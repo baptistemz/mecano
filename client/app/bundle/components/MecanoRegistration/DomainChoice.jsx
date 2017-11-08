@@ -20,11 +20,11 @@ class DomainChoice extends Component {
     const { formatMessage } = this.props.intl;
     return (
       <div>
-        <Header>Enregistrement mécano 3/3</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoRegistration3)}</Header>
         <div className="container">
           <div className="row">
             <div className="col s12 text-center">
-              <h2>Mes domaines de compétences</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationMyDomains)}</h2>
             </div>
             <br/>
             <form onSubmit={handleSubmit(values => this.submit(values))}>

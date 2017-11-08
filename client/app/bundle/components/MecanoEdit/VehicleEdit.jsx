@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { fetchCarMakes, selectCarMakes, selectCarMake, removeCarMake, updateCarDomains, updateMecanoProfile } from '../../actions/index';
 import { Header, Input, RadioButtons, Loader } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
 class VehicleEdit extends Component {
   constructor(){
@@ -67,10 +69,11 @@ class VehicleEdit extends Component {
   }
   render(){
     const { handleSubmit, specific_brands } = this.props;
+    const { formatMessage } = this.props.intl
     const input_style = specific_brands ? { display: "block"} : { display: "none" };
     return (
       <div>
-        <Header>Édition du profil mécano</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoProfileEdit)}</Header>
         <div className="container">
           {
             this.state.loading ?
@@ -80,11 +83,11 @@ class VehicleEdit extends Component {
           }
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
-              <h2>Mes domaines de compétences</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationMyDomains)}</h2>
               <br/>
             </div>
             <div className="col s12">
-              <RadioButtons name="all_vehicles" label="Je travaille sur" options={{"all_vehicles": "tous véhicules", "specific_brands":"certaines marques"}} />
+              <RadioButtons name="all_vehicles" label={formatMessage(defaultMessages.mecanoRegistrationIWorkOn)} options={{"all_vehicles": formatMessage(defaultMessages.mecanoRegistrationAllVehicles), "specific_brands":formatMessage(defaultMessages.mecanoRegistrationSpecificBrands)}} />
               <br/>
               {
                 specific_brands ?
@@ -128,6 +131,6 @@ function mapStateToProps({form, mecano, vehicle}) {
   }
 }
 
-VehicleEdit = connect(mapStateToProps, mapDispatchToProps)(VehicleEdit)
+VehicleEdit = injectIntl(connect(mapStateToProps, mapDispatchToProps)(VehicleEdit));
 
 export { VehicleEdit };

@@ -38,35 +38,35 @@ class Review extends Component {
     return (
       <div className="box-shadow white-background marged-20 padded-20">
         <div className="text-center">
-          <h2>Retour</h2>
+          <h2>{formatMessage(defaultMessages.mecanoReviewYourFeedback)}</h2>
         </div>
         <br/>
         <div className="text-center">
-          <h5>À propos du service</h5>
+          <h5>{formatMessage(defaultMessages.mecanoReviewAboutTheService)}</h5>
         </div>
         <form onSubmit={handleSubmit(values => this.submit(values))}>
-          <RadioButtons name="status" label="Le service a été" options={{ "finished": "Effectué", "canceled": "Annulé" }} />
+          <RadioButtons name="status" label="Le service a été" options={{ "finished": formatMessage(defaultMessages.mecanoReviewFinished), "canceled": formatMessage(defaultMessages.mecanoReviewCanceled) }} />
           {finished ?
             (
               <div>
                 <br/>
                 <div className='justify-center'>
-                  <Input icon="monetization_on" name="amount" label="Montant facturé* (optionnel)" type="number" />
+                  <Input icon="monetization_on" name="amount" label={formatMessage(defaultMessages.mecanoReviewAmount)} type="number" />
                   <span className="price-unit">€</span>
                 </div>
                 <div className="text-center">
-                  <div className="grey-text">* Cette information restera entièrement confidentielle</div>
+                  <div className="grey-text">{formatMessage(defaultMessages.mecanoReviewConfidentialAmountMessage)}</div>
                 </div>
                 <br/>
                 <div className="text-center">
-                  <h5>Notez {display_name}</h5>
+                  <h5>{formatMessage(defaultMessages.mecanoReviewRate)} {display_name}</h5>
                 </div>
                 <div className="big-stars">
                   <Rater rating={mark} onRate={(e)=> changeMark(e.rating)} />
                 </div>
                 <div className="input-field">
                   <textarea id="commentText" ref="comment" className="materialize-textarea" data-length={200}></textarea>
-                  <label htmlFor="commentText">Votre avis sur {display_name}</label>
+                  <label htmlFor="commentText">{formatMessage(defaultMessages.mecanoReviewYourOpinionOn)} {display_name}</label>
                 </div>
               </div>
             )
@@ -75,7 +75,7 @@ class Review extends Component {
           }
           <br/>
           <div className="full-width justify-center">
-            <Button onClick={handleSubmit(values => this.submit(values))} icon="playlist_add_check">Valider</Button>
+            <Button onClick={handleSubmit(values => this.submit(values))} icon="playlist_add_check">{formatMessage(defaultMessages.confirm)}</Button>
           </div>
         </form>
       </div>

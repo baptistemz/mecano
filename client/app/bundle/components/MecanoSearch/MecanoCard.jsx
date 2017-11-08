@@ -2,8 +2,11 @@ import Rater from 'react-rater'
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProfilePicture } from '../../common/index';
+import { injectIntl } from 'react-intl';
+import { defaultMessages } from '../../../libs/i18n/default';
 
-const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, city, country }) => {
+let MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, city, country, intl }) => {
+  const { formatMessage } = intl;
   return(
     <div className="col s12 offset-m2 m8 l6">
       <Link to={`/mecanos/${title.replace(/\s/g, '-')}_${city.replace(/\s/g, '-')}_${country.replace(/\s/g, '-')}_${id}`}>
@@ -21,14 +24,14 @@ const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, c
               <h4 className="secondary-text">{title}</h4>
             </div>
             <div className="space-between flex-end">
-              {pro ? <p className="bold-grey primary-text">Professionnel</p> : <p className="bold-grey ">Passionné</p>}
+              {pro ? <p className="bold-grey primary-text">{formatMessage(defaultMessages.mecanoPro)}</p> : <p className="bold-grey ">{formatMessage(defaultMessages.mecanoNonPro)}</p>}
               <span><Rater interactive={false} rating={rating} /></span>
             </div>
             <div className="space-between flex-end">
               {mobile ?
-                <p className="green-text">Se déplace</p>
+                <p className="green-text">{formatMessage(defaultMessages.mecanoMobile)}</p>
                 :
-                <p className="red-text">Ne se déplace pas</p>
+                <p className="red-text">{formatMessage(defaultMessages.mecanoNonMobile)}</p>
               }
               {pro ?
                 <p className="secondary-text"><big>{price}€/h</big></p>
@@ -42,5 +45,7 @@ const MecanoCard = ({ id, title, pro, mobile, price, rating, imgSrc, distance, c
     </div>
   )
 }
+
+MecanoCard = injectIntl(MecanoCard)
 
 export { MecanoCard };

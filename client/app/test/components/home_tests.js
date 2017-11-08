@@ -11,6 +11,6 @@ describe('Home', () => {
     expect(component.find('.banner')).to.exist;
   });
   it('displays the CTAs', () => {
-    expect(component.find('.banner')).to.exist;
+    expect(component.find('button').length).to.equal(2);
   });
 });

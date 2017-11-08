@@ -40,7 +40,7 @@ class MecanoRegistration extends Component {
     }
     return (
       <div>
-        <Header>Enregistrement mécano 1/3</Header>
+        <Header>{formatMessage(defaultMessages.headersMecanoRegistration1)}</Header>
         <div className="container">
           {
             this.state.loading ?
@@ -51,9 +51,9 @@ class MecanoRegistration extends Component {
           <form onSubmit={handleSubmit(values => this.submit(values))}>
             <div className="col s12 l6 text-center">
               <br/>
-              <h2>Mon profil</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationMyProfile)}</h2>
               <PictureUpdate/>
-              <RadioButtons name="pro" label="Je suis un" options={{ "pro": "professionnel", "non_pro":"passionné" }} error={ errors.pro } />
+              <RadioButtons name="pro" label={formatMessage(defaultMessages.mecanoRegistrationIAmA)} options={{ "pro": formatMessage(defaultMessages.mecanoPro), "non_pro":formatMessage(defaultMessages.mecanoNonPro) }} error={ errors.pro } />
               {
                 pro === "pro" ?
                 <div className="row">
@@ -69,9 +69,9 @@ class MecanoRegistration extends Component {
             </div>
             <div className="col s12 l6 text-center">
               <br/>
-              <h2>Données géographiques</h2>
+              <h2>{formatMessage(defaultMessages.mecanoRegistrationGeographicData)}</h2>
               <Input id='gplaces' icon="explore" name="full_address" label={formatMessage(defaultMessages.mecanoFullAddress)} type="text" error={errors.address} />
-              <RadioButtons label="Je me déplace" name="mobile" options={{"mobile": "oui", "non_mobile": "non"}} error={ errors.mobile }/>
+              <RadioButtons label={formatMessage(defaultMessages.mecanoRegistrationIAmMobile)} name="mobile" options={{"mobile": formatMessage(defaultMessages.yesWord), "non_mobile": formatMessage(defaultMessages.noWord)}} error={ errors.mobile }/>
               {
                 mobile === "mobile" ?
                 <div className="row">
