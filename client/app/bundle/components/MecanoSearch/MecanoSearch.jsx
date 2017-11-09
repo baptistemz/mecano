@@ -13,6 +13,8 @@ import { defaultMessages } from '../../../libs/i18n/default';
 class MecanoSearch extends Component {
   constructor(props){
     super(props)
+    console.log("constructor, isAuthenticated", props.isAuthenticated)
+    console.log("constructor, vehicles", props.vehicles)
     this.state = { registeredCar: props.isAuthenticated && props.vehicles.length > 0 }
   }
   componentDidMount(){
@@ -21,8 +23,8 @@ class MecanoSearch extends Component {
     googleMapsAutocomplete(input, options, this.props.dispatch, "mecano_search", "full_address");
     carQueryConfig();
   }
-  componentDidUpdate(newProps){
-    if(newProps.vehicles != this.props.vehicles){this.setState({ registeredCar: true })}
+  componentDidUpdate(previousProps){
+    if(this.props.vehicles.length > 0){this.setState({ registeredCar: true })}
     if(this.props.isAuthenticated){$('ul.tabs').tabs()};
   }
   vehicleFields(){
@@ -86,10 +88,14 @@ class MecanoSearch extends Component {
     const {year, brand, model_select, model_string, model_not_found } = this.refs
     const { formatMessage } = this.props.intl;
     if(values.full_address && values.full_address.split(",").length > 1){
+      console.log("submit state", this.state)
       if (this.state.registeredCar){
+        console.log("registeredCar vehicle_choice", values.vehicle_choice)
         if(!values.vehicle_choice){return this.props.searchError({ vehicle_choice: formatMessage(defaultMessages.validationsVehicleNeeded) })}
         values["vehicle"] = $.grep(this.props.vehicles, function(e){ return e.id == values.vehicle_choice; })[0];
       }else{
+        console.log("not registeredCar")
+        console.log("not registeredCar")
         values["vehicle"] = this.gatherVehicleValues();
         if(!year.value){ return this.props.searchError({ year: formatMessage(defaultMessages.validationsRequired), brand: formatMessage(defaultMessages.validationsRequired), model: formatMessage(defaultMessages.validationsRequired) })};
         if(!brand.value){ return this.props.searchError({ brand: formatMessage(defaultMessages.validationsRequired), model: formatMessage(defaultMessages.validationsRequired) })};
