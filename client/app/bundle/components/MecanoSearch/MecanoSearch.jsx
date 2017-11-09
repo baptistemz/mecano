@@ -183,10 +183,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({vehicle, auth, search}) {
+  console.log(search)
   return {
     vehicles: vehicle.user_vehicles,
     isAuthenticated: auth.isAuthenticated,
-    initialValues: {distance: search.distance ? search.distance.toString() : "", full_address: search.full_address },
+    initialValues: {distance: search.distance ? search.distance.toString() : "0", full_address: search.full_address },
     errors: search.errors
   }
 }
