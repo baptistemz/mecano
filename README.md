@@ -209,7 +209,7 @@ The API test files are located in the ```spec```directory.
 
 While working on the react app, you must run the tests and check if you don't break any of the core features. A simple		
 ```		
-$npm run react-test		
+$npm run react-tests		
 ```		
 will start the hot reloading test environment. Each time you'll save changes to a file of the react app all the tests will be re-run automatically. You'll just have to check no test has turned red each time you save a change. You must also write the tests related to the features you want to develop on the React app.		
 

@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'pp'
 
 RSpec.describe "ApiAuth", type: :request do
-  # include_context "db_cleanup_each", :transaction
   let(:user_props) { FactoryGirl.attributes_for(:user) }
 
   context "signup" do
