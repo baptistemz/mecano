@@ -183,7 +183,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({vehicle, auth, search}) {
-  console.log(search)
   return {
     vehicles: vehicle.user_vehicles,
     isAuthenticated: auth.isAuthenticated,
