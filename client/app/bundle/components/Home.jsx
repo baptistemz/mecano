@@ -43,9 +43,6 @@ class Home extends Component{
           <Link to={'/mecano_search'}>
             <Button>{formatMessage(defaultMessages.homeFindAMecano)}</Button>
           </Link>
-          <Link className='test-btn' to={'/mecano_search'}>
-            <Button>{formatMessage(defaultMessages.homeTestButton)}</Button>
-          </Link>
         </div>
         <div className="huge-border hide-on-med-and-down"></div>
         <div className="trapeze-container">
