@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'mulliez.baptiste@gmail.com'
+  default from: ENV['SENDGRID_FROM_EMAIL']
   layout 'mailer'
 end
