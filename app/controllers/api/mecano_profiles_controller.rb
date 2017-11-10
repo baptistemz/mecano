@@ -1,6 +1,8 @@
 module Api
   class MecanoProfilesController < BaseController
     before_action :authenticate_api_user!, only: [:create, :update, :delete]
+    before_action :check_app_key, only: [:index]
+
     def create
       @mecano_profile = MecanoProfile.create(mecano_profile_params)
       @mecano_profile.user_id = current_api_user.id
@@ -53,6 +55,10 @@ module Api
     end
 
     private
+
+    def check_app_key
+      render json: { errors: "access denied" } unless request.headers.env['HTTP_APP_KEY'] == ENV['APP_KEY']
+    end
 
     def mecano_profile_params
       params.permit(:pro, :company_name, :mobile, :address, :city, :country, :price, :radius, :is_mecano, :all_vehicles, :description, :wall_picture)

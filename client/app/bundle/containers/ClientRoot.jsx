@@ -32,7 +32,7 @@ class RootWithoutRailsContext extends Component {
       <Provider store={store}>
         <IntlProvider locale={locale} messages={messages}>
           <div>
-            <ClientRoutes rehydrated={ this.state.rehydrated } />
+            <ClientRoutes appKey={this.props.app_key} rehydrated={ this.state.rehydrated } />
             <ReduxToastr
               timeOut={4000}
               preventDuplicates

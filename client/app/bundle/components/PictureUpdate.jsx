@@ -15,7 +15,6 @@ class PictureUpdate extends Component {
   componentWillReceiveProps(nextProps){
     let loadingImage = !(nextProps.profile_picture);
     if (nextProps.profile_picture === null){loadingImage = false};
-    console.log(nextProps.profile_picture)
     this.setState({ loadingImage })
   }
   handleImageChange(e) {

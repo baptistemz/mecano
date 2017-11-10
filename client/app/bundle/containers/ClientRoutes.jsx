@@ -45,7 +45,9 @@ class ClientRoutes extends Component{
             <Route path="/new_password" component={NewPassword} />
             <Route path="/mecano_search" component={MecanoSearch} />
             <Route path="/mecano_search_domains" component={MecanoSearchDomains} />
-            <Route exact path="/mecanos" component={MecanoSearchResults} />
+            <Route exact path="/mecanos" render={() => {
+                return  <MecanoSearchResults appKey={this.props.appKey}/>
+              } } />
             <Route path="/mecanos/:id" component={MecanoPublicPage} />
             <PrivateRoute path="/my_account" isAuthenticated={authenticated} registerMethod="login" component={Account} />
             <PrivateRoute path="/mecano_signup" isAuthenticated={authenticated} registerMethod="signup" component={MecanoRegistration} />

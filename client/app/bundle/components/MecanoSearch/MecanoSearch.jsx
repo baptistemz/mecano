@@ -22,7 +22,7 @@ class MecanoSearch extends Component {
     carQueryConfig();
   }
   componentDidUpdate(previousProps){
-    if(this.props.vehicles.length > 0){this.setState({ registeredCar: true })}
+    if(this.props.vehicles.length > 0 && previousProps.vehicles.length === 0){this.setState({ registeredCar: true })}
     if(this.props.isAuthenticated){$('ul.tabs').tabs()};
   }
   vehicleFields(){
