@@ -12,7 +12,7 @@
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.config.js",
     "build:development:client": "webpack -w --config webpack.client.config.js",
     "build:development:server": "webpack -w --config webpack.server.config.js",
-    "test": "mocha --compilers js:babel-core/register --require ./app/test/test_helper.js --recursive ./app/test",
+    "test": "mocha --compilers js:babel-core/register --compilers jsx:babel-core/register --require ./app/test/test_helper.js --recursive ./app/test",
     "test:watch": "npm run test -- --watch"
   },
   "cacheDirectories": [
