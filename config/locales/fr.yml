@@ -254,7 +254,6 @@ fr:
     second_mecano_card_text: Rejoignez une communauté locale aimant les mêmes voitures que vous. Donnez et recevez des conseils pour vos travaux mécaniques.
     my_mecano_profile: Mon profil mécano
     create_a_mecano_profile: Créer un profil mécano
-    test_button: bouton test
   validations:
     vehicle_needed: Veuillez choisir un véhicule ou en enregistrer un nouveau
     required: Requis
