@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { addDomainsToSearch } from '../../actions/index';
 import { Header, SelectableCard } from '../../common/index';
 import domains from '../../utils/domains.js';
@@ -10,6 +11,10 @@ import { injectIntl } from 'react-intl';
 import { defaultMessages } from '../../../libs/i18n/default';
 
 class MecanoSearchDomains extends Component {
+  constructor(props){
+    super(props)
+    axios.defaults.headers.common["app_key"] = props.appKey;
+  }
   submit(values){
     const { addDomainsToSearch, mecano_profile, mecano_search_params } = this.props;
     const data = []

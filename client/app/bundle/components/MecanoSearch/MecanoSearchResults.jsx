@@ -13,7 +13,7 @@ import { defaultMessages } from '../../../libs/i18n/default';
 class MecanoSearchResults extends Component {
   constructor(props){
     super(props)
-    // axios.defaults.headers.common["app_key"] = props.appKey;
+    axios.defaults.headers.common["app_key"] = props.appKey;
     // const search = () => {
     //   props.searchMecano(props.mecano_search_params)
     // }
@@ -49,6 +49,7 @@ class MecanoSearchResults extends Component {
   searchResults(){
     const { formatMessage } = this.props.intl;
     const { mecano_search_results } = this.props;
+    console.log(mecano_search_results)
     if(this.state.loading){
       return(
         <div className="search-loader-center">
@@ -56,7 +57,7 @@ class MecanoSearchResults extends Component {
         </div>
       )
     }
-    if(mecano_search_results.length === 0){
+    if(mecano_search_results.length === 0 || mecano_search_results.errors){
       return(
         <div className= "col s12 offset-m2 m8 l12 no-mecano-results">
           <div className="left-arrow">
@@ -88,6 +89,7 @@ class MecanoSearchResults extends Component {
   render(){
     const { distance, full_address, domains, vehicle } = this.props.mecano_search_params;
     const { formatMessage } = this.props.intl;
+    console.log(this.props)
     const domain_list = domains.map((domain) =>{
       let key = _.camelCase('mecano_technical_skills_' + domain)
       return formatMessage(defaultMessages[key])
