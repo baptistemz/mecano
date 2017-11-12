@@ -60,11 +60,12 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ search, mecano }) {
   const initialValues= {}
   search.domains.map((domain)=>{initialValues[domain] = true})
-  const { results, distance, vehicle, full_address, domains } = search
+  const { results, distance, vehicle, full_address, domains, car_make } = search
   return {
     mecano_profile: mecano.mecano_profile,
     initialValues,
     mecano_search_params: {
+      car_make,
       distance,
       vehicle,
       full_address,

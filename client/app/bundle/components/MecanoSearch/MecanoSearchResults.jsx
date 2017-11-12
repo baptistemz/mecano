@@ -49,7 +49,6 @@ class MecanoSearchResults extends Component {
   searchResults(){
     const { formatMessage } = this.props.intl;
     const { mecano_search_results } = this.props;
-    console.log(mecano_search_results)
     if(this.state.loading){
       return(
         <div className="search-loader-center">
