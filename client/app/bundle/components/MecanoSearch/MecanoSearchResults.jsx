@@ -13,12 +13,12 @@ import { defaultMessages } from '../../../libs/i18n/default';
 class MecanoSearchResults extends Component {
   constructor(props){
     super(props)
-    axios.defaults.headers.common["app_key"] = props.appKey;
-    const search = () => {
-      props.searchMecano(props.mecano_search_params)
-    }
-    search()
-    this.state = { loading : true }
+    // axios.defaults.headers.common["app_key"] = props.appKey;
+    // const search = () => {
+    //   props.searchMecano(props.mecano_search_params)
+    // }
+    // search()
+    this.state = { loading : props.location }
   }
   componentDidMount(){
     $('select').material_select();
@@ -28,7 +28,9 @@ class MecanoSearchResults extends Component {
     });
   }
   componentWillReceiveProps(nextProps){
-    this.setState({ loading: false });
+    if(nextProps.mecano_search_results){
+      this.setState({ loading: false });
+    }
     axios.defaults.headers.common["app_key"] = this.props.appKey;
     if(JSON.stringify(nextProps.mecano_search_params)
     !== JSON.stringify(this.props.mecano_search_params)){
