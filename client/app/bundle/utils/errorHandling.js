@@ -1,9 +1,5 @@
 import { toastr } from 'react-redux-toastr';
 
-export function authErrorHandling(response) {
-  console.log("error", response)
-};
-
 export function errorHandling(error) {
   if(!error.response){
     console.log(error);
