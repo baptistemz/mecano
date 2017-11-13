@@ -1,5 +1,5 @@
 def search(params, results = true)
-  get api_mecano_profiles_path, params: params
+  get api_mecano_profiles_path, params: params, headers: {"HTTP_APP_KEY" => ENV['APP_KEY']}
   expect(response).to have_http_status(:ok)
   payload = parsed_body
   if results
