@@ -42,6 +42,7 @@ export function createVehicle(vehicle){
   return dispatch => {
     axios.post('/api/vehicles', vehicle)
       .then(response => {
+        console.log(response)
         dispatch(createdVehicle(response.data.vehicle));
         toastr.success(`${vehicle.brand} ${vehicle.model} de ${vehicle.year} a bien été enregistré`);
         setNextHeaders(response.headers);
@@ -104,6 +105,7 @@ export function gotVehicles(vehicles) {
   }
 }
 export function createdVehicle(vehicle) {
+  console.log("increated", vehicle)
   return {
     type: CREATED_VEHICLE,
     vehicle

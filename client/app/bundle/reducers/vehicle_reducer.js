@@ -36,7 +36,7 @@ export default function (state = INITIAL_STATE, action) {
     case LOGIN_SUCCESS:
       return { ...state, user_vehicles: action.user.vehicles }
     case CREATED_VEHICLE:
-      return { ...state, user_vehicles: [...state.user_vehicles, action.vehicle] }
+      return { ...state, user_vehicles: state.user_vehicles ? [...state.user_vehicles, action.vehicle] : [action.vehicle] }
     case DELETED_VEHICLE:
       return { ...state, user_vehicles: state.user_vehicles.filter(element => element.id !== action.vehicle.id) }
     default:
