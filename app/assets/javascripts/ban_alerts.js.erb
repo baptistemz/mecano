@@ -1,0 +1,10 @@
+//Avoid carquery alerts
+
+alert = function(text) {
+  console.log( 'tried to alert: ' + text )
+};
+
+if ("<%=Rails.env%>" === ("staging" || "production")){
+  var console = {};
+  console.log = function(){};
+}
