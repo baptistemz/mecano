@@ -14,10 +14,6 @@ class MecanoSearchResults extends Component {
   constructor(props){
     super(props)
     axios.defaults.headers.common["app_key"] = props.appKey;
-    // const search = () => {
-    //   props.searchMecano(props.mecano_search_params)
-    // }
-    // search()
     this.state = { loading : props.location }
   }
   componentDidMount(){

@@ -52,9 +52,9 @@ end
 #car makes
 mao_makes = ["jaguar", "mg", "triumph", "aston-martin", "peugeot", "citroen", "renault"]
 create_domains(mao_mecano_profile, mao_makes, :car_make)
-pompidou_makes = ["volkswaggen", "porsche", "mercedes-benz", "bmw", "audi", "jaguar", "mg", "triumph", "ferrari", "maserati", "lamborghini", "bugatti", "fiat", "alfa-romeo" ]
+pompidou_makes = ["volkswagen", "porsche", "mercedes-benz", "bmw", "audi", "jaguar", "mg", "triumph", "ferrari", "maserati", "lamborghini", "bugatti", "fiat", "alfa-romeo" ]
 create_domains(pompidou_mecano_profile, pompidou_makes, :car_make)
-roosevelt_makes = ["volkswaggen", "porsche", "mercedes-benz", "bmw", "audi", "jaguar", "mg", "triumph", "aston-martin", "peugeot", "citroen", "renault", "ferrari", "maserati", "lamborghini", "bugatti", "fiat", "alfa-romeo" ]
+roosevelt_makes = ["volkswagen", "porsche", "mercedes-benz", "bmw", "audi", "jaguar", "mg", "triumph", "aston-martin", "peugeot", "citroen", "renault", "ferrari", "maserati", "lamborghini", "bugatti", "fiat", "alfa-romeo" ]
 create_domains(roosevelt_mecano_profile, roosevelt_makes, :car_make)
 
 
