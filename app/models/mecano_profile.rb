@@ -7,7 +7,7 @@ class MecanoProfile < ActiveRecord::Base
   mount_base64_uploader :wall_picture, WallPictureUploader
 
   scope :with_domains, -> (domains_list) { joins(:domains).select{|mecano| (domains_list - mecano.domains.pluck(:value)).empty? }.uniq}
-  scope :with_car_make, -> (car_make) { joins(:domains).where( '(all_vehicles = ?) OR (domains.value = ?)', car_make, true).distinct }
+  scope :with_car_make, -> (car_make) { joins(:domains).where( '(all_vehicles = ?) OR (domains.value = ?)', true, car_make).distinct }
   validates_uniqueness_of :user_id
   validates_presence_of :address, :city, :country, :user_id
   validates :pro, inclusion: { in: [ true, false ] }
