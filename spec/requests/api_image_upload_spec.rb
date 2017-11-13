@@ -24,8 +24,8 @@ RSpec.describe "ApiImageUpload", type: :request do
     it "generates thumb version in 100x100px" do
       expect(updated_user["data"]["profile_picture"]["thumb"]["url"]).to include("h_100,w_100")
     end
-    it "generates medium version in 300x300px" do
-      expect(updated_user["data"]["profile_picture"]["medium"]["url"]).to include("h_300,w_300")
+    it "generates micro version in 30x30px" do
+      expect(updated_user["data"]["profile_picture"]["micro"]["url"]).to include("h_30,w_30")
     end
   end
 end
