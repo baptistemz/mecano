@@ -20,7 +20,7 @@ export function postReview(mecano_id, values){
         dispatch(push(`/mecanos/${mecano_id}`))
         toastr.success("Recommendez ce mécano en cliquant sur le '+1' à côté des domaines et marques de voitures concernés.", {timeOut: 10000});
       }).catch(error => {
-        console.log(error.response)
+        console.log(error)
         if(error.response && error.response.data.errors.mark){
           toastr.warning("Vous devez au minimum donner une note (de 1 étoile à 5 étoiles) au mécano.")
         }
@@ -36,7 +36,7 @@ export function loadReviews(id, batch_size){
         setNextHeaders(response.headers)
         dispatch(gotReviews(response.data))
       }).catch(error => {
-        console.log("ERROR", error.response)
+        console.log("ERROR", error)
       })
   }
 };

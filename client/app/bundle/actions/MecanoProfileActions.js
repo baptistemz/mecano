@@ -21,7 +21,6 @@ export function registerMecano(data, next_path){
         dispatch(registeredMecano(response.data.mecano_profile))
         dispatch(push(next_path ? next_path : '/mecano_vehicles'))
       }).catch(error => {
-        console.log(error.response.data.errors)
         dispatch(mecanoRegistrationError(error.response.data.errors));
         const data = JSON.parse(error.response.config.data)
         dispatch(initialize("mecano_registration", {

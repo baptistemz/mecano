@@ -97,7 +97,7 @@ export function logoutUser() {
         toastr.success('Déconnexion', 'A bientôt !');
         dispatch(receiveLogout());
       }).catch((error)=>{
-        console.log("logoutUser error", error.response);
+        console.log("logoutUser error", error);
         localStorage.clear();
         dispatch(receiveLogout());
       })
@@ -120,7 +120,6 @@ export function updatePassword(data, params = null) {
         $('#password_modal').modal('close')
         dispatch(reset('password_change'))
         toastr.success(response.data.message);
-        errorHandling({});
         if(params){dispatch(push('/login'))}
       }).catch((error)=>{
         // setNextHeaders(error.response.headers)
@@ -135,7 +134,6 @@ export function sendPasswordResetEmail(data) {
       .then(response => {
         dispatch(authError({}));
         toastr.success(response.data.message);
-        errorHandling({});
         dispatch(push("/login"))
       }).catch((error)=>{
         dispatch(authError(error.response.data.errors));
