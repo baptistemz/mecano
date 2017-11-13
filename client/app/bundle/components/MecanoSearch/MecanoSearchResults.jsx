@@ -88,7 +88,6 @@ class MecanoSearchResults extends Component {
   render(){
     const { distance, full_address, domains, vehicle } = this.props.mecano_search_params;
     const { formatMessage } = this.props.intl;
-    console.log(this.props)
     const domain_list = domains.map((domain) =>{
       let key = _.camelCase('mecano_technical_skills_' + domain)
       return formatMessage(defaultMessages[key])
