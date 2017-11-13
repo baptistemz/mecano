@@ -4,7 +4,12 @@ alert = function(text) {
   console.log( 'tried to alert: ' + text )
 };
 
+//Avoid react_on_rails console.logs
+
 if ("<%=Rails.env%>" === ("staging" || "production")){
-  var console = {};
-  console.log = function(){};
+  console.log = function(data){
+    if(data.startsWith("RENDERED")){
+      console.log("");
+    }
+  };
 }
