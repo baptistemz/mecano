@@ -7,8 +7,8 @@
   - [on Mac OSX](#pgim)  
   - [on Linux](#pgil)  
 * [Clone the app](#clone)
-* [Database initialization](#dbi)
 * [Packages initialization](#pi)
+* [Database initialization](#dbi)
 * [How to run the app locally](#apploc)  
 * [How to run the test suite](#test)  
   - [Testing the API](#testapi)  
@@ -161,12 +161,6 @@ git clone git@github.com:baptistemz/mecano.git
 cd mecano
 ```
 
-<a name="dbi"/>
-
-## Database initialization
-To create your local database, run ```$rails db:create```
-Then migrate its content with ```$rails db:migrate```
-
 <a name="pi"/>
 
 ## Packages initialization
@@ -175,6 +169,14 @@ And the npm packages of the client running ```$npm run postinstall```
 
 Create your config/application.yml ignored by git using ```$bundle exec figaro install```
 Then copy paste its content of another local folder. Every time the environment variables contained in this file are changed, you might apply the changes in the config/application.yml files of every local app.
+
+<a name="dbi"/>
+
+## Database initialization
+To create your local database, run ```$rails db:create```
+Then migrate its content with ```$rails db:migrate```
+
+
 
 
 <a name="apploc"/>
@@ -297,7 +299,7 @@ class MyComponent extends Component{
     )
   }
 }
-export default injectIntl(Home);
+export default injectIntl(MyComponent);
 ```
 
 <a name="end"/>
