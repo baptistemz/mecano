@@ -8,6 +8,7 @@
   - [on Linux](#pgil)  
 * [Clone the app](#clone)
 * [Database initialization](#dbi)
+* [Packages initialization](#pi)
 * [How to run the app locally](#apploc)  
 * [How to run the test suite](#test)  
   - [Testing the API](#testapi)  
@@ -165,6 +166,15 @@ cd mecano
 ## Database initialization
 To create your local database, run ```$rails db:create```
 Then migrate its content with ```$rails db:migrate```
+
+<a name="pi"/>
+
+## Packages initialization
+Install the rails gems using ```$bundle install```
+And the npm packages of the client running ```$npm run postinstall```
+
+Create your config/application.yml ignored by git using ```$bundle exec figaro install```
+Then copy paste its content of another local folder. Every time the environment variables contained in this file are changed, you might apply the changes in the config/application.yml files of every local app.
 
 
 <a name="apploc"/>
