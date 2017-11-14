@@ -31,6 +31,7 @@ class Home extends Component{
             <h1 className='white-shadowed-text'>Restor'it</h1>
             <hr/>
             <h2 className='white-shadowed-text'>{formatMessage(defaultMessages.homeBannerSubtitle)}</h2>
+            <br/>
             <h2 className='white-shadowed-text'>{formatMessage(defaultMessages.homeMadeBy)} <span className="primary-text">{formatMessage(defaultMessages.homeNonPros)}</span> {formatMessage(defaultMessages.homeAnd)} <span className="primary-text">{formatMessage(defaultMessages.homePros)}</span> {formatMessage(defaultMessages.homeCloseToYou)}</h2>
           </div>
           <a id="topArrow" className="scroll-arrow">
