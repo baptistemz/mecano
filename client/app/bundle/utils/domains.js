@@ -1,5 +1,5 @@
 const domains = {
-  wheels: ["Jantes", "Roulements"],
+  wheels: ["Pneus", "Jantes", "Roulements"],
   brakes: ["Plaquettes", "Disques", "Tambours"],
   timing: ["Courroies", "Chaînes", "Galets"],
   exhaust: ["Admission", "Pot"],
