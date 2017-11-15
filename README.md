@@ -207,10 +207,10 @@ While developping the API and the React app, test them frequently.
 
 ### Testing the API
 
-While working on the API, you must run the tests frequently to check if you don't break any of the core features. You must also write the tests related to the features you want to develop on the API. These tests are written with rspec. A simple ```$rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
+While working on the API, you must run the tests frequently to check if you don't break any of the core features. You must also write the tests related to the features you want to develop on the API. These tests are written with rspec. A simple ```$npm run rails-tests``` or ```$bundle exec rspec``` command will run all the API tests. Before that, don't forget to migrate the test environment database with the following command : ```$rails db:migrate RAILS_ENV=test```.
 If you want to run only specific API tests run
 ```
-$rspec path_to_test_file
+$bundle exec rspec path_to_test_file
 ```
 
 The API test files are located in the ```spec```directory.

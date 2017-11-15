@@ -10,7 +10,8 @@
     "postinstall": "cd client && npm install",
     "rails-server": "echo 'visit http://localhost:3000/' && foreman start -f Procfile.dev",
     "rails-server-basic" : "rails s -p 3000 && sh -c 'rm app/assets/webpack/* || true && bundle exec rake react_on_rails:locale && cd client && bundle exec rake react_on_rails:locale && yarn run build:development:client' && yarn run build:development:server",
-    "all-tests": "rspec && cd client && npm run test",
+    "rails-tests": "bundle exec rspec",
+    "all-tests": "bundle exec rspec && cd client && npm run test",
     "react-tests": "cd client && npm run test:watch"
   },
   "dependencies": {},
