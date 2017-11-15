@@ -184,7 +184,7 @@ Then migrate its content with ```$rails db:migrate```
 ## How to run the app locally
 
 
-The command ```$npm run rails-server```will start the rails server and webpack (our React development server). Then visit the app on ```http://localhost:3000```.
+The command ```$npm run rails-server``` on mac/ubuntu, ```$npm run rails-server-windows``` on windows will start the rails server and webpack (our React development server). Then visit the app on ```http://localhost:3000```.
 
 
 <a name="test"/>
