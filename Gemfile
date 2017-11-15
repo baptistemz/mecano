@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'materialize-sass', '~> 0.98'
 gem 'font-awesome-sass'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+# gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -74,4 +74,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'mini_racer', platforms: :ruby
 
-gem 'wdm', '>= 0.1.0'
+# gem 'wdm', '>= 0.1.0'
